@@ -1,0 +1,50 @@
+/* .systemInfo{
+    margin: -5px 7px 7px 7px;
+} */
+.mat-drawer-content{
+    overflow-y: hidden;
+}
+
+@media only screen and (max-width: 650px) {
+  .mat-drawer-content{
+    padding-top:7px !important;
+  }
+}
+
+.sidePanelBtnAlt{
+  margin-top: 8px !important;
+  margin-left:-4px;
+}
+.treeAllignment{
+  list-style: none;
+  padding:12px;
+}
+.treeAllignment i{
+  cursor: pointer;
+}
+.treeAllignment ul li{
+  list-style: none;
+  padding-left: 4px;
+}
+.treeAllignment ul{
+  padding-left: 5px !important;
+}
+.fixingHeader thead th{ 
+  position: sticky; 
+  top: 0;
+  /* font-size: 14px ! important;  */
+}
+.fixingHeader{
+    height: calc(100vh - 175px) !important;
+    min-height: calc(100vh - 175px) !important;
+    max-height: calc(100vh - 175px) !important;
+    overflow-y: auto;
+    border: 1px solid #AEAEAE;
+    border-radius: 7px;
+}
+tbody{
+  background-color: white;
+}
+.activetreeNode{
+  color: #FFFF00;
+}

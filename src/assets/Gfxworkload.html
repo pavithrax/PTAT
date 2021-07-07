@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TATGFXPV_50%</title>
+    <!-- <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">-->
+    <script type='text/javascript' src="jquery.min.js"></script>
+    <script type="text/javascript" src="GfxWorkloadScript.js"></script>
+    <script id="shader-fs" type="x-shader/x-fragment">
+        precision mediump float;
+
+        uniform vec4 uColor;
+
+        varying float vLifetime;
+
+        uniform sampler2D sTexture;
+
+
+        void main(void) {
+        vec4 texColor;
+        texColor = texture2D(sTexture, gl_PointCoord);
+        gl_FragColor = vec4(uColor) * texColor;
+        gl_FragColor.a *= vLifetime;
+        }
+    </script>
+
+    <script id="shader-vs" type="x-shader/x-vertex">
+
+        uniform float uTime;
+        uniform vec3 uCenterPosition;
+
+        attribute float aLifetime;
+        attribute vec3 aStartPosition;
+        attribute vec3 aEndPosition;
+
+        varying float vLifetime;
+
+
+        void main(void) {
+        if (uTime <= aLifetime) {
+        gl_Position.xyz = aStartPosition + (uTime * aEndPosition);
+        gl_Position.xyz += uCenterPosition;
+        gl_Position.w = 2.0;
+        } else {
+        gl_Position = vec4(-1000, -1000, 0, 0);
+        }
+
+        vLifetime = 3.0 - (uTime / aLifetime);
+        vLifetime = clamp(vLifetime, 0.0, 1.0);
+        gl_PointSize = (vLifetime * vLifetime) * 60.0;
+        }
+    </script>
+    
+</head>
+
+
+<body>
+    <canvas id="canvas" style="border: none;" width="40" height="380"></canvas>
+</body>
+
+</html>

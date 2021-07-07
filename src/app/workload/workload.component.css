@@ -1,0 +1,319 @@
+.mat-drawer-container {
+  background-color: #ffff !important; 
+}
+
+mat-slider {
+  width: 97%;
+}
+
+my-slider {
+  transform: scale(2);
+}
+
+.workLoadDropdown > ::ng-deep .mat-form-field-wrapper > .mat-form-field-flex{
+  background-color: #005EB7  !important;
+  border-radius: 5px!important;
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.workLoadDropdown > ::ng-deep .mat-form-field-wrapper >  .mat-form-field-flex > .mat-form-field-infix > .mat-form-field-autofill-control{
+  color: #fff !important;
+}
+
+.workLoadDropdown > ::ng-deep .mat-form-field-wrapper >  .mat-form-field-flex > .mat-form-field-infix > .mat-input-element  > .ng-star-inserted {
+  color:  black !important;
+}
+
+
+
+
+/* ::ng-deep .mat-accent .mat-slider-thumb {
+  height: 30px !important;
+  width: 30px !important;
+  background-color: white;
+  border: solid 2px gray !important;
+  bottom: -20px;
+  right: -20px;
+} */
+
+/* ::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+  height: 12px;
+  border-radius: 10px
+} */
+
+/* 
+::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-background,
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  height: 100%;
+} */
+
+/* ::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+  height: 12px;
+  border-radius: 10px
+} */
+
+
+.treeAllignment{
+  list-style: none;
+  padding:12px;
+}
+.treeAllignment i{
+  cursor: pointer;
+}
+.treeAllignment ul li{
+  list-style: none;
+  padding-left: 4px;
+}
+.treeAllignment ul{
+  padding-left: 5px !important;
+}
+
+#sidebar1 {
+  min-width: 250px;
+  max-width: 250px;
+  background: #005EB7;
+  color: #fff;
+  transition: all 0.3s;
+  height:100%;
+}
+
+#sidebar1.active {
+  margin-left: -250px;
+}
+
+#sidebar1 .sidebar-header {
+  padding: 20px;
+  background: #6d7fcc;
+}
+
+#sidebar1 ul.components {
+  padding: 20px 0;
+  border-bottom: 1px solid #47748b;
+}
+
+#sidebar1 ul p {
+  color: #fff;
+  padding: 10px;
+}
+
+#sidebar1 ul li a {
+  padding: 10px;
+  /*font-size: 1.1em;*/
+  display: block;
+}
+
+#sidebar1 ul li a:hover {
+  color: #7386D5;
+  background: #fff;
+}
+
+#sidebar1 ul li.active>a,
+a[aria-expanded="true"] {
+  color: #fff;
+  background: #6d7fcc;
+}
+
+.colorSelectedTree {
+  color: #FFFF00;
+}
+
+mat-form-field{
+  width: 99% !important;
+}
+
+
+/* tr:nth-child(even) {background-color: #f2f2f2;}  */
+
+::ng-deep .workLoadDropdown > .mat-form-field-wrapper{
+  padding-bottom: 0.6em ! important;
+}
+
+::ng-deep .workLoadDropdown > .mat-form-field-wrapper > .mat-form-field-flex > .mat-form-field-infix{
+  padding-top:0px ! important;
+  padding-bottom:8px ! important;
+}
+
+
+#workLoadFixHead{
+  overflow-y: auto; 
+  height: 100px; 
+}
+#workLoadFixHead thead th{ 
+ position: sticky; 
+ top: 0; 
+}
+
+/* ::ng-deep .mat-slider-ticks {
+  opacity: 1 !important;
+}  */
+
+/* .mat-slider.mat-slider-horizontal .mat-slider-wrapper {
+  top: 18px;
+
+} */
+.mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+  height: 12px;
+  border-radius: 10px
+}
+.mat-slider.mat-slider-horizontal .mat-slider-track-background,
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  height: 100%;
+}
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  background-color: blue;
+}
+.mat-accent .mat-slider-thumb {
+  height: 30px;
+  width: 30px;
+  background-color: white;
+  border: solid 2px gray;
+  bottom: -20px;
+  right: -20px;
+}
+.mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+  background-color: white;
+}
+
+
+::ng-deep .mat-slider-thumb-label-text{
+  z-index:100 !important;
+}
+
+
+/* .marginTopFirst{
+  margin-top:16px !important;
+}
+
+.marginBtnTopFirst{
+  margin-top:18px !important;
+}
+.marginBtnTopNotFirst{
+  margin-top:6px !important;
+}
+
+.marginDropDownTopFirst{
+  margin-top: 12px;
+}
+
+.paddingtdTopFirst{
+  padding-top: 13px !important;
+} */
+
+::ng-deep .mat-slider-horizontal .mat-slider-track-background {
+  height:4px !important;
+}
+
+::ng-deep .mat-slider-horizontal .mat-slider-ticks-container {
+  height: 4px ! important;
+}
+
+::ng-deep .mat-slider-horizontal .mat-slider-ticks {
+  background-image: repeating-linear-gradient(to right, rgb(255 255 255 / 70%), rgb(255 255 255) 2px, transparent 0, transparent);
+  background-image: -moz-repeating-linear-gradient(0.0001deg, rgba(255,255,255), rgba(255,255,255) 2px, transparent 0, transparent); 
+  height: 4px ! important;
+}
+
+::ng-deep .mat-slider-horizontal .mat-slider-track-wrapper {
+  height: 4px !important; 
+  width: 100%;
+}
+
+/* to keep to last slider tic white */
+
+::ng-deep .mat-slider-has-ticks .mat-slider-wrapper::after {
+  /* border-color: #fff; */
+  height:4px ! important;
+  opacity: 0 !important;
+}
+
+/* 
+.link-btn /deep/ .mat-button:hover {
+  background-color:transparent;
+} */
+
+.sidenavButtonColour:hover{
+  background-color:white ! important;
+  background: transparent ! important;
+}
+
+
+/* PTAT CSS Starst Here */
+.sidePanelBtnAlt{
+  margin-top: 8px !important;
+  margin-left:-4px !important;
+}
+
+.workLoadDiv{
+  border: 0.5px solid #AEAEAE;
+  border-radius: 3px;
+  
+}
+.workLoadDiv table{
+  background-color: #ffffff;
+  margin-bottom: 0rem !important;
+}
+.sliderDiv{
+  display: flex;
+}
+.sliderDiv a{
+  margin-top: 12px;
+}
+.matSlider{
+  margin-left: 3px;
+}
+td.comonTd{
+   line-height: 15px;
+   min-height: 15px;
+   height: 15px;
+   padding: 0px !important;
+   text-align: center; 
+}
+table td {
+  padding: 0 !important;
+  vertical-align: middle;
+}
+.mat-form-field{
+  margin-top: 5px !important;
+}
+::ng-deep .mat-accent .mat-slider-thumb {
+  background-color: #8BAE46 !important;
+  color: #8BAE46 !important;
+} 
+::ng-deep .mat-accent .mat-slider-thumb-label {
+  background-color:#8BAE46 !important;
+  color: #8BAE46 !important;
+} 
+::ng-deep .mat-accent .mat-slider-track-fill {
+  background-color: #8BAE46 !important;
+  /* color: #8BAE46 !important; */
+  color: red !important;
+  height: 40px !important;
+}
+.mat-slider-horizontal{
+  height: 36px;
+}
+::ng-deep .mat-slider-horizontal .mat-slider-wrapper{
+  top: 18px !important;
+}
+.dropdownControl{
+  /* background-color: #0095CA; */
+  margin: 4px;
+  width: -webkit-fill-available;
+  /* color: #fffFFF; */
+}
+.mat-drawer-inner-container {
+  width: 294px !important;
+}
+
+/* ::ng-deep .mat-slider-thumb-container{
+  z-index: 99999 !important;
+} */
+.tatTableHeader{
+  z-index: 100;
+}
+.zindex{
+  z-index: 9999 !important;
+}

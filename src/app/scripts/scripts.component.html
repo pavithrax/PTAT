@@ -1,0 +1,175 @@
+<app-savescript #savescript> </app-savescript>
+<app-loadscript #loadscript [count]="passDeleteRows" (sendCount)="customFunc($event)"></app-loadscript>
+
+<div class="card curvedCorners scriptCard">
+    <div class="card-header curvedCorners mainCardHeader">
+        <h6>
+            PTAT Script Generator 
+        </h6>
+        <label class="infoClass" style="margin-bottom: 8px;">Select the operation and then arguments and add to script table</label>
+        
+        <div class="card curvedCorners card1">
+            <div class="card-body curvedCorners" style="height: 100%;overflow-y: auto;overflow-x: hidden;">
+                <form class="customForm">
+                    <div [formGroup]="scriptsForm">
+                        <div class="row">
+                            <div class="col-12 col-md-4 col-sm-12 mb-2 row">
+                                <div class="col-1 col-sm-1"></div>
+                                <label for="input3reftime" class="scriptLabel col-5 col-sm-5 col-md-5"><a class="scriptParameter">Command</a></label>
+                                <select id="mySelectCmdScript" class="form-control col-5 col-sm-5 col-md-5" formControlName="selectedOption" (change)="onChangeofSelectScript($event)">
+                                    <option *ngFor="let option of respScriptArr"  [ngValue]="option">
+                                        {{option}} 
+                                    </option>
+                                </select>
+                                <div class="col-sm-1"></div> 
+                            </div>
+                            <div class="col-12 col-md-4 col-sm-12 mb-2 row">
+                                <div class="col-1 col-sm-1"></div>
+                                <label for="input3reftime" class="scriptLabel col-5 col-sm-5 col-md-5"><a class="scriptParameter">Component</a></label>
+                                <select id="mySelectCompScript" class="form-control col-5 col-sm-5 col-md-5" formControlName="compData" (change)="onChangeofCmdScriptScript($event)">
+                                    <option *ngFor="let option of componentArr"  [ngValue]="option">
+                                        {{option}}
+                                    </option>
+                                </select>
+                                <div class="col-sm-1 col-1"></div>
+                            </div>
+                            <div class="col-12 col-md-4 col-sm-12 mb-2 row">
+                                <div class="col-1 col-sm-1 col-md-1"></div>
+                                <label for="input3reftime" class="scriptLabel col-5 col-sm-5 col-md-4"><a class="scriptParameter">ARG1</a></label>
+                                <select id="mySelectArg1Script" class="form-control col-5 col-sm-5 col-md-5" formControlName="arg1Data" (change)="onChangeofArg1ScriptScript($event)">
+                                    <option *ngFor="let option of arg1Arr"  [ngValue]="option">
+                                        {{option}}
+                                    </option>
+                                </select>
+                                <div class="col-1 col-sm-1 col-md-2"></div>
+                            </div>
+                        </div>
+                        <div class="row formRow2">
+                            <div class="col-12 col-md-4 col-sm-12 mb-2 row">
+                                <div class="col-1 col-sm-1 col-md-1"></div>
+                                <label for="input3reftime" class="scriptLabel col-5 col-sm-5 col-md-5 arg2Margin"><a class="scriptParameter">ARG2</a></label>
+                                <select id="mySelectArg2Script" class="form-control col-5 col-sm-5 col-md-5 arg2Margin" formControlName="arg2Data" (change)="onChangeofArg2ScriptScript($event)">
+                                    <option *ngFor="let option of arg2Arr"  [ngValue]="option">
+                                        {{option}}
+                                    </option>
+                                </select>
+                                <div class="col-1 col-sm-1 col-md-1"></div>
+                            </div>
+                            <div class="col-12 col-md-4 col-sm-12 mb-2 row">
+                                <div class="col-1 col-sm-1"></div>
+                                <label for="input3reftime" class="scriptLabel col-5 col-sm-5 col-md-5"><a class="scriptParameter">ARG3</a></label>
+                                <select id="mySelectArg3Script" class="form-control col-5 col-sm-5 col-md-5" formControlName="arg3Data" (change)="onChangeofArg3ScriptScript($event)">
+                                    <option *ngFor="let option of arg3Arr"  [ngValue]="option">
+                                        {{option}}
+                                    </option>
+                                </select>
+                                <div class="col-1 col-sm-1"></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 mb-2 row">
+                                <div class="col-1 col-sm-1 col-md-1"></div>
+                                <label for="input3reftime" class="scriptLabel col-5 col-sm-5 col-md-4 "><a class="scriptParameter">ARG4</a></label>
+                                <select class="form-control col-5 col-sm-5 col-md-5 " id="mySelectArg4Script" formControlName="arg4Data">
+                                    <option *ngFor="let option of arg4Arr"  [ngValue]="option">
+                                        {{option}}
+                                    </option>
+                                </select>
+                                <div class="col-1 col-sm-1 col-md-2"></div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row custom2row">
+                            <div class="col-6">
+                                <label id="exitAlert" style="white-space: nowrap;" class="nomargin col-6" role="alert" *ngIf="isScriptStatus"  [ngClass]="{'text-warning':scriptStatusCode==0,'text-success':scriptStatusCode==2,'text-danger':scriptStatusCode==1,'red':scriptStatusCode==4}"[ngClass]="{'fa fa-exclamation-circle':scriptStatusCode==0,'fa fa-check-circle':scriptStatusCode==2,'fa fa-times-circle':scriptStatusCode==1,'red':scriptStatusCode==4}">
+                                    {{scriptStatus}}
+                                </label>
+                            </div>
+                            <div class="col-6 col2">
+                                <div class="btn-group float-right" role="group">
+                                    <button type="button" class="btn btn-sm greenBtnColor addbtn" (click)="addScript()" [disabled]="addState == '0'">
+                                        Add
+                                    </button>
+                                    <button type="button" class="btn btn-sm otherBtn resetbtn" (click)="resetForm()">
+                                        Reset
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            
+                            <!-- <div class="col-6 col-xs-6 col-md-6 col-sm-6">
+                                <label id="exitAlert" class="nomargin col-6 text-warning" role="alert">Aadarsh</label>
+                                <label id="exitAlert" class="nomargin col-6 text-success" role="alert">Aadarsh</label>
+                                <label id="exitAlert" class="nomargin col-6 text-danger" role="alert">Aadarsh</label>
+                                <label id="exitAlert" class="nomargin col-6 red" role="alert">Aadarsh</label>
+                                
+                            </div>
+                            <div class="mr-2">
+                                
+                            </div>
+                            <div class="mr-2">
+                                
+                            </div> -->
+                            
+                        </div>
+            
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="tableData">
+            <table class="table" >
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" (change)="selectAllScripts($event)" [checked]="isAllChecked">
+                        </th>
+                        <th>
+                            Command
+                        </th>
+                        <th>
+                            Component
+                        </th>
+                        <th>
+                            Argument-1
+                        </th>
+                        <th>
+                            Argument-2
+                        </th>
+                        <th>
+                            Argument-3
+                        </th>
+                        <th>
+                            Argument-4
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="example-list" cdkDropList (cdkDropListDropped)="dropTable($event)">
+                    <tr class="example-box" cdkDrag *ngFor="let data of selectedFeatures let i = index" style="height:20px !important;max-height:22px !important;">
+                        <td>
+                            <input type="checkbox" [checked]="data.selected" (change)="check()" class="scriptCheckBox">
+                        </td>
+                        <td>{{data.Cmd}}</td>
+                        <td>{{data.CompData}}</td>
+                        <td>{{data.Arg1}}</td>
+                        <td>{{data.Arg2}}</td>
+                        <td>{{data.Arg3}}</td>
+                        <td>{{data.Arg4}}</td>
+                        <td style="white-space: nowrap;"><span [ngClass]="{'text-warning': data.executestatus=='In Progress', 'text-success': data.executestatus=='Success', 'text-danger': data.executestatus=='Failed'}" style="font-weight: bold;">{{data.executestatus}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-toolbar btn" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group btnGrp" role="group" aria-label="First group">
+                <button type="button" class="btn btn-sm otherBtn " [disabled]="removeState == '0' || enableStop" (click)="deleteSelected()">Remove selection</button>
+                <button type="button" class="btn btn-sm greenBtnColor" [disabled]="enableStop" (click)="loadscript.openLoadModal('parentMessage')">Load Script</button>
+                <button type="button" class="btn btn-sm  greenBtnColor" [disabled]="saveState == '0' || enableStop" (click)="savescript.openSaveModal()">Save Script</button>
+                <button type="button" class="btn btn-sm  greenBtnColor" [disabled]="executeState == '0'" *ngIf="!enableStop" (click)="executeScript()">Execute</button>
+                <button type="button" class="btn btn-sm redBtnColor" (click)="stopScript()" *ngIf="enableStop">Stop <i class="fas fa-forward"></i></button>
+            </div>
+          </div>
+    </div>
+</div>

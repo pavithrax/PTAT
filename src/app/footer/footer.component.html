@@ -1,0 +1,26 @@
+<footer class="fixed-bottom bg-primary" id="footerTat">
+    <div class="row" style="height:25px;">
+        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+            <i class="far fa-window-maximize" *ngIf="showHideMaximizeIcon" (click)="maximizePowerVisualization()"style="font-size:20px;color:#fff;padding:3px;"></i>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 paddingTop" id="labelCss">PTAT FEATURES</div>
+        <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 container paddingTop">
+
+            <ul id="slides" *ngFor="let title of eventList;let i = index">
+                <li class="slide showing marquee" *ngIf="i===count" data-toggle="tooltip" data-placement="top" title="{{title}}"><i class="fas fa-lightbulb iconColor"></i>&nbsp;&nbsp;{{title}}</li>
+
+            </ul>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2" id="alignBtns">
+            <button class="button controls" id="previous" (click)="previousSlide()"><i class="fas fa-angle-left text-white"></i></button>
+            <button class="button controls" id="play" (click)="playSlide()" *ngIf="playShow"><i class="fas fa-play text-white"></i></button>
+            <button class="button controls" id="play" (click)="pauseSlide()" *ngIf="!playShow"><i class="fas fa-pause text-white"></i></button>
+            <button class="button controls" id="next" (click)="nextSlide()"><i class="fas fa-angle-right text-white"></i></button>
+        </div>
+    </div>
+
+
+
+
+
+</footer>

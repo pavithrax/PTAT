@@ -1,0 +1,93 @@
+<div style="height:100%">
+  <mat-sidenav-container autosize class="example-container" style="height:100%;margin-top: -15px !important;">
+    <mat-sidenav #sidenav mode="side" [opened]="true" class="sidenavColour workloadSidePanel">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 nopadding nomargin">
+        <ul  class="treeAllignment" style="cursor: pointer">
+          <li *ngFor="let item of workloadArray" >
+              <!-- <span  (click)="expandCollapse(item)"><i [ngClass]="{'intelicon-plus': !item.expand ,'intelicon-minus': item.expand}" class="intelicon-plus"></i></span > -->
+              {{item.Name}}   
+              <ul *ngIf="item.expand" style="list-style: none;padding:0px;cursor: pointer">
+                <ng-container *ngFor="let item1 of item.DropDownList; let i = index">
+                  <li class="workLoadTreeCC"  matTooltip={{item1.ToolTip}} matTooltipPosition="below" [ngClass]="'workloadTree'+item.Index+item1.Index" (click)="workLoadTree(item.Index+item1.Index+';'+item1.Name)">
+                    <i class="fas fa-angle-right"></i>  {{item1.Name}}
+                  </li>
+                </ng-container>
+              </ul>
+          </li> 
+        </ul>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="workloadContent">
+      <div class="sidePanelBtn sidePanelBtnAlt"  (click)="sidenav.toggle();toggleIcon()">
+        <i class="sidePanelIcon fas" [ngClass]="(hasClass == true)?'fa-angle-double-left':'fa-angle-double-right'"></i>
+      </div>
+      <div class="card curvedCorners workLoadCard" style="margin-top: -25px;">
+        <div class="card-header curvedCorners">
+          <h6>Workload - {{workLoadName}}</h6>
+          <ng-container *ngFor="let item of workloadArray">
+            <ng-container *ngFor="let item1 of item.DropDownList">    
+              <div class="curvedCorners table-responsive workLoadTableCC workLoadDiv" id="workLoadFixHead" (scroll)="onScroll($event)" [ngClass]="'workLoadTable'+item.Index+item1.Index" style="height: calc(100vh - 208px) !important;" >
+                <table class="table workLoadTableCC" [ngClass]="'workLoadTable'+item.Index+item1.Index">                  
+                      <thead class="tatTableHeader">
+                        <tr>
+                          <ng-container *ngFor="let item2 of item1.TableData.Header">
+                            <th style="border-right-color:#fff !important;z-index:2;" class="textCenter">{{item2.HeaderValue}}</th>
+                          </ng-container> 
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <ng-container *ngFor="let item3 of item1.TableData.Row;let workloadIndex = index">
+                            <tr [ngClass]="'workLoadTableRow'+item.Index+item1.Index+item3.GroupID" [attr.id]="'curWLid'+item.Index+item1.Index+item3.GroupID">
+
+                              <td class="comonTd,align-middle" [ngClass]="'workLoadTableFirstRow'+item.Index+item1.Index+item3.Index" style="line-height: 15px;min-height: 15px;height: 15px;padding: 0px !important;text-align: center;">
+                                  {{item3.Name}}
+                              </td>
+                              <td class="comonTd">
+                                <div *ngIf="item3.Action == 'Slider'">                                         
+                                  <div class="sliderDiv">
+                                    <a>{{item3.min}}</a>
+                                    <mat-slider class="matSlider" (click)="enableIndex()" [ngClass]="zindex? 'zindex':''" [min]="item3.min" [max]="item3.max" [(ngModel)]="item3.slider" [disabled]="item3.Status == 'Running'" thumbLabel  [step]="item3.stepping" tickInterval="1" class="md-subhead"></mat-slider> 
+                                    <a>{{item3.max}}</a>
+                                  </div>
+                                </div>  
+                                <div *ngIf="item3.Action == 'Dropdown'">
+                                  <select class="form-control dropdownControl" [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index">
+                                    <option *ngFor="let item4 of item3.DropdownValue">
+                                      {{item4.Data}}
+                                    </option>
+                                  </select>                                    
+                                </div>
+                              </td>                                  
+                              <td class="comonTd">   
+                                  <button style="min-width:80px;" *ngIf="item3.Action == 'Slider'"   [ngClass]="{'greenBtnColor':item3.ButtonName == 'Start','redBtnColor':item3.ButtonName === 'Stop','marginBtnTopFirst': workloadIndex == 0,'marginBtnTopNotFirst' : workloadIndex != 0}"  class="{{ 'workLoadSetButton'+item.Index+item1.Index+item3.Index}} btn btn-sm tableTextAllign" (click)="workLoadStartStop('slider',item3,item.Name,item.Index,item1.Name,item1.Index)" matTooltip={{item3.ToolTip}}  matTooltipPosition="below">{{item3.ButtonName}}</button>
+                                  <button style="min-width:80px;"  *ngIf="item3.Action == 'Dropdown'"  [ngClass]="{'greenBtnColor':item3.ButtonName == 'Start','redBtnColor':item3.ButtonName === 'Stop','marginBtnTopFirst': workloadIndex == 0,'marginBtnTopNotFirst' : workloadIndex != 0}" class="{{ 'workLoadSetButton'+item.Index+item1.Index+item3.Index}} btn btn-sm " (click)="workLoadStartStop('dropdown',item.Index+item1.Index+':'+item3.Index,item.Name,item.Index,item1.Name,item1.Index)" matTooltip={{item3.ToolTip}} matTooltipPosition="below">{{item3.ButtonName}}</button>                                    
+                              </td>
+                              <td class="comonTd">
+                                <a  [ngClass]="{'text-success':item3.Status.toLowerCase() == 'running','text-danger':item3.Status.toLowerCase() == 'failed'}">
+                                  {{item3.Status}}</a>
+                                </td>
+                            </tr>
+                          </ng-container> 
+                      </tbody>
+                </table> 
+              </div>                
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+            <!-- <table style="height: 100px;">
+  <tbody>
+    <tr>
+      <td class="align-baseline">baseline</td>
+      <td class="align-top">top</td>
+      <td class="align-middle">middle</td>
+      <td class="align-bottom">bottom</td>
+      <td class="align-text-top">text-top</td>
+      <td class="align-text-bottom">text-bottom</td>
+    </tr>
+  </tbody>
+</table> -->
+    </mat-sidenav-content>
+  </mat-sidenav-container> 
+</div>
