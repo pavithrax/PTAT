@@ -6,6 +6,8 @@ import { SocketService } from '../db/socket.service';
 import { Command } from 'selenium-webdriver';
 import * as $ from 'jquery';
 import { NgxSpinnerService } from "ngx-spinner";
+// import  dataFormat from './GetMonitorDataNew.json';
+// import * as dataFormat from './GetMonitorDataNew.json';
 
 @Component({
   selector: 'app-alerts',
@@ -15,7 +17,7 @@ import { NgxSpinnerService } from "ngx-spinner";
   providers:[DatePipe]  
 })
 export class AlertsComponent implements OnInit {
-
+  dataType = 'Serverside';
   alertSecShowHide = false;
   alertInputData:any = [];
   alertInputType:any = []
@@ -54,7 +56,7 @@ export class AlertsComponent implements OnInit {
   underScoreString:any = "_";
   alertIconToolTip:any = "Open Recent Alerts"
   osInformation:any = "";
-
+  // data = 
   stringType = [
     {
       "id": 0,
@@ -66,24 +68,35 @@ export class AlertsComponent implements OnInit {
       "name": "Not Containing",
       "symbol": "#"
     }
-]
-numberType = [
-  {
-    "id": 0,
-    "name": "Equals To",
-    "symbol": "=="
-  },
-  {
-    "id": 1,
-    "name": "Greater Than",
-    "symbol": ">"
-  },
-  {
-    "id": 2,
-    "name": "Less Than",
-    "symbol": "<"
-  }
-]
+  ]
+  numberType = [
+    {
+      "id": 0,
+      "name": "Equals To",
+      "symbol": "=="
+    },
+    {
+      "id": 1,
+      "name": "Greater Than",
+      "symbol": ">"
+    },
+    {
+      "id": 2,
+      "name": "Less Than",
+      "symbol": "<"
+    }
+  ];
+  objArray:any = [];
+  data: any;
+  keys: any;
+  selectedKey:any = '';
+  selectedComponent;
+  featuresArray : any =[];
+  firstChildArray = [];
+  secondChildArray = [];
+  selectedFirstChildComponent:any = 'select';
+  selectedSecondChildComponent:any = 'select';
+  selectedFeature:any = 'select';
   cdkDropConnectedToList:Array<String>;
   constructor(private util: UtilityServiceService, private datePipe:DatePipe,private SocketService:SocketService,private spinner: NgxSpinnerService) { 
     this.cdkDropConnectedToList = util.getCdkDropConnectedToList();
@@ -92,6 +105,54 @@ numberType = [
 
   ngOnInit() {
     
+
+    // console.log();
+    this.objArray = [];
+    // console.log(dataFormat);
+    this.alertSecShowHide = true;
+    
+    
+    // this.keys = Object.entries(message.data);
+    // console.log(this.keys)
+    
+
+
+    this.SocketService.getMonitorDataRes().subscribe(message => {
+      this.data = message;
+      // this.data = dataFormat;
+      if(this.dataType === 'Serverside') {
+        this.dataType = 'Serverside';
+        this.data.Data.forEach(element => {
+          // this.keys.push(Object.keys(element));
+            console.log(element);
+            
+            Object.keys(element).forEach(key => this.objArray.push({
+            name: key,
+            child: element[key]
+            }));
+            console.log(this.objArray);
+            console.log(this.objArray[0].child);
+            this.selectedKey = this.objArray[0].name;
+            this.selectedComponent = this.objArray[0].child[0];
+            console.log(this.selectedKey);
+            this.featuresArray = this.objArray[0].child[0].data.Features;
+            this.firstChildArray = this.objArray[0].child[0].children;
+        });
+      } else {
+        this.dataType = 'Clientside';
+        this.objArray = this.data.Data[0].Treelist;
+        this.secondChildArray = this.data.Data[0].Treelist[0].Treelist;
+        console.log(this.secondChildArray);
+        this.selectedKey = this.data.Data[0].Treelist[0];
+        this.selectedFirstChildComponent = this.data.Data[0].Treelist[0].Treelist[0];
+        this.firstChildArray = this.data.Data[0].Treelist[0].Treelist;
+        this.featuresArray = this.data.Data[0].Treelist[0].Treelist[0].SubTreeList;
+        // dataFormat.Data[0].Treelist.forEach(element => {
+        //   // element.name = element.Name;
+        //   this.objArray = element;
+        // });
+      }
+    })
     this.SocketService.isLoadAlertsDataStatus().subscribe(message => {
       if (message) {
         if(this.alertBtnVal == "Stop Alerts"){
@@ -493,13 +554,15 @@ numberType = [
     if(scrWidth < 650){
      $('#sidebar, #content').toggleClass('active');
     }
- 
+    console.log(event);
+    
     var  command = '{"Command" : "GetParamType","Args":'+'"'+event.item.element.nativeElement.dataset.itemIndex+'"'+'}'
     // let reqCmd = "GetParamType" + '(' +event.item.element.nativeElement.dataset.itemIndex + ')';
     this.SocketService.sendMessage(command);
 
     // Sending the comand after droping starts Here
     let containerId:String = event.container.element.nativeElement.id;
+    console.log()
     this.getParamArrayId = containerId.replace("xyz", "");
     this.alertInputData[this.getParamArrayId].itemIndex = event.item.element.nativeElement.dataset.itemIndex;
     this.alertInputData[this.getParamArrayId].itemPname = event.item.element.nativeElement.dataset.itemPname;
@@ -511,7 +574,7 @@ numberType = [
     // this.alertInputData[this.getParamArrayId].itemType = event.item.element.nativeElement.dataset.itemType;
     // this.alertInputData[this.getParamArrayId].conditionType = event.item.element.nativeElement.dataset.itemType == 1 ? this.stringType[0].id : this.alertInputData[this.getParamArrayId].conditionType = this.numberType[0].id;
     
-    // console.log(this.alertInputData);
+    console.log(this.alertInputData);
   }
   // Drag And Drop Function Ends Here
   createFormGroup(){
@@ -809,5 +872,122 @@ numberType = [
   //   }
   // }
 
+  selectedComponetData(data) {
+    this.featuresArray = [];
+    this.firstChildArray = [];
+    console.log(data);
+    if(data.data.Features.length > 0 && data != 'select') {
+      this.getFeaturesData(data.data.Features);
+    }
+    if(data.children.length > 0 && data != 'select') {
+      this.getFirstChildernDataFromComponent(data.children);
+    }
+  }
+
+  getFeaturesData(data) {
+    this.featuresArray = data;
+    console.log(data);
+    
+  }
+
+  getFirstChildernDataFromComponent(data) {
+    this.firstChildArray = [];
+    console.log(data);
+    this.firstChildArray = data;
+  }
   
+  selectedFirstChildComponetData(data) {
+
+    console.log(data);
+    if(this.dataType == 'Serverside') {
+      if(data == 'select') {
+        this.getFeaturesData(this.selectedComponent.data.Features);
+        this.selectedSecondChildComponent = 'select';
+      } else {
+          if(data.children.length > 0 && data != 'select') {
+              this.getSecondChildernDataFromComponent(data.children)
+          }
+          if(data.data.Features.length > 0 && data != 'select') {
+            this.getFeaturesData(data.data.Features);
+          }
+      }
+    } 
+    
+    
+    
+  }
+
+  getSecondChildernDataFromComponent(data) {
+    this.secondChildArray = [];
+    console.log(data);
+    this.secondChildArray = data;
+  }
+
+  selectedSecondChildComponetData(data) {
+      if(data.data.Features.length > 0 && data != 'select') {
+          this.getFeaturesData(data.data.Features);
+      }
+  }
+
+  selectedDataForServer() {
+      console.log(this.alertInputData);
+      console.log(this.selectedFeature);
+
+      if(this.selectedFeature.Param.type == 'string') {
+        this.selectedFeature.itemType = 1; 
+      } else {
+        this.selectedFeature.itemType = 2; 
+      }
+      console.log();
+      
+      let parentName = this.selectedComponent.data.Name ;
+      if(this.selectedFirstChildComponent === 'select') {
+        this.selectedFeature.itemPname = parentName;
+      } else {
+        parentName += "_"+ this.selectedFirstChildComponent.data.Name
+        if(this.selectedSecondChildComponent !== 'select') {
+          parentName += "_"+ this.selectedSecondChildComponent.data.Name
+        }
+      }
+      console.log(parentName)
+      this.selectedFeature.itemUnit = this.selectedFeature.unit;
+      this.selectedFeature.underScore = "_";
+      this.selectedFeature.itemName = this.selectedFeature.Name;
+      this.selectedFeature.itemPname = parentName;
+      this.selectedFeature.expSymbol = '';
+      this.selectedFeature.itemIndex = this.selectedFeature.Index;
+
+      this.alertInputData[this.alertInputData.length - 1] = this.selectedFeature;
+      
+  }
+
+  selectedFirstItem(data) {
+    console.log(data);
+    this.firstChildArray = data.Treelist
+  }
+// to be used later if we dont get the itemtype in client response;
+
+  selectedDataForClient() {
+    console.log(this.selectedFeature);
+    this.selectedFeature.itemType = 2;
+    this.selectedFeature.itemUnit = this.selectedFeature.unit;
+    this.selectedFeature.underScore = "_";
+    this.selectedFeature.itemName = this.selectedFeature.Name;
+    this.selectedFeature.itemPname = this.selectedFeature.Row.split(",")[0];
+    this.selectedFeature.expSymbol = '';
+    this.selectedFeature.itemIndex = this.selectedFeature.Index;
+
+    this.alertInputData[this.alertInputData.length - 1] = this.selectedFeature;
+    console.log(this.selectedFeature);
+    
+  }
+  selectedSecondItem(data) {
+    // console.log(data);
+    // this.SocketService.isGetParamTypeStatus().subscribe(message => {
+    //   if (message) {
+    //     this.alertInputData[this.getParamArrayId].itemType = message.Data;
+    //     this.alertInputData[this.getParamArrayId].conditionType = message.Data == 1 ? this.stringType[0].id : this.alertInputData[this.getParamArrayId].conditionType = this.numberType[0].id;
+    //   }
+    // });
+  }
 }

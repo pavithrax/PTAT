@@ -20,6 +20,91 @@
         <div class="card curvedCorners" *ngIf="alertSecShowHide">
             <div class="card-header curvedCorners contentAreaHeader">
                 <!-- Adding Alert Starts Here -->
+                <div class="row" *ngIf="dataType=='Serverside'"> 
+                    <div >
+                        <select class="btn selectBtn alertFontSize" [(ngModel)] = "selectedKey" 
+                        (ngModelChange)="featuresArray = [];firstChildArray = [];secondChildArray = [];">
+                            <option  *ngFor="let itemComb of objArray" class="alertFontSize">{{itemComb.name}}</option>
+                        </select>
+                    </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <!-- <div class="form-group col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div> -->
+                    <!-- <div > -->
+                        <!-- <div  > -->
+                    <div *ngFor="let key of objArray">
+                        <select class="btn selectBtn alertFontSize" [(ngModel)] = "selectedComponent"
+                         *ngIf="key.name == selectedKey" (ngModelChange)="selectedComponetData($event);selectedFeature = 'select';selectedSecondChildComponent='select'">
+                            
+                            <option  *ngFor="let value of key.child" [ngValue]="value" class="alertFontSize">{{value.data.Name}}</option>
+                        </select>
+                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <!-- <div class="form-group col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div> -->
+
+                    <div >
+                        <select class="btn selectBtn alertFontSize"
+                            [(ngModel)] = "selectedFirstChildComponent"  (ngModelChange)="selectedFirstChildComponetData($event);selectedFeature = 'select'">
+                            <option   [ngValue]="'select'" class="alertFontSize">--Select--</option>
+                            <option  *ngFor="let value of firstChildArray" [ngValue]="value" class="alertFontSize">{{value.data.Name}}</option>
+                        </select>
+                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <!-- <div class="form-group col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div> -->
+
+                    <div >
+                        <select [disabled]="selectedFirstChildComponent == 'select'" class="btn selectBtn alertFontSize"
+                            [(ngModel)] = "selectedSecondChildComponent"  (ngModelChange)="selectedSecondChildComponetData($event); selectedFeature = 'select'">
+                            <option   [ngValue]="'select'" class="alertFontSize">--Select--</option>
+                            <option  *ngFor="let value of secondChildArray" [ngValue]="value" class="alertFontSize">{{value.data.Name}}</option>
+                        </select>
+                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <!-- <div class="form-group col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div> -->
+
+                    <div >
+                        <select class="btn selectBtn alertFontSize" 
+                            [(ngModel)] = "selectedFeature"  >
+                            <option   [ngValue]="'select'" class="alertFontSize">--Select--</option>
+                            <option  *ngFor="let value of featuresArray" [ngValue]="value" class="alertFontSize">{{value.Name}}</option>
+                        </select>
+                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn greenBtnColor btn-sm" matTooltip='click here to add'  matTooltipPosition="below" [disabled] = "selectedFeature == 'select'" (click)="selectedDataForServer()">
+                        Select
+                    </button>
+                    
+                </div>
+
+                <div class="row" *ngIf="dataType == 'Clientside'">
+                    <div class="form-group col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1" >
+                        <select id="inputComb"  class="btn alertDropDownBtnColor alertFontSize" [(ngModel)] = "selectedKey" 
+                        (ngModelChange)="featuresArray = [];firstChildArray = [];selectedFirstItem($event);">
+                            <option  *ngFor="let itemComb of objArray" [ngValue]="itemComb" class="alertFontSize">{{itemComb.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
+                    <div class="form-group col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1" >
+                        <select id="inputComb"  class="btn alertDropDownBtnColor alertFontSize"
+                            [(ngModel)] = "selectedFirstChildComponent"  (ngModelChange)="selectedSecondItem($event);
+                            selectedFeature = 'select'; featuresArray=selectedFirstChildComponent.SubTreeList">
+                            <option   [ngValue]="'select'" class="alertFontSize">--Select--</option>
+                            <option  *ngFor="let value of firstChildArray" [ngValue]="value" class="alertFontSize">{{value.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
+
+                    <div class="form-group col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1" >
+                        <select id="inputComb"  class="btn alertDropDownBtnColor alertFontSize" 
+                            [(ngModel)] = "selectedFeature"  >
+                            <option   [ngValue]="'select'" class="alertFontSize">--Select--</option>
+                            <option  *ngFor="let value of featuresArray" [ngValue]="value" class="alertFontSize">{{value.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
+
+                    <button type="button" class="btn greenBtnColor btn-sm" matTooltip='click here to add'  matTooltipPosition="below" [disabled] = "selectedFeature == 'select'" (click)="selectedDataForClient()">
+                        Select
+                    </button>
+                </div>
+                
+                
+
+                
                 <div class="alertSubContent" >
                     <span>(</span>
                     <div id="formGroup row">
@@ -34,6 +119,9 @@
                                 </div>
                                 <div class="form-group col-4 col-sm-5 col-md-5 col-lg-5 col-xl-5" >
                                     <input type="text" (keypress)="restrictKeyPress($event)"  value="{{item.itemPname}}{{item.underScore}}{{item.itemName}}{{item.itemUnit}}"  class="form-control dropBox alertFontSize alertDropTextBox" cdkDropList cdkDropListConnectedTo="treeMenu" (cdkDropListDropped)="dropInInput($event)" id="xyz{{i}}" placeholder="Drag and Drop any Parameter" />
+                                    <!-- <input type="text" (keypress)="restrictKeyPress($event)"  value="{{item.Name}}{{item.unit}}"  class="form-control dropBox alertFontSize alertDropTextBox" 
+                                    placeholder="Select any Parameter" /> -->
+                                    <!-- cdkDropList cdkDropListConnectedTo="treeMenu" (cdkDropListDropped)="dropInInput($event)" id="xyz{{i}}" -->
                                 </div>
                                 <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                     <select   *ngIf="!item.itemType" class="form-control alertFontSize marginLeftCondition" >
@@ -78,6 +166,27 @@
                 <!-- Adding Alert Ends Here -->
             </div>
         </div>
+        <!-- <div class="tabbedContainers cardColor curvedCorners" *ngIf="featuresArray.length > 0" >
+            <div class="monitorTableDiv curvedCorners monitorFixHead" id="controltable" style="width: 98%;background:white; ">
+              <table class="table">
+                  <thead  class="tatTableHeader">
+                    <th class="thBorderColor">Index</th>
+                    <th class="thBorderColor">Name</th>
+                  </thead>
+                  <tbody>
+                  
+                        <ng-container>
+                          <tr *ngFor="let item2 of featuresArray"  [hidden]="!item2.isSelected"> 
+                            <td>{{item2.Index}}</td>
+                            <td >{{item2.Name}}{{item2.unit}}</td>
+                          </tr>
+                        </ng-container>
+                    
+                    
+                  </tbody>
+              </table>
+          </div>
+        </div> -->
         <div class="card curvedCorners alertCard" *ngIf = "alertSummaryTableView || recenetAlertDiv">
             <div class="card-header curvedCorners">
                 <!-- Recent Alert Icon Starts Here -->

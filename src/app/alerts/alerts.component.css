@@ -180,8 +180,8 @@ input[type=number] {
  }
 
 .contentAreaHeader{
-    height: 177px !important;
-    max-height: 177px !important;
+    height: 207px !important;
+    max-height: 207px !important;
     overflow-y: scroll;
 }
 .alertFixHead{
@@ -234,6 +234,13 @@ input[type=number] {
     font-size: 13px !important;
 }
 
+.selectBtn {
+    background-color: #0095CA !important;
+    color: white !important;
+    height: 33px;
+    min-width: 130px;
+    font-size: 13px !important;
+}
 @media only screen and (max-width: 670px) {
     .alertDropTextBox{
         width: 80% !important;
@@ -248,6 +255,13 @@ input[type=number] {
         font-size: 12px !important;
     }
 
+    .selectBtn {
+        background-color: #0095CA !important;
+        color: white !important;
+        height: 33px;
+        /* min-width: 42px; */
+        font-size: 12px !important;
+    }
     .marginLeftCondition{
         margin-left:6px;
     }
@@ -268,6 +282,10 @@ input[type=number] {
     }
 
     .alertFontSize{
+        font-size: 9px !important;
+    }
+
+    .selectBtnFont{
         font-size: 9px !important;
     }
 

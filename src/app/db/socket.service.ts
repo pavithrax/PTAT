@@ -322,7 +322,7 @@ export class SocketService {
   }
 
   public sendMessage(message:string): void {
-    //console.log("sending Command", message);
+    console.log("sending Command", message);
     if(this.ws.readyState == 1) {
       this.ws.send(message);
     }else{
@@ -338,7 +338,7 @@ export class SocketService {
   
 
   receiveMessage(data: any): void {
-    //console.log(JSON.stringify(data)); 
+    console.log(JSON.stringify(data)); 
     // check if data exists
     if (data) {
       if (data.CommandStatus.Status.toLowerCase() == constant.SUCCESS_MSG) {

@@ -73,13 +73,13 @@ export class AppComponent {
    getTatHostService() {
       this.socket.getTatHostService().subscribe(message => {
 	         var command = '{"Command" : "GetToolInfo"}'
-            //  this.socket.sendMessage(command);
-         if (message[0]=="USER_NOT_ADMIN") {
-            this.utility.showHostPopup("Please run application as Administrator");           
-         }
-         else{
-            this.socket.sendMessage(command);
-         } 
+             this.socket.sendMessage(command);
+         // if (message[0]=="USER_NOT_ADMIN") {
+         //    this.utility.showHostPopup("Please run application as Administrator");           
+         // }
+         // else{
+         //    this.socket.sendMessage(command);
+         // } 
       });
    }
 
