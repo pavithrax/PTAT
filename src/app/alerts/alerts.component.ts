@@ -6,7 +6,7 @@ import { SocketService } from '../db/socket.service';
 import { Command } from 'selenium-webdriver';
 import * as $ from 'jquery';
 import { NgxSpinnerService } from "ngx-spinner";
-// import  dataFormat from './GetMonitorDataNew.json';
+import  dataFormat from './GetMonitorDataNew.json';
 // import * as dataFormat from './GetMonitorDataNew.json';
 
 @Component({
@@ -17,7 +17,7 @@ import { NgxSpinnerService } from "ngx-spinner";
   providers:[DatePipe]  
 })
 export class AlertsComponent implements OnInit {
-  dataType = 'Serverside';
+  dataType = 'Clientside';
   alertSecShowHide = false;
   alertInputData:any = [];
   alertInputType:any = []
@@ -564,6 +564,8 @@ export class AlertsComponent implements OnInit {
     let containerId:String = event.container.element.nativeElement.id;
     console.log()
     this.getParamArrayId = containerId.replace("xyz", "");
+    console.log(this.getParamArrayId);
+    
     this.alertInputData[this.getParamArrayId].itemIndex = event.item.element.nativeElement.dataset.itemIndex;
     this.alertInputData[this.getParamArrayId].itemPname = event.item.element.nativeElement.dataset.itemPname;
     this.alertInputData[this.getParamArrayId].itemName = event.item.element.nativeElement.innerText;
@@ -623,6 +625,7 @@ export class AlertsComponent implements OnInit {
     let expId = "";
     let UidList = "";
     let expAddition = [];
+    console.log(this.alertInputData);
     for(let i = 0; i < this.alertInputData.length; i++) {
       let e = this.alertInputData[i];
       let exp = {
@@ -652,11 +655,15 @@ export class AlertsComponent implements OnInit {
       // expStr ternary operator details below starts here
      // expSummary.expressions.push(exp);
      expAddition.push(exp)
+     console.log(expStr,expId, UidList, exp );
+     
     this.alertSummaryExpressions = expAddition;
     }
     //expSummary.expStr = expStr;
     this.alertSummaryexpStr = expStr; 
     this.rowUidList = UidList;
+    console.log(this.alertSummaryexpStr, this.rowUidList);
+    
 
     // Send Comand Before Pushing to array starts Here
     //let cmdAddAlertList = "AddToAlertList"+"("+'('+expStr+')';
@@ -724,6 +731,7 @@ export class AlertsComponent implements OnInit {
        var alertArguments = path+','+this.currentIpAddress;
       // var startAlertsCmd = 'StartAlert'+'('+alertArguments+')';
       var startAlertsCmd = '{"Command" : "StartAlert","Args":'+'"'+alertArguments+'"'+'}'
+      console.log(this.alertInputData);
       this.SocketService.sendMessage(startAlertsCmd);
       
     }else{
@@ -968,7 +976,10 @@ export class AlertsComponent implements OnInit {
 // to be used later if we dont get the itemtype in client response;
 
   selectedDataForClient() {
+    var  command = '{"Command" : "GetParamType","Args":'+'"'+this.selectedFeature.Index+'"'+'}';
+    this.SocketService.sendMessage(command);
     console.log(this.selectedFeature);
+    this.selectedFeature.conditionType = 0;
     this.selectedFeature.itemType = 2;
     this.selectedFeature.itemUnit = this.selectedFeature.unit;
     this.selectedFeature.underScore = "_";

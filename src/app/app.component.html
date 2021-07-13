@@ -19,7 +19,7 @@
       <!-- Scrolling Nav Bar -->
       <div class="contentStyle wrapper col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 nopadding" id="wrapperFixed">
         
-            <nav id="sidebar" class="sidenavColour" [hidden]="selectedNavValue == 'System Information'   || selectedNavValue == 'Workload' || selectedNavValue == 'Control' || selectedNavValue == 'Scripts' || selectedNavValue == 'PTAT Log Analysis' || selectedNavValue == 'Graph' || selectedNavValue == 'Live Analysis'">
+            <nav id="sidebar" class="sidenavColour" [hidden]="selectedNavValue == 'System Information'  || selectedNavValue == 'Alerts' || selectedNavValue == 'Workload' || selectedNavValue == 'Control' || selectedNavValue == 'Scripts' || selectedNavValue == 'PTAT Log Analysis' || selectedNavValue == 'Graph' || selectedNavValue == 'Live Analysis'">
             <app-monitoralertstree></app-monitoralertstree>
             </nav>
 
@@ -27,7 +27,7 @@
           <div id="content" >
             <notifier-container></notifier-container>
             <ngx-spinner type = "ball-spin-clockwise" color="#005EB7"></ngx-spinner>
-                <div class="sidePanelBtn" *ngIf="selectedNavValue == 'Monitor' || selectedNavValue == 'Alerts' " (click)="fnToggle()">
+                <div class="sidePanelBtn" *ngIf="selectedNavValue == 'Monitor'  " (click)="fnToggle()">
                   <i class="sidePanelIcon fas" [ngClass]="(hasclass == true)?'fa-angle-double-right':'fa-angle-double-left'"></i>
                 </div>
 

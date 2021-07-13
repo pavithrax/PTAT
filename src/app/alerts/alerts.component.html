@@ -1,6 +1,8 @@
 <div id="mainAlertBody">
+    <div></div>
+  <div></div>
     <div class="alertHeader">
-        <div class="btn-toolbar justify-content-between">
+        <div class="btn-toolbar justify-content-between" style="margin: 5px;margin-top: 36px;" >
             <div class="btn-group" role="group" aria-label="First group">
                 <label class="infoClass alertHeaderAlert" *ngIf="!alertSecShowHide">
                     Click on "Add Alerts" button to add more alerts
@@ -118,10 +120,9 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-4 col-sm-5 col-md-5 col-lg-5 col-xl-5" >
-                                    <input type="text" (keypress)="restrictKeyPress($event)"  value="{{item.itemPname}}{{item.underScore}}{{item.itemName}}{{item.itemUnit}}"  class="form-control dropBox alertFontSize alertDropTextBox" cdkDropList cdkDropListConnectedTo="treeMenu" (cdkDropListDropped)="dropInInput($event)" id="xyz{{i}}" placeholder="Drag and Drop any Parameter" />
-                                    <!-- <input type="text" (keypress)="restrictKeyPress($event)"  value="{{item.Name}}{{item.unit}}"  class="form-control dropBox alertFontSize alertDropTextBox" 
-                                    placeholder="Select any Parameter" /> -->
-                                    <!-- cdkDropList cdkDropListConnectedTo="treeMenu" (cdkDropListDropped)="dropInInput($event)" id="xyz{{i}}" -->
+                                    <input type="text" (keypress)="restrictKeyPress($event)"  value="{{item.itemPname}}{{item.underScore}}{{item.itemName}}{{item.itemUnit}}"
+                                      class="form-control dropBox alertFontSize alertDropTextBox" cdkDropList cdkDropListConnectedTo="treeMenu"
+                                       (cdkDropListDropped)="dropInInput($event)" id="xyz{{i}}" placeholder="Select Any Parameter" />
                                 </div>
                                 <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                     <select   *ngIf="!item.itemType" class="form-control alertFontSize marginLeftCondition" >
@@ -134,7 +135,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                    <input type="{{item.itemType == 1 ? 'text' : 'Number'}}" [disabled]="(!item.conditionType && item.conditionType != 0 ) || item.conditionType =='Select'"  (keypress)="restrictSpecChar($event,item.itemType)" [(ngModel)] = "item.selectedInputVal" class="form-control alertFontSize"/>
+                                    <input type="{{item.itemType == 1 ? 'text' : 'Number'}}" [disabled]="(!item.conditionType && item.conditionType != 0 ) || item.conditionType =='Select'" 
+                                     (keypress)="restrictSpecChar($event,item.itemType)" [(ngModel)] = "item.selectedInputVal" class="form-control alertFontSize"/>
                                 </div>
                             </div>
                     </div>
