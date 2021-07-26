@@ -204,38 +204,86 @@
                   <div class="form-group">
                     <label for="component"><b>Components:</b></label>
                     <select class="form-control form-control-sm" name="component" [(ngModel)]="component"  (change)="componentChanged()">
-                     <!-- <ng-container *ngFor="let item of liveAnalysisTab.Data">-->
-                        <ng-container *ngFor="let item1 of liveGraphCompArr; let indx = index">
-                          <option [ngValue]="indx" >{{item1}} </option>
-                        </ng-container>
-                      <!--</ng-container>-->
-                      </select>
+                      <!-- <ng-container *ngFor="let item of liveAnalysisTab.Data">-->
+                         <ng-container *ngFor="let item1 of liveGraphCompArr; let indx = index">
+                           <option [ngValue]="item1" >{{item1.Name}}</option>
+                           <!-- <option [ngValue]="indx" >{{item1}} </option> -->
+                         </ng-container>
+                       <!--</ng-container>-->
+                       </select>                    
                   </div>
   
                   <div class="form-group">
                   <label for="argOne"><b>ARG 1:</b></label>
-                  <select class="form-control form-control-sm" name="argOne" [(ngModel)]="argOne" (change)="arg1Changed()">
-                      <!--<ng-container *ngFor="let item of liveAnalysisTab.Data">-->
+                  <select class="form-control form-control-sm" name="argOne" [(ngModel)]="argOne" (change)="arg1Changed()" 
+                  *ngIf="dataType !=='Serverside'">
+                      
                           <ng-container *ngFor="let item1 of liveGraphArg1Arr; let indx = index">
-                            <option [ngValue]="indx" >{{item1}}</option>
+                            <option [ngValue]="item1" >{{item1.Name}}</option>
+                            <!-- <option [ngValue]="indx" >{{item1}} </option> -->
                           </ng-container>
-                      <!--</ng-container>-->
+                      
+                    </select>
+
+                    <select class="form-control form-control-sm" name="argOne" [(ngModel)]="argOne" (change)="arg1Changed()"
+                    *ngIf="dataType =='Serverside'" >
+                      
+                      <ng-container *ngFor="let item1 of liveGraphArg1Arr; let indx = index">
+                        <option [ngValue]="item1" >{{item1.data.Name}}</option>
+                        <!-- <option [ngValue]="indx" >{{item1}} </option> -->
+                      </ng-container>
+                  
                     </select>
                 </div>
   
-                  <div class="form-group">
+                <div class="form-group">
                   <label for="argTwo"><b>ARG 2:</b></label>
-                  <select class="form-control form-control-sm" name="argTwo" [(ngModel)]="argTwo" (change)="arg2Changed()">
+                  <select class="form-control form-control-sm" name="argTwo" [(ngModel)]="argTwo" (change)="arg2Changed()"
+                  *ngIf="dataType !=='Serverside'">
                      <!-- <ng-container *ngFor="let item of liveAnalysisTab.Data">-->
-                          <ng-container *ngFor="let item1 of liveGraphArg2Arr;let indx = index"s>
-                            <option [ngValue]="indx" >{{item1}}</option>
+                          <ng-container *ngFor="let item1 of liveGraphArg2Arr;let indx = index">
+                            <option [ngValue]="item1" >{{item1.Name}}</option>
+                            <!-- <option [ngValue]="indx" >{{item1}} </option> -->
                           </ng-container>
+                      <!-- </ng-container> -->
+                    </select>
+                    <select class="form-control form-control-sm" name="argTwo" [(ngModel)]="argTwo" (change)="arg2Changed()"
+                    *ngIf="dataType =='Serverside'">
+                            <option [ngValue]="'select'" >--Select--</option>
+                             <option *ngFor="let item1 of liveGraphArg2Arr;let indx = index" [ngValue]="item1" >{{item1.data.Name}}</option>
+                             
+                     </select>
+                     
+                </div>
+
+                <div class="form-group" *ngIf="dataType =='Serverside'">
+                  <label for="argThread"><b>ARG 3:</b></label>
+                  <select class="form-control form-control-sm" name="argThread" [(ngModel)]="argThread" (change)="argThreadChanged()">
+                     <!-- <ng-container *ngFor="let item of liveAnalysisTab.Data">-->
+                          <!-- <ng-container> -->
+
+                            <option [ngValue]="'select'" >--Select--</option>
+                            <option  *ngFor="let item1 of liveGraphThread;let indx = index" [ngValue]="item1" >{{item1.data.Name}}</option>
+                            <!-- <option [ngValue]="indx" >{{item1}} </option> -->
+                          <!-- </ng-container> -->
                       <!-- </ng-container> -->
                     </select>
                 </div>
 
-                <div class="form-group">
-                  <label for="argThree"><b>ARG 3:</b></label>
+                <div class="form-group" *ngIf="dataType =='Serverside'">
+                  <label for="argFeature"><b>ARG 4:</b></label>
+                  <select class="form-control form-control-sm" name="argFeature" [(ngModel)]="argFeature" (change)="argFeatureChanged($event)">
+                     <!-- <ng-container *ngFor="let item of liveAnalysisTab.Data">-->
+                          <ng-container *ngFor="let item1 of liveGraphFeature;let indx = index"s>
+                            <option [ngValue]="item1" >{{item1.Name}}</option>
+                            <!-- <option [ngValue]="indx" >{{item1}} </option> -->
+                          </ng-container>
+                      <!-- </ng-container> -->
+                    </select>
+                </div>
+                <div class="form-group" >
+                  <label for="argThree" *ngIf="dataType =='Serverside'"><b>ARG 5:</b></label>
+                  <label for="argThree" *ngIf="dataType !=='Serverside'" ><b>ARG 3:</b></label>
                   
                   <select class="form-control form-control-sm" name="argThree" [(ngModel)]="argThree" (change)="arg3Changed()">  
                             <option>Left</option>
@@ -244,12 +292,12 @@
 
                 </div>
 
-
+                
                 <div class="form-group">
-                <label for="graphName"><b>Graph Name:</b><span style="color: #005a9d">{{graphDisplayName}}</span></label>
-                  
-                </div>
-                 </form>
+                  <label for="graphName"><b>Graph Name:</b><span style="color: #005a9d">{{graphDisplayName}}</span></label>
+                    
+                  </div>
+                </form>
               </div>
             </div>
             <div class="col-2">
@@ -259,7 +307,7 @@
                 </div>
             </div>
             </div>
-            <div class="col-5 card curvedCorners" style="max-height:420px;"> 
+            <div class="col-5 card curvedCorners" style="max-height:420px;" *ngIf="dataType == 'Clientside'"> 
               <div class="card-header curvedCorners parameterCardhead">
                 <div class="graphHeaderTxt" align="center">Live graphs list</div>
               </div>
@@ -269,7 +317,19 @@
                     <input type="checkbox" (change)="onCheckItem(graph,$event)" [ngStyle]="{'color': graph.graphColor}">
                     {{graph.graphName}}</a>
                 </ul>
+              </div>              
+            </div>
+			<div class="col-5 card curvedCorners" style="max-height:546px;" *ngIf="dataType !== 'Clientside'"> 
+              <div class="card-header curvedCorners parameterCardhead">
+                <div class="graphHeaderTxt" align="center">Live graphs list</div>
               </div>
+              <div class="card-body parameterCardBody liveGraphListCardBody">
+                <ul class="list-group">
+                  <a class="list-group-item list-group-item-action custom-groupitem"  *ngFor="let graph of liveGraphList;let odd=odd" [ngClass]="odd ? 'list-group-item-light' : 'list-group-item-secondary'" [ngStyle]="{'color': graph.graphColor}">
+                    <input type="checkbox" (change)="onCheckItem(graph,$event)" [ngStyle]="{'color': graph.graphColor}">
+                    {{graph.graphName}}</a>
+                </ul>
+              </div>              
             </div>
           
         </div>

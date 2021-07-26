@@ -17,7 +17,7 @@ import  dataFormat from './GetMonitorDataNew.json';
   providers:[DatePipe]  
 })
 export class AlertsComponent implements OnInit {
-  dataType = 'Clientside';
+  dataType = 'Serverside';
   alertSecShowHide = false;
   alertInputData:any = [];
   alertInputType:any = []
@@ -116,12 +116,27 @@ export class AlertsComponent implements OnInit {
     // console.log(this.keys)
     
 
-
+    // getting the data from monitor resp for both client and server
     this.SocketService.getMonitorDataRes().subscribe(message => {
       this.data = message;
       // this.data = dataFormat;
+      console.log('hi');
+      
       if(this.dataType === 'Serverside') {
         this.dataType = 'Serverside';
+        // Object.keys(this.data.Data).forEach(key => this.objArray.push({
+        //       name: key,
+        //       child: this.data.Data[key]
+        //       }));
+        //       console.log(this.objArray);
+        //       console.log(this.objArray[0].child);
+        //       this.selectedKey = this.objArray[0];
+        //       this.selectedComponent = this.objArray[0].child[0];
+        //       console.log(this.selectedKey);
+        //       this.featuresArray = this.objArray[0].child[0].data.Features;
+        //       this.firstChildArray = this.objArray[0].child[0].children;
+
+
         this.data.Data.forEach(element => {
           // this.keys.push(Object.keys(element));
             console.log(element);
@@ -132,7 +147,7 @@ export class AlertsComponent implements OnInit {
             }));
             console.log(this.objArray);
             console.log(this.objArray[0].child);
-            this.selectedKey = this.objArray[0].name;
+            this.selectedKey = this.objArray[0];
             this.selectedComponent = this.objArray[0].child[0];
             console.log(this.selectedKey);
             this.featuresArray = this.objArray[0].child[0].data.Features;
@@ -879,17 +894,26 @@ export class AlertsComponent implements OnInit {
   //     }
   //   }
   // }
-
+  selectedKeyElement(data) {
+    console.log(data);
+    
+  }
   selectedComponetData(data) {
     this.featuresArray = [];
     this.firstChildArray = [];
+    this.selectedFeature = 'select';
+    this.selectedSecondChildComponent='select'
+
     console.log(data);
-    if(data.data.Features.length > 0 && data != 'select') {
-      this.getFeaturesData(data.data.Features);
+    if(data!='select') {
+      if(data.data.Features.length > 0 && data != 'select') {
+        this.getFeaturesData(data.data.Features);
+      }
+      if(data.children.length > 0 && data != 'select') {
+        this.getFirstChildernDataFromComponent(data.children);
+      }
     }
-    if(data.children.length > 0 && data != 'select') {
-      this.getFirstChildernDataFromComponent(data.children);
-    }
+    
   }
 
   getFeaturesData(data) {
@@ -932,8 +956,12 @@ export class AlertsComponent implements OnInit {
   }
 
   selectedSecondChildComponetData(data) {
+    if(data !=='select') {
       if(data.data.Features.length > 0 && data != 'select') {
-          this.getFeaturesData(data.data.Features);
+        this.getFeaturesData(data.data.Features);
+    } 
+    }else {
+        this.getFeaturesData(this.selectedFirstChildComponent.data.Features)
       }
   }
 
@@ -964,8 +992,11 @@ export class AlertsComponent implements OnInit {
       this.selectedFeature.itemPname = parentName;
       this.selectedFeature.expSymbol = '';
       this.selectedFeature.itemIndex = this.selectedFeature.Index;
-
+      if(this.alertInputData.length > 1) {
+        this.selectedFeature.expSymbol = '&&'
+      }
       this.alertInputData[this.alertInputData.length - 1] = this.selectedFeature;
+      // if
       
   }
 

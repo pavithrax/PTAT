@@ -25,8 +25,8 @@
                 <div class="row" *ngIf="dataType=='Serverside'"> 
                     <div >
                         <select class="btn selectBtn alertFontSize" [(ngModel)] = "selectedKey" 
-                        (ngModelChange)="featuresArray = [];firstChildArray = [];secondChildArray = [];">
-                            <option  *ngFor="let itemComb of objArray" class="alertFontSize">{{itemComb.name}}</option>
+                        (ngModelChange)="featuresArray = [];firstChildArray = [];secondChildArray = [];selectedComponent = 'select'">
+                            <option  *ngFor="let itemComb of objArray" [ngValue]="itemComb"class="alertFontSize">{{itemComb.name}}</option>
                         </select>
                     </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <!-- <div class="form-group col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div> -->
@@ -34,8 +34,8 @@
                         <!-- <div  > -->
                     <div *ngFor="let key of objArray">
                         <select class="btn selectBtn alertFontSize" [(ngModel)] = "selectedComponent"
-                         *ngIf="key.name == selectedKey" (ngModelChange)="selectedComponetData($event);selectedFeature = 'select';selectedSecondChildComponent='select'">
-                            
+                         *ngIf="key.name == selectedKey.name" (ngModelChange)="selectedComponetData($event);selectedFeature = 'select';selectedSecondChildComponent='select'">
+                            <option   [ngValue]="'select'" class="alertFontSize">--Select--</option>
                             <option  *ngFor="let value of key.child" [ngValue]="value" class="alertFontSize">{{value.data.Name}}</option>
                         </select>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -119,10 +119,11 @@
                                         <option  *ngFor="let itemComb of alertCombination" class="alertFontSize">{{itemComb}}</option>
                                     </select>
                                 </div>
+                                <!-- cdkDropList cdkDropListConnectedTo="treeMenu"
+                                       (cdkDropListDropped)="dropInInput($event)" -->
                                 <div class="form-group col-4 col-sm-5 col-md-5 col-lg-5 col-xl-5" >
                                     <input type="text" (keypress)="restrictKeyPress($event)"  value="{{item.itemPname}}{{item.underScore}}{{item.itemName}}{{item.itemUnit}}"
-                                      class="form-control dropBox alertFontSize alertDropTextBox" cdkDropList cdkDropListConnectedTo="treeMenu"
-                                       (cdkDropListDropped)="dropInInput($event)" id="xyz{{i}}" placeholder="Select Any Parameter" />
+                                      class="form-control dropBox alertFontSize alertDropTextBox"  id="xyz{{i}}" placeholder="Select Any Parameter" />
                                 </div>
                                 <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                     <select   *ngIf="!item.itemType" class="form-control alertFontSize marginLeftCondition" >

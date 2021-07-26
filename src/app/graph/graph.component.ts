@@ -8,13 +8,14 @@ import { FileSaverService } from 'ngx-filesaver';
 import { SocketService } from '../db/socket.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import {UtilityServiceService} from '../services/utility-service.service';
-
+import  dataFormat from './GetMonitorDataNew.json';
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.css']
 })
 export class GraphComponent implements OnInit {
+  dataType = 'Clientside'
   offlineGraphParameter:any;
   offlineGraphIndexList:any = [];
   offlineGraphNameList:any = [];
@@ -32,7 +33,7 @@ export class GraphComponent implements OnInit {
   duplicateCheck:any =[];
   component:any = "";
   argOne:any = "";
-  argTwo:any = "";
+  argTwo:any = "select";
   argThree:any = "Left";
   argThreeIndex:any = 1;
   graphName:any;
@@ -95,13 +96,18 @@ isHugeData:boolean = false;
 isBulkData:boolean= false;
 
 osInformation:any = "";
-
+argThread: any = "select";
+argFeature:any = "";
+liveGraphThread:any = [];
+liveGraphFeature:any = [];
 
 // globalGraphdata:any = [];
   constructor(private DataService:DataService, private notifier:NotifierService, private _FileSaverService: FileSaverService,private SocketService: SocketService,private spinner: NgxSpinnerService,private utility : UtilityServiceService) { }
 
   ngOnInit() {
 
+	
+	// }
 	this.utility.settingsRefreshValue.subscribe(data => {
 		this.refreshTime = data;
 	})
@@ -118,27 +124,119 @@ osInformation:any = "";
 
 	$("#slider").slider();
 	
-	this.SocketService.GetGraphDataRes().subscribe(message => {
-        if (message) {
-            this.graphDataResponse = message;
-            for(let i=0; i<this.graphDataResponse.Data.length;i++){
-                if (this.graphDataResponse.Data[i].Name == 'Component') {
-                    this.liveGraphCompArr = this.graphDataResponse.Data[i].Row.split(",");              
-                }
-                else if (this.graphDataResponse.Data[i].Name == 'Arg1') {
-                    this.liveGraphArg1Arr = this.graphDataResponse.Data[i].Row.split(",");
-                }
-                else if (this.graphDataResponse.Data[i].Name == 'Arg2') {
-                    this.liveGraphArg2Arr = this.graphDataResponse.Data[i].Row.split(",");
-                }
-                this.component = 0; 
-                this.argOne = 0;
-                this.argTwo =0; 
-                this.graphName = this.argOne+'_'+this.argTwo;   
-                this.graphDisplayName = this.liveGraphArg1Arr[this.argOne]+'_'+this.liveGraphArg2Arr[this.argTwo];
-            }
-        }
-    });
+	
+	this.SocketService.getMonitorDataRes().subscribe(message => {
+		// message = dataFormat;
+		if(this.dataType == 'Clientside') {
+			console.log(message.Data[0])
+			this.liveGraphCompArr = message.Data[0].Treelist;
+			this.component = message.Data[0].Treelist[0];
+
+			this.liveGraphArg1Arr = message.Data[0].Treelist[0].Treelist;
+			this.argOne = message.Data[0].Treelist[0].Treelist[0];
+
+			this.liveGraphArg2Arr = message.Data[0].Treelist[0].Treelist[0].SubTreeList;
+			this.argTwo = message.Data[0].Treelist[0].Treelist[0].SubTreeList[0];
+
+			console.log(this.liveGraphCompArr, this.component );
+			console.log(this.liveGraphArg1Arr, this.argOne );
+			console.log(this.liveGraphArg2Arr, this.argTwo );
+			this.graphName = this.argOne.Index+'_'+this.argTwo.Index;   
+        	this.graphDisplayName = this.argOne.Name+'_'+this.argTwo.Name;
+		} else {
+			console.log(message.data);
+			message.Data.forEach(element => {
+				console.log(element);
+            
+				Object.keys(element).forEach(key => this.liveGraphCompArr.push({
+				Name: key,
+				child: element[key]
+				}));
+
+				this.component = this.liveGraphCompArr[0];
+				console.log(this.component)
+
+				this.liveGraphArg1Arr = this.component.child;
+				this.argOne = this.liveGraphArg1Arr[0];
+				this.liveGraphFeature = this.argOne.data.Features;
+				this.argFeature = this.liveGraphFeature[0];
+				
+				this.liveGraphArg2Arr = this.argOne.children;
+				// this.liveGraphThread = this.liveGraphArg2Arr[0].children
+				// this.argTwo = this.liveGraphArg2Arr[0];
+
+				// this.liveGraphThread = this.argTwo.
+				// console.log(this.argTwo);
+
+
+				// this.firstChildArray = this.objArray[0].child[0].children
+				this.argThread = 'select';
+				this.argTwo = 'select';
+				this.graphDisplayName = this.argOne.data.Name + '_' + this.argFeature.Name;
+				
+			});
+
+			// let message = dataFormat;
+	
+		// 	console.log(message.data);
+		// 	message.data.forEach(element => {
+		// 	console.log(element);
+		
+		// 	Object.keys(element).forEach(key => this.liveGraphCompArr.push({
+		// 	Name: key,
+		// 	child: element[key]
+		// 	}));
+
+		// 	this.component = this.liveGraphCompArr[0];
+		// 	console.log(this.component)
+
+		// 	this.liveGraphArg1Arr = this.component.child;
+		// 	this.argOne = this.liveGraphArg1Arr[0];
+		// 	this.liveGraphFeature = this.argOne.data.Features;
+		// 	this.argFeature = this.liveGraphFeature[0];
+			
+		// 	this.liveGraphArg2Arr = this.argOne.children;
+		// 	// this.liveGraphThread = this.liveGraphArg2Arr[0].children
+		// 	// this.argTwo = this.liveGraphArg2Arr[0];
+
+		// 	// this.liveGraphThread = this.argTwo.
+		// 	// console.log(this.argTwo);
+
+
+		// 	// this.firstChildArray = this.objArray[0].child[0].children
+		// 	this.argThread = 'select';
+		// 	this.argTwo = 'select';
+		// 	this.graphDisplayName = this.argOne.data.Name + '_' + this.argFeature.Name;
+			
+		// });
+		}
+		
+		
+
+		
+	})
+
+	// this.SocketService.GetGraphDataRes().subscribe(message => {
+    //     if (message) {
+    //         this.graphDataResponse = message;
+    //         for(let i=0; i<this.graphDataResponse.Data.length;i++){
+    //             if (this.graphDataResponse.Data[i].Name == 'Component') {
+    //                 this.liveGraphCompArr = this.graphDataResponse.Data[i].Row.split(",");              
+    //             }
+    //             else if (this.graphDataResponse.Data[i].Name == 'Arg1') {
+    //                 this.liveGraphArg1Arr = this.graphDataResponse.Data[i].Row.split(",");
+    //             }
+    //             else if (this.graphDataResponse.Data[i].Name == 'Arg2') {
+    //                 this.liveGraphArg2Arr = this.graphDataResponse.Data[i].Row.split(",");
+    //             }
+    //             this.component = 0; 
+    //             this.argOne = 0;
+    //             this.argTwo =0; 
+    //             this.graphName = this.argOne+'_'+this.argTwo;   
+    //             this.graphDisplayName = this.liveGraphArg1Arr[this.argOne]+'_'+this.liveGraphArg2Arr[this.argTwo];
+    //         }
+    //     }
+    // });
 
 	
 
@@ -157,27 +255,27 @@ osInformation:any = "";
 	}
 	
     
-	this.SocketService.GetGraphDataRes().subscribe(message => {
-		if (message) {
-			this.graphDataResponse = message;
-			for(let i=0; i<this.graphDataResponse.Data.length;i++){
-				if (this.graphDataResponse.Data[i].Name == 'Component') {
-					this.liveGraphCompArr = this.graphDataResponse.Data[i].Row.split(",");				
-				}
-				else if (this.graphDataResponse.Data[i].Name == 'Arg1') {
-					this.liveGraphArg1Arr = this.graphDataResponse.Data[i].Row.split(",");
-				}
-				else if (this.graphDataResponse.Data[i].Name == 'Arg2') {
-					this.liveGraphArg2Arr = this.graphDataResponse.Data[i].Row.split(",");
-				}
-				this.component = 0;	
-				this.argOne = 0;
-				this.argTwo =0;	
-				this.graphName = this.argOne+'_'+this.argTwo;	
-				this.graphDisplayName = this.liveGraphArg1Arr[this.argOne]+'_'+this.liveGraphArg2Arr[this.argTwo];
-			}
-		}
-	});
+	// this.SocketService.GetGraphDataRes().subscribe(message => {
+	// 	if (message) {
+	// 		this.graphDataResponse = message;
+	// 		for(let i=0; i<this.graphDataResponse.Data.length;i++){
+	// 			if (this.graphDataResponse.Data[i].Name == 'Component') {
+	// 				this.liveGraphCompArr = this.graphDataResponse.Data[i].Row.split(",");				
+	// 			}
+	// 			else if (this.graphDataResponse.Data[i].Name == 'Arg1') {
+	// 				this.liveGraphArg1Arr = this.graphDataResponse.Data[i].Row.split(",");
+	// 			}
+	// 			else if (this.graphDataResponse.Data[i].Name == 'Arg2') {
+	// 				this.liveGraphArg2Arr = this.graphDataResponse.Data[i].Row.split(",");
+	// 			}
+	// 			this.component = 0;	
+	// 			this.argOne = 0;
+	// 			this.argTwo =0;	
+	// 			this.graphName = this.argOne+'_'+this.argTwo;	
+	// 			this.graphDisplayName = this.liveGraphArg1Arr[this.argOne]+'_'+this.liveGraphArg2Arr[this.argTwo];
+	// 		}
+	// 	}
+	// });
 
 
 	this.SocketService.getToolInfo().subscribe(message => {
@@ -294,6 +392,8 @@ osInformation:any = "";
 	});
 
 	this.SocketService.AddParamToGraph1Res().subscribe(message => {
+		console.log(message);
+		console.log(this.argOne.Name+'_'+this.argTwo.Name);
 		if (message) {
 			var graphDirection = message.Data[0].GraphDirection;
 			var graphColor = "";
@@ -361,6 +461,9 @@ osInformation:any = "";
 	});
 
 	this.SocketService.RemoveParamFromGraph1Res().subscribe(message => {
+		console.log(message);
+		console.log(this.liveGraphUIDList);
+		
 		if (message) {
 			this.followList = [];
 			let UIDList =message.UID.split(",");
@@ -477,7 +580,7 @@ osInformation:any = "";
 
 
 		this.SocketService.getMonitorDataRes().subscribe(message => {
-			if (message) {
+			if (this.dataType == 'Clientside' && message) {
 				this.liveGraphList.length = 0;
 				this.liveGraphUIDList.length = 0;
 				var monitorDataRes = message.Data[0].Treelist;
@@ -510,40 +613,87 @@ osInformation:any = "";
 
 		
 
-	addToPlotLiveList(){		
-	  var graphNameSel = this.liveGraphArg1Arr[this.argOne]+'_'+this.liveGraphArg2Arr[this.argTwo];
-	  var duplicateGraphNameCounter = 0;
-	  for(var i=0;i<this.liveGraphList.length;i++){
-		if(this.liveGraphList[i].graphName == graphNameSel){
-			duplicateGraphNameCounter=duplicateGraphNameCounter+1;
-		}
-	  }
-	  if(duplicateGraphNameCounter == 0){
-		let compIndex = this.component;
-		let arg1Index = this.argOne;
-		let arg2Index = this.argTwo;
+	addToPlotLiveList(){	
+		if(this.dataType == 'Clientside')	 {
+			console.log(this.argOne, this.argTwo);
+		
+			//   var graphNameSel = this.liveGraphArg1Arr[this.argOne]+'_'+this.liveGraphArg2Arr[this.argTwo];
+			var graphNameSel =this.argOne.Name+'_'+this.argTwo.Name;
+			console.log(graphNameSel);
+			
+			var duplicateGraphNameCounter = 0;
+			for(var i=0;i<this.liveGraphList.length;i++){
+				if(this.liveGraphList[i].graphName == graphNameSel){
+					duplicateGraphNameCounter=duplicateGraphNameCounter+1;
+				}
+			}
+			if(duplicateGraphNameCounter == 0){
+				let compIndex = this.liveGraphCompArr.findIndex(x => x.Index === this.component.Index);
+				let arg1Index = this.liveGraphArg1Arr.findIndex(x => x == this.argOne);
+				let arg2Index = this.liveGraphArg2Arr.findIndex(x => x == this.argTwo);
+		
+		
+		
+				var command = '{"Command" : "AddParamToGraph1","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
+				this.SocketService.sendMessage(command);
+				//this.SocketService.sendMessage("AddParamToGraph1("+compIndex+","+arg1Index+","+arg2Index+",-1)");
+				this.liveGraphDuplicatError = "";
+			}else{
+				//this.notifier.notify("error", "Duplicates not allowed");
+				this.liveGraphDuplicatError = "Duplicate parameters are not allowed";
+			}
+		} else {
+			// var graphNameSel =this.argOne.Name+'_'+this.argTwo.Name;
+			var duplicateGraphNameCounter = 0;
+			for(var i=0;i<this.liveGraphList.length;i++){
+				if(this.liveGraphList[i].graphName == this.graphDisplayName){
+					duplicateGraphNameCounter=duplicateGraphNameCounter+1;
+				}
+			}
+			if(duplicateGraphNameCounter == 0) {
+				// var dataObj = {"graphName":this.graphDisplayName,"graphColor":"red"}
+				// this.liveGraphList.push(dataObj);
+				// this.liveGraphUIDList.push(this.argFeature.Index);
 
-		var command = '{"Command" : "AddParamToGraph1","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
-		this.SocketService.sendMessage(command);
-		//this.SocketService.sendMessage("AddParamToGraph1("+compIndex+","+arg1Index+","+arg2Index+",-1)");
-		this.liveGraphDuplicatError = "";
-	 }else{
-		//this.notifier.notify("error", "Duplicates not allowed");
-		this.liveGraphDuplicatError = "Duplicate parameters are not allowed";
-	  }
+				let compIndex = this.liveGraphCompArr.findIndex(x => x.Index === this.component.Index);
+				let arg1Index = this.liveGraphArg1Arr.findIndex(x => x == this.argOne);
+				let arg2Index = '';
+				let argThread = '';
+				let argFeature = '';
+				
+				arg2Index = this.liveGraphArg2Arr.findIndex(x => x == this.argTwo);
+				argThread = this.liveGraphThread.findIndex(x => x == this.argThread);
+				argFeature = this.liveGraphFeature.findIndex(x => x == this.argFeature);
+
+				let command = '{"Command" : "AddParamToGraph1","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+argThread+","+argFeature+","+this.argThreeIndex+",-1"+'"'+'}'
+				this.SocketService.sendMessage(command);
+			}else{
+				//this.notifier.notify("error", "Duplicates not allowed");
+				this.liveGraphDuplicatError = "Duplicate parameters are not allowed";
+			}
+			
+		}
+	
+
+	  
 	}
 
 	onCheckItem(Id, event) {
-	const checked = event.target.checked; // stored checked value true or false
-	 if (checked) {
-	   this.followList.push(Id); 
+		console.log(Id, event)
+		const checked = event.target.checked; // stored checked value true or false
+		if (checked) {
+	   		this.followList.push(Id); 
 		} else {
-		const index = this.followList.findIndex(list => list== Id);//Find the index of stored id
-		this.followList.splice(index, 1); // Then remove
-	  }
+			const index = this.followList.findIndex(list => list== Id);//Find the index of stored id
+			this.followList.splice(index, 1); // Then remove
+	  	}
+		console.log(this.followList);
 	}
 
-	removeSelectedFromLiveGraph(){
+	removeSelectedFromLiveGraph(data?){
+		console.log(this.followList);
+		
+		// if(this.dataType == 'Clientside') {}
 		let lstLen = this.followList.length;
 		let commandParams = "";
 		for (let i =0 ;i<lstLen ; i++){
@@ -554,7 +704,10 @@ osInformation:any = "";
 				commandParams = commandParams + ",";
 				}
 			}
+			console.log(commandParams ,this.liveGraphUIDList[index]);
 		}
+		
+		
 		var command = '{"Command" : "RemoveParamFromGraph1","Args":'+'"'+commandParams+'"'+'}'
 		this.SocketService.sendMessage(command);
 		//var cmd = "RemoveParamFromGraph1("+commandParams+")";
@@ -1054,30 +1207,100 @@ openLoadModal() {
 	}
 
 	componentChanged(){
-		let compIndex = this.component;
-		let arg1Index = this.argOne;
-		let arg2Index = this.argTwo;
-		//this.SocketService.sendMessage("Graph1ComponentSelected("+compIndex+","+arg1Index+","+arg2Index+",-1)");
-		var command = '{"Command" : "Graph1ComponentSelected","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
-		this.SocketService.sendMessage(command);
+		if(this.dataType == 'Clientside') {
+			this.liveGraphArg1Arr = this.component.Treelist;
+			this.argOne = this.liveGraphArg1Arr[0];
+			this.liveGraphArg2Arr = this.argOne.SubTreeList;
+			this.argTwo = this.liveGraphArg2Arr[0];
+			this.graphDisplayName = this.argOne.Name + '_' + this.argTwo.Name;
+		} else {
+			console.log(this.component); //CPU
+			this.liveGraphArg1Arr = this.component.child; //list of cpu 0 -10
+			this.argOne = this.liveGraphArg1Arr[0]; //cpu0
+			this.liveGraphFeature = this.argOne.data.Features;
+			this.argFeature = this.liveGraphFeature[0];
+			
+			this.liveGraphArg2Arr = this.argOne.children;
+			// this.liveGraphThread = this.liveGraphArg2Arr[0].children;
+			this.graphDisplayName = this.argOne.data.Name + '_' + this.argFeature.Name;
+			this.argTwo = 'select';
+			this.argThread = 'select'
+		}
+
+		
+		// /*
+			// let compIndex = this.component;
+			// let arg1Index = this.argOne;
+			// let arg2Index = this.argTwo;
+			// //this.SocketService.sendMessage("Graph1ComponentSelected("+compIndex+","+arg1Index+","+arg2Index+",-1)");
+			// var command = '{"Command" : "Graph1ComponentSelected","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
+			// this.SocketService.sendMessage(command);
+		// */
+		
 	}
 
 	arg1Changed(){
-		let compIndex = this.component;
-		let arg1Index = this.argOne;
-		let arg2Index = this.argTwo;
-		//this.SocketService.sendMessage("Graph1Arg1Selected("+compIndex+","+arg1Index+","+arg2Index+",-1)");
-		var command = '{"Command" : "Graph1Arg1Selected","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
-		this.SocketService.sendMessage(command);
+		if(this.dataType == 'Clientside') {
+			this.liveGraphArg2Arr = this.argOne.SubTreeList;
+			this.argTwo = this.liveGraphArg2Arr[0];
+			this.graphDisplayName = this.argOne.Name + '_' + this.argTwo.Name;
+		} else {
+			console.log(this.argOne); // cpu0;
+			this.liveGraphArg2Arr = this.argOne.children;
+			this.liveGraphFeature = this.argOne.data.Features;
+			this.argFeature = this.liveGraphFeature[0];
+			// this.liveGraphThread = this.liveGraphArg2Arr[0].children;
+			this.graphDisplayName = this.argOne.data.Name + '_' + this.argFeature.Name;
+			this.argTwo = 'select';
+			this.argThread = 'select'
+		}
+		
+		// /*
+			// let compIndex = this.component;
+			// let arg1Index = this.argOne;
+			// let arg2Index = this.argTwo;
+			// //this.SocketService.sendMessage("Graph1Arg1Selected("+compIndex+","+arg1Index+","+arg2Index+",-1)");
+			// var command = '{"Command" : "Graph1Arg1Selected","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
+			// this.SocketService.sendMessage(command);
+		//  */
+		
 	}
 	
 	arg2Changed(){
-		let compIndex = this.component;
-		let arg1Index = this.argOne;
-		let arg2Index = this.argTwo;
-		//this.SocketService.sendMessage("Graph1Arg2Selected("+compIndex+","+arg1Index+","+arg2Index+",-1)");
-		var command = '{"Command" : "Graph1Arg2Selected","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
-		this.SocketService.sendMessage(command);
+		console.log(this.argTwo);
+		if(this.dataType == 'Clientside') {
+			this.graphDisplayName = this.argOne.Name + '_' + this.argTwo.Name;
+		} else {
+			// this.liveGraphFeature = 
+			if(this.argTwo !== 'select') {
+				this.liveGraphThread = this.argTwo.children;
+				this.liveGraphFeature = this.argTwo.data.Features;
+				this.argFeature = this.liveGraphFeature[0];
+				this.graphDisplayName = this.argOne.data.Name + '_' + this.argTwo.data.Name+ '_'+ this.argFeature.Name;
+			}
+			else {
+				this.graphDisplayName = this.argOne.data.Name + '_' + this.argFeature.Name;
+				this.liveGraphArg2Arr = this.argOne.children;
+				this.liveGraphFeature = this.argOne.data.Features;
+				this.argFeature = this.liveGraphFeature[0];
+				this.argTwo = 'select';
+				this.argThread = 'select';
+				this.liveGraphThread = [];
+			}
+			this.argThread = 'select';
+		}
+		
+		// console.log(this.argTwo);
+		
+		// /*
+			// let compIndex = this.component;
+			// let arg1Index = this.argOne;
+			// let arg2Index = this.argTwo;
+			// //this.SocketService.sendMessage("Graph1Arg2Selected("+compIndex+","+arg1Index+","+arg2Index+",-1)");
+			// var command = '{"Command" : "Graph1Arg2Selected","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
+			// this.SocketService.sendMessage(command);
+		//  */
+		
 	}
 
 	arg3Changed(){
@@ -1093,6 +1316,38 @@ openLoadModal() {
 		this.SocketService.sendMessage(command);
 	}
 
+	argThreadChanged() {
+		console.log(this.argThread);
+		if(this.argThread !== 'select') {
+			this.liveGraphFeature = this.argThread.data.Features;
+			this.argFeature = this.liveGraphFeature[0];
+			this.graphDisplayName = this.argOne.data.Name + '_' + this.argTwo.data.Name+'_' + this.argThread.data.Name+ '_'+ this.argFeature.Name;
+		} else {
+			console.log(this.argTwo);
+			if(this.argTwo !== 'select') {
+				this.liveGraphFeature = this.argTwo.data.Features;
+				this.argFeature = this.liveGraphFeature[0];
+				this.graphDisplayName = this.argOne.data.Name + '_' + this.argTwo.data.Name+'_' +  this.argFeature.Name;
+			} else {
+				this.argThread = 'select';
+				this.liveGraphThread = [];
+				this.liveGraphFeature = this.argOne.data.Features;
+				this.argFeature = this.liveGraphFeature[0];
+				this.graphDisplayName = this.argOne.data.Name + '_' +  this.argFeature.Name;
+			}
+			
+		}
+	}
+
+	argFeatureChanged(event) {
+		console.log('change',this.argFeature );
+		console.log(event);
+		var str = this.graphDisplayName.split("_");
+		str[str.length - 1] = this.argFeature.Name;
+		console.log(str);
+		this.graphDisplayName = str.join("_");
+		console.log(this.graphDisplayName);
+	}
 	refreshOfflineGraphLogFile(){
 		//var cmd = "GetFilesInDir("+this.logFilePath+",log)";
 		var path = ""

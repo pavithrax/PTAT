@@ -283,11 +283,11 @@ workLoadTree(responce){
   this.workLoadName = firstItemName
   let workLoadTable = "workLoadTable" + workLoadId;
   let workLoadTree = "workloadTree" + workLoadId;
-  $('.workLoadTableCC').addClass('hide');
+   $('.workLoadTableCC').addClass('hide'); 
   $('.workLoadTreeCC').removeClass('colorSelectedTree')
   $("."+workLoadTree).addClass('colorSelectedTree');  
   $("."+workLoadTable).removeClass('hide');
-}
+  }
 
 // cmdStartWorkload = "StartWorkload(#componentName,#componentIndex,#controlName,#controlIndex,#instanceName,#instanceIndex,#newvalue)";
 // cmdStopWorkload = "StopWorkload(#componentName,#componentIndex,#controlName,#controlIndex,#instanceName,#instanceIndex,#newvalue)";

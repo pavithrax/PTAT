@@ -8,7 +8,7 @@
 		"Status": "Success"
 	},
 	"type": "Serverside",
-	"Data": 
+	"data": [
 		{
 			"CPU": [
 				{
@@ -34612,8 +34612,9 @@
 					}
 				}
 			]
-		,
-		"PCH": [
+		},
+		{
+			"PCH": [
 				{
 					"children": [
 						{
@@ -69216,4 +69217,5 @@
 				}
 			]
 		}
+	]
 }
