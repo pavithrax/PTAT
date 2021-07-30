@@ -115,13 +115,20 @@ export class AlertsComponent implements OnInit {
     // this.keys = Object.entries(message.data);
     // console.log(this.keys)
     
-
     // getting the data from monitor resp for both client and server
     this.SocketService.getMonitorDataRes().subscribe(message => {
       this.data = message;
       // this.data = dataFormat;
       console.log('hi');
       
+    // Object.keys(dataFormat.data).forEach(element => {
+    //   console.log(element);
+    //   console.log(dataFormat.data[element]);
+    // })
+
+    // for (let v in dataFormat.data ) {
+    //   console.log(dataFormat.data[v]);
+    // }
       if(this.dataType === 'Serverside') {
         this.dataType = 'Serverside';
         // Object.keys(this.data.Data).forEach(key => this.objArray.push({

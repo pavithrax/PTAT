@@ -6,7 +6,7 @@ import { SocketService } from '../db/socket.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { HostListener } from "@angular/core";
 import {MatSidenav} from '@angular/material/sidenav'; 
-
+import * as  data from './getMonitordata.json';
 @Component({
   selector: 'app-workload',
   templateUrl: './workload.component.html',
@@ -16,6 +16,7 @@ export class WorkloadComponent implements OnInit {
   @ViewChild('sidenav',{static: false}) sidenav: MatSidenav;
   //@ViewChild(HelloComponent, {static: false}) hello: HelloComponent;
   // dataArr:any;
+  dropOrCheckBooleanValue = '';
   workloadArray:any;
   workloadArray1:any;
   workloadArrtibut:string = "workload";
@@ -44,7 +45,9 @@ export class WorkloadComponent implements OnInit {
     this.SocketService.WorkLoadDataRes().subscribe(message => {
       if (message) {
         this.StopGfxWorkload("");
-        this.workloadArray = message.Data;
+        // this.workloadArray = message.Data;
+        this.workloadArray = data.Data;
+        console.log(data);
         var firstWorkloadName = this.workloadArray[0].DropDownList[0].Name;
         setTimeout(() => {this.workLoadTree('00'+';'+firstWorkloadName);
         this.spinner.hide();
@@ -277,17 +280,23 @@ stringify(obj) {
   return JSON.stringify(obj);
 }
 workLoadTree(responce){
+  console.log(responce);
+  this.dropOrCheckBooleanValue = responce;
+  this.toggleStatus();
   var splitResponce = responce.split(";");
   var workLoadId = splitResponce[0];
   var firstItemName = splitResponce[1];
   this.workLoadName = firstItemName
   let workLoadTable = "workLoadTable" + workLoadId;
+  let workLoadTableCheckBox = "workLoadTableCheckBox" + workLoadId;
   let workLoadTree = "workloadTree" + workLoadId;
-   $('.workLoadTableCC').addClass('hide'); 
+  $('.workLoadTableCC').addClass('hide');
   $('.workLoadTreeCC').removeClass('colorSelectedTree')
   $("."+workLoadTree).addClass('colorSelectedTree');  
   $("."+workLoadTable).removeClass('hide');
-  }
+  $("."+workLoadTableCheckBox).removeClass('hide');
+  $(".workLoadTableDropdown"+workLoadId).removeClass('hide');
+}
 
 // cmdStartWorkload = "StartWorkload(#componentName,#componentIndex,#controlName,#controlIndex,#instanceName,#instanceIndex,#newvalue)";
 // cmdStopWorkload = "StopWorkload(#componentName,#componentIndex,#controlName,#controlIndex,#instanceName,#instanceIndex,#newvalue)";
@@ -413,6 +422,22 @@ getScreenSize(event?) {
        this.sidenav.close();
       this.hasClass = false;
       }
+}
+
+toggleStatus() {
+  console.log(this.dropOrCheckBooleanValue);
+  var workLoadId = this.dropOrCheckBooleanValue.split(";")[0];
+  let workLoadTableCheckBox = "workLoadTableCheckBox" + workLoadId;
+  let workLoadTableDropdown = "workLoadTableDropdown" + workLoadId;
+  console.log($('#toggleElement').is(':checked'));
+  
+  if ($('#toggleElement').is(':checked')) {
+      $('.'+ workLoadTableCheckBox ).addClass("disabledbutton");
+      $('.'+ workLoadTableDropdown).find('.card').removeClass("disabledbutton");
+  } else {
+      $('.'+ workLoadTableDropdown).find('.card').addClass("disabledbutton");
+      $('.'+ workLoadTableCheckBox).removeClass("disabledbutton");
+  }   
 }
 
 
