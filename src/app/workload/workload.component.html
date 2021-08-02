@@ -107,7 +107,7 @@
                     <!-- {{item4 | json}} -->
                     <!-- <div class="col-sm-4"> -->
                       <div class="col-sm-4 card curvedCorners card-padding">
-                        <!-- <label><b>CPU Selection</b></label> -->
+                        <label><b>CPU Selection</b></label>
                         <div class="row">
                           <div class="col-sm-6">
                             <label>Start</label><br>
@@ -132,12 +132,12 @@
                     <!-- </div> -->
                     <!-- <div class="col-sm-4"> -->
                       <div class="col-sm-4 card curvedCorners card-padding">
-                        <!-- <label>
+                        <label>
                           <b>
                             Core Selection
                           </b>
-                        </label> -->
-                        <div class="row" *ngFor="let item5 of item4.Data">
+                        </label>
+                        <!-- <div class="row" *ngFor="let item5 of item4.Data">
                           <div class="col-sm-6">
                             <label>Start</label><br>
                             <select class="btn selectedBtn alertFontSize" [(ngModel)]="item5.start">
@@ -156,16 +156,21 @@
                                 {{item6.data.Name}}</option>
                             </select>
                           </div>
-                        </div>
+                        </div> -->
                       </div>
                     <!-- </div> -->
                     
-                    <div style="margin: 10px;" >
-                      <p class="custom-control custom-switch custom-switch-lg">
-                        <input class="custom-control-input" id="toggleElement" type="checkbox"
-                          [(ngModel)]="item4.DroporCheck" (click)="toggleStatus()">
-                        <label class="custom-control-label font-italic" for="toggleElement">Dropdown / Checkbox</label>
-                      </p>
+                    <div style="margin: 10px;" (change)="toggleStatus()" >
+                      <label class="switch">
+                        <input type="checkbox"  [(ngModel)]="item4.DroporCheck" >
+                        <span class="slider round"></span>
+                      </label>
+                      <label class="font-italic">&nbsp;&nbsp;Dropdown / Checkbox</label>
+                      <!-- <p class="custom-control custom-switch custom-switch-lg">
+                        <input class="custom-control-input"  type="checkbox"
+                          [(ngModel)]="item4.DroporCheck" >
+                        <label class="custom-control-label font-italic" >Dropdown / Checkbox</label>
+                      </p> -->
                     </div>
 
                   </div>
@@ -196,11 +201,34 @@
 
                   <div class="row workLoadTableCC" [ngClass]="'workLoadTableCheckBox'+item.Index+item1.Index"
                   style="margin-left: 0px; width: 100% !important;" id="checkboxDiv">
-                  <div class="col-sm-4 col-md-4 card curvedCorners card1-padding">
+                  <!-- <div class="col-sm-4 col-md-4 card curvedCorners card1-padding">
                     <input type="checkbox">
                     <label>Select CPU</label>
                   </div>
 
+                  <div class="col-sm-4 col-md-4 card curvedCorners card1-padding">
+                    <input type="checkbox">
+                    <label>Select Core</label>
+                  </div>
+
+                  <div class="col-sm-4 col-md-4 card curvedCorners card1-padding">
+                    <input type="checkbox">
+                    <label>Select Thread</label>
+                  </div> -->
+                  <div class="col-sm-4 col-md-4 card curvedCorners card1-padding">
+
+                    <div *ngFor="let item5 of item1.TableData.Row" style="margin-left: 24px;">
+                      <ul class="list-style1">
+                        <input style="margin-top: 8px;" type="checkbox" [(ngModel)]="item5.isSelected"
+                          (change)="checkUncheckAll(item5)">
+                        <label style="margin-left: 8px;">Select CPU</label>
+                        <li class="list-style" *ngFor="let item6 of item5.Data">
+                          <input type="checkbox" [(ngModel)]="item6.data.isSelected"
+                            (change)="isAllSelected()">{{item6.data.Name}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                   <div class="col-sm-4 col-md-4 card curvedCorners card1-padding">
                     <input type="checkbox">
                     <label>Select Core</label>
