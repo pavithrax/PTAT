@@ -51,17 +51,17 @@ export class WorkloadComponent implements OnInit {
   }
   ngOnInit() {
     this.dataType = this.app.platform;
-    this.StopGfxWorkload("");
-    this.workloadArray = data.Data;
-    console.log(data);
-    this.spinner.hide();
+    // this.StopGfxWorkload("");
+    // this.workloadArray = data.Data;
+    // console.log(data);
+    // this.spinner.hide();
 
-    var firstWorkloadName = this.workloadArray[0].DropDownList[0].Name;
-    this.dropOrCheckBooleanValue = '00' + ';' + firstWorkloadName;
-    setTimeout(() => {
-      this.workLoadTree('00' + ';' + firstWorkloadName);
-      this.spinner.hide();
-    }, 5);
+    // var firstWorkloadName = this.workloadArray[0].DropDownList[0].Name;
+    // this.dropOrCheckBooleanValue = '00' + ';' + firstWorkloadName;
+    // setTimeout(() => {
+    //   this.workLoadTree('00' + ';' + firstWorkloadName);
+    //   this.spinner.hide();
+    // }, 5);
 
     this.SocketService.WorkLoadDataRes().subscribe(message => {
       if (message) {
@@ -77,6 +77,26 @@ export class WorkloadComponent implements OnInit {
           this.spinner.hide();
         }, 5);
 
+
+        this.workloadArray.forEach(element => {
+          element.DropDownList.forEach(element1 => {
+            element1.TableData.Row.forEach(element2 => {
+              if (element2.PackageStart) {
+                element2.CoreData = this.iterator(element2.CoreStart.split(" ")[0],element2.CoreCount);
+                if(element2.ThreadCount) {
+                  element2.ThreadData = this.iterator(element2.ThreadStart.split(" ")[0],element2.ThreadCount);
+                }
+                
+                element2.PackageData = this.iterator(element2.PackageStart.split(" ")[0],element2.PackageCount);
+                element2.PackageData.forEach(element3 => {
+                  element3.CoreAllSelected = true;
+                  element3.CoreData = this.iterator(element2.CoreStart.split(" ")[0],element2.CoreCount);
+                });
+              }
+            });
+          });
+        });
+   
       }
 
     });
@@ -331,8 +351,9 @@ export class WorkloadComponent implements OnInit {
           checkValue = element1;
           console.log(element1.TableData);
           element1.TableData.Row.forEach(element2 => {
-            if (element2.Data) {
-              this.core = element2.Data[0];
+            console.log(element2)
+            if (element2.PackageData) {
+              this.core = element2.PackageData[0];
             }
 
           });
@@ -340,19 +361,19 @@ export class WorkloadComponent implements OnInit {
         }
       });
     });
-    console.log(checkValue);
+   
     let workLoadTableDropdown = "workLoadTableDropdown" + workLoadId;
-    if (checkValue.Note !== '' || !(checkValue.TableData.Row[0].Data)) {
+    if (checkValue.Note !== '' || !(checkValue.TableData.Row[0].PackageData)) {
       $('.' + workLoadTableCheckBox).hide();
       $('.' + workLoadTableDropdown).hide();
     }
 
-
-    console.log(this.core.data);
-    if (this.core.data) {
-      let cpuClicked = "cpuClicked" + workLoadId + this.core.data.Index;
+    console.log(this.core);
+    if (this.core) {
+      let cpuClicked = "cpuClicked" + workLoadId + this.core.Index;
       $("." + cpuClicked).addClass('colorSelectedTree1');
     }
+    console.log(checkValue);
 
   }
 
@@ -507,24 +528,38 @@ export class WorkloadComponent implements OnInit {
 
 
   checkUncheckAll(event) {
-    event.Data.forEach(element => {
-      element.data.isSelected = event.isSelected;
+    // event.Data.forEach(element => {
+    //   element.data.isSelected = event.isSelected;
+    // });
+    event.PackageData.forEach(element => {
+      element.isSelected = event.PackageAllSelected;
     });
   }
 
   isAllSelected(data) {
     console.log(data);
     let count = 0;
-    data.Data.forEach(element => {
+    // data.Data.forEach(element => {
 
-      if (element.data.isSelected == true) {
+    //   if (element.data.isSelected == true) {
+    //     count += 1;
+    //   }
+    // });
+    // if (count == data.Data.length) {
+    //   data.isSelected = true;
+    // } else {
+    //   data.isSelected = false;
+    // }
+    data.PackageData.forEach(element => {
+
+      if (element.isSelected == true) {
         count += 1;
       }
     });
-    if (count == data.Data.length) {
-      data.isSelected = true;
+    if (count == data.PackageData.length) {
+      data.PackageAllSelected = true;
     } else {
-      data.isSelected = false;
+      data.PackageAllSelected = false;
     }
 
   }
@@ -561,6 +596,41 @@ export class WorkloadComponent implements OnInit {
     $('.cpuTree').removeClass('colorSelectedTree1');
     $("." + cpuClicked).addClass('colorSelectedTree1');
 
+
+  }
+
+  iterator(str,count) {
+    let arr:any = [];
+    for(let i=0;i<count;i++) {
+        arr.push({Index: i, Name: str+' '+ i,isSelected: true});
+    }
+    console.log(arr);
+    return arr;
+  }
+
+  checkAndUnCheckCore(event) {
+    console.log(event);
+    event.CoreData.forEach(element => {
+      element.isSelected = event.CoreAllSelected;
+    });
+  }
+
+  
+
+  isAllSelectedCore(data) {
+    console.log(data);
+    let count = 0;
+    data.CoreData.forEach(element => {
+
+      if (element.isSelected == true) {
+        count += 1;
+      }
+    });
+    if (count == data.CoreData.length) {
+      data.CoreAllSelected = true;
+    } else {
+      data.CoreAllSelected = false;
+    }
 
   }
 }
