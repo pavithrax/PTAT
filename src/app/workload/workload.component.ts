@@ -30,7 +30,10 @@ export class WorkloadComponent implements OnInit {
 
   zindex: boolean = true;
   dataType = '';
-
+  threadArray = { data: [], isSelected: false };
+  selectedThread;
+  core: any = {}
+  cpuName: string;
 
   constructor(private SocketService: SocketService, private spinner: NgxSpinnerService, private app: AppComponent) {
     this.dataType = this.app.platform;
@@ -48,6 +51,18 @@ export class WorkloadComponent implements OnInit {
   }
   ngOnInit() {
     this.dataType = this.app.platform;
+    this.StopGfxWorkload("");
+    this.workloadArray = data.Data;
+    console.log(data);
+    this.spinner.hide();
+
+    var firstWorkloadName = this.workloadArray[0].DropDownList[0].Name;
+    this.dropOrCheckBooleanValue = '00' + ';' + firstWorkloadName;
+    setTimeout(() => {
+      this.workLoadTree('00' + ';' + firstWorkloadName);
+      this.spinner.hide();
+    }, 5);
+
     this.SocketService.WorkLoadDataRes().subscribe(message => {
       if (message) {
         this.StopGfxWorkload("");
@@ -67,6 +82,7 @@ export class WorkloadComponent implements OnInit {
     });
 
     this.SocketService.StartWorkloadRes().subscribe(message => {
+
       if (message) {
 
         // if($('.'+"workLoadSetButton"+this.currentStartStopButtonClass).text().toLowerCase() == "start"){
@@ -306,6 +322,38 @@ export class WorkloadComponent implements OnInit {
     $("." + workLoadTable).removeClass('hide');
     $("." + workLoadTableCheckBox).removeClass('hide');
     $(".workLoadTableDropdown" + workLoadId).removeClass('hide');
+
+    let checkValue;
+
+    this.workloadArray.forEach(element => {
+      element.DropDownList.forEach(element1 => {
+        if (element1.Name == this.dropOrCheckBooleanValue.split(";")[1]) {
+          checkValue = element1;
+          console.log(element1.TableData);
+          element1.TableData.Row.forEach(element2 => {
+            if (element2.Data) {
+              this.core = element2.Data[0];
+            }
+
+          });
+
+        }
+      });
+    });
+    console.log(checkValue);
+    let workLoadTableDropdown = "workLoadTableDropdown" + workLoadId;
+    if (checkValue.Note !== '' || !(checkValue.TableData.Row[0].Data)) {
+      $('.' + workLoadTableCheckBox).hide();
+      $('.' + workLoadTableDropdown).hide();
+    }
+
+
+    console.log(this.core.data);
+    if (this.core.data) {
+      let cpuClicked = "cpuClicked" + workLoadId + this.core.data.Index;
+      $("." + cpuClicked).addClass('colorSelectedTree1');
+    }
+
   }
 
   // cmdStartWorkload = "StartWorkload(#componentName,#componentIndex,#controlName,#controlIndex,#instanceName,#instanceIndex,#newvalue)";
@@ -458,13 +506,61 @@ export class WorkloadComponent implements OnInit {
   }
 
 
-  checkUncheckAll(event){
+  checkUncheckAll(event) {
     event.Data.forEach(element => {
       element.data.isSelected = event.isSelected;
     });
   }
-  
-  isAllSelected(){
-  
+
+  isAllSelected(data) {
+    console.log(data);
+    let count = 0;
+    data.Data.forEach(element => {
+
+      if (element.data.isSelected == true) {
+        count += 1;
+      }
+    });
+    if (count == data.Data.length) {
+      data.isSelected = true;
+    } else {
+      data.isSelected = false;
+    }
+
+  }
+
+
+  selectedAllThreadData(data) {
+    console.log(data);
+    data.ThreadData.forEach(element => {
+      element.isSelected = data.SelectAllThread
+    });
+  }
+  selectedThreadData(data) {
+    console.log(data);
+    let count = 0;
+    data.ThreadData.forEach(element => {
+
+      if (element.isSelected == true) {
+        count += 1;
+      }
+    });
+    if (count == data.ThreadData.length) {
+      data.SelectAllThread = true;
+    } else {
+      data.SelectAllThread = false;
+    }
+  }
+
+  cpuClicked(cpudata, maindata) {
+    this.core = cpudata;
+    var splitResponse1 = maindata.split(';')
+    var cpuId = splitResponse1[0];
+    let cpuClicked = "cpuClicked" + cpuId;
+    console.log(cpuClicked);
+    $('.cpuTree').removeClass('colorSelectedTree1');
+    $("." + cpuClicked).addClass('colorSelectedTree1');
+
+
   }
 }

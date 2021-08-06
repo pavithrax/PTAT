@@ -424,7 +424,6 @@ input:checked + .slider:before {
 }
 
 .card1-padding {
-  max-width: 30%;
   margin: 10px;
   background-color: white !important;
 }
@@ -441,3 +440,37 @@ input:checked + .slider:before {
 label {
   font-weight: 900
 }
+
+.list-style{
+  list-style-type: none;
+  margin-left: 10px;
+}
+
+.list-style1{
+  margin: 5px;
+}
+
+.card1 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+	
+.hidecorevalues{	
+  display: none;	
+}	
+.currentcpu1{	
+  color: #8BAE46 !important;	
+  font-weight: bold;	
+}	
+.colorSelectedTree1{	
+  font-weight: bold;	
+  color: #2196F3;	
+}	

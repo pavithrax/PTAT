@@ -89,13 +89,16 @@ export class constant {
 
     //Graphs
     public static GetGraphData_CMD = "GetGraphData";
-    public static AddParamToGraph1_CMD = "AddParamToGraph1";
+    // public static AddParamToGraph1_CMD = "AddParamToGraph1";
+    public static AddParamToGraph1_CMD = "AddParamToGraph";
     public static Graph1ComponentSelected_CMD = "Graph1ComponentSelected";
     public static Graph1Arg1Selected_CMD = "Graph1Arg1Selected";
     public static Graph1Arg2Selected_CMD = "Graph1Arg2Selected";
-    public static StartGraph1_CMD = "StartGraph1";
+    public static StartGraph1_CMD = "StartGraph";
+    // public static StartGraph1_CMD = "StartGraph1";
     public static RemoveParamFromGraph1_CMD = "RemoveParamFromGraph1";
-    public static PlayGraph1_CMD = "PlayGraph1";
+    public static PlayGraph1_CMD = "PlayGraph";
+    // public static PlayGraph1_CMD = "PlayGraph1";
     public static StopGraph1_CMD = "StopGraph1";
     public static GetGraphPoints_CMD = "GetGraphPoints";
 

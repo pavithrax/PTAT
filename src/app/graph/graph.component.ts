@@ -9,13 +9,14 @@ import { SocketService } from '../db/socket.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import {UtilityServiceService} from '../services/utility-service.service';
 import  dataFormat from './GetMonitorDataNew.json';
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.css']
 })
 export class GraphComponent implements OnInit {
-  dataType = 'Clientside'
+  dataType = ''
   offlineGraphParameter:any;
   offlineGraphIndexList:any = [];
   offlineGraphNameList:any = [];
@@ -102,9 +103,16 @@ liveGraphThread:any = [];
 liveGraphFeature:any = [];
 
 // globalGraphdata:any = [];
-  constructor(private DataService:DataService, private notifier:NotifierService, private _FileSaverService: FileSaverService,private SocketService: SocketService,private spinner: NgxSpinnerService,private utility : UtilityServiceService) { }
+  constructor(private DataService:DataService, private notifier:NotifierService, private _FileSaverService: FileSaverService,private SocketService: SocketService,private spinner: NgxSpinnerService,private utility : UtilityServiceService,
+	private app: AppComponent) { }
 
   ngOnInit() {
+
+	if(this.app.platform == 'server') {
+		this.dataType = 'Serverside';
+	} else {
+		this.dataType = 'Clientside';
+	}
 
 	
 	// }
@@ -395,7 +403,7 @@ liveGraphFeature:any = [];
 		console.log(message);
 		console.log(this.argOne.Name+'_'+this.argTwo.Name);
 		if (message) {
-			var graphDirection = message.Data[0].GraphDirection;
+			var graphDirection = message.Data.GraphDirection;
 			var graphColor = "";
 			if(graphDirection == 1){
 				graphColor = "red";
@@ -406,7 +414,7 @@ liveGraphFeature:any = [];
 			var dataObj = {"graphName":this.graphDisplayName,"graphColor":graphColor}
 			// this.liveGraphList.push(this.graphDisplayName);
 			this.liveGraphList.push(dataObj);
-			let data = message.Data[0];
+			let data = message.Data;
 			let UID = data.UID;
 			this.liveGraphUIDList.push(UID);
 		}
@@ -477,7 +485,8 @@ liveGraphFeature:any = [];
 						this.plotLiveChart.render();
 						this.xVal = 0;
 						this.liveGraphButtonsDisabled = true;
-						var command = '{"Command" : "StopGraph1"}'
+						// var command = '{"Command" : "StopGraph1"}'
+						var command = '{"Command" : "StopGraph"}'
 						this.SocketService.sendMessage(command);
 						// this.SocketService.sendMessage("StopGraph1()");
 						this.play = false;
@@ -634,7 +643,8 @@ liveGraphFeature:any = [];
 		
 		
 		
-				var command = '{"Command" : "AddParamToGraph1","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
+				var command = '{"Command" : "AddParamToGraph","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
+				// var command = '{"Command" : "AddParamToGraph1","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
 				this.SocketService.sendMessage(command);
 				//this.SocketService.sendMessage("AddParamToGraph1("+compIndex+","+arg1Index+","+arg2Index+",-1)");
 				this.liveGraphDuplicatError = "";
@@ -665,7 +675,8 @@ liveGraphFeature:any = [];
 				argThread = this.liveGraphThread.findIndex(x => x == this.argThread);
 				argFeature = this.liveGraphFeature.findIndex(x => x == this.argFeature);
 
-				let command = '{"Command" : "AddParamToGraph1","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+argThread+","+argFeature+","+this.argThreeIndex+",-1"+'"'+'}'
+				let command = '{"Command" : "AddParamToGraph","Args":'+'"'+this.argFeature.Index+","+this.argThreeIndex+",-1"+'"'+'}'
+				// let command = '{"Command" : "AddParamToGraph1","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+argThread+","+argFeature+","+this.argThreeIndex+",-1"+'"'+'}'
 				this.SocketService.sendMessage(command);
 			}else{
 				//this.notifier.notify("error", "Duplicates not allowed");
@@ -708,19 +719,22 @@ liveGraphFeature:any = [];
 		}
 		
 		
-		var command = '{"Command" : "RemoveParamFromGraph1","Args":'+'"'+commandParams+'"'+'}'
+		var command = '{"Command" : "RemoveParamFromGraph","Args":'+'"'+commandParams+'"'+'}'
+		// var command = '{"Command" : "RemoveParamFromGraph1","Args":'+'"'+commandParams+'"'+'}'
 		this.SocketService.sendMessage(command);
 		//var cmd = "RemoveParamFromGraph1("+commandParams+")";
 	}
 	clearallValues(){
 		let lstLen = this.liveGraphList.length;
 		let commandParams = this.liveGraphUIDList.join();
-		var command = '{"Command" : "RemoveParamFromGraph1","Args":'+'"'+commandParams+'"'+'}'
+		var command = '{"Command" : "RemoveParamFromGraph","Args":'+'"'+commandParams+'"'+'}'
+		// var command = '{"Command" : "RemoveParamFromGraph1","Args":'+'"'+commandParams+'"'+'}'
 		this.SocketService.sendMessage(command);
 		//var cmd = "RemoveParamFromGraph1("+commandParams+")";
 	}
 	startLiveGraph(){
-		var command = '{"Command" : "StartGraph1"}'
+		// var command = '{"Command" : "StartGraph1"}'
+		var command = '{"Command" : "StartGraph"}'
 		this.SocketService.sendMessage(command);
 		// this.SocketService.sendMessage("StartGraph1()");
 		this.graph1StartStatusReceived = true;
@@ -806,13 +820,15 @@ liveGraphFeature:any = [];
 
   fnPlayPause(play){
 	  if(!play){
-			var command = '{"Command" : "StartGraph1"}'
+			// var command = '{"Command" : "StartGraph1"}'
+			var command = '{"Command" : "StartGraph"}'
 			this.SocketService.sendMessage(command);
 			//this.SocketService.sendMessage("StartGraph1()");
 			this.graph1StartStatusReceived = true;
 	  }
 	  else{
-			var command = '{"Command" : "StopGraph1"}'
+			// var command = '{"Command" : "StopGraph1"}'
+			var command = '{"Command" : "StopGraph"}'
 			this.SocketService.sendMessage(command);
 			//this.SocketService.sendMessage("StopGraph1()");
 			this.graph1StartStatusReceived = false;
@@ -1363,6 +1379,7 @@ openLoadModal() {
 
 
 	parseLiveGraphData(ReceivedData){
+		console.log(ReceivedData);
 		/* var graphwidth =  parseInt($('#liveGraphContainer').css('width'));
 		var graphHeight =  parseInt($('#liveGraphContainer').css('height'));
 		this.liveGraphWidth = graphwidth - 130;
@@ -1393,12 +1410,20 @@ openLoadModal() {
 				this.current = this.current+1;
 			}
 			var key = ReceivedData[i].Key;
-			var index = this.liveGraphUIDList.indexOf(key);
-
+			// var index = this.liveGraphUIDList.indexOf(ReceivedData[i].Key);
+			var index = this.liveGraphUIDList.findIndex(data => data = key);
+			// var index = 0;
+			console.log(this.liveGraphUIDList, index);
+			console.log(this.liveGraphDate);
+			
 			if(this.liveGraphDate != ReceivedData[i].DateTime && this.liveGraphDate != ""){
 				this.xVal=this.xVal+1
 			}
 
+			// "Data":[{"Key":"0","Value":"0","Info":"1627903083546","DateTime":"2/8/2021 16:48:03.546","Direction":"1"}]
+			console.log(this.liveGraphDataArray, index)
+			console.log(this.liveGraphDataArray[index]);
+			
 			this.liveGraphDate = ReceivedData[i].DateTime;
 			if(this.liveGraphDataArray[index] == undefined){
 				this.liveGraphDataArray[index]= {}; 
@@ -1406,6 +1431,7 @@ openLoadModal() {
 				this.liveGraphDataArray[index].showInLegend = true;
 				this.liveGraphDataArray[index].visible = true;
 				this.liveGraphDataArray[index].zoomEnabled = true;
+				this.liveGraphDataArray[index].name = '';
 				if(ReceivedData[i].Direction == 1){
 					this.liveGraphDataArray[index].axisYType = "primary";
 					this.liveGraphDataArray[index].lineDashType = "dash";	
@@ -1416,6 +1442,8 @@ openLoadModal() {
 					this.liveGraphDataArray[index].markerType= "cross";
 
 				}
+				console.log(this.liveGraphDataArray[index]);
+				console.log(this.liveGraphList)
 				this.liveGraphDataArray[index].name = this.liveGraphList[index].graphName;
 				this.liveGraphDataArray[index].dataPoints = [];	
 				this.liveGraphDataArray[index].dataPoints.push({x:this.xVal, y:parseFloat(ReceivedData[i].Value),label:ReceivedData[i].DateTime})				
