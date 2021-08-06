@@ -355,7 +355,6 @@ export class WorkloadComponent implements OnInit {
             if (element2.PackageData) {
               this.core = element2.PackageData[0];
             }
-
           });
 
         }
