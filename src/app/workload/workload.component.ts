@@ -640,29 +640,13 @@ export class WorkloadComponent implements OnInit {
     } else {
       data.AtleastOneCoreSelected = true;
     }
-    console.log(count, data.CoreData.length);
-    let count1 = 0;
+
+    //to check and uncheck select all package when we check core 
     this.workloadArray.forEach(element => {
       element.DropDownList.forEach(element1 => {
         element1.TableData.Row.forEach(element2 => {
           if(element2.PackageData) {
-            element2.PackageData.forEach(element9 => {
-
-              if (element9.isSelected == true) {                
-                count1 += 1;
-              }
-            });
-            if (count1 == element2.PackageData.length) {
-              element2.PackageAllSelected = true;
-            } else {
-              element2.PackageAllSelected = false;
-            }
-            if(count1 == 0 || count1 == element2.PackageData.length){
-              element2.AtleastOnePackageSelected = false
-            } else {
-              element2.AtleastOnePackageSelected = true;
-            }
-            
+            this.isAllSelected(element2);            
           }
         });
       });
