@@ -1,0 +1,257 @@
+
+
+
+#tatAnalysisHeading{
+    font-size: 15px;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #0FBDFE;
+}
+
+.tatLogPopupHeader{
+    background-color: #0fbdfe;
+    border-bottom: 1px solid #e5e5e5;
+    border-radius: 5px 5px 0 0;
+    color: #ffff;
+}
+
+.displayInlineBlock{
+    display: inline-block;
+}
+
+.pull-right {
+    @extend .float-right;
+}
+
+.green{
+    color:green;
+}
+.red{
+    color:red;
+}
+.lightgrey{
+    font-weight: 600;
+}
+.yellowColor{
+  color:#ecc325;
+}
+
+.table .thead-dark th {
+    color: #FFFFFF !important;
+    background-color: #2098D1 !important;
+    border-color: #fff !important;
+}
+
+.tatLogAnalsisToggle:hover{
+cursor:pointer;
+
+}
+
+.saveicon:hover{
+    cursor:pointer;
+    }
+    .multiselect {
+        width: 200px;
+      }
+      
+      .selectBox {
+        position: relative;
+      }
+      
+      .selectBox select {
+        width: 100%;
+        font-weight: bold;
+      }
+      
+      .overSelect {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+      
+      #checkboxes {
+        display: none;
+        border: 1px #dadada solid;
+      }
+      #checkboxes label {
+        display: block;
+      }
+      
+      #checkboxes label:hover {
+        background-color: #1e90ff;
+      }
+.tatLogAnalysisLi:nth-child(odd) {
+  background-color: #FFFFFF ! important;
+}
+.tatLogAnalysisLi:nth-child(even) {
+  background-color: #ebeced ! important;
+}
+.dropdown-menu li:hover {
+  font-weight: 600;
+  background: rgba(51, 145, 209, 1) none repeat scroll 0 0;
+  cursor: pointer;
+}
+
+.custom-header{
+  text-align: center;
+  /* background-color:#00aeef; */
+  background-color:#005EB7;
+  color:#FFFFFF;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0.55rem 0.25rem !important;
+}
+
+#tatLogAnalysisFixHead{
+  display: block; 
+  height:calc(100vh - 330px) !important;
+  min-height: calc(100vh - 330px) !important;
+  max-height: calc(100vh - 330px) !important; 
+  overflow-y:auto;
+}
+.tableChartParent{
+  display: block;
+  height:calc(100vh - 330px) !important;
+  min-height: calc(100vh - 330px) !important;
+  max-height: calc(100vh - 330px) !important; 
+  overflow-y:auto;
+}
+
+#tatLogAnalysisFixHead thead th{ 
+  position: sticky; 
+  top: 0; 
+}
+
+::ng-deep .canvasjs-chart-tooltip{
+  min-height: 30px !important;
+  max-height: 200px !important;
+  overflow-y: auto !important;
+  pointer-events: auto !important;
+}
+
+/* modal pop up */
+
+
+.custom-groupitem{
+  padding: 0.5rem 0.25rem !important;
+  font-size: 13px;
+  }
+
+
+/* New PTAT Code Start Here */
+.initRow{
+  margin-left: -13.2px;
+  margin-right: 0px !important;
+  margin-top: -7px;
+  height: calc(100vh - 159px) !important;
+    /* overflow-y: scroll; */
+}
+.ptatLogHeading{
+  font-style: italic;
+  color: #0095CA;
+  margin-top: 4px;
+  margin-left: -20px;
+  font-weight: bolder;
+}
+.offlineAnalysisIcon{
+  float: right !important;
+  padding: 10px !important;
+}
+
+.leftBtn{
+  margin-right: 5px !important;
+}
+.mainCard{
+  margin-left: 21px;
+  width: 97.4%;
+  border: none;
+}
+.mainCardAlt{
+  margin-left: 21px;
+  width: 97.2%;
+  margin-top: 6px;
+  height: calc(100vh - 195px) !important;
+  min-height: calc(100vh - 195px) !important;
+  max-height: calc(100vh - 195px) !important;
+  border: none;
+}
+/* .analysisCardHeade{
+  height: calc(100vh - 195px) !important;
+  min-height: calc(100vh - 195px) !important;
+  max-height: calc(100vh - 195px) !important;
+  overflow-y: scroll;
+} */
+
+
+
+.roundDiv{
+  border-radius: 50%;
+  background-color: red;
+}
+i.fa-check {
+  background-color: #8BAE46 !important;
+  color: white;
+  display: inline-block;
+  border-radius: 60px;
+  /* box-shadow: 0px 0px 2px #8BAE46; */
+  padding: 0.3em 0.3em;
+}
+li{
+  border: 0 none;
+  font-weight: bold;
+}
+.popupCard{
+  border: 0.5px solid #AEAEAE;
+  height: calc(100vh - 270px);
+  min-height: calc(100vh - 270px);
+  max-height: calc(100vh - 270px);
+  overflow-y: auto;
+  margin-top: -10px;
+}
+
+.subHeading span:nth-child(2){
+  margin-left: 15px !important;
+}
+.logAnalysisCard{
+  /* margin-left: 2.7%; */
+  height: calc(100vh - 290px) !important;
+  min-height: calc(100vh - 290px) !important;
+  max-height: calc(100vh - 290px) !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  border: 0.5px solid #AEAEAE;
+  border-radius: 0px 0px 7px 7px;
+  margin-top: -1px !important;
+}
+
+::ng-deep .tabGroup .mat-tab-label{
+  padding-right: 23.9px !important;
+}
+::ng-deep .tabGroup .mat-tab-label-active{
+  background-color: #FFFFFF;
+}
+.tabGroup{
+  z-index: 9999 !important;
+}
+.card-body {  
+  border-radius: 0px 0px 7px 7px;
+}
+
+@media only screen and (max-width: 650px) {
+  #offlineAnalysisBtn{
+    font-size: 9px !important;
+  }
+  .custom-groupitem{
+    padding: 0.5rem 0.25rem !important;
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 992px){
+	.offlineGraphPopupWidth > .modal-lg {
+		max-width: 700px;
+  }
+}

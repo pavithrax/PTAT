@@ -1,0 +1,529 @@
+.moduleNameColor {
+    font-size: 33px;
+    /*text-shadow: 0 0 3px #0043ff, 0 0 5px #ffbc00;*/
+    /* color: #21217b; */
+    color: #1e5787;
+    font-weight: 700;
+    font-family: serif;
+}
+
+.controlWorLoadColour {
+    font-size: 27px;
+    color: #1e5787;
+    /*text-shadow: 0 0 3px #0043ff, 0 0 5px #ffbc00;*/
+    font-weight: 500;
+    font-family: serif;
+}
+
+.monitorBtn {
+    color: #fff !important;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    font-size: 13px !important;
+    width: 115px !important;
+    box-shadow: none ! important;
+    font-weight: 500!important;
+}
+
+.nomargin {
+    margin: 0px !important;
+}
+
+.nopadding {
+    padding: 0px !important;
+}
+
+.intelWhite{
+    color: #ffffff !important;
+}
+
+.inlineBlock{
+    display: inline-block !important;
+}
+
+.blockStyle{
+    display: block !important;
+}
+
+.mat-drawer-inner-container{
+    width: 294px !important;
+    
+}
+
+.mat-button{
+    min-width: 2px !important;
+}
+
+.tatButtonColour{
+    background-color: #0071c5 !important;
+    color:#fff !important;
+}
+
+.tatDisabledButtonColour{
+    /* background-color: lightgray !important; 
+    color:black !important; */
+    background-color: #4e9cd6 !important;
+}
+
+.displayNone{
+    display:none !important;
+}
+
+
+.displayBlock{
+    display:block !important;
+}
+
+html body{
+    font-size:13px!important;
+    font-family:intel clear;
+}
+
+/*.modalheader{
+    background-color: #00aeef;
+    color:#FFFFFF;
+}*/
+.modal-header
+{
+    background-color:#005EB7 !important;
+    padding: 0.4rem 0.4rem !important;
+    color : white;
+    font-size: 14px;
+}
+
+
+.modal-footer
+{
+    padding: .2rem;
+}
+
+h6
+{
+    font-size: 14px !important;
+    font-weight: bolder !important;
+    color: #525252 !important;
+}
+
+.table th{
+    padding: 0.39rem !important;
+    font-size: 14px!important;
+}
+
+.table td {
+    padding: 0.39rem !important;
+    font-size: 13px!important;
+}
+.workLoadTableCC td {
+    padding: 0.1rem !important;
+    /*font-size: 12px!important;*/
+}
+
+/* .controlTableCC td {
+    padding: 0.1rem !important;
+} */
+
+.table .tatTableHeader th {
+    color: #FFFFFF !important; 
+    background: #005eb7;
+    border: none;
+}
+
+
+#sidebar {
+    min-width: 298px;
+    max-width: 298px;
+    transition: all 0.3s;
+    margin-top: 7px;
+    margin-left: 7px;
+    margin-bottom: 10px;
+    border-radius: 7px;
+}
+
+
+
+.sidenavButtonColour{
+    font-size: 26px !important;
+    /* background: #3494D5!important;
+    border-color: #3494D5!important;
+    color: #3494D5!important; */
+}
+.sidenavButtonArrow{
+    color:#3494D5!important;
+}
+
+
+/* .sidenavButtonColour:hover {
+    background-color:white!important;
+} */
+
+.sidenavButtonColour:focus {
+    outline: 0px dotted;
+    outline: 0px auto -webkit-focus-ring-color;
+}
+
+.hideScroll{
+    overflow: hidden!important;
+}
+
+.popupButtonColour{
+    color: #fff !important;
+    background-color: #005EB7 !important;
+}
+
+.fontsize13{
+    font-size:13px!important;
+}
+
+.height100{
+    height:100% ! important;
+}
+
+/* slim scroll style starts */
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+    background: #F1F1F1;   
+}
+ 
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    background: #C1C1C1;
+}
+
+/* slim scroll style ends */
+
+
+@media only screen and (max-width: 600px) {
+    html body{
+        font-size:10px!important;
+    }
+    .navbar-brand {
+        font-size: 0.9rem !important;
+    }
+    .maxModalWidth{
+        max-width : 500px !important;
+    }
+
+}
+.custom-groupitem{
+    padding: 0.5rem 0.25rem !important;
+    font-size: 11.5px;
+    }
+.custom-list{
+    line-height: 0.5rem;
+}
+.custom-groupitem-menu{
+    font-size: 0.8rem; 
+}
+
+.textCenter{
+    text-align: center;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100 !important;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+}
+#scrollCommon{
+    overflow-y: auto;
+    height: calc(84% - 100px);
+}
+
+#scrollCommonTree{
+    overflow-y: auto;
+    height: calc(100vh - 164px) !important;;
+    overflow-x: hidden;
+}
+
+.displayInline{
+    display: inline-block;
+}
+
+@media only screen and (max-width: 620px) {
+    .moduleNameColor {
+        font-size: 25px !important;
+        /* color: #21217b; */
+        color: #1e5787;
+        font-weight: 600;
+        font-family: serif;
+    }
+
+    .controlWorLoadColour {
+        font-size: 23px;
+        color: #1e5787;
+        /*text-shadow: 0 0 3px #0043ff, 0 0 5px #ffbc00;*/
+        font-weight: 500;
+        font-family: serif;
+    }
+
+    
+  }
+
+  .maxModalWidth{
+      max-width : 600px !important;
+  }
+
+  .margin5
+{
+    margin: 5px !important;
+}
+
+.mat-form-field-type-mat-native-select .mat-form-field-infix::after {    
+    top: 38% !important;
+    right: 5px !important;    
+  }
+
+.popupBackgroundColor{
+  background-color: rgba(100, 100, 100, 0.5) !important;
+}
+
+button:focus {
+    outline: 0px dotted ! important;
+    outline: 0px auto -webkit-focus-ring-color ! important;
+} 
+
+
+
+
+
+/* New PTAT CSS starts Here */
+.headerColor{
+    background-color: #005EB7 !important;
+    color: white;
+}
+.sidePanelBtn{
+    background-color: #204554 !important;
+    width: 30px;
+    margin-left: -5px;
+    border-radius: 0px 3px 3px 0px;
+}
+.sidePanelIcon{
+    cursor: pointer;
+    margin-left: 13px;
+    margin-top: 5px;
+    color: white;
+}
+.sidenavColour{
+    background: #0095CA !important ;
+    color: #FFFFFF !important;
+}
+.blueBtnColor{
+    background-color: #0095CA !important;
+    color: white !important;
+    height: 33px;
+    min-width: 80px;
+    font-size: 13px !important;
+}
+.greenBtnColor{
+    background-color: #8BAE46 !important;
+    color: white !important;
+    height: 33px;
+    min-width: 80px;
+    font-size: 13px !important;
+}
+.redBtnColor{
+    background-color: #FF5662 !important;
+    color: white !important;
+    height: 33px;
+    min-width: 80px;
+    font-size: 13px !important;
+}
+.otherBtn{
+    background-color: #525252 !important;
+    color: white !important;
+    height: 33px;
+    min-width: 80px;
+    font-size: 13px !important;
+}
+
+.iconBtn{
+    min-width: 33px !important;
+}
+
+.fontColor{
+    color: #525252;
+}
+.borderColor{
+    color:#757575;
+}
+ 
+.bodyColor{
+    background: #183544;
+    color: #525252;
+}
+
+.contentStyle{
+    background: white;
+    margin: 7px;
+    border-radius: 7px;
+}
+
+.smallIconSize{
+    margin-top: 2px;
+    font-size: 10px;
+}
+
+.navIconColor{
+    color: grey !important;
+}
+
+.cardColor{
+    background-color: #E8E8E8;
+    border: 0.5px solid #AEAEAE;
+}
+
+.curvedCorners{
+    border-radius: 7px !important;
+}
+
+.btnBorderRadius{
+    border-radius: 3px !important;
+}
+.workloadSidePanel{
+    height: calc(100vh - 150px) !important;
+    margin-left: 7px;
+    margin-top: 7px;
+    border-radius: 7px;  
+  }
+   
+  .workloadContent{
+      padding: 1px;
+      overflow: hidden;
+      margin-top: 7px;
+      height: calc(100vh - 150px) !important;
+      margin-right: 10px;
+  }
+
+  .workLoadCard{
+    height: calc(100vh - 153px) !important;
+    margin-top: -21px;
+    margin-left: 30px;
+  }
+
+  .card-header {
+    padding: 0.5rem 1.25rem;
+    height : 100%;
+  }
+
+  .card {
+    /*padding: 0.5rem 1.25rem;*/
+    border: 0.5px solid #AEAEAE !important;
+    background: #E8E8E8 !important;
+  }
+
+  .card-body {
+    background: white !important;
+    border-radius: 7px;
+  }
+  .mat-tab-header {
+     border-bottom: none !important;
+}
+.disabledClass{
+      opacity: 0.5;
+      pointer-events: none;
+  }
+.customFontColor{
+    color: #0095CA;
+}
+
+.leftPadding{
+    padding-left: 7px;
+}
+
+.leftMargin{
+    margin-left: 7px;
+}
+
+.infoClass{
+    font-style: italic;
+    color: #0095CA !important;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+
+@media only screen and (max-width: 650px) {
+    /* #logoImg{
+      height: 40%;
+      margin-left: 36%;
+      margin-top: 30%;
+    }
+  
+    .newHeadertitle{
+      margin-left: 24% !important;
+      font-size: 14px ! important;
+    }
+
+    .mat-tab-label {
+        height: 43px !important;
+        color: #525252 !important;
+        min-width: 120px !important;
+    } */
+    html body{
+        font-size:9px!important;
+        font-family:intel clear;
+    }
+
+    .modal-header
+    {
+        background-color:#005EB7 !important;
+        padding: 0.4rem 0.4rem !important;
+        color : white;
+        font-size: 11px;
+    }
+
+    .table th{
+        /* padding: 0.39rem !important; */
+        font-size: 11px!important;
+    }
+    
+    .table td {
+        /* padding: 0.39rem !important; */
+        font-size: 9px!important;
+    }
+
+    h6{
+        font-size: 11px !important;
+        font-weight: bolder !important;
+        color: #525252 !important;
+    }
+    
+  }
+  
+@media only screen and (max-width: 620px) {
+    /* .newHeadertitle{
+        margin-left: 21% !important;
+        font-size: 12px ! important;
+    }
+
+    .navbar{
+        padding-right: 0px ! important;
+    }
+
+    .fa-bars{
+        float: right;
+        color: white;
+        margin-top: 3px;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    .versionNo{
+        padding-left: 5px;
+        color: #7BDEFF !important;
+        font-size: 10px !important;
+        margin-top: 17px;
+    } */
+}

@@ -1,0 +1,120 @@
+<!-- The Modal -->
+<div class="modal fade show popupBackgroundColor" [ngStyle]="{'display': display}" role="dialog" aria-hidden="true" data-backdrop="false" data-keyboard="false">
+  <div class="modal-dialog modal-md maxModalWidth">
+    <div class="modal-content">
+      <div class="modal-header modalheader">
+        <label class="modal-title text-white">Settings</label>
+        <button type="button" class="close" aria-label="Close"  (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div>
+        <div class="modal-body">
+          <div class="card">
+            <div class="card-header">
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#log" data-toggle="tab" role="tab">Log</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#monitor" data-toggle="tab" role="tab">Monitor</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#control" data-toggle="tab" role="tab">Control</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#alerts" data-toggle="tab" role="tab">Monitor Alerts</a>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="tab-pane active" id="log" role="tabpanel">
+                  <form class="">
+                    <div [formGroup]="settingsForm">       
+                      <div class="form-group row margin5">
+                        <div class="col-sm-12 nopadding nomargin" style="display:flex;">
+                          <label for="inputpolltime" class="col-sm-4 col-form-label">Polling Time Interval</label>
+                          <div class="col-sm-7">
+                            <input name="pollVal" type="text" class="form-control" formControlName="pollVal" id="inputpolltime"  (keypress)="onlyNumber($event)">                        
+                          </div>
+                          <label class="nopadding col-sm-1 col-form-label">ms</label>
+                        </div>
+                        <span style="padding-top:5px;padding-left:12px;"  class="text-danger" *ngIf="settingsForm.controls['pollVal'].hasError('required') && (settingsForm.controls['pollVal'].dirty || settingsForm.controls['pollVal'].touched)">* This field is required</span>
+                        <span style="padding-top:5px;padding-left:12px;"  class="text-danger" *ngIf="settingsForm.get('pollVal').dirty && settingsForm.get('pollVal').errors?.validatePoll">
+                        Polling Interval should be greater than or equal to 1 ms and less than or equal to 60000ms!
+                        </span>
+                      </div>                  
+                    </div>
+                    <div class="form-group row margin5">
+                      <label for="inputlogfile" class="col-sm-4 col-form-label">Log File Type</label>
+                      <div class="col-sm-7">
+                        <select class="form-control" name="defaultLogType" (ngModelChange)="onSelectFile($event)" [(ngModel)]="defaultLogType"  ><option *ngFor="let logfiletype of logFileType">{{logfiletype}}</option></select>
+                      </div>
+                    </div>
+                    <div [formGroup]="settingsForm2">
+                      <div class="form-group row margin5">
+                        <label for="logfile" class="col-sm-4 col-form-label">Log File Name</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="inputlogfilename" name="logFilePath" formControlName="logFilePath" (keypress)="keyPressValidate($event)">
+                          <span class="text-danger" *ngIf="settingsForm2.controls['logFilePath'].hasError('required')
+                          && (settingsForm2.controls['logFilePath'].dirty || settingsForm2.controls['logFilePath'].touched)">* This field is required</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row margin5">
+                      <label for="logoptions" class="col-sm-4 col-form-label">Log Options</label>
+                      <div class="col-sm-7">
+                        <select class="form-control" name="defaultLogOption" (ngModelChange)="logOptionChanged($event)" [(ngModel)]="defaultLogOption"><option *ngFor="let logoptions of logOption">{{logoptions}}</option></select>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="tab-pane" id="monitor" role="tabpanel">
+                  <form class="">
+                    <div [formGroup]="settingsForm1">
+                      <div class="form-group row nomargin">
+                        <div clas="col-sm-12 nopadding nomargin" style="display: flex;">
+                        <label for="input3reftime" class="col-sm-6 col-form-label">Refresh Time Interval</label>
+                        <div class="col-sm-4">              
+                          <input type="text" class="form-control" name="refreshInterval" formControlName="refreshInterval" (keypress)="onlyNumber($event)">                      
+                        </div>
+                        <label class="nopadding col-sm-2 col-form-label">ms</label>
+                      </div>
+                      <span style="padding-top:20px;padding-left:12px;" class="text-danger" *ngIf="settingsForm1.controls['refreshInterval'].hasError('required')
+                          && (settingsForm1.controls['refreshInterval'].dirty || settingsForm1.controls['refreshInterval'].touched)" style="padding-top:20px">* This field is required</span>
+                          <span style="padding-top:20px;padding-left:12px;"  class="text-danger" *ngIf="settingsForm1.get('refreshInterval').dirty &&
+                          settingsForm1.get('refreshInterval').errors?.validateRefresh">
+                          Minimum acceptable value is 500 MilliSeconds and Maximum is 60000 MilliSeconds!</span>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="tab-pane" id="control" role="tabpanel">
+                  <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" id="defaultChecked2" (ngModelChange)="resetChanged($event)" [(ngModel)]="markedReset">
+                    <label class="custom-control-label" for="defaultChecked2" style="padding-top: 3px !important">Reset All Controls On Close</label>
+                  </div>
+                </div>
+                <div class="tab-pane" id="alerts" role="tabpanel">
+                  <form class="">
+                    <div class="form-group row margin5">
+                      <label for="input3reftime" class="col-sm-4 col-form-label">Alert File Path</label>
+                      <div class="col-sm-7">
+                        <input type="text" [disabled]="disableAlertPath" class="form-control" id="input3reftime" name="alertFilePath" [(ngModel)]="alertFilePath">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn greenBtnColor" (click)="submitForm()">Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

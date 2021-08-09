@@ -1,0 +1,52 @@
+
+.form-control {
+    font-size: 13px !important;
+}
+.card{
+    border: none !important;
+}
+label{
+    color: black;
+    padding-top: 6px !important;
+}
+.card-header{
+    padding: 0px !important;
+    border: none !important;
+    background-color: #ffffff !important;
+    z-index: 1000;
+}
+.card-body{
+    background-color: #E8E8E8 !important;
+    margin-top: 0px;
+    border:  0.5px solid #AEAEAE;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
+.nav-item .active{
+    background-color:  #E8E8E8;
+    /* margin-top: -1px; */
+    border-radius: 7px 7px 0px 0px; 
+    border:  0.5px solid #AEAEAE;
+    border-bottom: none !important;
+}
+/* .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus{
+    margin-top: -1px;
+} */
+.nav-tabs .nav-item{
+    margin-bottom: -3px !important;
+}
+
+@media only screen and (max-width: 650px){
+.form-control {
+    font-size: 9px !important;
+}
+
+.nav-item{
+    font-size: 11px !important;
+}
+
+}
+
+.custom-control-label::after {
+    background-color: #8BAE46 !important;
+}

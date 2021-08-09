@@ -1,0 +1,431 @@
+<div style="height:100%">
+   <mat-sidenav-container autosize class="example-container" style="height:100%;margin-top: -15px !important;">
+      <mat-sidenav #sidenav mode="side" [opened]="true" class="sidenavColour workloadSidePanel">
+         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 nopadding nomargin">
+            <ul class="treeAllignment" style="cursor: pointer">
+               <li *ngFor="let item of workloadArray">
+                  <!-- <span  (click)="expandCollapse(item)"><i [ngClass]="{'intelicon-plus': !item.expand ,'intelicon-minus': item.expand}" class="intelicon-plus"></i></span > -->
+                  {{item.Name}}
+                  <ul *ngIf="item.expand" style="list-style: none;padding:0px;cursor: pointer">
+                     <ng-container *ngFor="let item1 of item.DropDownList; let i = index">
+                        <li class="workLoadTreeCC" matTooltip={{item1.ToolTip}} matTooltipPosition="below"
+                           [ngClass]="'workloadTree'+item.Index+item1.Index"
+                           (click)="workLoadTree(item.Index+item1.Index+';'+item1.Name)">
+                           <i class="fas fa-angle-right"></i> {{item1.Name}}
+                        </li>
+                     </ng-container>
+                  </ul>
+               </li>
+            </ul>
+         </div>
+      </mat-sidenav>
+
+      <mat-sidenav-content class="workloadContent">
+         <div class="sidePanelBtn sidePanelBtnAlt" (click)="sidenav.toggle();toggleIcon()">
+            <i class="sidePanelIcon fas"
+               [ngClass]="(hasClass == true)?'fa-angle-double-left':'fa-angle-double-right'"></i>
+         </div>
+         <div class="card curvedCorners workLoadCard" style="margin-top: -25px;overflow: auto !important;
+      height: calc(100vh - 157px) !important;">
+            <!-- height: calc(100vh - 157px) !important;    overflow: scroll;      overflow-x: hidden;"> -->
+            <div class="card-header curvedCorners" style="background-color: rgba(0,0,0,0);
+            border-bottom: none;">
+               <h6>Workload - {{workLoadName}}</h6>
+               <ng-container *ngFor="let item of workloadArray">
+                  <ng-container *ngFor="let item1 of item.DropDownList">
+                     <div class="curvedCorners table-responsive workLoadTableCC workLoadDiv" id="workLoadFixHead"
+                        (scroll)="onScroll($event)" [ngClass]="'workLoadTable'+item.Index+item1.Index"
+                        *ngIf="item1.Note !==''">
+                        <table class="table workLoadTableCC" [ngClass]="'workLoadTable'+item.Index+item1.Index">
+                           <thead class="tatTableHeader">
+                              <tr>
+                                 <ng-container *ngFor="let item2 of item1.TableData.Header">
+                                    <th style="border-right-color:#fff !important;z-index:2;" class="textCenter">
+                                       {{item2}}</th>
+                                 </ng-container>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <ng-container *ngFor="let item3 of item1.TableData.Row;let workloadIndex = index">
+                                 <tr [ngClass]="'workLoadTableRow'+item.Index+item1.Index+item3.GroupID"
+                                    [attr.id]="'curWLid'+item.Index+item1.Index+item3.GroupID">
+
+                                    <td class="comonTd,align-middle"
+                                       [ngClass]="'workLoadTableFirstRow'+item.Index+item1.Index+item3.Index"
+                                       style="line-height: 35px;min-height: 15px;height: 15px;padding: 0px !important;text-align: center;">
+                                       {{item3.Note}}
+                                    </td>
+
+                                    <td class="comonTd">
+                                       <button style="min-width:80px;" *ngIf="item3.Action == 'Slider'"
+                                          [ngClass]="{'greenBtnColor':item3.ButtonName == 'Start','redBtnColor':item3.ButtonName === 'Stop','marginBtnTopFirst': workloadIndex == 0,'marginBtnTopNotFirst' : workloadIndex != 0}"
+                                          class="{{ 'workLoadSetButton'+item.Index+item1.Index+item3.Index}} btn btn-sm tableTextAllign"
+                                          (click)="workLoadStartStop('slider',item3,item.Name,item.Index,item1.Name,item1.Index)"
+                                          matTooltip={{item3.ToolTip}}
+                                          matTooltipPosition="below">{{item3.ButtonName}}</button>
+
+                                    </td>
+                                    <td class="comonTd">
+                                       <a
+                                          [ngClass]="{'text-success':item3.Status.toLowerCase() == 'running','text-danger':item3.Status.toLowerCase() == 'failed'}">
+                                          {{item3.Status}}
+                                       </a>
+                                    </td>
+                                 </tr>
+
+
+                              </ng-container>
+
+
+                           </tbody>
+                        </table>
+                     </div>
+                     <!-- style="height: calc(100vh - 208px) !important;" -->
+                     <div class="curvedCorners table-responsive workLoadTableCC workLoadDiv" id="workLoadFixHead"
+                        (scroll)="onScroll($event)" [ngClass]="'workLoadTable'+item.Index+item1.Index"
+                        *ngIf="item1.Note==''">
+                        <table class="table workLoadTableCC" [ngClass]="'workLoadTable'+item.Index+item1.Index">
+                           <thead class="tatTableHeader">
+                              <tr>
+                                 <ng-container *ngFor="let item2 of item1.TableData.Header">
+                                    <th style="border-right-color:#fff !important;z-index:2;" class="textCenter">
+                                       {{item2}}</th>
+                                 </ng-container>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <ng-container *ngFor="let item3 of item1.TableData.Row;let workloadIndex = index">
+                                 <tr [ngClass]="'workLoadTableRow'+item.Index+item1.Index+item3.GroupID"
+                                    [attr.id]="'curWLid'+item.Index+item1.Index+item3.GroupID">
+
+                                    <td class="comonTd,align-middle"
+                                       [ngClass]="'workLoadTableFirstRow'+item.Index+item1.Index+item3.Index"
+                                       style="line-height: 15px;min-height: 15px;height: 15px;padding: 0px !important;text-align: center;">
+                                       {{item3.Name}}
+                                    </td>
+                                    <td class="comonTd" *ngIf="item1.TableData.Header.length <=4">
+                                       <div *ngIf="item3.Action == 'Slider'">
+                                          <div class="sliderDiv">
+                                             <a>{{item3.min}}</a>
+                                             <mat-slider class="matSlider" (click)="enableIndex()"
+                                                [ngClass]="zindex? 'zindex':''" [min]="item3.min" [max]="item3.max"
+                                                [(ngModel)]="item3.slider" [disabled]="item3.Status == 'Running'"
+                                                thumbLabel [step]="item3.stepping" tickInterval="1" class="md-subhead">
+                                             </mat-slider>
+                                             <a>{{item3.max}}</a>
+                                          </div>
+                                       </div>
+                                       <div *ngIf="item3.Action == 'Dropdown'">
+                                          <select class="form-control dropdownControl"
+                                             [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index">
+                                             <option *ngFor="let item4 of item3.DropdownValue">
+                                                {{item4.Data}}
+                                             </option>
+                                          </select>
+                                       </div>
+                                    </td>
+                                    <td class="comonTd" *ngIf="item1.TableData.Header.length >4">
+
+                                       <div *ngIf="item3.Action == 'Dropdown'">
+                                          <select class="form-control dropdownControl"
+                                             [(ngModel)]="item3.SelectedPowerLevel"
+                                             [disabled]="item3.SelectedPowerLevel == ''"
+                                             [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index">
+                                             <option *ngFor="let item4 of item3.PowerLevel" [(ngValue)]="item4">
+                                                {{item4}}
+                                             </option>
+                                          </select>
+                                       </div>
+                                    </td>
+                                    <td class="comonTd" *ngIf="item1.TableData.Header.length >4">
+
+                                       <div *ngIf="item3.Action == 'Dropdown'">
+                                          <select class="form-control dropdownControl"
+                                             [(ngModel)]="item3.SelectedMemLevel"
+                                             [disabled]="item3.SelectedMemLevel == ''"
+                                             [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index">
+                                             <option *ngFor="let item4 of item3.MemLevel" [(ngValue)]="item4">
+                                                {{item4}}
+                                             </option>
+                                          </select>
+                                       </div>
+                                    </td>
+
+                                    <td class="comonTd" *ngIf="item1.TableData.Header.length >4">
+
+                                       <div *ngIf="item3.Action == 'Dropdown'">
+                                          <select class="form-control dropdownControl"
+                                             [disabled]="item3.SelectedCPUCore == ''"
+                                             [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index"
+                                             [(ngModel)]="item3.SelectedCPUCore">
+                                             <option *ngFor="let item4 of item3.CpuCores" [(ngValue)]="item4">
+                                                {{item4}}
+                                             </option>
+                                          </select>
+                                       </div>
+                                    </td>
+
+                                    <td class="comonTd" *ngIf="item1.TableData.Header.length >4">
+
+                                       <div *ngIf="item3.Action == 'Dropdown'">
+                                          <select class="form-control dropdownControl"
+                                             [disabled]="item3.SelectedMemCore == ''"
+                                             [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index"
+                                             [(ngModel)]="item3.SelectedMemCore">
+                                             <option *ngFor="let item4 of item3.MemCores" [(ngValue)]="item4">
+                                                {{item4}}
+                                             </option>
+                                          </select>
+                                       </div>
+                                    </td>
+
+                                    <td class="comonTd" *ngIf="item1.TableData.Header.length >4">
+
+                                       <div *ngIf="item3.Action == 'Dropdown'">
+                                          <select class="form-control dropdownControl"
+                                             [(ngModel)]="item3.SelectedPMemCore"
+                                             [disabled]="item3.SelectedPMemCore == ''"
+                                             [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index">
+                                             <option *ngFor="let item4 of item3.PmemCores" [(ngValue)]="item4">
+                                                {{item4}}
+                                             </option>
+                                          </select>
+                                       </div>
+                                    </td>
+                                    <td class="comonTd">
+                                       <button style="min-width:80px;" *ngIf="item3.Action == 'Slider'"
+                                          [ngClass]="{'greenBtnColor':item3.ButtonName == 'Start','redBtnColor':item3.ButtonName === 'Stop','marginBtnTopFirst': workloadIndex == 0,'marginBtnTopNotFirst' : workloadIndex != 0}"
+                                          class="{{ 'workLoadSetButton'+item.Index+item1.Index+item3.Index}} btn btn-sm tableTextAllign"
+                                          (click)="workLoadStartStop('slider',item3,item.Name,item.Index,item1.Name,item1.Index)"
+                                          matTooltip={{item3.ToolTip}}
+                                          matTooltipPosition="below">{{item3.ButtonName}}</button>
+                                       <button style="min-width:80px;" *ngIf="item3.Action == 'Dropdown'"
+                                          [ngClass]="{'greenBtnColor':item3.ButtonName == 'Start','redBtnColor':item3.ButtonName === 'Stop','marginBtnTopFirst': workloadIndex == 0,'marginBtnTopNotFirst' : workloadIndex != 0}"
+                                          class="{{ 'workLoadSetButton'+item.Index+item1.Index+item3.Index}} btn btn-sm "
+                                          (click)="workLoadStartStop('dropdown',item.Index+item1.Index+':'+item3.Index,item.Name,item.Index,item1.Name,item1.Index)"
+                                          matTooltip={{item3.ToolTip}}
+                                          matTooltipPosition="below">{{item3.ButtonName}}</button>
+                                    </td>
+                                    <td class="comonTd">
+                                       <a
+                                          [ngClass]="{'text-success':item3.Status.toLowerCase() == 'running','text-danger':item3.Status.toLowerCase() == 'failed'}">
+                                          {{item3.Status}}</a>
+                                    </td>
+                                 </tr>
+
+
+                              </ng-container>
+
+
+                           </tbody>
+                        </table>
+                     </div>
+
+                     <ng-container>
+                        <div style="margin-left: 5px;">
+                           <div class="row  workLoadTableCC" [ngClass]="'workLoadTableDropdown'+item.Index+item1.Index"
+                              *ngFor="let item4 of item1.TableData.Row" style="width: 100% !important;">
+
+                              <div class="col-sm-4 card curvedCorners card-padding">
+                                 <label><b>Package Selection</b></label>
+                                 <div class="row">
+                                    <div class="col-sm-6">
+                                       <label>From</label><br>
+                                       <select class="btn selectedBtn alertFontSize" [(ngModel)]="item4.PackageStart"
+                                          (change)="startEndCores()">
+                                          <option [ngValue]="'select'" class="alertFontSize">--Select--
+                                          </option>
+                                          <option *ngFor="let item5 of item4.PackageData" [ngValue]="item5.Name"
+                                             class="alertFontSize">
+                                             {{item5.Name}}</option>
+                                       </select>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                       <label>To</label>
+                                       <br>
+                                       <select class="btn selectedBtn alertFontSize" [(ngModel)]="item4.PackageEnd"
+                                          (change)="startEndCores()">
+                                          <option [ngValue]="'select'" class="alertFontSize">--Select--
+                                          </option>
+                                          <option *ngFor="let item5 of item4.PackageData" [ngValue]="item5.Name"
+                                             class="alertFontSize">
+                                             {{item5.Name}}</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-sm-4 card curvedCorners card-padding">
+                                 <label>
+                                    <b>
+                                       Core Selection
+                                    </b>
+                                 </label>
+                                 <div class="row">
+                                    <div class="col-sm-6">
+                                       <label>From</label><br>
+                                       <select class="btn selectedBtn alertFontSize" [(ngModel)]="item4.CoreStart">
+                                          <option [ngValue]="'select'" class="alertFontSize">--Select--
+                                          </option>
+                                          <option *ngFor="let item5 of item4.CoreData" [ngValue]="item5.Name"
+                                             class="alertFontSize">
+                                             {{item5.Name}}</option>
+                                       </select>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                       <label>To</label>
+                                       <br>
+                                       <select class="btn selectedBtn alertFontSize" [(ngModel)]="item4.CoreEnd">
+                                          <option [ngValue]="'select'" class="alertFontSize">--Select--
+                                          </option>
+                                          <option *ngFor="let item5 of item4.CoreData" [ngValue]="item5.Name"
+                                             class="alertFontSize">
+                                             {{item5.Name}}</option>
+                                       </select>
+                                    </div>
+                                 </div>
+
+                              </div>
+                              <div class=" col-sm-3 card1 curvedCorners card1-padding" style="max-height: 170px !important;
+                                border: 1px solid #80808099" *ngIf="item4.ThreadStart">
+                                 <div class="fixedtop">
+                                    <input id="core" type="checkbox" type="checkbox" [(ngModel)]="item4.SelectAllThread"
+                                       (change)="selectedAllThreadData(item4)">
+                                    <label for="core" style="margin-left: 8px;">Select Thread</label>
+                                 </div>
+                                 <div class="scroll" style="max-height: 110px !important;">
+                                    <ul>
+                                       <div class="list-style">
+                                          <li class="corevalues" *ngFor="let item6 of item4.ThreadData">
+                                             <input type="checkbox" [(ngModel)]="item6.isSelected"
+                                                (change)="selectedThreadData(item4)"> &nbsp;
+                                             {{item6.Name}}
+                                          </li>
+                                       </div>
+                                    </ul>
+                                 </div>
+                                 <!-- <div style="margin-left: -24px;">
+                                    <ul class="list-style1">
+                                       <input type="checkbox" [(ngModel)]="item4.SelectAllThread"
+                                          (change)="selectedAllThreadData(item4)">
+                                       <label style="margin-left: 8px;">Select Thread</label>
+                                       <li class="list-style" *ngFor="let item6 of item4.ThreadData">
+                                          <input type="checkbox" [(ngModel)]="item6.isSelected"
+                                             (change)="selectedThreadData(item4)">&nbsp;{{item6.Name}}
+                                       </li>
+                                    </ul>
+                                 </div> -->
+                              </div>
+
+                              <div style="margin: 10px;" (change)="toggleStatus()">
+                                 <label class="switch">
+                                    <input type="checkbox" [(ngModel)]="item4.DroporCheck">
+                                    <span class="slider round"></span>
+                                 </label>
+                                 <label class="font-italic">&nbsp;&nbsp;Dropdown / Checkbox</label>
+
+                              </div>
+
+                           </div>
+
+                           <div class="row workLoadTableCC" [ngClass]="'workLoadTableCheckBox'+item.Index+item1.Index"
+                              style=" width: 100% !important;">
+
+                              <!-- <div class="col-sm-4 col-md-4 card curvedCorners card1-padding" style="max-height: 170px !important;
+                    overflow: auto !important">
+
+                                 <div *ngFor="let item5 of item1.TableData.Row" style="margin-left: -24px;">
+                                    <ul class="list-style1">
+                                       <input type="checkbox" [(ngModel)]="item5.PackageAllSelected"
+                                          (change)="checkUncheckAll(item5)">
+                                       <label style="margin-left: 8px;">Select Package</label>
+                                       <li [ngClass]="'cpuClicked'+item.Index+item1.Index+item6.Index"
+                                          class="list-style cpuTree"
+                                          *ngFor="let item6 of item5.PackageData; let i=index">
+                                          <input type="checkbox" [(ngModel)]="item6.isSelected"
+                                             (change)="isAllSelected(item5)">&nbsp;<a
+                                             (click)="cpuClicked(item6,item.Index+item1.Index+item6.Index+';'+item6.Name)">{{item6.Name}}</a>
+                                       </li>
+                                    </ul>
+                                 </div> -->
+                              <!-- </div> -->
+
+                              <div class="col-sm-4 col-md-4 card curvedCorners card1-padding"
+                                 style="max-height: 170px !important;">
+                                 <div *ngFor="let item5 of item1.TableData.Row">
+                                    <div class="fixedtop">
+                                       <input type="checkbox" [(ngModel)]="item5.PackageAllSelected"
+                                          (change)="checkUncheckAll(item5)">
+                                       <label style="margin-left: 8px;">Select Package</label>
+                                    </div>
+                                    <div class="scroll" style="max-height: 110px !important;">
+                                       <ul>
+                                          <div class="list-style">
+                                             <li [ngClass]="'cpuClicked'+item.Index+item1.Index+item6.Index"
+                                                class="list-style cpuTree"
+                                                *ngFor="let item6 of item5.PackageData; let i=index">
+                                                <input type="checkbox" [(ngModel)]="item6.isSelected"
+                                                   (click)="cpuCheckboxClicked(item6)"
+                                                   (change)="isAllSelected(item5)">&nbsp;
+                                                   <a (click)="cpuClicked(item6,item.Index+item1.Index+item6.Index+';'+item6.Name)">&nbsp;{{item6.Name}}</a>
+                                             </li>
+                                          </div>
+                                       </ul>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-sm-4 col-md-4 card curvedCorners card1-padding"
+                                 style="max-height: 170px !important;">
+                                 <div class="fixedtop">
+                                    <input id="core" type="checkbox" type="checkbox" [(ngModel)]="core.CoreAllSelected"
+                                       (change)="checkAndUnCheckCore(core)">
+                                    <label for="core" style="margin-left: 8px;">Select Core</label>
+                                 </div>
+                                 <div class="scroll" style="max-height: 110px !important;">
+                                    <ul>
+                                       <div class="list-style">
+                                          <li class="corevalues" *ngFor="let item6 of core.CoreData">
+                                             <input type="checkbox" [(ngModel)]="item6.isSelected"
+                                                (change)="isAllSelectedCore(core)"> &nbsp;
+                                             {{item6.Name}}
+                                          </li>
+                                       </div>
+                                    </ul>
+                                 </div>
+                              </div>
+                              <!-- <div class="col-sm-4 col-md-4 card curvedCorners card1-padding" style="max-height: 170px !important;
+                    overflow: auto !important">
+                                 <div style="margin-left: -24px;">
+                                    <ul class="list-style1">
+                                       <input type="checkbox" [(ngModel)]="core.CoreAllSelected"
+                                       (change)="checkAndUnCheckCore(core)"> 
+                                       <label style="margin-left: 8px;">Select Core</label>
+                                       <div class="list-style">
+                                          <li class="corevalues" *ngFor="let item6 of core.CoreData">
+                                             <input type="checkbox" [(ngModel)]="item6.isSelected"
+                                             (change)="isAllSelectedCore(core)"> &nbsp;
+                                             {{item6.Name}}
+                                          </li>
+                                       </div>
+                                    </ul>
+                                 </div>
+                              </div> -->
+
+                           </div>
+                        </div>
+
+                     </ng-container>
+                  </ng-container>
+               </ng-container>
+
+
+            </div>
+
+
+         </div>
+
+
+      </mat-sidenav-content>
+   </mat-sidenav-container>
+</div>

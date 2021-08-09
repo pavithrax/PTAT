@@ -1,0 +1,300 @@
+<div  class="col-12 segmentHeight1" id="livegraph" [ngClass]="offlineGraphMinimzeMaximizestatus? 'displayNone':'displayBlock'">
+  <div>							
+    <button type="button" class="btn btn-sm greenBtnColor iconBtn" (click)="fnPlayPause(play)" [disabled]="liveGraphList.length==0">
+      <i class="fas" [ngClass]="{'fa-pause': play==true, 'fa-play':play==false }" ></i>
+    </button>
+    <button  type="button" class="btn  btn-sm greenBtnColor marginLeft5 minuteBtnSize" data-toggle="modal" data-target="#liveAnalysisAddDeleteModal">
+      Add[+] / Delete[-]
+    </button>
+    <button class="btn btn-sm greenBtnColor iconBtn marginLeft5 minuteBtnSize" [disabled]="liveGraphButtonsDisabled" (click)="saveGraph()"><i class="fas fa-save" ></i></button>
+    <button class="btn btn-sm blueBtnColor marginLeft5 minuteBtnSize" [disabled]="liveGraphButtonsDisabled" (click)="sendCmd5Min()">5 Min</button>
+    <button class="btn btn-sm blueBtnColor marginLeft5 minuteBtnSize" [disabled]="liveGraphButtonsDisabled" (click)="sendCmd15Min()">15 Min</button>
+    <button class="btn btn-sm blueBtnColor marginLeft5 minuteBtnSize" [disabled]="liveGraphButtonsDisabled" (click)="sendCmd30Min()">30 Min</button>
+    <button class="btn btn-sm blueBtnColor marginLeft5 minuteBtnSize" [disabled]="liveGraphButtonsDisabled" (click)="sendCmd60Min()">1 Hour</button>
+    <button class="btn btn-sm blueBtnColor marginLeft5 minuteBtnSize" [disabled]="liveGraphButtonsDisabled" (click)="sendCmd300Min()">5 Hour</button>
+    <button class="btn btn-sm blueBtnColor marginLeft5 minuteBtnSize" [disabled]="liveGraphButtonsDisabled" (click)="sendCmd720Min()">12 Hour</button>
+    <button class="btn btn-sm otherBtn marginLeft5 minuteBtnSize" [disabled]="liveGraphButtonsDisabled" (click)="reset()">RESET</button>
+    <button class="btn btn-sm greenBtnColor iconBtn iconBtn marginLeft5"  (click)="liveGraphMinimzeMaximize()"><i class="far" [ngClass]="liveGraphMinimzeMaximizestatus?'far fa-clone':'far fa-square'"></i></button>
+  </div>
+  <div class="card curvedCorners liveAnalysisGraphCard1">
+    <div class="card-header curvedCorners">
+      <div class="col-12" style="display: inline-flex;">
+        <h6 class="col-6">Live Graph</h6>
+        <div style="text-align: end;margin-top: -7px !important;color: #0095CA !important;font-weight: bold;" class="col-6 nomargin">-x- Left Direction<label style="vertical-align:super;margin-left: 15px;margin-right: 5px;">_<span class="dot"></span></label>-Right Direction</div>
+
+      </div>
+      <div class="card curvedCorners liveAnalysisGraphCard2">
+        <div class="card-body" style="padding:0px;">
+          <div class="scroll-pane1 col-12" style="height:100%;display: flex;"> 
+              <div id="liveGraphContainer" style="height:100%" class="col-12" >
+            </div>
+           </div>
+           <div id="scrollBarParent" style="visibility: hidden">
+            <div class="scroll-bar" style="width:100%;"></div>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+
+
+<div  class="col-12 segmentHeight2" id="offlinegraph" [ngClass]="liveGraphMinimzeMaximizestatus? 'displayNone':'displayBlock'">
+  <button type="button" class="btn btn-sm greenBtnColor minuteBtnSize" (click)="openLoadModal()" data-toggle="modal" data-target="#loadOfflineGraphModal" >
+    Load 
+  </button>
+  <button type="button" [disabled]="isOfflineAddDisabled" class="btn btn-sm greenBtnColor marginLeft5 minuteBtnSize" (click)="openOfflineAddDeleteModel()">
+    Add[+] / Delete[-]
+  </button>
+  <button [disabled]="isOfflineSaveDisabled" class="btn btn-sm greenBtnColor iconBtn marginLeft5 minuteBtnSize" (click)="saveOfflineGraph()"><i class="fas fa-save"></i></button>
+  <button class="btn btn-sm greenBtnColor iconBtn marginLeft5 minuteBtnSize" (click)="offlineGraphMinimzeMaximize()"><i class="far" [ngClass]="offlineGraphMinimzeMaximizestatus?'far fa-clone':'far fa-square'"></i></button>
+  <div class="card offlineGraphCard1 curvedCorners">
+    <div class="card-header curvedCorners">
+      <div class="col-12" style="display: inline-flex;">
+        <h6 class="col-6">Offline Graph</h6>
+        <div style="text-align: end;margin-top: -7px !important;color: #0095CA !important;font-weight: bold;" class="col-6 nomargin">-x- Left Direction<label style="vertical-align:super;margin-left: 15px;margin-right: 5px;">_<span class="dot"></span></label>-Right Direction</div>
+      </div>
+      <div class="card curvedCorners">
+        <div class="card-body" style="padding:0px;">
+          <div class="col-12" style="height:100%">
+            <div id="offlineGraphContainer" style="height:100%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade popupBackgroundColor" id="loadOfflineGraphModal">
+  <div class="modal-dialog modal-md maxModalWidth">
+    <div class="modal-content">      
+      <div class="modal-header">
+        <label class="modal-title ">Load Offline Graph Files</label>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="card curvedCorners offlineLoadCard">
+          <div class="card-header curvedCorners">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">File Path</label>
+              <div class="col-sm-1"></div>
+              <div class="col-sm-7">
+                <input  class="form-control" type="text" [(ngModel)]="logFilePath"  disabled="disabled">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Select Log file to Load</label>
+              <div class="col-sm-1" (click)="refreshOfflineGraphLogFile()"><i class="fas fa-sync"></i></div>
+              <div class="col-sm-7">
+                <select class="form-control"  id="loadGraphFileName" >                                 
+                  <option *ngFor="let item of filesInDir">{{item.Data}}</option>    
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button  [disabled]="offlineGraphLogFileCount == 0"  type="button" class="btn greenBtnColor" (click)="loadOfflineGraphSubmit()" data-dismiss="modal">Ok</button>
+      </div>      
+    </div>
+  </div>
+</div>
+
+<div class="modal offlineGraphPopupWidth popupBackgroundColor" id="offlineGraphAddDeleteModal" [style.display]="showHideOfflineGraphModal ? 'block' : 'none'">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <label class="modal-title">Add / Delete Offline Graphs</label>
+        <button type="button" class="close" (click)="closeOfflineGraphAddDeleteModal()"  data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" >
+        <div class="card curvedCorners" style="height: auto;">
+          <!-- <div class="card-header">
+            <h6>Layout Name: Off-line Graph</h6>
+          </div> -->
+          <div class="row card-body  mainOfflineCardRow">
+            <div class="row">
+            <div class="card curvedCorners col-5 graphListCard">
+              <div class="card-header curvedCorners parameterCardhead graphHeaderTxt" align="center">
+                Select a Graph to plot:
+              </div>
+              <div class="card-body offlineGraphContainer parameterCardBody">
+                <ul class="nopadding" style="list-style: none!important;">                        
+                  <li  class="liStyle offlineGraphParams" *ngFor="let item of offlineGraphDetails.Data.Row;let i = index" [attr.data-index]="i" [attr.data-value]="item.Data" [class.paramSelected]="i == 0" [ngClass]="'addDelIndividualClass'+ i" (click)="addDeleteOfflineGraphliCommon(i)"><a>{{item.Data}}</a></li>                           
+               </ul>
+              </div>
+            </div>
+            <div class="col-2">
+              <i class="fas fa-angle-double-right middleIcon" (click)="addToPlotOfflineList()"></i>
+            </div>
+            <div class="card curvedCorners col-5 selectedGraphListCard">
+              <div class="card-header curvedCorners parameterCardhead graphHeaderTxt" align="center">
+                Offline Graphs List 
+              </div>
+              <div class="card-body parameterCardBody offlineGraphContainer divOfflinePlottingList" (click)="selectOfflineGraphCheckBox()">
+                
+              </div>
+            </div>
+            </div>
+            <div class="row col-12" style="padding-left:0px;">
+              <!-- <div class="col-12 nopadding"> -->
+                <div class="col-5 nopadding">
+                  <select class="form-control" id="offlinegraphDirectionSelectBox" style="margin-top: 3px;">
+                    <option >Left</option>
+                    <option >Right</option>
+                  </select>
+                </div>
+                <div class="col-1 nopadding">
+                </div>
+                <div class="col-6 nopadding">
+                  <ul class="legend" style="margin-top: 8px;padding-left: 51px;">
+                    <li><span class="leftDir"></span>Left Direction</li>
+                    <li><span class="rightDir"></span>Right Direction</li>         
+                  </ul>
+                </div>
+            <!-- </div> -->
+            </div>
+
+          </div>
+          <div class="card-footer curvedCorners">
+            <div class="row">
+              <div class="col-7">
+                Note: Choose y-axis parameters from left panel and add them to the right list.
+              </div>
+              <div class="col" >
+                <div class="buttons btn-group col" style="margin-left: 30px;">
+                  <button type="button" class="btn btn-sm otherBtn btnBorderRadius" (click)="removeFromPlotOfflineList();selectOfflineGraphCheckBox()" [disabled]="disableOfflineGraphRemoveBtn == 0">Remove Selected</button> &nbsp;
+                  <button type="button" class="btn btn-sm otherBtn clear btnBorderRadius minuteBtnSize" (click)="clearPlotOfflineList()">Clear All</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>            
+      </div>
+      <div class="modal-footer">
+        <label class="col nopadding" style="color: red;">{{offlineGraphDuplicatError}}</label>
+        <button type="button" [disabled]="offlineGraphIndexList.length == 0" class="col-1 nomargin btn greenBtnColor" (click)="startOfflineGraph()" data-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div> 
+</div>
+
+<div id="liveAnalysisAddDeleteModal" class="modal fade popupBackgroundColor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" style="max-width: 700px;">
+      <div class="modal-header">
+        <label class="modal-title">Add/Delete live graphs</label>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row liveGraphRow">
+            <div class="col-5 card curvedCorners">
+              <div class="card-header curvedCorners parameterCardhead">
+                <div class="graphHeaderTxt" align="center">Parameters</div>
+              </div>
+              <div class="card-body parameterCardBody">
+                <form>
+                  <div class="form-group">
+                    <label for="component"><b>Components:</b></label>
+                    <select class="form-control form-control-sm" name="component" [(ngModel)]="component"  (change)="componentChanged()">
+                     <!-- <ng-container *ngFor="let item of liveAnalysisTab.Data">-->
+                        <ng-container *ngFor="let item1 of liveGraphCompArr; let indx = index">
+                          <option [ngValue]="indx" >{{item1}} </option>
+                        </ng-container>
+                      <!--</ng-container>-->
+                      </select>
+                  </div>
+  
+                  <div class="form-group">
+                  <label for="argOne"><b>ARG 1:</b></label>
+                  <select class="form-control form-control-sm" name="argOne" [(ngModel)]="argOne" (change)="arg1Changed()">
+                      <!--<ng-container *ngFor="let item of liveAnalysisTab.Data">-->
+                          <ng-container *ngFor="let item1 of liveGraphArg1Arr; let indx = index">
+                            <option [ngValue]="indx" >{{item1}}</option>
+                          </ng-container>
+                      <!--</ng-container>-->
+                    </select>
+                </div>
+  
+                  <div class="form-group">
+                  <label for="argTwo"><b>ARG 2:</b></label>
+                  <select class="form-control form-control-sm" name="argTwo" [(ngModel)]="argTwo" (change)="arg2Changed()">
+                     <!-- <ng-container *ngFor="let item of liveAnalysisTab.Data">-->
+                          <ng-container *ngFor="let item1 of liveGraphArg2Arr;let indx = index"s>
+                            <option [ngValue]="indx" >{{item1}}</option>
+                          </ng-container>
+                      <!-- </ng-container> -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="argThree"><b>ARG 3:</b></label>
+                  
+                  <select class="form-control form-control-sm" name="argThree" [(ngModel)]="argThree" (change)="arg3Changed()">  
+                            <option>Left</option>
+                            <option>Right</option>                   
+                  </select>
+
+                </div>
+
+
+                <div class="form-group">
+                <label for="graphName"><b>Graph Name:</b><span style="color: #005a9d">{{graphDisplayName}}</span></label>
+                  
+                </div>
+                 </form>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="row h-100" style="display: flex; align-items:center">
+                <div class="col-sm-12 my-auto">
+                  <i class="fas fa-angle-double-right liveGraphNextIcon" (click)="addToPlotLiveList()" ></i>
+                </div>
+            </div>
+            </div>
+            <div class="col-5 card curvedCorners" style="max-height:420px;"> 
+              <div class="card-header curvedCorners parameterCardhead">
+                <div class="graphHeaderTxt" align="center">Live graphs list</div>
+              </div>
+              <div class="card-body parameterCardBody liveGraphListCardBody">
+                <ul class="list-group">
+                  <a class="list-group-item list-group-item-action custom-groupitem"  *ngFor="let graph of liveGraphList;let odd=odd" [ngClass]="odd ? 'list-group-item-light' : 'list-group-item-secondary'" [ngStyle]="{'color': graph.graphColor}">
+                    <input type="checkbox" (change)="onCheckItem(graph,$event)" [ngStyle]="{'color': graph.graphColor}">
+                    {{graph.graphName}}</a>
+                </ul>
+              </div>
+            </div>
+          
+        </div>
+        <div class="card curvedCorners graphCard2">
+          <div class="card-footer curvedCorners ">
+            <div style="float: right;">
+              <button class="btn otherBtn btnBorderRadius" (click)="removeSelectedFromLiveGraph()" [disabled]="followList.length == 0">Remove Selected</button>&nbsp;
+              <button class="btn otherBtn btnBorderRadius" (click)="clearallValues()" [disabled]="liveGraphList.length == 0">Clear All </button>
+            </div>
+
+            <div class="row">
+              <ul class="legend" style="margin-top: 8px;">
+                <li><span class="leftDir"></span>Left Direction</li>
+                <li><span class="rightDir"></span>Right Direction</li>         
+              </ul>
+              </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <label style="color: red;margin-right: 60%;">{{liveGraphDuplicatError}}</label>
+          <button type="button" class="btn  btn-sm greenBtnColor" data-dismiss="modal" (click)="startLiveGraph()" [disabled]="liveGraphList.length == 0">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
