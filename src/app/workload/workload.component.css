@@ -484,3 +484,14 @@ label {
   font-weight: bold;	
   color: #2196F3;	
 }	
+
+input[type=checkbox]:checked + b:before {
+  content: "\2713";
+  font-family: ux-icons;
+
+}
+
+input[type=checkbox]:indeterminate + b:before {
+  content: "\f067";
+  font: 14px/1 DXIcons;
+}

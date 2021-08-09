@@ -533,7 +533,7 @@ export class WorkloadComponent implements OnInit {
     // event.Data.forEach(element => {
     //   element.data.isSelected = event.isSelected;
     // });
-    console.log(event)
+    event.AtleastOnePackageSelected = false;
     event.PackageData.forEach(element => {
       element.isSelected = event.PackageAllSelected;
       element.CoreAllSelected = event.PackageAllSelected;
@@ -544,19 +544,8 @@ export class WorkloadComponent implements OnInit {
   }
 
   isAllSelected(data) {
-    console.log(data);
     let count = 0;
-    // data.Data.forEach(element => {
 
-    //   if (element.data.isSelected == true) {
-    //     count += 1;
-    //   }
-    // });
-    // if (count == data.Data.length) {
-    //   data.isSelected = true;
-    // } else {
-    //   data.isSelected = false;
-    // }
     data.PackageData.forEach(element => {
 
       if (element.isSelected == true) {
@@ -568,18 +557,21 @@ export class WorkloadComponent implements OnInit {
     } else {
       data.PackageAllSelected = false;
     }
-
+    if(count == 0 || count == data.PackageData.length){
+      data.AtleastOnePackageSelected = false
+    } else {
+      data.AtleastOnePackageSelected = true;
+    }
   }
 
 
   selectedAllThreadData(data) {
-    console.log(data);
+    data.AtleastOneThreadSelected = false;
     data.ThreadData.forEach(element => {
       element.isSelected = data.SelectAllThread
     });
   }
   selectedThreadData(data) {
-    console.log(data);
     let count = 0;
     data.ThreadData.forEach(element => {
 
@@ -591,6 +583,12 @@ export class WorkloadComponent implements OnInit {
       data.SelectAllThread = true;
     } else {
       data.SelectAllThread = false;
+    }
+
+    if(count ==0 || count == data.ThreadData.length) {
+      data.AtleastOneThreadSelected = false;
+    } else {
+      data.AtleastOneThreadSelected = true;
     }
   }
 
@@ -611,43 +609,67 @@ export class WorkloadComponent implements OnInit {
     for(let i=0;i<count;i++) {
         arr.push({Index: i, Name: str+' '+ i,isSelected: true});
     }
-    console.log(arr);
     return arr;
   }
 
   checkAndUnCheckCore(event) {
+    event.AtleastOneCoreSelected = false;
     console.log(event);
-    event.isSelected = event.CoreAllSelected;
+    event.isSelected = event.isSelected;
     event.CoreData.forEach(element => {
-      element.isSelected = event.CoreAllSelected;
+      element.isSelected = event.isSelected;
     });
   }
 
   
 
   isAllSelectedCore(data) {
-    console.log(data);
     let count = 0;
     data.CoreData.forEach(element => {
-
       if (element.isSelected == true) {
         count += 1;
       }
     });
     if (count == data.CoreData.length) {
-      data.CoreAllSelected = true;
       data.isSelected = true;
     } else {
-      data.CoreAllSelected = false;
-    }
-
-    if(count === 0){
       data.isSelected = false;
     }
+    if(count === 0 || count == data.CoreData.length ) {
+      data.AtleastOneCoreSelected = false;
+    } else {
+      data.AtleastOneCoreSelected = true;
+    }
+    console.log(count, data.CoreData.length);
+    let count1 = 0;
+    this.workloadArray.forEach(element => {
+      element.DropDownList.forEach(element1 => {
+        element1.TableData.Row.forEach(element2 => {
+          if(element2.PackageData) {
+            element2.PackageData.forEach(element9 => {
+
+              if (element9.isSelected == true) {                
+                count1 += 1;
+              }
+            });
+            if (count1 == element2.PackageData.length) {
+              element2.PackageAllSelected = true;
+            } else {
+              element2.PackageAllSelected = false;
+            }
+            if(count1 == 0 || count1 == element2.PackageData.length){
+              element2.AtleastOnePackageSelected = false
+            } else {
+              element2.AtleastOnePackageSelected = true;
+            }
+            
+          }
+        });
+      });
+    });
   }
 
   cpuCheckboxClicked(cpu){
-    console.log(cpu);
     if(cpu.isSelected == true){
       cpu.CoreData.forEach(element => {
         element.isSelected = false;

@@ -474,7 +474,7 @@ liveGraphFeature:any = [];
 		
 		if (message) {
 			this.followList = [];
-			let UIDList =message.UID.split(",");
+			let UIDList =message.Data.UID.split(",");
 			for(let i =0; i<UIDList.length ; i++){
 				let index = this.liveGraphUIDList.indexOf(UIDList[i]);
 				if(index>-1){
@@ -485,8 +485,8 @@ liveGraphFeature:any = [];
 						this.plotLiveChart.render();
 						this.xVal = 0;
 						this.liveGraphButtonsDisabled = true;
-						// var command = '{"Command" : "StopGraph1"}'
-						var command = '{"Command" : "StopGraph"}'
+						var command = '{"Command" : "StopGraph1"}'
+						// var command = '{"Command" : "StopGraph"}'	
 						this.SocketService.sendMessage(command);
 						// this.SocketService.sendMessage("StopGraph1()");
 						this.play = false;
@@ -643,8 +643,8 @@ liveGraphFeature:any = [];
 		
 		
 		
-				var command = '{"Command" : "AddParamToGraph","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
-				// var command = '{"Command" : "AddParamToGraph1","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
+				// var command = '{"Command" : "AddParamToGraph","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
+				var command = '{"Command" : "AddParamToGraph1","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
 				this.SocketService.sendMessage(command);
 				//this.SocketService.sendMessage("AddParamToGraph1("+compIndex+","+arg1Index+","+arg2Index+",-1)");
 				this.liveGraphDuplicatError = "";
@@ -675,7 +675,7 @@ liveGraphFeature:any = [];
 				argThread = this.liveGraphThread.findIndex(x => x == this.argThread);
 				argFeature = this.liveGraphFeature.findIndex(x => x == this.argFeature);
 
-				let command = '{"Command" : "AddParamToGraph","Args":'+'"'+this.argFeature.Index+","+this.argThreeIndex+",-1"+'"'+'}'
+				let command = '{"Command" : "AddParamToGraph1","Args":'+'"'+this.argFeature.Index+","+this.argThreeIndex+",-1"+'"'+'}'
 				// let command = '{"Command" : "AddParamToGraph1","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+argThread+","+argFeature+","+this.argThreeIndex+",-1"+'"'+'}'
 				this.SocketService.sendMessage(command);
 			}else{
@@ -719,22 +719,22 @@ liveGraphFeature:any = [];
 		}
 		
 		
-		var command = '{"Command" : "RemoveParamFromGraph","Args":'+'"'+commandParams+'"'+'}'
-		// var command = '{"Command" : "RemoveParamFromGraph1","Args":'+'"'+commandParams+'"'+'}'
+		// var command = '{"Command" : "RemoveParamFromGraph","Args":'+'"'+commandParams+'"'+'}'
+		var command = '{"Command" : "RemoveParamFromGraph1","Args":'+'"'+commandParams+'"'+'}'
 		this.SocketService.sendMessage(command);
 		//var cmd = "RemoveParamFromGraph1("+commandParams+")";
 	}
 	clearallValues(){
 		let lstLen = this.liveGraphList.length;
 		let commandParams = this.liveGraphUIDList.join();
-		var command = '{"Command" : "RemoveParamFromGraph","Args":'+'"'+commandParams+'"'+'}'
-		// var command = '{"Command" : "RemoveParamFromGraph1","Args":'+'"'+commandParams+'"'+'}'
+		// var command = '{"Command" : "RemoveParamFromGraph","Args":'+'"'+commandParams+'"'+'}'
+		var command = '{"Command" : "RemoveParamFromGraph1","Args":'+'"'+commandParams+'"'+'}'
 		this.SocketService.sendMessage(command);
 		//var cmd = "RemoveParamFromGraph1("+commandParams+")";
 	}
 	startLiveGraph(){
-		// var command = '{"Command" : "StartGraph1"}'
-		var command = '{"Command" : "StartGraph"}'
+		var command = '{"Command" : "StartGraph1"}'
+		// var command = '{"Command" : "StartGraph"}'
 		this.SocketService.sendMessage(command);
 		// this.SocketService.sendMessage("StartGraph1()");
 		this.graph1StartStatusReceived = true;
@@ -820,15 +820,15 @@ liveGraphFeature:any = [];
 
   fnPlayPause(play){
 	  if(!play){
-			// var command = '{"Command" : "StartGraph1"}'
-			var command = '{"Command" : "StartGraph"}'
+			var command = '{"Command" : "StartGraph1"}'
+			// var command = '{"Command" : "StartGraph"}'
 			this.SocketService.sendMessage(command);
 			//this.SocketService.sendMessage("StartGraph1()");
 			this.graph1StartStatusReceived = true;
 	  }
 	  else{
-			// var command = '{"Command" : "StopGraph1"}'
-			var command = '{"Command" : "StopGraph"}'
+			var command = '{"Command" : "StopGraph1"}'
+			// var command = '{"Command" : "StopGraph"}'
 			this.SocketService.sendMessage(command);
 			//this.SocketService.sendMessage("StopGraph1()");
 			this.graph1StartStatusReceived = false;

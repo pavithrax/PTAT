@@ -290,7 +290,7 @@
                               <div class=" col-sm-3 card1 curvedCorners card1-padding" style="max-height: 170px !important;
                                 border: 1px solid #80808099" *ngIf="item4.ThreadStart">
                                  <div class="fixedtop">
-                                    <input id="core" type="checkbox" type="checkbox" [(ngModel)]="item4.SelectAllThread"
+                                    <input id="core" type="checkbox" type="checkbox" [(ngModel)]="item4.SelectAllThread" [indeterminate]="item4.AtleastOneThreadSelected"
                                        (change)="selectedAllThreadData(item4)">
                                     <label for="core" style="margin-left: 8px;">Select Thread</label>
                                  </div>
@@ -305,17 +305,7 @@
                                        </div>
                                     </ul>
                                  </div>
-                                 <!-- <div style="margin-left: -24px;">
-                                    <ul class="list-style1">
-                                       <input type="checkbox" [(ngModel)]="item4.SelectAllThread"
-                                          (change)="selectedAllThreadData(item4)">
-                                       <label style="margin-left: 8px;">Select Thread</label>
-                                       <li class="list-style" *ngFor="let item6 of item4.ThreadData">
-                                          <input type="checkbox" [(ngModel)]="item6.isSelected"
-                                             (change)="selectedThreadData(item4)">&nbsp;{{item6.Name}}
-                                       </li>
-                                    </ul>
-                                 </div> -->
+                                 
                               </div>
 
                               <div style="margin: 10px;" (change)="toggleStatus()">
@@ -332,30 +322,13 @@
                            <div class="row workLoadTableCC" [ngClass]="'workLoadTableCheckBox'+item.Index+item1.Index"
                               style=" width: 100% !important;">
 
-                              <!-- <div class="col-sm-4 col-md-4 card curvedCorners card1-padding" style="max-height: 170px !important;
-                    overflow: auto !important">
-
-                                 <div *ngFor="let item5 of item1.TableData.Row" style="margin-left: -24px;">
-                                    <ul class="list-style1">
-                                       <input type="checkbox" [(ngModel)]="item5.PackageAllSelected"
-                                          (change)="checkUncheckAll(item5)">
-                                       <label style="margin-left: 8px;">Select Package</label>
-                                       <li [ngClass]="'cpuClicked'+item.Index+item1.Index+item6.Index"
-                                          class="list-style cpuTree"
-                                          *ngFor="let item6 of item5.PackageData; let i=index">
-                                          <input type="checkbox" [(ngModel)]="item6.isSelected"
-                                             (change)="isAllSelected(item5)">&nbsp;<a
-                                             (click)="cpuClicked(item6,item.Index+item1.Index+item6.Index+';'+item6.Name)">{{item6.Name}}</a>
-                                       </li>
-                                    </ul>
-                                 </div> -->
-                              <!-- </div> -->
+                              
 
                               <div class="col-sm-4 col-md-4 card curvedCorners card1-padding"
                                  style="max-height: 170px !important;">
                                  <div *ngFor="let item5 of item1.TableData.Row">
                                     <div class="fixedtop">
-                                       <input type="checkbox" [(ngModel)]="item5.PackageAllSelected"
+                                       <input type="checkbox" [(ngModel)]="item5.PackageAllSelected" [indeterminate]="item5.AtleastOnePackageSelected"
                                           (change)="checkUncheckAll(item5)">
                                        <label style="margin-left: 8px;">Select Package</label>
                                     </div>
@@ -366,7 +339,7 @@
                                                 class="list-style cpuTree"
                                                 *ngFor="let item6 of item5.PackageData; let i=index">
                                                 <input type="checkbox" [(ngModel)]="item6.isSelected"
-                                                   (click)="cpuCheckboxClicked(item6)"
+                                                   (click)="cpuCheckboxClicked(item6)" [indeterminate]="item6.AtleastOneCoreSelected"
                                                    (change)="isAllSelected(item5)">&nbsp;<a
                                                    (click)="cpuClicked(item6,item.Index+item1.Index+item6.Index+';'+item6.Name)">&nbsp;{{item6.Name}}</a>
                                              </li>
@@ -378,7 +351,7 @@
                               <div class="col-sm-4 col-md-4 card curvedCorners card1-padding"
                                  style="max-height: 170px !important;">
                                  <div class="fixedtop">
-                                    <input id="core" type="checkbox" type="checkbox" [(ngModel)]="core.CoreAllSelected"
+                                    <input id="core" type="checkbox" type="checkbox" [(ngModel)]="core.isSelected" [indeterminate]="core.AtleastOneCoreSelected"
                                        (change)="checkAndUnCheckCore(core)">
                                     <label for="core" style="margin-left: 8px;">Select Core</label>
                                  </div>
@@ -394,23 +367,7 @@
                                     </ul>
                                  </div>
                               </div>
-                              <!-- <div class="col-sm-4 col-md-4 card curvedCorners card1-padding" style="max-height: 170px !important;
-                    overflow: auto !important">
-                                 <div style="margin-left: -24px;">
-                                    <ul class="list-style1">
-                                       <input type="checkbox" [(ngModel)]="core.CoreAllSelected"
-                                       (change)="checkAndUnCheckCore(core)"> 
-                                       <label style="margin-left: 8px;">Select Core</label>
-                                       <div class="list-style">
-                                          <li class="corevalues" *ngFor="let item6 of core.CoreData">
-                                             <input type="checkbox" [(ngModel)]="item6.isSelected"
-                                             (change)="isAllSelectedCore(core)"> &nbsp;
-                                             {{item6.Name}}
-                                          </li>
-                                       </div>
-                                    </ul>
-                                 </div>
-                              </div> -->
+                              
 
                            </div>
                         </div>
