@@ -366,6 +366,7 @@
                                                 class="list-style cpuTree"
                                                 *ngFor="let item6 of item5.PackageData; let i=index">
                                                 <input type="checkbox" [(ngModel)]="item6.isSelected"
+                                                   (click)="cpuCheckboxClicked(item6)"
                                                    (change)="isAllSelected(item5)">&nbsp;<a
                                                    (click)="cpuClicked(item6,item.Index+item1.Index+item6.Index+';'+item6.Name)">&nbsp;{{item6.Name}}</a>
                                              </li>

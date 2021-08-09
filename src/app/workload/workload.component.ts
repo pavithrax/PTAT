@@ -16,7 +16,7 @@ import { AppComponent } from '../app.component';
 export class WorkloadComponent implements OnInit {
   @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
   //@ViewChild(HelloComponent, {static: false}) hello: HelloComponent;
-
+  // dataArr:any;
   dropOrCheckBooleanValue = '';
   workloadArray: any;
   workloadArray1: any;
@@ -342,6 +342,8 @@ export class WorkloadComponent implements OnInit {
     $("." + workLoadTable).removeClass('hide');
     $("." + workLoadTableCheckBox).removeClass('hide');
     $(".workLoadTableDropdown" + workLoadId).removeClass('hide');
+    $('.cpuTree').removeClass('colorSelectedTree1');
+
 
     let checkValue;
 
@@ -355,6 +357,7 @@ export class WorkloadComponent implements OnInit {
             if (element2.PackageData) {
               this.core = element2.PackageData[0];
             }
+            
           });
 
         }
@@ -530,8 +533,13 @@ export class WorkloadComponent implements OnInit {
     // event.Data.forEach(element => {
     //   element.data.isSelected = event.isSelected;
     // });
+    console.log(event)
     event.PackageData.forEach(element => {
       element.isSelected = event.PackageAllSelected;
+      element.CoreAllSelected = event.PackageAllSelected;
+      element.CoreData.forEach(element => {
+        element.isSelected = event.PackageAllSelected;
+      });
     });
   }
 
@@ -609,6 +617,7 @@ export class WorkloadComponent implements OnInit {
 
   checkAndUnCheckCore(event) {
     console.log(event);
+    event.isSelected = event.CoreAllSelected;
     event.CoreData.forEach(element => {
       element.isSelected = event.CoreAllSelected;
     });
@@ -627,9 +636,28 @@ export class WorkloadComponent implements OnInit {
     });
     if (count == data.CoreData.length) {
       data.CoreAllSelected = true;
+      data.isSelected = true;
     } else {
       data.CoreAllSelected = false;
     }
 
+    if(count === 0){
+      data.isSelected = false;
+    }
+  }
+
+  cpuCheckboxClicked(cpu){
+    console.log(cpu);
+    if(cpu.isSelected == true){
+      cpu.CoreData.forEach(element => {
+        element.isSelected = false;
+      });
+      cpu.CoreAllSelected = false;
+    }else{
+      cpu.CoreData.forEach(element => {
+        element.isSelected = true;
+      });
+      cpu.CoreAllSelected = true;
+    }
   }
 }
