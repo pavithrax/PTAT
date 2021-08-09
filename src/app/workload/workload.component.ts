@@ -16,7 +16,7 @@ import { AppComponent } from '../app.component';
 export class WorkloadComponent implements OnInit {
   @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
   //@ViewChild(HelloComponent, {static: false}) hello: HelloComponent;
-  // dataArr:any;
+
   dropOrCheckBooleanValue = '';
   workloadArray: any;
   workloadArray1: any;
