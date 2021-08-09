@@ -1,0 +1,150 @@
+   /* NEW CODE */
+   
+   #footerTat {
+       height: 25px;
+   }
+   /* Make it a marquee */
+   
+   #marquee {
+       white-space: nowrap;
+       color: white;
+       overflow: hidden;
+       /*animation: marquee 100s linear infinite;*/
+       animation: marquee 30s ease-in-out infinite;
+   }
+   /* Make it move */
+   
+   @keyframes marquee {
+       0% {
+           text-indent: 27.5em
+       }
+       100% {
+           text-indent: -105em
+       }
+   }
+   
+   .clickBtns {
+       cursor: pointer;
+       font-size: 20px;
+   }
+   
+   #footerTat {
+       background-color: #204554 !important;
+   }
+   
+   #btns {
+       background-color:  #0095CA !important;
+   }
+   
+   #labelCss {
+       color: white;
+       font-size: 13px;
+       background-color: #0095CA !important;
+       text-align: center;
+   }
+   
+   #slides {
+       position: relative;
+       padding: 0px;
+       margin: 0px;
+       list-style-type: none;
+       cursor: pointer;
+   }
+   
+   .slide {
+       position: absolute;
+       left: 0px;
+       top: 0px;
+       width: 100%;
+       height: 100%;
+       opacity: 0;
+       z-index: 1;
+       color: #fff;
+       -webkit-transition: opacity 1s;
+       -moz-transition: opacity 1s;
+       -o-transition: opacity 1s;
+       transition: opacity 1s;
+   }
+   
+   .showing {
+       opacity: 1;
+       z-index: 2;
+   }
+   
+   .slide {
+       font-size: 13px;
+       box-sizing: border-box;
+       text-align: center;
+       opacity: 1;
+       z-index: 2;
+   }
+   
+   .controls {
+       height:25px;
+       font-size: 13px;
+       cursor: pointer;
+       background-color: #0095CA !important;
+       border : 1px solid #0095CA !important;
+   }
+   
+   .iconColor {
+       color: #FFFF00;
+       font-size: 13px;
+   }
+   
+   .button:hover {
+       background-color: #B4F0FF !important
+   }
+   
+   #alignBtns {
+       text-align: right;
+   }
+   
+   @media (max-width:600px) and (min-width:380px) {
+       #alignBtns {
+           width: 30% !important;
+       }
+       .container {
+           width: 40%!important;
+           /* overflow: auto;*/
+       }
+       #labelCss {
+           width: 30%!important;
+           padding-top: 4px;
+       }
+   }
+   
+   @media only screen and (max-width: 380px) {
+       #alignBtns {
+           width: 30% !important;
+       }
+       .container {
+           width: 40%!important;
+           /* overflow: auto;*/
+       }
+       #labelCss {
+           width: 30%!important;
+           font-size: 10px;
+           padding-top: 4px;
+       }
+   }
+   @media only screen and (max-width: 650px) {
+    #labelCss {
+        font-size: 9px;
+    }
+    .slide {
+        font-size: 9px;
+    }
+    .clickBtns {
+        font-size: 16px;
+    }
+    .controls {
+        font-size: 9px;
+    }
+    .iconColor {
+        font-size: 9px;
+    }
+    .paddingTop{
+        padding-top:7px;
+    }
+   }

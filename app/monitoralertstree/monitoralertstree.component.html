@@ -1,0 +1,54 @@
+<!-- <span class="col float-right"><i id="sidebarCollapse"  (click)="fnToggle()" class="intelicon-rewind-reverse " ></i></span> -->
+<ul class="leftPadding" style="list-style: none;margin-top:13px" id="scrollCommonTree">
+    <li *ngFor="let item of dataArr" >
+            <label  matTooltip={{item.ToolTip}} matTooltipPosition="below" class="container" style="font-weight: bold ! important;"> {{item.Name}}
+                    <input type="checkbox"  (click)="monitorNode($event,item)" [(ngModel)]="item.isSelected" (ngModelChange)="superparentCheck(item)" style="cursor: pointer">
+                    <span class="checkmark"></span>
+            </label>
+
+
+        <ul style="list-style: none;padding:0px;cursor: pointer">
+            <li *ngFor="let item1 of item.Treelist" >
+                    <span (click)="expandCollapse(item1)" style="display: inline-flex">
+                        <i [ngClass]="{'fa-plus': !item1.expand ,'fa-minus': item1.expand}"
+                        class="smallIconSize fas fa-plus"></i>
+                        &nbsp;
+                        <label matTooltip={{item1.ToolTip}}  matTooltipPosition="below" class="container">
+                                &nbsp;{{item1.Name}}
+                                <input type="checkbox" [attr.data-index]="item1.Index" [(ngModel)]="item1.isSelected" (click)="superParentNode($event,item1,item)"  (ngModelChange)="parentCheck(item1,item)"  style="cursor: pointer"> 
+                                <span class="checkmark"></span>
+                            </label>
+                    </span>
+
+                <ul style="list-style: none; padding-left:20px;" [hidden]="item1.expand != true">
+                    <li *ngFor="let item2 of item1.Treelist">
+
+                        <span (click)="expandCollapse(item2)" style="display: inline-flex">
+                            <i  class ="smallIconSize fas fa-plus" [ngClass]="{'fa-plus': !item2.expand ,'fa-minus': item2.expand}"></i>
+                         &nbsp; 
+                        
+                        <label matTooltip={{item2.ToolTip}} matTooltipPosition="below" class="container">
+                                &nbsp;{{item2.Name}}
+                                <input type="checkbox" [attr.data-index-parent]="item1.Index"  [attr.data-index]="item2.Index" (click)="parentNode($event,item2)" [(ngModel)]="item2.isSelected"  style="cursor: pointer" (ngModelChange)="parentCheck1(item,item1.Treelist,item1,item2)"> 
+                                <span class="checkmark"></span>
+                            </label>
+                            </span>
+
+                        <ul cdkDropList id="treeMenu" [cdkDropListConnectedTo]="cdkDropConnectedToList"  [cdkDropListSortingDisabled]="true"  [hidden]="item2.expand != true" style="list-style: none;padding-left: 30px;">
+                            <li *ngFor="let item3 of item2.SubTreeList" >
+                                    <label class="container">
+                                        &nbsp;<span cdkDrag [attr.data-item-index]="item3.Index" [attr.data-item-type]="item3.Type" [attr.data-item-pName]="item2.Name" [attr.data-item-unit]="item3.unit" matTooltip={{item3.ToolTip}} matTooltipPosition="below">{{item3.Name}}</span>
+                                            <input type="checkbox" [attr.data-index]="item3.Index" (click)="childNode($event)"  [(ngModel)]="item3.isSelected" style="cursor: pointer" (ngModelChange)="childCheck(item,item1,item2,item2.SubTreeList)">
+                                            <span class="checkmark"></span>
+                                        </label>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li> 
+        </ul>
+    </li>
+
+</ul>
+
+

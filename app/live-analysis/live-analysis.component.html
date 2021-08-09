@@ -1,0 +1,98 @@
+<div style="height:100%">
+<mat-sidenav-container autosize class="example-container" style="margin-top: -15px !important;">
+    
+    <mat-sidenav #sidenav mode="side" [opened]="true" class="sidenavColour workloadSidePanel">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 nopadding nomargin">
+            <ul class="noBulletDesign">
+                <li  *ngFor="let item of liveAnalysisTreeData; let k = index " >
+                        <i (click)="expandCollapse(item)" [ngClass]="{'intelicon-plus': !item.expand ,'intelicon-minus': item.expand}" class="intelicon-plus"></i>
+                    {{item.TreeItemName}}   
+                    <ul *ngIf="item.expand" class="childData">
+                        <li class="liveAnalysisTreeCC" *ngFor="let item1 of item.Treelist; let i = index" [ngClass]="{'liveAnalysisTreeselectionColor': (i==0 && k == 0)}" (click)="addingToBox(item1)" >
+                            <i [ngClass]="'liveAnalysisIndividual'+item1.Index" class="fas fa-angle-right"></i> &nbsp;{{item1.ParentTreeItemName}} 
+                        </li>
+                    </ul>
+                </li> 
+            </ul>
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="workloadContent">
+        <div style="height: 30px;margin-left:4px !important;">
+            <div class="sidePanelBtn" style="position: fixed;" (click)="sidenav.toggle();toggleIcon()">
+                <i class="sidePanelIcon fas" [ngClass]="hasClass ?'fas fa-angle-double-right':'fas fa-angle-double-left'"></i>
+              </div>
+        </div>
+        <div class="mainContent">
+            <div class="card curvedCorners firstCard">
+                <div class="card-header curvedCorners">
+                    <h6 class="cardHeading">Analysis</h6>
+                    <div class="card">
+                        <div class="card-body analysisCard">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-3 col-form-label">
+                                    Analysis Name:-
+                                </label>
+                                <div class="col-sm-7">
+                                    <input type="email" class="form-control formName" disabled [(ngModel)]="analysisName">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-3 col-form-label">
+                                    Analysis Description:-
+                                </label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control formName" disabled [(ngModel)]="analysisDesc">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-3 col-form-label">
+                                    Precondition:-
+                                </label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control formName" disabled  [(ngModel)]="analysisPreCond">
+                                </div>
+                            </div>
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card curvedCorners firstCard">
+                <div class="card-header curvedCorners" style="padding-bottom: 7px;">
+                    <h6 class="cardHeading">Current Status - Initialized</h6>
+                    <div class="card" style="height: calc(100vh - 449px);">
+                        <div class="card-body statusBody">
+                            <div class="bodyDataAnalysis" style="height: 84%;" (contextmenu)="onContextMenu($event)">
+                                <div style="visibility: hidden; position: fixed"
+                                    [style.left]="contextMenuPosition.x"
+                                    [style.top]="contextMenuPosition.y"
+                                    [matMenuTriggerFor]="contextMenu">
+                                </div>
+                                <mat-menu #contextMenu="matMenu" style="min-height: 57px !important;">
+                                    <ng-template matMenuContent>
+                                        <label mat-menu-item (click)="selectAll()" style="margin-bottom: 0px;font-size: 13px;height: 33px;margin-top: -13px;">Copy All</label>
+                                        <label mat-menu-item (click)="clearAll()" style="margin-bottom: 0px;font-size: 13px;height: 33px;margin-top: -6px;">Clear All</label>
+                                    </ng-template>
+                                </mat-menu>
+                                <div id="liveAnaysisContainer">
+                                    <div   *ngFor = "let item of solverResult">                     
+                                        <span  [ngClass]="{'text-dark':item.Status == '8','text-success':item.Status == '2','text-danger':item.Status == '1','text-warning':item.Status == '4'}">{{item.StatusText}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="btnDiv">
+                        <button type="button" class="btn btn-sm" [ngClass]="analysisBtnval == 'Start' ? 'greenBtnColor' : 'redBtnColor'" (click)="startSolver(analysisBtnval)" style="min-width: 80px;">
+                            {{analysisBtnval}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>
+</div>

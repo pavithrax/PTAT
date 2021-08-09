@@ -1,0 +1,145 @@
+<div class="modal popupBackgroundColor" id="hostErrorModal"  [style.display]="showHostErrorModal ? 'block' : 'none'">
+    <div class="modal-dialog modal-md" style="max-width: 581px">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: none">
+          <div style="padding: 5px 0px 0px 5px;">
+            <i class="fas fa-link"></i><label style="padding-left: 3px;margin-bottom: 0px;">Manage Connection</label>
+          </div>
+          <button type="button" class="close"  aria-label="Close" *ngIf="showHideSettings" (click)="closeHostPopup()">
+            <span style="color:#fff;" aria-hidden="true">&times;</span>
+          </button>
+         </div>
+      
+        <div class="modal-body" style="padding:0px !important">
+              <div class="row connections-popup-img">
+                  <div class="col-2"><img src="assets/images/ui_icon.png" alt="UI"></div>
+                  <div class="col-2"> <img src="assets/images/plug_released.png" alt="UI"></div>
+                  <div class="col-3"><img src="assets/images/host_icon.png" alt="UI" style="margin-left: 22px;"></div>
+                  <div class="col-2" style="padding-left: 2px;"> <img src="assets/images/plug_released.png" alt="UI"></div> 
+                  <div class="col-3"> <img src="assets/images/target_icon.png" alt="UI"></div>
+                </div>
+                <div class="connections-target-heading col-md-12 col-sm-12 col-xs-12">
+                  <label style="font-weight: 1000;font-size: 14px;">Host</label>
+                    <p class="" *ngIf="showHideSettings" align="center" style="padding-left:15px;">Port No:<input type="text" class="hide" [(ngModel)]="portNumber" style="margin-left: 10px;" disabled="disabled" > </p>
+                  <button class=" btn  tatButtonColour" value="Connect" *ngIf="showHideSettings"  (click)="fnConnectPort()">Connect</button>
+              </div>
+              
+              <div  class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 nopadding" style="text-align: center;"> 
+                <label style="color:red;padding-top: 8px;">{{hosterrorMessage}}</label>
+               </div>
+        </div>
+      
+        <!-- <div class="modal-footer" style="padding:5px">
+        </div> -->
+      </div>
+    </div>
+</div>
+  
+
+
+<div class="modal popupBackgroundColor" id="targetErrorModal"  [style.display]="showTargetErrorModal ? 'block' : 'none'">
+    <div class="modal-dialog modal-md" style="max-width: 581px">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: none">
+          <div style="padding: 5px 0px 0px 5px;">
+            <i class="fas fa-link"></i><label style="padding-left: 3px;margin-bottom: 0px;">Connection Error</label>
+          </div>
+          <button type="button" class="close" *ngIf="showHideSettings"  aria-label="Close" (click)="closeTargetPopup()">
+            <span style="color:#fff;" aria-hidden="true">&times;</span>
+          </button>
+         </div>
+      
+        <div class="modal-body" style="padding:0px !important" >
+            <!-- <p>image come here</p> -->
+            <div class="row connections-popup-img nopadding">
+              <div class="col-2 nopadding"><img src="assets/images/ui_icon.png" alt="UI"></div>
+              <div class="col-2 nopadding"> <img src="assets/images/plug_connected.png" alt="UI"></div>
+              <div class="col-3 nopadding"><img  src="assets/images/host_icon.png" style="margin-left: 10px;" alt="UI"></div>
+              <div class="col-2 nopadding" *ngIf="targetConnectionStatus == false"> <img src="assets/images/plug_released.png" alt="UI"></div> 
+              <div class="col-2 nopadding" *ngIf="targetConnectionStatus == true"> <img src="assets/images/plug_connected.png" alt="UI"></div> 
+              <div class="col-3 nopadding"> <img src="assets/images/target_icon.png" alt="UI"></div>
+            </div>
+          <div  class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 nopadding"> 
+            <ul class="nav nav-tabs" id="myTab" role="tablist" *ngIf="showHideSettings">
+              <li class="nav-item" style="width:50% !important">
+                <a class="nav-link addTargetActiveHeader removeActiveHeader active" style="background-color: #DEDBD7;text-align: center;" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">TARGET</a>
+              </li>
+              <li class="nav-item" style="width:50% !important;padding-left: 6px;">
+                <a class="nav-link addFavListActiveHeader removeActiveHeader" style="background-color: #DEDBD7;text-align: center;" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">FAV LIST</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade addTargetActiveBody show removeActiveBody active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div  class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 nopadding" style="text-align: center;"> 
+                  <label style="font-weight: 1000;font-size: 14px;">TARGET</label>
+                </div>
+                <div  class="row" style="text-align: center;"> 
+                  <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+
+                  </div>
+                  <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" style="margin-top: 11px;text-align: left;">
+                    <label class="marginLeftAllign" *ngIf="showHideSettings">IP Address :</label>
+                  </div>
+                  <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7"  style=" text-align: left;">
+                    <input class="bottomBorderTextBox" [(ngModel)]="targetIpdAddress"  *ngIf="showHideSettings" placeholder="Type ip address here"/>
+                  </div>
+                </div>
+                <div  class="row" style="text-align: center;"> 
+                  <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+
+                  </div>
+                  <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" style="margin-top: 11px;text-align: left;">
+                    <label class="marginLeftAllign" *ngIf="showHideSettings">Port :</label>
+                  </div>
+                  <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7"  style=" text-align: left;">
+                    <input class="bottomBorderTextBox" [(ngModel)]="targetPortNumber"  *ngIf="showHideSettings" placeholder="Type port number here"/>
+                  </div>
+                </div>
+                <div  class="row" style="text-align: center;"> 
+                  <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+
+                  </div>
+                  <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" style="margin-top: 11px;text-align: left;">
+                    <label class="marginLeftAllign" *ngIf="showHideSettings">Name :</label>
+                  </div>
+                  <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7"  style=" text-align: left;">
+                    <input class="bottomBorderTextBox" [(ngModel)]="targetName" *ngIf="showHideSettings"  placeholder="Type name here"/>
+                  </div>
+                </div>
+                <div  class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="text-align: center;"> 
+                  <button type="button" class="btn btn-sm tatButtonColour" (click)="addFavList()" style="width: 81px;" *ngIf="showHideSettings">Add</button>
+                  <button type="button" class="btn btn-sm tatButtonColour" (click)="connectTarget()" style="width: 81px;margin-left: 5px;" *ngIf="showHideSettings">Connect</button>
+                </div>
+
+              </div>
+              <div class="tab-pane fade addFavListActiveBody removeActiveBody" id="profile" role="tabpanel" aria-labelledby="profile-tab" >
+                <div class="targetFixHead">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th class="targetHeaderBorderColor">Name</th>
+                        <th class="targetHeaderBorderColor">IP Address</th>
+                        <th class="targetHeaderBorderColor">Port No</th>
+                        <th>Connect / Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <tr *ngFor = "let item of FavouriteDeviceList;let i = index">
+                        <td>{{item.name}}</td><td>{{item.ipaddress}}</td><td>{{item.portno}}</td><td ><span class="fas fa-plug iconGreen" (click)="selectFavList(i)" style="margin-left: 35px;"></span><span class="intelicon-trash" (click)="deleteFavList(i)"> </span>&nbsp;
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+              </div>
+            </div>
+         </div>
+         <div  class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 nopadding" style="text-align: center;"> 
+          <label style="color:red;padding-top: 8px;">{{targetHosterrorMessage}}</label>
+         </div>
+        </div>
+      
+      </div>
+    </div>
+</div>

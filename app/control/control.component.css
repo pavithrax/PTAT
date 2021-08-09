@@ -1,0 +1,238 @@
+.mat-drawer-container {
+    background-color: #ffff !important; 
+  }
+  
+
+  
+  mat-slider {
+    width: 98%;
+  }
+  
+  my-slider {
+    transform: scale(2);
+  }
+  
+  ::ng-deep .mat-accent .mat-slider-thumb {
+    background-color: #005EB7;
+  } 
+  ::ng-deep .mat-accent .mat-slider-thumb-label {
+    background-color: #005EB7;
+  } 
+  ::ng-deep .mat-accent .mat-slider-track-fill {
+    background-color: #005EB7;
+  } 
+
+
+  .controlDropdown > ::ng-deep .mat-form-field-wrapper > .mat-form-field-flex{
+    background-color: #005EB7  !important;
+    border-radius: 5px!important;
+  }
+  
+  ::ng-deep .mat-form-field-underline {
+    display: none;
+  }
+  
+  .controlDropdown > ::ng-deep .mat-form-field-wrapper >  .mat-form-field-flex > .mat-form-field-infix > .mat-form-field-autofill-control{
+    color: #fff !important;
+  }
+  
+  .controlDropdown > ::ng-deep .mat-form-field-wrapper >  .mat-form-field-flex > .mat-form-field-infix > .mat-input-element  > .ng-star-inserted {
+    color:  black !important;
+  }
+  
+  
+  .treeAllignment{
+    list-style: none;
+    padding:12px;
+  }
+  .treeAllignment i{
+    cursor: pointer;
+  }
+  .treeAllignment ul li{
+    list-style: none;
+    padding-left: 4px;
+  }
+  .treeAllignment ul{
+    padding-left: 5px !important;
+  }
+  
+
+  #sidebar1 {
+    min-width: 250px;
+    max-width: 250px;
+    background: #005EB7;
+    color: #fff;
+    transition: all 0.3s;
+    height:100%;
+  }
+  
+  #sidebar1.active {
+    margin-left: -250px;
+  }
+  
+  #sidebar1 .sidebar-header {
+    padding: 20px;
+    background: #6d7fcc;
+  }
+  
+  #sidebar1 ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+  }
+  
+  #sidebar1 ul p {
+    color: #fff;
+    padding: 10px;
+  }
+  
+  #sidebar1 ul li a {
+    padding: 10px;
+    /*font-size: 1.1em;*/
+    display: block;
+  }
+  
+  #sidebar1 ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+  }
+  
+  #sidebar1 ul li.active>a,
+  a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+  }
+  
+  .colorSelectedTree {
+    color: #FFFF00;
+  }
+
+  /* mat-form-field{
+    width: 98% !important;
+  } */
+/* 
+  tr:nth-child(even) {background-color: #f2f2f2;}  */
+
+/* ::ng-deep .controlDropdown > .mat-form-field-wrapper{
+  padding-bottom: 0.6em ! important;
+} */
+
+/* ::ng-deep .controlDropdown > .mat-form-field-wrapper > .mat-form-field-flex > .mat-form-field-infix{
+  padding-top:0px ! important;
+  padding-bottom:8px ! important;
+} */
+
+
+#controlFixHead{
+   overflow-y: auto; 
+   height: 100px; 
+}
+#controlFixHead thead th{ 
+  position: sticky; 
+  top: 0; 
+}
+
+
+.marginTopFirst{
+  margin-top:16px !important;
+}
+
+/* .marginBtnTopFirst{
+  margin-top:20px !important;
+} */
+
+/* .marginDropDownTopFirst{
+  margin-top: 12px;
+} 
+
+.paddingtdTopFirst{
+  padding-top: 13px !important;
+} */
+
+/* tr:nth-child(even) {
+  background-color: #f2f2f2;
+} */
+
+/* .controlSetBtnStyle{
+  margin-top: 7px !important;
+  padding:6px 19px 6px 19px ! important;
+}
+
+.controlSetBtnStyleFirst{
+  margin-top: 19px !important;
+  padding:6px 19px 6px 19px ! important;
+} */
+
+
+
+/* New PTAT Code Starts Here */
+.sidePanelBtnAlt{
+  margin-top: 8px !important;
+  margin-left:-4px !important;
+}
+
+.controlDiv{
+  border: 0.5px solid #AEAEAE;
+  border-radius: 3px;
+}
+table td {
+  padding: 0 !important;
+  vertical-align: middle;
+}
+.controlDiv table{
+  background-color: #ffffff;
+  margin-bottom: 0rem !important;
+}
+td.commonTd{
+  line-height: 15px;
+   min-height: 15px;
+   height: 15px;
+   padding: 0px !important;
+   text-align: center; 
+}
+.sliderDiv{
+  display: flex;
+}
+.sliderDiv a{
+  margin-top: 13px;
+}
+.matSlider{
+  margin-left: 3px;
+}
+.dropdownControl{
+  /* background-color: #0095CA; */
+  margin: 4px;
+  width: -webkit-fill-available;
+  /* color: #fffFFF; */
+}
+.greenBtnColorAlt{
+  width: 70px !important;
+}
+.tatTableHeader{
+  z-index: 100;
+}
+.zindex{
+  z-index: 9999 !important;
+}
+
+.modal-footer {
+  flex-wrap: inherit;
+}
+
+.checkboxParent{
+  padding-bottom: 2px;
+}
+
+.form-check {
+  position: relative;
+  display: block;
+  padding-left: 3.25rem !important;
+}
+
+@media only screen and (max-width: 650px) {
+  #checkboxDiv{
+    padding-left:45px !important;
+  }
+  .checkboxParent{
+    padding-bottom: 5px;
+  }
+}

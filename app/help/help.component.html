@@ -1,0 +1,38 @@
+<!-- The Modal -->
+<div class="modal fade show popupBackgroundColor" id="helpModal" [ngStyle]="{'display': display}" role="dialog"
+ aria-hidden="true" data-backdrop="false" data-keyboard="false">
+
+  <div class="modal-dialog modal-md maxModalWidth">
+    <div class="modal-content">
+<div class="modal-header">
+    <label class="modal-title text-white">About</label>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+  </div>
+  <div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-9">
+          <!-- <h6>For any queries and issues contact:  &nbsp; <span class="text-primary">ThermalAnalysistool@intel.com</span> </h6>  -->
+          <label class="helpLabel">Intel ® Power and Thermal Analysis Tool Copyright © 2021 Intel ® Corporation All Rights Reserved</label>
+      </div>
+      <div class="col-3">
+        <img src="assets/images/PTATLogo.png" height="100" class="intel-logo text-primary d-inline-block align-top" alt="Navbar" />
+      </div>
+    </div>
+   
+ 
+      <div *ngFor="let i of getTargetRes" class="row text-primary">
+        <div class="col-2" style="color:black;">{{i.key}}:</div><div class="col-2"></div> <div class="col-8"> {{i.value}}</div>
+
+      </div>
+ 
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn greenBtnColor" (click)="closeModal()">Ok</button>
+  </div>
+</div>
+</div>
+</div>
+</div>
