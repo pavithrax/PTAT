@@ -523,7 +523,7 @@
                 "ButtonName": "Start",
                 "Status": "Stopped",
                 "Action": "Dropdown",
-                "Note": "Dropdown Values will be fetched from the resp tabs"
+                "Note": "Values for the selected Test(s) will be fetched from the respective tabs"
               }
             ]
           }
