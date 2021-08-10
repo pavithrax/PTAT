@@ -98,11 +98,11 @@
                                  <tr [ngClass]="'workLoadTableRow'+item.TestIndex+item1.TestModeIndex+item3.GroupID"
                                     [attr.id]="'curWLid'+item.TestIndex+item1.TestModeIndex+item3.GroupID">
 
-                                    <td class="comonTd,align-middle" *ngIf="item1.TableData.Header.length >4"
+                                    <!-- <td class="comonTd,align-middle" *ngIf="item1.TableData.Header.length >4"
                                        [ngClass]="'workLoadTableFirstRow'+item.TestIndex+item1.TestModeIndex+item3.Index"
                                        style="line-height: 15px;min-height: 15px;height: 15px;padding: 0px !important;text-align: center;">
                                        {{item3.Name}}
-                                    </td>
+                                    </td> -->
                                     <td class="comonTd" *ngIf="item1.TableData.Header.length <=4">
                                        <div *ngIf="item3.Action == 'Slider'">
                                           <div class="sliderDiv" style="margin-left: 14px;">
@@ -124,7 +124,7 @@
                                           </select>
                                        </div>
                                     </td>
-                                    <td class="comonTd" *ngIf="item1.TableData.Header.length >4">
+                                    <!-- <td class="comonTd" *ngIf="item1.TableData.Header.length >4">
 
                                        <div *ngIf="item3.Action == 'Dropdown'">
                                           <select class="form-control dropdownControl"
@@ -191,7 +191,49 @@
                                              </option>
                                           </select>
                                        </div>
+                                    </td> -->
+
+                                    <td class="comonTd" *ngIf="item1.TableData.Header.length >4">
+
+                                       <div style="margin-left:14px ;">
+                                          <select class="form-control dropdownControl"
+                                             [(ngModel)]="item3.SelectedCPU"
+                                             [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index">
+                                             <option *ngFor="let item4 of item3.CpuTests" [(ngValue)]="item4">
+                                                {{item4}}
+                                             </option>
+                                          </select>
+                                       </div>
                                     </td>
+
+                                    <td class="comonTd" *ngIf="item1.TableData.Header.length >4">
+
+                                       <div >
+                                          <select class="form-control dropdownControl"
+                                             [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index"
+                                             [(ngModel)]="item3.SelectedMem">
+                                             <option *ngFor="let item4 of item3.MemTests" [(ngValue)]="item4">
+                                                {{item4}}
+                                             </option>
+                                          </select>
+                                       </div>
+                                    </td>
+
+                                    <td class="comonTd" *ngIf="item1.TableData.Header.length >4">
+
+                                       <div>
+                                          <select class="form-control dropdownControl"
+                                             
+                                             [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index"
+                                             [(ngModel)]="item3.SelectedPMem">
+                                             <option *ngFor="let item4 of item3.PmemTests" [(ngValue)]="item4">
+                                                {{item4}}
+                                             </option>
+                                          </select>
+                                       </div>
+                                    </td>
+
+                                    
                                     <td class="comonTd">
                                        <button style="min-width:80px;" *ngIf="item3.Action == 'Slider'"
                                           [ngClass]="{'greenBtnColor':item3.ButtonName == 'Start','redBtnColor':item3.ButtonName === 'Stop','marginBtnTopFirst': workloadIndex == 0,'marginBtnTopNotFirst' : workloadIndex != 0}"
@@ -212,13 +254,20 @@
                                           {{item3.Status}}</a>
                                     </td>
                                  </tr>
-
-
+                                
                               </ng-container>
 
 
                            </tbody>
                         </table>
+                     </div>
+                     <div class="table workLoadTableCC" [ngClass]="'workLoadTable'+item.TestIndex+item1.TestModeIndex" *ngIf="item1.Name == 'Combo Test'">
+                        <br>
+                        <b>Note: </b> Dropdown Values will be fetched from the resp tabs
+                        <br>
+                        <b>Selecetd CPU core/pack: </b> Dropdown Values will be fetched from the resp tabs
+                        <br>
+                        <b>Selecetd MEM core/pack: </b> Dropdown Values will be fetched from the resp tabs
                      </div>
 
                      <ng-container>
