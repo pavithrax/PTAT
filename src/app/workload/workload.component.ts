@@ -56,7 +56,7 @@ export class WorkloadComponent implements OnInit {
     // console.log(data);
     // this.spinner.hide();
 
-    // var firstWorkloadName = this.workloadArray[0].DropDownList[0].Name;
+    // var firstWorkloadName = this.workloadArray[0].TestMode[0].Name;
     // this.dropOrCheckBooleanValue = '00' + ';' + firstWorkloadName;
     // setTimeout(() => {
     //   this.workLoadTree('00' + ';' + firstWorkloadName);
@@ -70,7 +70,7 @@ export class WorkloadComponent implements OnInit {
         console.log(data);
 
 
-        var firstWorkloadName = this.workloadArray[0].DropDownList[0].Name;
+        var firstWorkloadName = this.workloadArray[0].TestMode[0].Name;
         this.dropOrCheckBooleanValue = '00' + ';' + firstWorkloadName;
         setTimeout(() => {
           this.workLoadTree('00' + ';' + firstWorkloadName);
@@ -79,7 +79,7 @@ export class WorkloadComponent implements OnInit {
 
 
         this.workloadArray.forEach(element => {
-          element.DropDownList.forEach(element1 => {
+          element.TestMode.forEach(element1 => {
             element1.TableData.Row.forEach(element2 => {
               if (element2.PackageStart) {
                 element2.CoreData = this.iterator(element2.CoreStart.split(" ")[0],element2.CoreCount);
@@ -169,7 +169,7 @@ export class WorkloadComponent implements OnInit {
         }
 
 
-        this.workloadArray[parIndex].DropDownList[childIndex].TableData.Row[instanceIndex].Status = instanceStatus;
+        this.workloadArray[parIndex].TestMode[childIndex].TableData.Row[instanceIndex].Status = instanceStatus;
         if (instanceStatus.toLowerCase() == "failed") {
           return false;
         }
@@ -217,7 +217,7 @@ export class WorkloadComponent implements OnInit {
         //     $("."+currentValue).removeClass('text-success');
         //   }
         //     $("."+currentValue).html(instanceStatus);
-        this.workloadArray[parIndex].DropDownList[childIndex].TableData.Row[instanceIndex].Status = instanceStatus;
+        this.workloadArray[parIndex].TestMode[childIndex].TableData.Row[instanceIndex].Status = instanceStatus;
 
         if (disableIndex == undefined || disableIndex == null) {
           return false;
@@ -348,7 +348,7 @@ export class WorkloadComponent implements OnInit {
     let checkValue;
 
     this.workloadArray.forEach(element => {
-      element.DropDownList.forEach(element1 => {
+      element.TestMode.forEach(element1 => {
         if (element1.Name == this.dropOrCheckBooleanValue.split(";")[1]) {
           checkValue = element1;
           console.log(element1.TableData);
@@ -512,7 +512,7 @@ export class WorkloadComponent implements OnInit {
     let checkValue;
 
     this.workloadArray.forEach(element => {
-      element.DropDownList.forEach(element1 => {
+      element.TestMode.forEach(element1 => {
         if (element1.Name == this.dropOrCheckBooleanValue.split(";")[1]) {
           checkValue = element1;
         }
@@ -543,7 +543,7 @@ export class WorkloadComponent implements OnInit {
     });
   }
 
-  isAllSelected(data) {
+  isAllSelected(data,d1,d2) {
     let count = 0;
 
     data.PackageData.forEach(element => {
@@ -562,6 +562,7 @@ export class WorkloadComponent implements OnInit {
     } else {
       data.AtleastOnePackageSelected = true;
     }
+    this.cpuClicked(d1,d2)
   }
 
 
@@ -643,10 +644,29 @@ export class WorkloadComponent implements OnInit {
 
     //to check and uncheck select all package when we check core 
     this.workloadArray.forEach(element => {
-      element.DropDownList.forEach(element1 => {
-        element1.TableData.Row.forEach(element2 => {
-          if(element2.PackageData) {
-            this.isAllSelected(element2);            
+      element.TestMode.forEach(element1 => {
+        element1.TableData.Row.forEach(data1 => {
+          if(data1.PackageData) {
+            // this.isAllSelected(element2);        
+            let count1 = 0;
+
+            data1.PackageData.forEach(element => {
+
+              if (element.isSelected == true) {
+                count1 += 1;
+              }
+            });
+            if (count1 == data1.PackageData.length) {
+              data1.PackageAllSelected = true;
+            } else {
+              data1.PackageAllSelected = false;
+            }
+            if(count1 == 0 || count1 == data1.PackageData.length){
+              data1.AtleastOnePackageSelected = false
+            } else {
+              data1.AtleastOnePackageSelected = true;
+            }
+            
           }
         });
       });
@@ -665,5 +685,9 @@ export class WorkloadComponent implements OnInit {
       });
       cpu.CoreAllSelected = true;
     }
+  }
+
+  startEndCores() {
+
   }
 }
