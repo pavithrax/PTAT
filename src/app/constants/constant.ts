@@ -120,4 +120,10 @@ export class constant {
     
     // Error Message
     public static DISCONNECT = "User disconnected";
+
+
+    //Server Monitor
+    
+    public static StartServerMonitor_CMD  = "StartMonitor";
+    public static StopStopMonitor_CMD  =  "StopMonitor";
 }

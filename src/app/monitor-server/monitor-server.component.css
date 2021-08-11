@@ -1,0 +1,86 @@
+::ng-deep .p-multiselect-items, ::ng-deep .p-multiselect-label {
+    font-family: 'Intel Clear';
+}
+
+::ng-deep .p-treetable .p-treetable-tbody > tr > td {
+    font-family: 'Intel Clear';
+    font-size: 13px!important;
+}
+
+/* ::ng-deep .p-component{
+    margin: 10px
+} */
+ 
+
+::ng-deep p-tabview p-component{
+    font-family: 'Intel Clear';
+}
+
+
+::ng-deep .p-column-resizer{
+    border: 10px;
+}
+
+.highlight_grid_row {
+    font-weight: bold;
+}
+
+
+::ng-deep .p-tabview-title {
+    line-height: 1;
+    font-family: 'Intel Clear';
+    font-size: 14px!important;
+}
+
+
+::ng-deep .card.curvedCorners {
+    border-radius: 7px !important;
+}
+
+::ng-deep .p-column-resizer {
+    background: #2f45c1 !important;
+    width: 0.1rem!important;
+}
+
+::ng-deep .p-treetable .p-sortable-column { 
+    cursor: no-drop; 
+}
+
+
+::ng-deep .p-treetable .p-treetable-thead > tr > th {
+    font-family: 'Intel Clear';
+    font-size: 14px!important;
+}
+
+
+::ng-deep .p-highlight {
+    font-weight: 700;
+    background: #e8e8e8;
+    border: .5px solid #aeaeae;
+    border-radius: 7px 7px 0 0;
+    border-bottom: 0;
+}
+
+.loggingButtons {
+    display: flex; 
+    justify-content: flex-end;
+}
+
+
+::ng-deep .p-multiselect .p-multiselect-label {
+    padding: 0.4rem 0.4rem;
+}
+
+
+::ng-deep .columnSizeShrink {
+    width: 15% !important;
+  }
+  
+::ng-deep .columnSizeExpand {
+    width: 55% !important;
+}
+  
+
+::ng-deep .p-resizable-column .p-highlight{
+    color:#d6dbe0ed !important;
+}

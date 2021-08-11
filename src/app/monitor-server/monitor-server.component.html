@@ -1,0 +1,119 @@
+<div class="card curvedCorners">
+    <p-tabView (onChange)="onTabChange($event)" [activeIndex]="selectedIndex">
+        <p-tabPanel *ngFor="let item of tabData; let i = index" [selected]="i == 0" header="{{item}}">
+
+            <p-treeTable #tt [value]="serverData" [columns]="selectedColumns" [scrollable]="true" scrollHeight="50vh"
+                [style]="{width:'100%', height:'100%'}" [scrollable]="true" [resizableColumns]="true"
+                columnResizeMode="fit" [reorderableColumns]="true" [autoLayout]="true" styleClass="p-treetable-sm"
+                sortMode="multiple">
+
+                <!-- <ng-template pTemplate="caption">
+                    <div style="text-align: right">
+                        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Global Filter"
+                            (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </ng-template> -->
+
+
+                <ng-template pTemplate="caption">
+                    <div class="p-grid">
+
+                        <div class="p-col columnFilterDropdown">
+
+                            <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                                selectedItemsLabel="{0} columns selected" [style]="{'width': '12em'}"
+                                defaultLabel="Choose Columns">
+                            </p-multiSelect>
+                        </div>
+                        <!-- <button (click)="toggleTreeView(false)">collapse all</button> -->
+
+                        <div class="p-col loggingButtons">
+
+                            <div id="monitorBtns" class="col-8 col-md-5 col-sm-5" style="padding-left:0px !important;">
+                                <button type="button" class="btn logButton"
+                                    [disabled]="btnFlag1 && loggingstatus == true"
+                                    style="float:right;margin-right:6px; padding:6px !important;"
+                                    (click)="startLoggingClick()"
+                                    [ngClass]="loggingstatus ? 'greenBtnColor' : 'redBtnColor'">{{
+                                    loggingstatus == true ? 'Start
+                                    Logging' : 'Stop Logging' }}</button>
+                                <button type="button" class="btn startButton" [disabled]="btnFlag"
+                                    style="float:right;margin-right:10px; padding:6px !important;"
+                                    (click)="startMonitorClick()"
+                                    [ngClass]="monitorstatus ? 'greenBtnColor' : 'redBtnColor'">
+                                    {{ monitorstatus == true ? 'Start Monitor' : 'Stop Monitor'}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+
+
+                <ng-template pTemplate="colgroup" let-columns>
+                    <colgroup>
+                        <col *ngFor="let col of columns" style="width:350px">
+                    </colgroup>
+                </ng-template>
+
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" ttResizableColumn ttReorderableColumn
+                            [ttSortableColumn]="col.field">
+                            {{col.header}}
+                            <i class="fa fa-sort" style="font-size: 1rem"></i>
+                            <!-- <p-treeTableSortIcon [field]="col.field"></p-treeTableSortIcon> -->
+
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th *ngFor="let col of columns">
+                            <input pInputText type="text"
+                                (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)"
+                                style="padding:0px;border-radius : 5px;">
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <!-- <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns; let i = index" [ngClass]="getOrderStyle(rowData) && 'monitorValue' + col.field +
+                            rowData['index']">
+                            <p-treeTableToggler [rowNode]=" rowNode" *ngIf="i == 0">
+                            </p-treeTableToggler>
+                            <span>{{rowData[col.field]}}</span>
+                        </td>
+                    </tr>
+                </ng-template> -->
+
+                <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                    <tr>
+                        <td *ngFor="let col of selectedColumns; let i = index"
+                            [ngClass]="highlightFirstLevelData(rowData)">
+                            <span *ngIf="col.field == 'Name'">
+                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                <span class="serverMonitorData-{{rowData.Index}}">{{rowData.Name}}</span>
+                            </span>
+                            <span *ngFor="let feature of rowData.Features">
+                                <span *ngIf="col.field == feature['Name']" class="serverMonitorData-{{feature['Index']}}">
+                                    {{feature['Value']}}
+                                </span>
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+
+
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td [attr.colspan]="cols.length">No data found.</td>
+                    </tr>
+                </ng-template>
+            </p-treeTable>
+
+            
+        </p-tabPanel>
+    </p-tabView>
+
+</div>

@@ -6,7 +6,8 @@ import { SocketService } from '../db/socket.service';
 import { Command } from 'selenium-webdriver';
 import * as $ from 'jquery';
 import { NgxSpinnerService } from "ngx-spinner";
-import  dataFormat from './GetMonitorDataNew.json';
+import { AppComponent } from '../app.component';
+// import  dataFormat from './GetMonitorDataNew.json';
 // import * as dataFormat from './GetMonitorDataNew.json';
 
 @Component({
@@ -17,7 +18,7 @@ import  dataFormat from './GetMonitorDataNew.json';
   providers:[DatePipe]  
 })
 export class AlertsComponent implements OnInit {
-  dataType = 'Serverside';
+  dataType = '';
   alertSecShowHide = false;
   alertInputData:any = [];
   alertInputType:any = []
@@ -98,14 +99,19 @@ export class AlertsComponent implements OnInit {
   selectedSecondChildComponent:any = 'select';
   selectedFeature:any = 'select';
   cdkDropConnectedToList:Array<String>;
-  constructor(private util: UtilityServiceService, private datePipe:DatePipe,private SocketService:SocketService,private spinner: NgxSpinnerService) { 
+  constructor(private util: UtilityServiceService, private datePipe:DatePipe,private SocketService:SocketService,private spinner: NgxSpinnerService,
+    private app: AppComponent) { 
     this.cdkDropConnectedToList = util.getCdkDropConnectedToList();
     this.createFormGroup();
   }
 
   ngOnInit() {
     
-
+    if(this.app.platform == 'server') {
+      this.dataType = 'Serverside';
+    } else {
+      this.dataType = 'Clientside';
+    }
     // console.log();
     this.objArray = [];
     // console.log(dataFormat);
@@ -115,20 +121,13 @@ export class AlertsComponent implements OnInit {
     // this.keys = Object.entries(message.data);
     // console.log(this.keys)
     
+
     // getting the data from monitor resp for both client and server
     this.SocketService.getMonitorDataRes().subscribe(message => {
       this.data = message;
       // this.data = dataFormat;
       console.log('hi');
       
-    // Object.keys(dataFormat.data).forEach(element => {
-    //   console.log(element);
-    //   console.log(dataFormat.data[element]);
-    // })
-
-    // for (let v in dataFormat.data ) {
-    //   console.log(dataFormat.data[v]);
-    // }
       if(this.dataType === 'Serverside') {
         this.dataType = 'Serverside';
         // Object.keys(this.data.Data).forEach(key => this.objArray.push({
@@ -488,27 +487,29 @@ export class AlertsComponent implements OnInit {
 
 
    this.SocketService.isAlertSummaryStatus().subscribe(message => {
+     console.log(message);
     if (message) {
-      if(message.Data.length == 0){
-        return false;
-      }
+      if(message.Data && message.Data.length > 0){
+       
+      
         this.alertSummaryResponse = message;
         let alertSummaryResponseData = this.alertSummaryResponse.Data;
-        for(let alertCount = 0;alertCount < this.alertSummaryResponse.Data.length;alertCount++){
-        let expression = alertSummaryResponseData[alertCount].AlertExpression;
-        this.recentAlertData.push(alertSummaryResponseData[alertCount]);
-         for(let count =0;count<this.summaryData.length;count++){
-             if(expression == this.summaryData[count].name){
-               var index = count;
-               this.summaryData[index].alertCount = alertSummaryResponseData[alertCount].Count;
-             }
-         }
-       }
+        for(let alertCount = 0;alertCount < this.alertSummaryResponse.Data.length;alertCount++) {
 
+          let expression = alertSummaryResponseData[alertCount].AlertExpression;
+          this.recentAlertData.push(alertSummaryResponseData[alertCount]);
+          console.log(alertSummaryResponseData[alertCount].Count);
 
-
-
-        
+          for(let count =0;count<this.summaryData.length;count++) {
+              if(expression == this.summaryData[count].name){
+                var index = count;
+                this.summaryData[index].alertCount = alertSummaryResponseData[alertCount].Count;
+              }
+          }
+        }
+      } else {
+        return false
+      }
       
      }
    });

@@ -138,13 +138,6 @@ export class HeaderComponent implements OnInit {
                   }else{
                      this.osInformation = "others";
                   }
-               }else if(this.getToolInfoResponse[i].key == 'enableRemoteConnection'){
-                  if(this.getToolInfoResponse[i].value == "0"){
-                     this.showHideSettings = false;
-                  }else{
-                     this.showHideSettings = true;
-                     
-                  }
                  }
             }
 

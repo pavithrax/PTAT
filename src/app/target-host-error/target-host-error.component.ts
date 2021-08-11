@@ -25,8 +25,6 @@ export class TargetHostErrorComponent implements OnInit {
   addFavListIdentifier:any = 1;
   disconnectionMessage : any = "Host not connected. Please restart PTAT Host service.";
   public isConnectPort$: Subject<any>;
-  showHideSettings:boolean = false;
-  showHideSettingsSettingsTextBox:boolean = true;
 
   constructor(private SocketService:SocketService,private spinner: NgxSpinnerService, private util: UtilityServiceService) {
     this.isConnectPort$ = new Subject<any>();
@@ -99,7 +97,6 @@ export class TargetHostErrorComponent implements OnInit {
 
     this.SocketService.getChangeConn().subscribe(message => {
       if (message) {
-        this.spinner.show();
         this.closeTargetPopup();
         this.targetConnectionStatus = true;
       }
@@ -141,20 +138,6 @@ export class TargetHostErrorComponent implements OnInit {
         this.targetIpdAddress = message[3].value;
         this.targetPortNumber = message[4].value;
         this.targetName = "";
-        var getToolInfoResponse = message;
-        var len = getToolInfoResponse.length;
-        for (var i = 0; i < len; i++) {
-          if (getToolInfoResponse[i].key == 'enableRemoteConnection') {
-            if(getToolInfoResponse[i].value == "0"){
-              this.showHideSettings = false;
-              this.showHideSettingsSettingsTextBox = true;
-           }else{
-              this.showHideSettings = true;
-              this.showHideSettingsSettingsTextBox = false;
-           }
-          }
-        }
-            
       }
     });
 
@@ -227,7 +210,6 @@ export class TargetHostErrorComponent implements OnInit {
     this.targetIpdAddress = selectedRow.ipaddress;
     this.targetPortNumber = selectedRow.portno;
     this.targetName = selectedRow.name;
-    this.util.resetSystemInfo(1);
     //var command = "ChangeConnection(websockets,"+this.targetIpdAddress+","+this.targetPortNumber + ")";
     var command = '{"Command" : "ChangeConnection","Args":'+'"'+'websockets,'+this.targetIpdAddress+','+this.targetPortNumber+'"'+'}'
     this.SocketService.sendMessage(command);
@@ -271,7 +253,6 @@ export class TargetHostErrorComponent implements OnInit {
     //var command = "ChangeConnection(websockets,"+this.targetIpdAddress+","+this.targetPortNumber + ")";
     var command = '{"Command" : "ChangeConnection","Args":'+'"'+'websockets,'+this.targetIpdAddress+','+this.targetPortNumber+'"'+'}'
     if(this.targetIpdAddress != "" && this.targetPortNumber != ""){
-      this.util.resetSystemInfo(1);
       this.SocketService.sendMessage(command);
       this.spinner.show();
       this.targetHosterrorMessage = "";

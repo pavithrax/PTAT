@@ -19,7 +19,7 @@
       <!-- Scrolling Nav Bar -->
       <div class="contentStyle wrapper col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 nopadding" id="wrapperFixed">
         
-            <nav id="sidebar" class="sidenavColour" [hidden]="selectedNavValue == 'System Information'  || selectedNavValue == 'Alerts' || selectedNavValue == 'Workload' || selectedNavValue == 'Control' || selectedNavValue == 'Scripts' || selectedNavValue == 'PTAT Log Analysis' || selectedNavValue == 'Graph' || selectedNavValue == 'Live Analysis'">
+            <nav id="sidebar" class="sidenavColour" [hidden]="selectedNavValue == 'System Information' || selectedNavValue == 'Alerts' || selectedNavValue == 'Workload' || selectedNavValue == 'Control' || selectedNavValue == 'Scripts' || selectedNavValue == 'PTAT Log Analysis' || selectedNavValue == 'Graph' || selectedNavValue == 'Live Analysis' || (selectedNavValue == 'Monitor' && platform == 'server')">
             <app-monitoralertstree></app-monitoralertstree>
             </nav>
 
@@ -27,7 +27,7 @@
           <div id="content" >
             <notifier-container></notifier-container>
             <ngx-spinner type = "ball-spin-clockwise" color="#005EB7"></ngx-spinner>
-                <div class="sidePanelBtn" *ngIf="selectedNavValue == 'Monitor'  " (click)="fnToggle()">
+                <div class="sidePanelBtn" *ngIf="(selectedNavValue == 'Monitor' && platform != 'server')" (click)="fnToggle()">
                   <i class="sidePanelIcon fas" [ngClass]="(hasclass == true)?'fa-angle-double-right':'fa-angle-double-left'"></i>
                 </div>
 
@@ -39,16 +39,18 @@
                   <app-tatloganalysis *ngIf="selectedNavValue == 'TAT Log Analysis'" class="nopadding nomargin"></app-tatloganalysis>  
                   <app-graph *ngIf="selectedNavValue == 'Graph'" class="nopadding nomargin"></app-graph>   -->
                   <app-systeminfo [hidden]="selectedNavValue !== 'System Information'"></app-systeminfo>
-                  <app-monitor  [hidden]="selectedNavValue !== 'Monitor'"></app-monitor>
+                  
                   <app-alerts [hidden]="selectedNavValue !== 'Alerts'"></app-alerts>
 				          <app-workload [hidden]="selectedNavValue !== 'Workload'" class="nopadding nomargin"></app-workload> 
           		    <app-control [hidden]="selectedNavValue !== 'Control'" class="nopadding nomargin"></app-control> 
                   <app-scripts  [hidden]="selectedNavValue !== 'Scripts'" class="nopadding nomargin"></app-scripts>  
                   <app-tatloganalysis [hidden]="selectedNavValue !== 'PTAT Log Analysis'" class="nopadding nomargin"></app-tatloganalysis>  
                   <app-graph  [hidden]="selectedNavValue !== 'Graph'" class="nopadding nomargin"></app-graph>  
-                   <app-live-analysis [hidden]="selectedNavValue !== 'Live Analysis'"  class="nopadding nomargin"></app-live-analysis>
-                   <app-tatfeature></app-tatfeature>
-                   <app-error></app-error>
+                  <app-live-analysis [hidden]="selectedNavValue !== 'Live Analysis'"  class="nopadding nomargin"></app-live-analysis>
+                  <app-tatfeature></app-tatfeature>
+                  <app-error></app-error>
+                  <app-monitor-server [hidden]="selectedNavValue != 'Monitor'" *ngIf="platform == 'server'"></app-monitor-server>
+                  <app-monitor [hidden]="selectedNavValue != 'Monitor'" *ngIf="platform == 'client'"></app-monitor>
              
           </div>
       </div>
@@ -102,4 +104,4 @@
 </div>
 
 
-<!-- <app-target-host-error></app-target-host-error> -->
+<app-target-host-error></app-target-host-error>

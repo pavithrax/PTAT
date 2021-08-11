@@ -2,7 +2,6 @@ import { Component,ViewChild, OnInit } from '@angular/core';
 import {SocketService} from '../db/socket.service';
 import {MatSidenav} from '@angular/material/sidenav'; 
 import { HostListener } from "@angular/core";
-import { UtilityServiceService } from '../services/utility-service.service';
 
 @Component({
   selector: 'app-systeminfo',
@@ -19,17 +18,10 @@ export class SysteminfoComponent implements OnInit {
   toggleIconRightLeft:boolean = true;
   activeTreeNodeName:string = "";
   receivedData:boolean = false;
-  constructor(private SocketService:SocketService,private utility: UtilityServiceService) { }
+  constructor(private SocketService:SocketService) { }
 
   ngOnInit() {
     this.getSyetemInfoData();
-
-    this.utility.triggerEnableSystemInfo.subscribe(data => {
-      if(data == 1){
-        this.receivedData = false;
-      }
-    });
-
   }
 
   getSyetemInfoData(){
@@ -48,14 +40,12 @@ export class SysteminfoComponent implements OnInit {
     });
   }
   setSystemInfoData(data){
-    this.systemInfoData  == "";
     this.systemInfoData = data;
     if(this.systemInfoData){
       this.createTreeForSystemInfo();
     }
   }
   createTreeForSystemInfo(){
-    this.systemInfoTree.length = 0;
     this.systemInfoData.forEach(element => {
       this.systemInfoTree.push(element.pluginName);
     });

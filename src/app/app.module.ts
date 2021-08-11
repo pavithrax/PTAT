@@ -32,6 +32,17 @@ import { ErrorComponent } from './error/error.component';
 import { TargetHostErrorComponent } from './target-host-error/target-host-error.component';
 import { SysteminfoComponent } from './systeminfo/systeminfo.component';
 
+
+import {TreeTableModule} from 'primeng/treetable';
+import {ButtonModule} from 'primeng/button';
+import {DialogModule} from 'primeng/dialog';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {InputTextModule} from 'primeng/inputtext';
+import {ToastModule} from 'primeng/toast';
+import {ContextMenuModule} from 'primeng/contextmenu';
+import { MonitorServerComponent } from './monitor-server/monitor-server.component';
+import { TabViewModule } from 'primeng/tabview';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +64,8 @@ import { SysteminfoComponent } from './systeminfo/systeminfo.component';
     TatfeatureComponent,
     ErrorComponent,
     TargetHostErrorComponent,
-    SysteminfoComponent
+    SysteminfoComponent,
+    MonitorServerComponent
   ],
   entryComponents: [ HelpComponent],
   imports: [
@@ -78,7 +90,15 @@ import { SysteminfoComponent } from './systeminfo/systeminfo.component';
       }
     }),
     NgxSpinnerModule,
-    FileSaverModule
+    FileSaverModule,
+    TreeTableModule,
+    ToastModule,
+    DialogModule,
+    ButtonModule,
+    MultiSelectModule,
+    InputTextModule,
+    ContextMenuModule,
+    TabViewModule
  
   ],
   providers: [SocketService],

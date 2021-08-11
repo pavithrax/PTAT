@@ -114,6 +114,10 @@ export class SocketService {
   public isstartPowerVisualization$: Subject<any>;
   public isstopPowerVisualization$: Subject<any>;
   public getParamVal$: Subject<any>;
+
+  
+  public isStartServerMonitorRes$: Subject<any>;
+  public isStopServerMonitorRes$: Subject<any>;
   
   targetStatus:any = 0;
   
@@ -226,6 +230,10 @@ export class SocketService {
     this.isstartPowerVisualization$= new Subject<any>(); 
     this.isstopPowerVisualization$= new Subject<any>();   
     this.getParamVal$ = new Subject<any>();
+
+    
+    this.isStartServerMonitorRes$ = new Subject<any>();
+    this.isStopServerMonitorRes$ = new Subject<any>();
     
   }
  
@@ -268,6 +276,7 @@ export class SocketService {
             // console.log("Web Connection Established");
             this.isConn$.next(1);
           }else{
+            console.log(data);
             this.receiveMessage(JSON.parse(data));
           }
         },
@@ -290,7 +299,7 @@ export class SocketService {
 
   alternatePortConnectionHandling(portNumber){
     if(portNumber == 49861){
-      this.webSocketResponse(49862);
+      this.webSocketResponse(49861);
     }else if(portNumber == 49862){
       this.webSocketResponse(49863);
     }else if(portNumber == 49863){
@@ -338,7 +347,7 @@ export class SocketService {
   
 
   receiveMessage(data: any): void {
-    console.log(JSON.stringify(data)); 
+    //console.log(JSON.stringify(data)); 
     // check if data exists
     if (data) {
       if (data.CommandStatus.Status.toLowerCase() == constant.SUCCESS_MSG) {
@@ -561,6 +570,10 @@ export class SocketService {
           this.isstopPowerVisualization$.next(data);
         }else if (data.Command == constant.GetParamVal_CMD){
           this.getParamVal$.next(data);
+        }else if(data.Command == constant.StartServerMonitor_CMD){
+          this.isStartServerMonitorRes$.next(data);
+        }else if(data.Command == constant.StopStopMonitor_CMD){
+          this.isStopServerMonitorRes$.next(data);
         }
       }
       else {
@@ -704,8 +717,10 @@ export class SocketService {
           this.getParamVal$.next(data);
         }else if(data.Command == constant.LOADSCRIPT_CMD){
           this.isLoadScriptRes$.next(data);
-        }else if(data.Command == constant.GetComponentData_CMD){
-          this.isGetComponentDataRes$.next(data);
+        }else if(data.Command == constant.StartServerMonitor_CMD){
+          this.isStartServerMonitorRes$.next(data);
+        }else if(data.Command == constant.StopStopMonitor_CMD){
+          this.isStopServerMonitorRes$.next(data);
         }
       }
     }
@@ -1091,6 +1106,13 @@ export class SocketService {
   }
   
 
+  StartServerMonitorRes(){
+    return this.isStartServerMonitorRes$.asObservable();
+  }
+
+  StopServerMonitorRes(){
+    return this.isStopServerMonitorRes$.asObservable();
+  }
 
   public $: Subject<any>;
 

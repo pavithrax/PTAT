@@ -23,8 +23,6 @@ export class UtilityServiceService {
   private pvt_triggerResize =  new BehaviorSubject<any>("");
   private visualizationParameters = new BehaviorSubject<any>("");
   private powerVisualizationStatus = new BehaviorSubject<any>("");
-  private enableSystemInfo = new BehaviorSubject<any>("");
-
 
 
   public share = this.content.asObservable();
@@ -43,8 +41,6 @@ export class UtilityServiceService {
   public pub_triggerResize = this.pvt_triggerResize.asObservable();
   public checkVisualizationParameters = this.visualizationParameters.asObservable();
   public powerVisualizationCurrentStatus = this.powerVisualizationStatus.asObservable();
-  public triggerEnableSystemInfo = this.enableSystemInfo.asObservable();
-  
  
   
   private cdkDropConnectedToList:Array<String> = ['table1', 'table2', 'table3'];
@@ -120,10 +116,6 @@ checkVisualizationParameter(any){
 
 powerVisualizationWorkingStatus(any){
   this.powerVisualizationStatus.next(any);
-}
-
-resetSystemInfo(any){
-  this.enableSystemInfo.next(any);
 }
 
 }
