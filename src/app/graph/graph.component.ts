@@ -8,7 +8,7 @@ import { FileSaverService } from 'ngx-filesaver';
 import { SocketService } from '../db/socket.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import {UtilityServiceService} from '../services/utility-service.service';
-import  dataFormat from './GetMonitorDataNew.json';
+import  * as dataFormat from './GetMonitorDataNew.json';
 import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-graph',
