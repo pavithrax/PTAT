@@ -66,7 +66,7 @@
         },
         {
           "Note": "",
-          "Name": "Core 1A/SSE ",
+          "Name": "Core 1A/SSE",
           "TestModeIndex": "2",
           "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
           "TableData": {
@@ -108,7 +108,7 @@
         },
         {
           "Note": "",
-          "Name": "Core AVX2 ",
+          "Name": "Core AVX2",
           "TestModeIndex": "3",
           "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
           "TableData": {
@@ -514,12 +514,12 @@
             "Row": [
               {
                 "Index":"0",
-                "SelectedCPU": "Tdp",
-                "SelectedMem": "Mem Rd",
-                "SelectedPMem": "Ad Read",
-                "CpuTests" : ["Tdp", "Ntdp", "Core"],
-                "MemTests": ["Mem Rd", "Mem Wr", "Mem Rd/Wr"],
-                "PmemTests": ["Ad Read","Ad Write"],
+                "SelectedCPU": "Core 1A/SSE",
+                "SelectedMem": "Memory Read",
+                "SelectedPMem": "AD Read",
+                "CpuTests" : ["Tdp", "Ntdp", "Core 1A/SSE","Core AVX2"],
+                "MemTests": ["Memory Read", "Memory Write", "Memory Rd/Wr"],
+                "PmemTests": ["AD Read","AD Write"],
                 "ButtonName": "Start",
                 "Status": "Stopped",
                 "Action": "Dropdown",

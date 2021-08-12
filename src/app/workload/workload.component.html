@@ -197,7 +197,7 @@
 
                                        <div style="margin-left:14px ;">
                                           <select class="form-control dropdownControl"
-                                             [(ngModel)]="item3.SelectedCPU"
+                                             [(ngModel)]="item3.SelectedCPU" (change)="getComboTestValue(item3)"
                                              [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index">
                                              <option *ngFor="let item4 of item3.CpuTests" [(ngValue)]="item4">
                                                 {{item4}}
@@ -209,7 +209,7 @@
                                     <td class="comonTd" *ngIf="item1.TableData.Header.length >4">
 
                                        <div >
-                                          <select class="form-control dropdownControl"
+                                          <select class="form-control dropdownControl" (change)="getComboTestValue(item3)"
                                              [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index"
                                              [(ngModel)]="item3.SelectedMem">
                                              <option *ngFor="let item4 of item3.MemTests" [(ngValue)]="item4">
@@ -223,7 +223,7 @@
 
                                        <div>
                                           <select class="form-control dropdownControl"
-                                             
+                                          (change)="getComboTestValue(item3)"
                                              [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index"
                                              [(ngModel)]="item3.SelectedPMem">
                                              <option *ngFor="let item4 of item3.PmemTests" [(ngValue)]="item4">
@@ -265,9 +265,11 @@
                         <br>
                         <b>Note: </b> Values for the selected Test(s) will be fetched from the respective tabs
                         <br>
-                        <b>Selecetd CPU core/pack: </b> Dropdown Values will be fetched from the resp tabs
+                        <b>Selected CPU Value:<span> {{cpuvalues}}</span> </b> 
                         <br>
-                        <b>Selecetd MEM core/pack: </b> Dropdown Values will be fetched from the resp tabs
+                        <b>Selected MEM Value:<span> {{memvalues}}</span></b>
+                        <br>
+                        <b>Selected PMEM Value:<span> {{pmemvalues}}</span></b>
                      </div>
 
                      <ng-container>
@@ -401,7 +403,7 @@
                                  style="max-height: 170px !important;">
                                  <div class="fixedtop">
                                     <input id="core" type="checkbox" type="checkbox" [(ngModel)]="core.isSelected" [indeterminate]="core.AtleastOneCoreSelected"
-                                       (change)="checkAndUnCheckCore(core)">
+                                    (change)="checkAndUnCheckCore(core)">
                                     <label for="core" style="margin-left: 8px;">Select Core</label>
                                  </div>
                                  <div class="scroll" style="max-height: 110px !important;">

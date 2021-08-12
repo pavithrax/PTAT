@@ -34,7 +34,11 @@ export class WorkloadComponent implements OnInit {
   selectedThread;
   core: any = {}
   cpuName: string;
-
+  val: any = []
+  cpuvalues: any = [];
+  memvalues: any = [];
+  pmemvalues: any = [];
+  coreValue: any = [];
   constructor(private SocketService: SocketService, private spinner: NgxSpinnerService, private app: AppComponent) {
     this.dataType = this.app.platform;
   }
@@ -343,8 +347,19 @@ export class WorkloadComponent implements OnInit {
     $("." + workLoadTableCheckBox).removeClass('hide');
     $(".workLoadTableDropdown" + workLoadId).removeClass('hide');
     $('.cpuTree').removeClass('colorSelectedTree1');
+    
 
-
+    // changes
+    var d = {};
+   
+    // data.TableMode.forEach(element => {
+    //   element.TableData.Row.forEach(element => {
+    //      element.PackageData.forEach(element => {
+    //        console.log(element.Name);
+    //        this.cpuvalues += element.Name;
+    //      });
+    //   });
+    // });
     let checkValue;
 
     this.workloadArray.forEach(element => {
@@ -354,6 +369,11 @@ export class WorkloadComponent implements OnInit {
           console.log(element1.TableData);
           element1.TableData.Row.forEach(element2 => {
             console.log(element2)
+            console.log(this.workLoadName)
+            if(this.workLoadName == 'Combo Test'){
+              
+              this.getComboTestValue(element2);
+            }
             if (element2.PackageData) {
               this.core = element2.PackageData[0];
             }
@@ -543,6 +563,7 @@ export class WorkloadComponent implements OnInit {
     });
   }
 
+
   isAllSelected(data,d1,d2) {
     let count = 0;
 
@@ -594,6 +615,7 @@ export class WorkloadComponent implements OnInit {
   }
 
   cpuClicked(cpudata, maindata) {
+    console.log(cpudata);
     this.core = cpudata;
     var splitResponse1 = maindata.split(';')
     var cpuId = splitResponse1[0];
@@ -674,8 +696,9 @@ export class WorkloadComponent implements OnInit {
   }
 
   cpuCheckboxClicked(cpu){
+    console.log(cpu)
     if(cpu.isSelected == true){
-      cpu.CoreData.forEach(element => {
+       cpu.CoreData.forEach(element => {
         element.isSelected = false;
       });
       cpu.CoreAllSelected = false;
@@ -690,4 +713,118 @@ export class WorkloadComponent implements OnInit {
   startEndCores() {
 
   }
+
+  getComboTestValue(cputest) {
+    
+    this.cpuvalues = '';
+    this.memvalues = '';
+    this.pmemvalues = '';
+    console.log(cputest)
+    this.workloadArray.forEach(element => {
+      element.TestMode.forEach(element => {
+        if(cputest.SelectedCPU == element.Name){
+          console.log(element.Name)
+          element.TableData.Row[0].PackageData.forEach(data => {
+            if(data.isSelected == true){          
+              this.cpuvalues += data.Name + ' ';
+            }
+          })
+        }else if(cputest.SelectedMem == element.Name){
+          console.log(element.Name)
+          element.TableData.Row[0].PackageData.forEach(data => {
+            if(data.isSelected == true){          
+              this.memvalues += data.Name + ' ';
+            }
+          })
+        }else if(cputest.SelectedPMem == element.Name){
+          console.log(element.Name)
+          element.TableData.Row[0].PackageData.forEach(data => {
+            if(data.isSelected == true){          
+              this.pmemvalues += data.Name + ' ';
+            }
+          })
+        } 
+      });
+    });
+  }
+    // console.log(data)
+    // data.TableData.Row.forEach(element1 => {
+    //   element1.PackageData.forEach(element => {        
+    //     if(element.isSelected == true){          
+    //       this.cpuvalues += element.Name + ' '
+    //       console.log(this.cpuvalues)
+    //     }else if(element.isSelected == true){
+    //       this.memvalues += element.Name + ' '
+    //       console.log(this.memvalues)
+    //     }else if(element.isSelected == true){
+    //       this.pmemvalues += element.Name + ' '
+    //       console.log(this.pmemvalues)
+    //     }
+    //   });
+    // });
+  
+  //   data1.TableData.Row.forEach(element1 => {
+  //     element1.PackageData.forEach(element => {        
+  //       if(element.isSelected == true){          
+  //         this.memvalues += element.Name + ' '
+  //         console.log(this.memvalues)
+  //       }
+  //     });
+  //   });
+  //   data2.TableData.Row.forEach(element1 => {
+  //     element1.PackageData.forEach(element => {        
+  //       if(element.isSelected == true){          
+  //         this.pmemvalues += element.Name + ' '
+  //         console.log(this.pmemvalues)
+  //       }
+  //     });
+  //   });
+  // }
+
+
+  // getComboTestValue1(memtest){
+  //   var data1: any  ;
+  //   console.log(memtest)
+  //   this.workloadArray.forEach(element => {
+  //     element.TestMode.forEach(element => {
+  //       if(memtest.SelectedMem == element.Name){
+  //         console.log(element.Name)
+  //         data1 = element;
+  //       }
+  //     });
+  //   });
+  //   this.memvalues = '';
+  //   console.log(data1)
+  //   data1.TableData.Row.forEach(element1 => {
+  //     element1.PackageData.forEach(element => {        
+  //       if(element.isSelected == true){          
+  //         this.memvalues += element.Name + ' '
+  //         console.log(this.memvalues)
+  //       }
+  //     });
+  //   });
+  // }
+
+  // getComboTestValue2(pmemtest){
+  //   var data2: any  ;
+  //   console.log(pmemtest)
+  //   this.workloadArray.forEach(element => {
+  //     element.TestMode.forEach(element => {
+  //       if(pmemtest.SelectedPMem == element.Name){
+  //         console.log(element.Name)
+  //         data2 = element;
+  //       }
+  //     });
+  //   });
+  //   this.pmemvalues = '';
+  //   console.log(data2)
+  //   data2.TableData.Row.forEach(element1 => {
+  //     element1.PackageData.forEach(element => {        
+  //       if(element.isSelected == true){          
+  //         this.pmemvalues += element.Name + ' '
+  //         console.log(this.pmemvalues)
+  //       }
+  //     });
+  //   });
+  // }
 }
