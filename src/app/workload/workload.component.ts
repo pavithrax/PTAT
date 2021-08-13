@@ -8,6 +8,7 @@ import { HostListener } from "@angular/core";
 import { MatSidenav } from '@angular/material/sidenav';
 import * as  data from './getMonitordata.json';
 import { AppComponent } from '../app.component';
+
 @Component({
   selector: 'app-workload',
   templateUrl: './workload.component.html',
@@ -86,21 +87,21 @@ export class WorkloadComponent implements OnInit {
           element.TestMode.forEach(element1 => {
             element1.TableData.Row.forEach(element2 => {
               if (element2.PackageStart) {
-                element2.CoreData = this.iterator(element2.CoreStart.split(" ")[0],element2.CoreCount);
-                if(element2.ThreadCount) {
-                  element2.ThreadData = this.iterator(element2.ThreadStart.split(" ")[0],element2.ThreadCount);
+                element2.CoreData = this.iterator(element2.CoreStart.split(" ")[0], element2.CoreCount);
+                if (element2.ThreadCount) {
+                  element2.ThreadData = this.iterator(element2.ThreadStart.split(" ")[0], element2.ThreadCount);
                 }
-                
-                element2.PackageData = this.iterator(element2.PackageStart.split(" ")[0],element2.PackageCount);
+
+                element2.PackageData = this.iterator(element2.PackageStart.split(" ")[0], element2.PackageCount);
                 element2.PackageData.forEach(element3 => {
                   element3.CoreAllSelected = true;
-                  element3.CoreData = this.iterator(element2.CoreStart.split(" ")[0],element2.CoreCount);
+                  element3.CoreData = this.iterator(element2.CoreStart.split(" ")[0], element2.CoreCount);
                 });
               }
             });
           });
         });
-   
+
       }
 
     });
@@ -347,11 +348,11 @@ export class WorkloadComponent implements OnInit {
     $("." + workLoadTableCheckBox).removeClass('hide');
     $(".workLoadTableDropdown" + workLoadId).removeClass('hide');
     $('.cpuTree').removeClass('colorSelectedTree1');
-    
+
 
     // changes
     var d = {};
-   
+
     // data.TableMode.forEach(element => {
     //   element.TableData.Row.forEach(element => {
     //      element.PackageData.forEach(element => {
@@ -370,20 +371,20 @@ export class WorkloadComponent implements OnInit {
           element1.TableData.Row.forEach(element2 => {
             console.log(element2)
             console.log(this.workLoadName)
-            if(this.workLoadName == 'Combo Test'){
-              
+            if (this.workLoadName == 'Combo Test') {
+
               this.getComboTestValue(element2);
             }
             if (element2.PackageData) {
               this.core = element2.PackageData[0];
             }
-            
+
           });
 
         }
       });
     });
-   
+
     let workLoadTableDropdown = "workLoadTableDropdown" + workLoadId;
     if (checkValue.Note !== '' || !(checkValue.TableData.Row[0].PackageData)) {
       $('.' + workLoadTableCheckBox).hide();
@@ -564,7 +565,7 @@ export class WorkloadComponent implements OnInit {
   }
 
 
-  isAllSelected(data,d1,d2) {
+  isAllSelected(data, d1, d2) {
     let count = 0;
 
     data.PackageData.forEach(element => {
@@ -578,12 +579,12 @@ export class WorkloadComponent implements OnInit {
     } else {
       data.PackageAllSelected = false;
     }
-    if(count == 0 || count == data.PackageData.length){
+    if (count == 0 || count == data.PackageData.length) {
       data.AtleastOnePackageSelected = false
     } else {
       data.AtleastOnePackageSelected = true;
     }
-    this.cpuClicked(d1,d2)
+    this.cpuClicked(d1, d2)
   }
 
 
@@ -607,7 +608,7 @@ export class WorkloadComponent implements OnInit {
       data.SelectAllThread = false;
     }
 
-    if(count ==0 || count == data.ThreadData.length) {
+    if (count == 0 || count == data.ThreadData.length) {
       data.AtleastOneThreadSelected = false;
     } else {
       data.AtleastOneThreadSelected = true;
@@ -627,10 +628,10 @@ export class WorkloadComponent implements OnInit {
 
   }
 
-  iterator(str,count) {
-    let arr:any = [];
-    for(let i=0;i<count;i++) {
-        arr.push({Index: i, Name: str+' '+ i,isSelected: true});
+  iterator(str, count) {
+    let arr: any = [];
+    for (let i = 0; i < count; i++) {
+      arr.push({ Index: i, Name: str + ' ' + i, isSelected: true });
     }
     return arr;
   }
@@ -644,7 +645,7 @@ export class WorkloadComponent implements OnInit {
     });
   }
 
-  
+
 
   isAllSelectedCore(data) {
     let count = 0;
@@ -658,7 +659,7 @@ export class WorkloadComponent implements OnInit {
     } else {
       data.isSelected = false;
     }
-    if(count === 0 || count == data.CoreData.length ) {
+    if (count === 0 || count == data.CoreData.length) {
       data.AtleastOneCoreSelected = false;
     } else {
       data.AtleastOneCoreSelected = true;
@@ -668,7 +669,7 @@ export class WorkloadComponent implements OnInit {
     this.workloadArray.forEach(element => {
       element.TestMode.forEach(element1 => {
         element1.TableData.Row.forEach(data1 => {
-          if(data1.PackageData) {
+          if (data1.PackageData) {
             // this.isAllSelected(element2);        
             let count1 = 0;
 
@@ -683,26 +684,26 @@ export class WorkloadComponent implements OnInit {
             } else {
               data1.PackageAllSelected = false;
             }
-            if(count1 == 0 || count1 == data1.PackageData.length){
+            if (count1 == 0 || count1 == data1.PackageData.length) {
               data1.AtleastOnePackageSelected = false
             } else {
               data1.AtleastOnePackageSelected = true;
             }
-            
+
           }
         });
       });
     });
   }
 
-  cpuCheckboxClicked(cpu){
+  cpuCheckboxClicked(cpu) {
     console.log(cpu)
-    if(cpu.isSelected == true){
-       cpu.CoreData.forEach(element => {
+    if (cpu.isSelected == true) {
+      cpu.CoreData.forEach(element => {
         element.isSelected = false;
       });
       cpu.CoreAllSelected = false;
-    }else{
+    } else {
       cpu.CoreData.forEach(element => {
         element.isSelected = true;
       });
@@ -715,116 +716,79 @@ export class WorkloadComponent implements OnInit {
   }
 
   getComboTestValue(cputest) {
-    
+    this.pmemvalues = '';
     this.cpuvalues = '';
     this.memvalues = '';
-    this.pmemvalues = '';
     console.log(cputest)
-    this.workloadArray.forEach(element => {
-      element.TestMode.forEach(element => {
-        if(cputest.SelectedCPU == element.Name){
-          console.log(element.Name)
-          element.TableData.Row[0].PackageData.forEach(data => {
-            if(data.isSelected == true){          
-              this.cpuvalues += data.Name + ' ';
-            }
-          })
-        }else if(cputest.SelectedMem == element.Name){
-          console.log(element.Name)
-          element.TableData.Row[0].PackageData.forEach(data => {
-            if(data.isSelected == true){          
-              this.memvalues += data.Name + ' ';
-            }
-          })
-        }else if(cputest.SelectedPMem == element.Name){
-          console.log(element.Name)
-          element.TableData.Row[0].PackageData.forEach(data => {
-            if(data.isSelected == true){          
-              this.pmemvalues += data.Name + ' ';
-            }
-          })
-        } 
+
+    // --using forEach--
+
+    // this.workloadArray.forEach(element => {
+    //   element.TestMode.forEach(element => {
+    //     if(cputest.SelectedCPU == element.Name){
+    //       console.log(element.Name)
+    //       element.TableData.Row[0].PackageData.forEach(data => {
+    //         if(data.isSelected == true){          
+    //           this.cpuvalues += data.Name + ' ';
+    //         }
+    //       })
+    //     }else if(cputest.SelectedMem == element.Name){
+    //       console.log(element.Name)
+    //       element.TableData.Row[0].PackageData.forEach(data => {
+    //         if(data.isSelected == true){          
+    //           this.memvalues += data.Name + ' ';
+    //         }
+    //       })
+    //     }else if(cputest.SelectedPMem == element.Name){
+    //       console.log(element.Name)
+    //       element.TableData.Row[0].PackageData.forEach(data => {
+    //         if(data.isSelected == true){          
+    //           this.pmemvalues += data.Name + ' ';
+    //         }
+    //       })
+    //     } 
+
+    //   });
+    // });
+
+
+    // --using flatMap--
+
+    this.workloadArray.map(element => {
+      element.TestMode.map(element => {
+        console.log(element)
+        if(cputest.SelectedCPU == element.Name) {
+          element.TableData.Row[0].PackageData
+          .flatMap(data => data.isSelected ? this.cpuvalues += data.Name + ' ' : this.cpuvalues += '')
+        }else if (cputest.SelectedMem == element.Name) {
+          element.TableData.Row[0].PackageData
+          .flatMap(data => data.isSelected ? this.memvalues += data.Name + ' ' : this.memvalues += '') 
+        }else if (cputest.SelectedPMem == element.Name) {
+          element.TableData.Row[0].PackageData
+          .flatMap(data => data.isSelected ? this.pmemvalues += data.Name + ' ' : this.pmemvalues += '');
+        }
       });
     });
   }
-    // console.log(data)
-    // data.TableData.Row.forEach(element1 => {
-    //   element1.PackageData.forEach(element => {        
-    //     if(element.isSelected == true){          
-    //       this.cpuvalues += element.Name + ' '
-    //       console.log(this.cpuvalues)
-    //     }else if(element.isSelected == true){
-    //       this.memvalues += element.Name + ' '
-    //       console.log(this.memvalues)
-    //     }else if(element.isSelected == true){
-    //       this.pmemvalues += element.Name + ' '
-    //       console.log(this.pmemvalues)
-    //     }
-    //   });
-    // });
-  
-  //   data1.TableData.Row.forEach(element1 => {
-  //     element1.PackageData.forEach(element => {        
-  //       if(element.isSelected == true){          
-  //         this.memvalues += element.Name + ' '
-  //         console.log(this.memvalues)
-  //       }
-  //     });
-  //   });
-  //   data2.TableData.Row.forEach(element1 => {
-  //     element1.PackageData.forEach(element => {        
-  //       if(element.isSelected == true){          
-  //         this.pmemvalues += element.Name + ' '
-  //         console.log(this.pmemvalues)
-  //       }
-  //     });
-  //   });
-  // }
-
-
-  // getComboTestValue1(memtest){
-  //   var data1: any  ;
-  //   console.log(memtest)
-  //   this.workloadArray.forEach(element => {
-  //     element.TestMode.forEach(element => {
-  //       if(memtest.SelectedMem == element.Name){
-  //         console.log(element.Name)
-  //         data1 = element;
-  //       }
-  //     });
-  //   });
-  //   this.memvalues = '';
-  //   console.log(data1)
-  //   data1.TableData.Row.forEach(element1 => {
-  //     element1.PackageData.forEach(element => {        
-  //       if(element.isSelected == true){          
-  //         this.memvalues += element.Name + ' '
-  //         console.log(this.memvalues)
-  //       }
-  //     });
-  //   });
-  // }
-
-  // getComboTestValue2(pmemtest){
-  //   var data2: any  ;
-  //   console.log(pmemtest)
-  //   this.workloadArray.forEach(element => {
-  //     element.TestMode.forEach(element => {
-  //       if(pmemtest.SelectedPMem == element.Name){
-  //         console.log(element.Name)
-  //         data2 = element;
-  //       }
-  //     });
-  //   });
-  //   this.pmemvalues = '';
-  //   console.log(data2)
-  //   data2.TableData.Row.forEach(element1 => {
-  //     element1.PackageData.forEach(element => {        
-  //       if(element.isSelected == true){          
-  //         this.pmemvalues += element.Name + ' '
-  //         console.log(this.pmemvalues)
-  //       }
-  //     });
-  //   });
-  // }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
