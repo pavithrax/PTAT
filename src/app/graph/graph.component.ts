@@ -8,7 +8,7 @@ import { FileSaverService } from 'ngx-filesaver';
 import { SocketService } from '../db/socket.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import {UtilityServiceService} from '../services/utility-service.service';
-import  * as dataFormat from './GetMonitorDataNew.json';
+// import  * as dataFormat from './GetMonitorDataNew.json';
 import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-graph',
@@ -288,6 +288,8 @@ liveGraphFeature:any = [];
 
 	this.SocketService.getToolInfo().subscribe(message => {
 		if (message) {
+			console.log(message);;
+			
 		   var getToolInfoResponse = message;
 		   var len = getToolInfoResponse.length;
 		   for (var i = 0; i < len; i++) {
@@ -304,6 +306,7 @@ liveGraphFeature:any = [];
 					this.InstalledPath = getToolInfoResponse[i].value;
 			  }
 		   }
+		   console.log(this.logFilePath);
 		}
 	 });
 
@@ -351,7 +354,7 @@ liveGraphFeature:any = [];
 
 	this.SocketService.AddParamToGraph2Res().subscribe(message => {
 		if (message) {
-			let paramIndex = message.UID-8;
+			let paramIndex = message.Data.UID-8;
 			let paramName = $(".offlineGraphContainer ul li:nth-child("+(paramIndex+1)+")")[0].innerText;
 			if (paramName == undefined || paramName == "") {
 				return false;
@@ -1203,6 +1206,8 @@ saveOfflineGraph(){
 }
 
 openLoadModal() {
+	console.log(this.logFilePath);
+	
 	this.spinner.show();
 	 //var cmd = "GetFilesInDir("+this.logFilePath+",log)";
 	var path = ""
@@ -1211,6 +1216,7 @@ openLoadModal() {
 	}else{
 		path = this.logFilePath.replace(/\\/g,"////");
 	}
+	console.log(path);
 	 var command = '{"Command" : "GetFilesInDir","Args":'+'"'+path+',log'+'"'+'}'
 	 this.SocketService.sendMessage(command);
   }

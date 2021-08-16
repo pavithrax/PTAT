@@ -90,7 +90,7 @@
               <div class="col-sm-1" (click)="refreshOfflineGraphLogFile()"><i class="fas fa-sync"></i></div>
               <div class="col-sm-7">
                 <select class="form-control"  id="loadGraphFileName" >                                 
-                  <option *ngFor="let item of filesInDir">{{item.Data}}</option>    
+                  <option *ngFor="let item of filesInDir">{{item}}</option>    
                 </select>
               </div>
             </div>
@@ -125,7 +125,7 @@
               </div>
               <div class="card-body offlineGraphContainer parameterCardBody">
                 <ul class="nopadding" style="list-style: none!important;">                        
-                  <li  class="liStyle offlineGraphParams" *ngFor="let item of offlineGraphDetails.Data.Row;let i = index" [attr.data-index]="i" [attr.data-value]="item.Data" [class.paramSelected]="i == 0" [ngClass]="'addDelIndividualClass'+ i" (click)="addDeleteOfflineGraphliCommon(i)"><a>{{item.Data}}</a></li>                           
+                  <li  class="liStyle offlineGraphParams" *ngFor="let item of offlineGraphDetails.Data.Row;let i = index" [attr.data-index]="i" [attr.data-value]="item" [class.paramSelected]="i == 0" [ngClass]="'addDelIndividualClass'+ i" (click)="addDeleteOfflineGraphliCommon(i)"><a>{{item}}</a></li>                           
                </ul>
               </div>
             </div>

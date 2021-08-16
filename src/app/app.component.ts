@@ -43,7 +43,7 @@ export class AppComponent {
    licenseNavBar: boolean = true;
    sidePanelToggleFlag: number = 0;
    powerVisualizationOpenStatus: any = "";
-   platform: string = "client";
+   platform: string = "server";
 
    constructor(private utility: UtilityServiceService, private spinner: NgxSpinnerService, public socket: SocketService) {
 

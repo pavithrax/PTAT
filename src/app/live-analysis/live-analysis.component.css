@@ -88,7 +88,7 @@
     margin-left: 32px;
 }
 .mainContent .firstCard:nth-child(2){
-    margin-top: 5     px;
+    margin-top: 5px !important;
 }
 .analysisCard .form-group{
     margin-bottom: 5px !important;

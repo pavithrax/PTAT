@@ -89,7 +89,6 @@
                 "ButtonName": "Start",
                 "Status": "Stopped",
                 "isSelected": true,
-                
                 "SelectAllThread": true,
                 
                 "PackageCount": 8,
@@ -98,7 +97,7 @@
                 "PackageEnd": "CPU 2",
                 "CoreStart": "Core 0",
                 "CoreEnd": "Core 2",
-                "CoreCount": 3,
+                "CoreCount": 128,
                 "ThreadStart": "Thread 0",
                 "ThreadEnd": "Thread 1",
                 "ThreadCount": 2
@@ -140,7 +139,7 @@
                 "PackageEnd": "CPU 2",
                 "CoreStart": "Core 0",
                 "CoreEnd": "Core 2",
-                "CoreCount": 3,
+                "CoreCount": 128,
                 "ThreadStart": "Thread 0",
                 "ThreadEnd": "Thread 1",
                 "ThreadCount": 2
@@ -182,7 +181,7 @@
                 "PackageEnd": "CPU 2",
                 "CoreStart": "Core 0",
                 "CoreEnd": "Core 2",
-                "CoreCount": 3,
+                "CoreCount": 128,
                 "ThreadStart": "Thread 0",
                 "ThreadEnd": "Thread 1",
                 "ThreadCount": 2
@@ -441,7 +440,7 @@
                 "PackageEnd": "CPU 2",
                 "CoreStart": "Core 0",
                 "CoreEnd": "Core 2",
-                "CoreCount": 3,
+                "CoreCount": 128,
                 "ThreadStart": "Thread 0",
                 "ThreadEnd": "Thread 1",
                 "ThreadCount": 2
@@ -483,7 +482,7 @@
                 "PackageEnd": "CPU 2",
                 "CoreStart": "Core 0",
                 "CoreEnd": "Core 2",
-                "CoreCount": 3,
+                "CoreCount": 128,
                 "ThreadStart": "Thread 0",
                 "ThreadEnd": "Thread 1",
                 "ThreadCount": 2

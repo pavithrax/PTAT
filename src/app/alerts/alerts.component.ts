@@ -7,8 +7,6 @@ import { Command } from 'selenium-webdriver';
 import * as $ from 'jquery';
 import { NgxSpinnerService } from "ngx-spinner";
 import { AppComponent } from '../app.component';
-// import  dataFormat from './GetMonitorDataNew.json';
-// import * as dataFormat from './GetMonitorDataNew.json';
 
 @Component({
   selector: 'app-alerts',
@@ -112,50 +110,24 @@ export class AlertsComponent implements OnInit {
     } else {
       this.dataType = 'Clientside';
     }
-    // console.log();
     this.objArray = [];
-    // console.log(dataFormat);
     this.alertSecShowHide = true;
     
-    
-    // this.keys = Object.entries(message.data);
-    // console.log(this.keys)
-    
-
     // getting the data from monitor resp for both client and server
     this.SocketService.getMonitorDataRes().subscribe(message => {
       this.data = message;
-      // this.data = dataFormat;
-      console.log('hi');
-      
       if(this.dataType === 'Serverside') {
-        this.dataType = 'Serverside';
-        // Object.keys(this.data.Data).forEach(key => this.objArray.push({
-        //       name: key,
-        //       child: this.data.Data[key]
-        //       }));
-        //       console.log(this.objArray);
-        //       console.log(this.objArray[0].child);
-        //       this.selectedKey = this.objArray[0];
-        //       this.selectedComponent = this.objArray[0].child[0];
-        //       console.log(this.selectedKey);
-        //       this.featuresArray = this.objArray[0].child[0].data.Features;
-        //       this.firstChildArray = this.objArray[0].child[0].children;
-
 
         this.data.Data.forEach(element => {
-          // this.keys.push(Object.keys(element));
-            console.log(element);
             
             Object.keys(element).forEach(key => this.objArray.push({
             name: key,
             child: element[key]
             }));
-            console.log(this.objArray);
-            console.log(this.objArray[0].child);
+          
             this.selectedKey = this.objArray[0];
             this.selectedComponent = this.objArray[0].child[0];
-            console.log(this.selectedKey);
+           
             this.featuresArray = this.objArray[0].child[0].data.Features;
             this.firstChildArray = this.objArray[0].child[0].children;
         });
@@ -163,15 +135,12 @@ export class AlertsComponent implements OnInit {
         this.dataType = 'Clientside';
         this.objArray = this.data.Data[0].Treelist;
         this.secondChildArray = this.data.Data[0].Treelist[0].Treelist;
-        console.log(this.secondChildArray);
+       
         this.selectedKey = this.data.Data[0].Treelist[0];
         this.selectedFirstChildComponent = this.data.Data[0].Treelist[0].Treelist[0];
         this.firstChildArray = this.data.Data[0].Treelist[0].Treelist;
         this.featuresArray = this.data.Data[0].Treelist[0].Treelist[0].SubTreeList;
-        // dataFormat.Data[0].Treelist.forEach(element => {
-        //   // element.name = element.Name;
-        //   this.objArray = element;
-        // });
+        
       }
     })
     this.SocketService.isLoadAlertsDataStatus().subscribe(message => {
@@ -498,7 +467,6 @@ export class AlertsComponent implements OnInit {
 
           let expression = alertSummaryResponseData[alertCount].AlertExpression;
           this.recentAlertData.push(alertSummaryResponseData[alertCount]);
-          console.log(alertSummaryResponseData[alertCount].Count);
 
           for(let count =0;count<this.summaryData.length;count++) {
               if(expression == this.summaryData[count].name){
@@ -569,7 +537,7 @@ export class AlertsComponent implements OnInit {
     this.addUpdateAlertFlag = 1;
   }
 
-  // Drag And Drop Function Starts Here
+  // Drag And Drop Function Starts Here not used 
   dropInInput(event){
     // Sending the comand after droping starts Here
 
@@ -974,16 +942,13 @@ export class AlertsComponent implements OnInit {
   }
 
   selectedDataForServer() {
-      console.log(this.alertInputData);
-      console.log(this.selectedFeature);
 
       if(this.selectedFeature.Param.type == 'string') {
         this.selectedFeature.itemType = 1; 
       } else {
         this.selectedFeature.itemType = 2; 
       }
-      console.log();
-      
+
       let parentName = this.selectedComponent.data.Name ;
       if(this.selectedFirstChildComponent === 'select') {
         this.selectedFeature.itemPname = parentName;
@@ -993,7 +958,6 @@ export class AlertsComponent implements OnInit {
           parentName += "_"+ this.selectedSecondChildComponent.data.Name
         }
       }
-      console.log(parentName)
       this.selectedFeature.itemUnit = this.selectedFeature.unit;
       this.selectedFeature.underScore = "_";
       this.selectedFeature.itemName = this.selectedFeature.Name;
@@ -1009,7 +973,6 @@ export class AlertsComponent implements OnInit {
   }
 
   selectedFirstItem(data) {
-    console.log(data);
     this.firstChildArray = data.Treelist
   }
 // to be used later if we dont get the itemtype in client response;
@@ -1017,7 +980,6 @@ export class AlertsComponent implements OnInit {
   selectedDataForClient() {
     var  command = '{"Command" : "GetParamType","Args":'+'"'+this.selectedFeature.Index+'"'+'}';
     this.SocketService.sendMessage(command);
-    console.log(this.selectedFeature);
     this.selectedFeature.conditionType = 0;
     this.selectedFeature.itemType = 2;
     this.selectedFeature.itemUnit = this.selectedFeature.unit;
@@ -1028,7 +990,6 @@ export class AlertsComponent implements OnInit {
     this.selectedFeature.itemIndex = this.selectedFeature.Index;
 
     this.alertInputData[this.alertInputData.length - 1] = this.selectedFeature;
-    console.log(this.selectedFeature);
     
   }
   selectedSecondItem(data) {

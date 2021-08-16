@@ -131,7 +131,7 @@
                                              [(ngModel)]="item3.SelectedPowerLevel"
                                              [disabled]="item3.SelectedPowerLevel == ''"
                                              [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index">
-                                             <option *ngFor="let item4 of item3.PowerLevel" [(ngValue)]="item4">
+                                             <option *ngFor="let item4 of item3.PowerLevel" [ngValue]="item4">
                                                 {{item4}}
                                              </option>
                                           </select>
@@ -144,7 +144,7 @@
                                              [(ngModel)]="item3.SelectedMemLevel"
                                              [disabled]="item3.SelectedMemLevel == ''"
                                              [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index">
-                                             <option *ngFor="let item4 of item3.MemLevel" [(ngValue)]="item4">
+                                             <option *ngFor="let item4 of item3.MemLevel" [ngValue]="item4">
                                                 {{item4}}
                                              </option>
                                           </select>
@@ -158,7 +158,7 @@
                                              [disabled]="item3.SelectedCPUCore == ''"
                                              [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index"
                                              [(ngModel)]="item3.SelectedCPUCore">
-                                             <option *ngFor="let item4 of item3.CpuCores" [(ngValue)]="item4">
+                                             <option *ngFor="let item4 of item3.CpuCores" [ngValue]="item4">
                                                 {{item4}}
                                              </option>
                                           </select>
@@ -172,7 +172,7 @@
                                              [disabled]="item3.SelectedMemCore == ''"
                                              [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index"
                                              [(ngModel)]="item3.SelectedMemCore">
-                                             <option *ngFor="let item4 of item3.MemCores" [(ngValue)]="item4">
+                                             <option *ngFor="let item4 of item3.MemCores" [ngValue]="item4">
                                                 {{item4}}
                                              </option>
                                           </select>
@@ -186,7 +186,7 @@
                                              [(ngModel)]="item3.SelectedPMemCore"
                                              [disabled]="item3.SelectedPMemCore == ''"
                                              [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index">
-                                             <option *ngFor="let item4 of item3.PmemCores" [(ngValue)]="item4">
+                                             <option *ngFor="let item4 of item3.PmemCores" [ngValue]="item4">
                                                 {{item4}}
                                              </option>
                                           </select>
@@ -199,7 +199,7 @@
                                           <select class="form-control dropdownControl"
                                              [(ngModel)]="item3.SelectedCPU" (change)="getComboTestValue(item3)"
                                              [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index">
-                                             <option *ngFor="let item4 of item3.CpuTests" [(ngValue)]="item4">
+                                             <option *ngFor="let item4 of item3.CpuTests" [ngValue]="item4">
                                                 {{item4}}
                                              </option>
                                           </select>
@@ -212,7 +212,7 @@
                                           <select class="form-control dropdownControl" (change)="getComboTestValue(item3)"
                                              [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index"
                                              [(ngModel)]="item3.SelectedMem">
-                                             <option *ngFor="let item4 of item3.MemTests" [(ngValue)]="item4">
+                                             <option *ngFor="let item4 of item3.MemTests" [ngValue]="item4">
                                                 {{item4}}
                                              </option>
                                           </select>
@@ -226,7 +226,7 @@
                                           (change)="getComboTestValue(item3)"
                                              [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index"
                                              [(ngModel)]="item3.SelectedPMem">
-                                             <option *ngFor="let item4 of item3.PmemTests" [(ngValue)]="item4">
+                                             <option *ngFor="let item4 of item3.PmemTests" [ngValue]="item4">
                                                 {{item4}}
                                              </option>
                                           </select>
