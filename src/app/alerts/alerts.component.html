@@ -75,14 +75,14 @@
                 <div class="row" *ngIf="dataType == 'Clientside'">
                     <div class="form-group col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1" >
                         <select id="inputComb"  class="btn alertDropDownBtnColor alertFontSize" [(ngModel)] = "selectedKey" 
-                        (ngModelChange)="featuresArray = [];firstChildArray = [];selectedFirstItem($event);">
+                        (ngModelChange)="featuresArray = [];firstChildArray = [];firstChildArray = data.Treelist">
                             <option  *ngFor="let itemComb of objArray" [ngValue]="itemComb" class="alertFontSize">{{itemComb.Name}}</option>
                         </select>
                     </div>
                     <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
                     <div class="form-group col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1" >
                         <select id="inputComb"  class="btn alertDropDownBtnColor alertFontSize"
-                            [(ngModel)] = "selectedFirstChildComponent"  (ngModelChange)="selectedSecondItem($event);
+                            [(ngModel)] = "selectedFirstChildComponent"  (ngModelChange)="
                             selectedFeature = 'select'; featuresArray=selectedFirstChildComponent.SubTreeList">
                             <option   [ngValue]="'select'" class="alertFontSize">--Select--</option>
                             <option  *ngFor="let value of firstChildArray" [ngValue]="value" class="alertFontSize">{{value.Name}}</option>

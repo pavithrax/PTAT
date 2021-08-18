@@ -988,7 +988,7 @@ offlineGraphSubmit(){
 	  if(typeof(this.offlineGraphParsedData[index]) == "object"){
 
 	  }else{
-		  if(direction == "Left"){
+		  if(direction !== "Left"){
 			this.offlineGraphParsedData[index] = {type:"line",axisYType:"primary",lineDashType:"dash",markerType:"circle",showInLegend: true,animationEnabled:true,name:name,dataPoints:[]}; 
 		  }else{
 			this.offlineGraphParsedData[index] = {type:"line",axisYType:"secondary",markerType:"cross",showInLegend: true,animationEnabled:true,name:name,dataPoints:[]}; 
@@ -1334,8 +1334,8 @@ openLoadModal() {
 		}else{
 			this.argThreeIndex = 2;
 		}	
-		var command = '{"Command" : "Graph1Arg2Selected","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
-		this.SocketService.sendMessage(command);
+		// var command = '{"Command" : "Graph1Arg2Selected","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
+		// this.SocketService.sendMessage(command);
 	}
 
 	argThreadChanged() {
@@ -1417,7 +1417,7 @@ openLoadModal() {
 			}
 			var key = ReceivedData[i].Key;
 			// var index = this.liveGraphUIDList.indexOf(ReceivedData[i].Key);
-			var index = this.liveGraphUIDList.findIndex(data => data = key);
+			var index = this.liveGraphUIDList.findIndex(data => data == ReceivedData[i].Key);
 			// var index = 0;
 			console.log(this.liveGraphUIDList, index);
 			console.log(this.liveGraphDate);
@@ -1438,7 +1438,7 @@ openLoadModal() {
 				this.liveGraphDataArray[index].visible = true;
 				this.liveGraphDataArray[index].zoomEnabled = true;
 				this.liveGraphDataArray[index].name = '';
-				if(ReceivedData[i].Direction == 1){
+				if(ReceivedData[i].Direction !== 1){
 					this.liveGraphDataArray[index].axisYType = "primary";
 					this.liveGraphDataArray[index].lineDashType = "dash";	
 					this.liveGraphDataArray[index].markerType= "circle";

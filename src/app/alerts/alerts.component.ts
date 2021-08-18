@@ -303,7 +303,6 @@ export class AlertsComponent implements OnInit {
 
 
             //****************************************** 
-              //console.log(expSummary);
              this.summaryData[count] = expSummary;
           }
           this.spinner.hide();
@@ -456,7 +455,6 @@ export class AlertsComponent implements OnInit {
 
 
    this.SocketService.isAlertSummaryStatus().subscribe(message => {
-     console.log(message);
     if (message) {
       if(message.Data && message.Data.length > 0){
        
@@ -545,7 +543,6 @@ export class AlertsComponent implements OnInit {
     if(scrWidth < 650){
      $('#sidebar, #content').toggleClass('active');
     }
-    console.log(event);
     
     var  command = '{"Command" : "GetParamType","Args":'+'"'+event.item.element.nativeElement.dataset.itemIndex+'"'+'}'
     // let reqCmd = "GetParamType" + '(' +event.item.element.nativeElement.dataset.itemIndex + ')';
@@ -553,10 +550,7 @@ export class AlertsComponent implements OnInit {
 
     // Sending the comand after droping starts Here
     let containerId:String = event.container.element.nativeElement.id;
-    console.log()
-    this.getParamArrayId = containerId.replace("xyz", "");
-    console.log(this.getParamArrayId);
-    
+    this.getParamArrayId = containerId.replace("xyz", "");    
     this.alertInputData[this.getParamArrayId].itemIndex = event.item.element.nativeElement.dataset.itemIndex;
     this.alertInputData[this.getParamArrayId].itemPname = event.item.element.nativeElement.dataset.itemPname;
     this.alertInputData[this.getParamArrayId].itemName = event.item.element.nativeElement.innerText;
@@ -567,7 +561,6 @@ export class AlertsComponent implements OnInit {
     // this.alertInputData[this.getParamArrayId].itemType = event.item.element.nativeElement.dataset.itemType;
     // this.alertInputData[this.getParamArrayId].conditionType = event.item.element.nativeElement.dataset.itemType == 1 ? this.stringType[0].id : this.alertInputData[this.getParamArrayId].conditionType = this.numberType[0].id;
     
-    console.log(this.alertInputData);
   }
   // Drag And Drop Function Ends Here
   createFormGroup(){
@@ -599,24 +592,10 @@ export class AlertsComponent implements OnInit {
       this.alertMessage = "";
       this.alertSummaryErrorType = this.errorType;
 
-       // console.log("After Proceed", this.alertInputData);
-      // Creating an array with all details to show the summary table starts here
-     
-      // let expSummary = {
-      //   "name": (this.editIndex > -1) ? this.summaryData[this.editIndex].name : "Expression" + this.expCount++,
-      //   "errorType": this.errorType,
-      //   "expressions": [],
-      //   "expStr": ""
-      // };
-
-      // Creating an array with all details to show the summary table starts here
-
-    // Creating a string to tooltip info for the whole expression starts here
     let expStr = "";
     let expId = "";
     let UidList = "";
     let expAddition = [];
-    console.log(this.alertInputData);
     for(let i = 0; i < this.alertInputData.length; i++) {
       let e = this.alertInputData[i];
       let exp = {
@@ -629,14 +608,13 @@ export class AlertsComponent implements OnInit {
         "selectedInputVal": e.selectedInputVal,
         "itemIndex" : e.itemIndex,
         "underScore": "_"
-      };
-      // expStr += ((exp.expSymbol) ? exp.expSymbol : "") + " " + exp.itemName + "_" + exp.itemPname + " " +
-      //   ((exp.itemType == 1) ? this.stringType : this.numberType)[exp.conditionType]["symbol"] + " " +
-      //   exp.selectedInputVal + " ";      //Explanantion is below
+      };   
+      //Explanantion is below
       
       expStr += ((exp.expSymbol) ? exp.expSymbol : "") + exp.itemPname+ exp.underScore + exp.itemName+exp.itemUnit+
         ((exp.itemType == 1) ? this.stringType : this.numberType)[exp.conditionType]["symbol"]+
-        exp.selectedInputVal;      //Explanantion is below
+        exp.selectedInputVal;      
+        //Explanantion is below
       
 
       expId += ((exp.expSymbol) ? exp.expSymbol : "") +"$" + exp.itemIndex + "$" +((exp.itemType == 1) ? this.stringType : this.numberType)[exp.conditionType]["symbol"] +
@@ -646,15 +624,12 @@ export class AlertsComponent implements OnInit {
       // expStr ternary operator details below starts here
      // expSummary.expressions.push(exp);
      expAddition.push(exp)
-     console.log(expStr,expId, UidList, exp );
      
     this.alertSummaryExpressions = expAddition;
     }
     //expSummary.expStr = expStr;
     this.alertSummaryexpStr = expStr; 
     this.rowUidList = UidList;
-    console.log(this.alertSummaryexpStr, this.rowUidList);
-    
 
     // Send Comand Before Pushing to array starts Here
     //let cmdAddAlertList = "AddToAlertList"+"("+'('+expStr+')';
@@ -709,9 +684,7 @@ export class AlertsComponent implements OnInit {
 
   //  Strating/Stoping Alert Function Starts Here
    alertStartStop(val){
-    // console.log(val);
     //let cmdStartStop = (val == 'Start Alerts') ? "StartAlert()" : "StopAlert()";
-   // console.log(cmdStartStop);
    if(val == "Start Alerts"){
         var path = ""
         if(this.osInformation = "windows"){
@@ -722,7 +695,6 @@ export class AlertsComponent implements OnInit {
        var alertArguments = path+','+this.currentIpAddress;
       // var startAlertsCmd = 'StartAlert'+'('+alertArguments+')';
       var startAlertsCmd = '{"Command" : "StartAlert","Args":'+'"'+alertArguments+'"'+'}'
-      console.log(this.alertInputData);
       this.SocketService.sendMessage(startAlertsCmd);
       
     }else{
@@ -779,19 +751,7 @@ export class AlertsComponent implements OnInit {
      var removeFromAlertListCommand = '{"Command" : "RemoveFromAlertList","Args":'+'"'+rowId+","+rowIndex+'"'+'}'
      this.SocketService.sendMessage(removeFromAlertListCommand);
     }
-    // let deleteCmd = "RemoveFromAlertList"+'('+i+')';
-    // this.editIndex = -1;
-   // console.log(deleteCmd);
-
-    // Delete Send Command Starts Here
-    // SocketService.send(deleteCmd);
-    // Delete Send Command Ends Here
-
-    // this.summaryData.splice(i,1);
-    // if(this.summaryData.length == 0){
-    //   this.alertSummaryTableView = false;
-    //   this.alertSecShowHide = false;
-    // }
+    
   }
   // Delete Alert Expression from ALert Summary ends Here
 
@@ -870,17 +830,14 @@ export class AlertsComponent implements OnInit {
   //     }
   //   }
   // }
-  selectedKeyElement(data) {
-    console.log(data);
-    
-  }
+  
+  // Code to get clinet data and server data
   selectedComponetData(data) {
     this.featuresArray = [];
     this.firstChildArray = [];
     this.selectedFeature = 'select';
     this.selectedSecondChildComponent='select'
 
-    console.log(data);
     if(data!='select') {
       if(data.data.Features.length > 0 && data != 'select') {
         this.getFeaturesData(data.data.Features);
@@ -894,26 +851,24 @@ export class AlertsComponent implements OnInit {
 
   getFeaturesData(data) {
     this.featuresArray = data;
-    console.log(data);
     
   }
 
   getFirstChildernDataFromComponent(data) {
     this.firstChildArray = [];
-    console.log(data);
     this.firstChildArray = data;
   }
   
   selectedFirstChildComponetData(data) {
 
-    console.log(data);
     if(this.dataType == 'Serverside') {
       if(data == 'select') {
         this.getFeaturesData(this.selectedComponent.data.Features);
         this.selectedSecondChildComponent = 'select';
       } else {
           if(data.children.length > 0 && data != 'select') {
-              this.getSecondChildernDataFromComponent(data.children)
+              this.secondChildArray = [];
+              this.secondChildArray = data.children;
           }
           if(data.data.Features.length > 0 && data != 'select') {
             this.getFeaturesData(data.data.Features);
@@ -921,15 +876,8 @@ export class AlertsComponent implements OnInit {
       }
     } 
     
-    
-    
   }
 
-  getSecondChildernDataFromComponent(data) {
-    this.secondChildArray = [];
-    console.log(data);
-    this.secondChildArray = data;
-  }
 
   selectedSecondChildComponetData(data) {
     if(data !=='select') {
@@ -968,13 +916,10 @@ export class AlertsComponent implements OnInit {
         this.selectedFeature.expSymbol = '&&'
       }
       this.alertInputData[this.alertInputData.length - 1] = this.selectedFeature;
-      // if
       
   }
 
-  selectedFirstItem(data) {
-    this.firstChildArray = data.Treelist
-  }
+
 // to be used later if we dont get the itemtype in client response;
 
   selectedDataForClient() {
@@ -992,13 +937,5 @@ export class AlertsComponent implements OnInit {
     this.alertInputData[this.alertInputData.length - 1] = this.selectedFeature;
     
   }
-  selectedSecondItem(data) {
-    // console.log(data);
-    // this.SocketService.isGetParamTypeStatus().subscribe(message => {
-    //   if (message) {
-    //     this.alertInputData[this.getParamArrayId].itemType = message.Data;
-    //     this.alertInputData[this.getParamArrayId].conditionType = message.Data == 1 ? this.stringType[0].id : this.alertInputData[this.getParamArrayId].conditionType = this.numberType[0].id;
-    //   }
-    // });
-  }
+  
 }
