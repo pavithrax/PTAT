@@ -17,9 +17,7 @@
           "ToolTip": "CPU Workload that generates different power Levels for different Workloads in Percentage. Useful for testing  system stability in terms of thermal and power",
           "TableData": {
             "Header": [
-              "Note",
-              "Action",
-              "Status"
+              "Note"
             ],
             "Row": [
               {
@@ -44,9 +42,7 @@
           "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
           "TableData": {
             "Header": [
-              "Note",
-              "Action",
-              "Status"
+              "Note"
             ],
             "Row": [
               {
@@ -95,6 +91,7 @@
                 "PackageAllSelected": true,
                 "PackageStart": "CPU 0",
                 "PackageEnd": "CPU 2",
+                "DroporCheck": true,
                 "CoreStart": "Core 0",
                 "CoreEnd": "Core 2",
                 "CoreCount": 128,
@@ -137,6 +134,7 @@
                 "PackageAllSelected": true,
                 "PackageStart": "CPU 0",
                 "PackageEnd": "CPU 2",
+                "DroporCheck": true,
                 "CoreStart": "Core 0",
                 "CoreEnd": "Core 2",
                 "CoreCount": 128,
@@ -179,6 +177,7 @@
                 "PackageAllSelected": true,
                 "PackageStart": "CPU 0",
                 "PackageEnd": "CPU 2",
+                "DroporCheck": true,
                 "CoreStart": "Core 0",
                 "CoreEnd": "Core 2",
                 "CoreCount": 128,
@@ -196,9 +195,7 @@
           "ToolTip": "CPU Workload that generates different power Levels for different Workloads in Percentage. Useful for testing  system stability in terms of thermal and power",
           "TableData": {
             "Header": [
-              "Note",
-              "Action",
-              "Status"
+              "Note"
             ],
             "Row": [
               {
@@ -223,9 +220,7 @@
           "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
           "TableData": {
             "Header": [
-              "Note",
-              "Action",
-              "Status"
+              "Note"
             ],
             "Row": [
               {
@@ -280,6 +275,7 @@
                 "PackageAllSelected": true,
                 "PackageStart": "CPU 0",
                 "PackageEnd": "CPU 2",
+                "DroporCheck": true,
                 "CoreStart": "Core 0",
                 "CoreEnd": "Core 2",
                 "CoreCount": 3
@@ -317,6 +313,7 @@
                 "PackageAllSelected": true,
                 "PackageStart": "CPU 0",
                 "PackageEnd": "CPU 2",
+                "DroporCheck": true,
                 "CoreStart": "Core 0",
                 "CoreEnd": "Core 2",
                 "CoreCount": 3
@@ -355,6 +352,7 @@
                 "PackageAllSelected": true,
                 "PackageStart": "CPU 0",
                 "PackageEnd": "CPU 2",
+                "DroporCheck": true,
                 "CoreStart": "Core 0",
                 "CoreEnd": "Core 2",
                 "CoreCount": 3
@@ -392,6 +390,7 @@
                 "PackageAllSelected": true,
                 "PackageStart": "CPU 0",
                 "PackageEnd": "CPU 2",
+                "DroporCheck": true,
                 "CoreStart": "Core 0",
                 "CoreEnd": "Core 2",
                 "CoreCount": 3
@@ -438,6 +437,7 @@
                 "PackageAllSelected": true,
                 "PackageStart": "CPU 0",
                 "PackageEnd": "CPU 2",
+                "DroporCheck": true,
                 "CoreStart": "Core 0",
                 "CoreEnd": "Core 2",
                 "CoreCount": 128,
@@ -480,6 +480,8 @@
                 "PackageAllSelected": true,
                 "PackageStart": "CPU 0",
                 "PackageEnd": "CPU 2",
+                
+                "DroporCheck": true,
                 "CoreStart": "Core 0",
                 "CoreEnd": "Core 2",
                 "CoreCount": 128,

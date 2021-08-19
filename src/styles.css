@@ -328,6 +328,7 @@ button:focus {
 }
 .greenBtnColor{
     background-color: #8BAE46 !important;
+    border-color: #8BAE46 !important;
     color: white !important;
     height: 33px;
     min-width: 80px;

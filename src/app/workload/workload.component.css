@@ -182,7 +182,13 @@ mat-form-field{
   z-index:100 !important;
 }
 
-
+.btnDiv{
+  margin-top: 7px;
+  float: right;
+}
+.btnDiv > input{
+  width: 100px;
+}
 /* .marginTopFirst{
   margin-top:16px !important;
 }

@@ -28,7 +28,7 @@ export class WorkloadComponent implements OnInit {
   response: any;
   currentStartStopButtonClass: any;
   g_GfxDialogId: any = [];
-
+  workLoadDataArray = [];
   zindex: boolean = true;
   dataType = '';
   threadArray = { data: [], isSelected: false };
@@ -56,17 +56,6 @@ export class WorkloadComponent implements OnInit {
   }
   ngOnInit() {
     this.dataType = this.app.platform;
-    // this.StopGfxWorkload("");
-    // this.workloadArray = data.Data;
-    // console.log(data);
-    // this.spinner.hide();
-
-    // var firstWorkloadName = this.workloadArray[0].TestMode[0].Name;
-    // this.dropOrCheckBooleanValue = '00' + ';' + firstWorkloadName;
-    // setTimeout(() => {
-    //   this.workLoadTree('00' + ';' + firstWorkloadName);
-    //   this.spinner.hide();
-    // }, 5);
 
     this.SocketService.WorkLoadDataRes().subscribe(message => {
       if (message) {
@@ -349,18 +338,6 @@ export class WorkloadComponent implements OnInit {
     $(".workLoadTableDropdown" + workLoadId).removeClass('hide');
     $('.cpuTree').removeClass('colorSelectedTree1');
 
-
-    // changes
-    var d = {};
-
-    // data.TableMode.forEach(element => {
-    //   element.TableData.Row.forEach(element => {
-    //      element.PackageData.forEach(element => {
-    //        console.log(element.Name);
-    //        this.cpuvalues += element.Name;
-    //      });
-    //   });
-    // });
     let checkValue;
 
     this.workloadArray.forEach(element => {
@@ -551,9 +528,7 @@ export class WorkloadComponent implements OnInit {
 
 
   checkUncheckAll(event) {
-    // event.Data.forEach(element => {
-    //   element.data.isSelected = event.isSelected;
-    // });
+    
     event.AtleastOnePackageSelected = false;
     event.PackageData.forEach(element => {
       element.isSelected = event.PackageAllSelected;
@@ -720,38 +695,6 @@ export class WorkloadComponent implements OnInit {
     this.cpuvalues = '';
     this.memvalues = '';
     console.log(cputest)
-
-    // --using forEach--
-
-    // this.workloadArray.forEach(element => {
-    //   element.TestMode.forEach(element => {
-    //     if(cputest.SelectedCPU == element.Name){
-    //       console.log(element.Name)
-    //       element.TableData.Row[0].PackageData.forEach(data => {
-    //         if(data.isSelected == true){          
-    //           this.cpuvalues += data.Name + ' ';
-    //         }
-    //       })
-    //     }else if(cputest.SelectedMem == element.Name){
-    //       console.log(element.Name)
-    //       element.TableData.Row[0].PackageData.forEach(data => {
-    //         if(data.isSelected == true){          
-    //           this.memvalues += data.Name + ' ';
-    //         }
-    //       })
-    //     }else if(cputest.SelectedPMem == element.Name){
-    //       console.log(element.Name)
-    //       element.TableData.Row[0].PackageData.forEach(data => {
-    //         if(data.isSelected == true){          
-    //           this.pmemvalues += data.Name + ' ';
-    //         }
-    //       })
-    //     } 
-
-    //   });
-    // });
-
-
     // --using flatMap--
 
     this.workloadArray.map(element => {
@@ -769,6 +712,28 @@ export class WorkloadComponent implements OnInit {
         }
       });
     });
+  }
+
+  addWorkLoad(data) {
+    if(data.Note == "") {
+      let cpuvalues = '';
+      data.TableData.Row[0].PackageData
+      .flatMap(data1 => data1.isSelected ? cpuvalues += data1.Name + ', ' : cpuvalues += '');
+      let val = data.Name + ' - ' + cpuvalues.split(',').slice(0, -1).toString()
+      if(!this.workLoadDataArray.includes(val)) {
+        this.workLoadDataArray.push(val);
+      }
+      
+    }else {
+      if(!this.workLoadDataArray.includes(data.Name)) {
+        this.workLoadDataArray.push(data.Name)
+      }
+    }
+  }
+
+  removeData(data) {
+    let arr = this.workLoadDataArray.filter(data1 => data1 !== data);
+    this.workLoadDataArray = arr;
   }
 }
 
