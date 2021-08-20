@@ -35,7 +35,7 @@
                      <ng-container *ngFor="let item of workloadArray">
                         <ng-container *ngFor="let item1 of item.TestMode">
                            <!-- style="overflow: auto !important; height: calc(49vh - 150px);"  -->
-                           <div class="workLoadTableCC" style="height: calc(50vh - 144px); overflow: auto;width: 102%;" [ngClass]="'workLoadTable'+item.TestIndex+item1.TestModeIndex">
+                           <div class="workLoadTableCC" style="height: calc(49vh - 144px); overflow: auto;" [ngClass]="'workLoadTable'+item.TestIndex+item1.TestModeIndex">
                               <div class="curvedCorners table-responsive workLoadTableCC workLoadDiv" id="workLoadFixHead"
                                  (scroll)="onScroll($event)" [ngClass]="'workLoadTable'+item.TestIndex+item1.TestModeIndex"
                                  *ngIf="item1.Note !==''">
@@ -356,10 +356,10 @@
                            </div>
 
                            <div class="btnDiv workLoadTableCC"  [ngClass]="'workLoadTable'+item.TestIndex+item1.TestModeIndex">
-                              <button type="button" class="btn btn-primary greenBtnColor"  (click)="addWorkLoad(item1)" >
-                                 Add Workload
+                              <button type="button" id="addWorkLoadbtn" class="btn btn-primary greenBtnColor"  (click)="addWorkLoad(item1,item)" >
+                                 Add/Update Workload
                               </button>
-                          </div>
+                           </div>
                         </ng-container>
                         
                      </ng-container>
@@ -369,21 +369,58 @@
                   
       
             </div>
-            <div class="card curvedCorners workLoadCard" style="margin-top: 5px;height: calc(58vh - 153px) !important">
+            <div class="card curvedCorners workLoadCard" style="margin-top: 5px;height: calc(60vh - 149px) !important">
                <div class="card-header curvedCorners" style="padding-bottom: 7px;">
                    <h6 class="cardHeading">Selected Tests</h6>
-                   <div class="card" style="height: calc(92vh - 449px);">
-                       <div class="card-body statusBody">
+                   <div class="card" style="height: calc(98vh - 449px);">
+                       <div class="card-body statusBody" style="overflow: auto;">
                            <div class="bodyDataAnalysis" style="height: 84%;" >
-                              <div   *ngFor = "let data of workLoadDataArray">                     
-                               <span class="fa fa-times-circle" (click)="removeData(data)"style="color: red;"></span>&nbsp;&nbsp;{{data}}
-                             </div>
+                              <!-- <div   *ngFor = "let data of workLoadDataArray">        
+                                 <td>
+                                    <span class="fas fa-edit" (click)="workLoadTree(data.editIndex)"style="color: #595352;"></span>&nbsp;&nbsp;             
+                                    <span class="fa fa-times-circle" (click)="removeData(data)"style="color: red;"></span>&nbsp;&nbsp;{{data.Name}}
+                             
+                                 </td>
+                                 <td>
+                                    {{data.editIndex}}
+                                 </td>
+                              </div> -->
+
+                              <table style="width: 100%;">
+                                 
+                                 <tbody>
+                                    <ng-container *ngFor="let data of workLoadDataArray">
+                                       <tr>
+      
+                                         
+                                          <td  style="width: 80%;">
+                                             <span class="fas fa-edit" (click)="workLoadTree(data.editIndex)"style="color: #595352;"></span>&nbsp;&nbsp;             
+                                             <span class="fa fa-times-circle" (click)="removeData(data)"style="color: red;"></span>&nbsp;&nbsp; {{data.Name}}
+                                             
+                                          </td>
+                                          <td>
+                                             <span *ngIf="data.status.toLowerCase() == 'running'" class="fas fa-stop-circle" (click)="stopIndvWorkload(data)"style="color: red;"></span>            
+                                             <span *ngIf="data.status.toLowerCase() == 'failed' || data.status.toLowerCase() == 'stopped'" class="fas fa-play-circle" (click)="startIndvWorkload(data)"style="color: green;"></span>
+                                             <!-- {{data.status}} -->
+                                             <a
+                                                [ngClass]="{'text-success':data.status.toLowerCase() == 'running','text-danger':data.status.toLowerCase() == 'failed'}">
+                                                &nbsp;&nbsp; {{data.status}}
+                                             </a>
+                                             
+                                          </td>
+                                          
+                                       </tr>
+                                    
+                                    </ng-container>
+      
+      
+                                 </tbody>
+                              </table>
                            </div>
                        </div>
-                       
                    </div>
                    <div class="btnDiv">
-                       <button type="button" class="btn btn-primary greenBtnColor" style="margin-top: -3px;">
+                       <button (click)="startAllWorkload()" type="button" class=" {{'startstopworkload'}} btn btn-primary greenBtnColor" style="margin-top: -3px;">
                           Start Workload
                        </button>
                    </div>

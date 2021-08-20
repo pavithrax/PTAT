@@ -375,6 +375,15 @@ export class WorkloadComponent implements OnInit {
     }
     console.log(checkValue);
 
+    if(this.workLoadDataArray.some(item => item.Name === firstItemName)) {
+      let val = "." + workLoadTree
+      console.log($("." + workLoadTree + " #addWorkLoadbtn" ).val());
+      
+      
+      $("." + workLoadTree + " #addWorkLoadbtn" ).html('colorSelectedTree');
+    }
+    
+
   }
 
   // cmdStartWorkload = "StartWorkload(#componentName,#componentIndex,#controlName,#controlIndex,#instanceName,#instanceIndex,#newvalue)";
@@ -714,26 +723,54 @@ export class WorkloadComponent implements OnInit {
     });
   }
 
-  addWorkLoad(data) {
-    if(data.Note == "") {
-      let cpuvalues = '';
-      data.TableData.Row[0].PackageData
-      .flatMap(data1 => data1.isSelected ? cpuvalues += data1.Name + ', ' : cpuvalues += '');
-      let val = data.Name + ' - ' + cpuvalues.split(',').slice(0, -1).toString()
-      if(!this.workLoadDataArray.includes(val)) {
-        this.workLoadDataArray.push(val);
-      }
-      
-    }else {
-      if(!this.workLoadDataArray.includes(data.Name)) {
-        this.workLoadDataArray.push(data.Name)
-      }
+  addWorkLoad(data,parentData) {
+    // this.workLoadDataArray.map(item => item.Name).includes(data.Name)
+    
+    if(!this.workLoadDataArray.some(item => item.Name === data.Name)) {
+      this.workLoadDataArray.push(
+        { 
+          Name: data.Name,
+          editIndex: parentData.TestIndex+data.TestModeIndex+';'+data.Name,
+          status: "Stopped"
+        })
     }
+    // if(data.Note == "") {
+    //   let cpuvalues = '';
+    //   data.TableData.Row[0].PackageData
+    //   .flatMap(data1 => data1.isSelected ? cpuvalues += data1.Name + ', ' : cpuvalues += '');
+    //   let val = data.Name + ' - ' + cpuvalues.split(',').slice(0, -1).toString()
+    //   if(!this.workLoadDataArray.includes(val)) {
+    //     this.workLoadDataArray.push(val);
+    //   }
+      
+    // }else {
+    //   if(!this.workLoadDataArray.includes(data.Name)) {
+    //     this.workLoadDataArray.push(data.Name)
+    //   }
+    // }
   }
 
   removeData(data) {
     let arr = this.workLoadDataArray.filter(data1 => data1 !== data);
     this.workLoadDataArray = arr;
+  }
+
+  startIndvWorkload(data) {
+    data.status = 'Running';
+
+  }
+
+  stopIndvWorkload(data) {
+    data.status = 'Stopped';
+    
+  }
+
+  startAllWorkload() {
+   this.workLoadDataArray.forEach(item => item.status = 'Running');
+   $('.startstopworkload').html('Stop Workload');
+   $('.startstopworkload').removeClass("greenBtnColor");
+   $('.startstopworkload').addClass('redBtnColor');
+    console.log(this.workLoadDataArray);
   }
 }
 
