@@ -63,8 +63,6 @@ export class WorkloadComponent implements OnInit {
       if (message) {
         this.StopGfxWorkload("");
         this.workloadArray = data.Data;
-        console.log(data);
-
 
         var firstWorkloadName = this.workloadArray[0].DropDownList[0].Name;
         this.dropOrCheckBooleanValue = '00' + ';' + firstWorkloadName;
@@ -77,10 +75,7 @@ export class WorkloadComponent implements OnInit {
         this.workloadArray.forEach(element => {
           element.DropDownList.forEach(element1 => {
             element1.TableData.Row.forEach(element2 => {
-              // element2.levels = this.makeArray(8, function(i) { return i * element2.Stepping; });
               element2.levels = this.range(element2.min,element2.max,element2.stepping)
-              console.log(element2.levels);
-              
               if (element2.PackageStart) {
                 element2.CoreData = this.iterator(element2.CoreStart.split(" ")[0], element2.CoreCount);
                 if (element2.ThreadCount) {
@@ -326,7 +321,6 @@ export class WorkloadComponent implements OnInit {
     return JSON.stringify(obj);
   }
   workLoadTree(responce) {
-    console.log(responce);
     this.dropOrCheckBooleanValue = responce;
     this.toggleStatus();
     var splitResponce = responce.split(";");
@@ -350,14 +344,12 @@ export class WorkloadComponent implements OnInit {
       element.DropDownList.forEach(element1 => {
         if (element1.Name == this.dropOrCheckBooleanValue.split(";")[1]) {
           checkValue = element1;
-          console.log(element1.TableData);
           element1.TableData.Row.forEach(element2 => {
-            console.log(element2)
-            console.log(this.workLoadName)
-            if (this.workLoadName == 'Combo Test') {
+            // not used as combo test is not in use
+            // if (this.workLoadName == 'Combo Test') {
 
-              this.getComboTestValue(element2);
-            }
+            //   this.getComboTestValue(element2);
+            // }
             if (element2.PackageData) {
               this.core = element2.PackageData[0];
             }
@@ -376,18 +368,10 @@ export class WorkloadComponent implements OnInit {
       $('.' + workLoadTableDropdown).hide();
     }
 
-    console.log(this.core);
     if (this.core) {
       let cpuClicked = "cpuClicked" + workLoadId + this.core.Index;
       $("." + cpuClicked).addClass('colorSelectedTree1');
     }
-    console.log(checkValue);
-
-    if (this.workLoadDataArray.some(item => item.Name === firstItemName)) {
-      let val = "." + workLoadTree
-      console.log($("." + workLoadTree + "#addWorkLoadbtn").text());
-    }
-
 
   }
 
@@ -603,12 +587,10 @@ export class WorkloadComponent implements OnInit {
   }
 
   cpuClicked(cpudata, maindata) {
-    console.log(cpudata);
     this.core = cpudata;
     var splitResponse1 = maindata.split(';')
     var cpuId = splitResponse1[0];
     let cpuClicked = "cpuClicked" + cpuId;
-    console.log(cpuClicked);
     $('.cpuTree').removeClass('colorSelectedTree1');
     $("." + cpuClicked).addClass('colorSelectedTree1');
 
@@ -707,9 +689,6 @@ export class WorkloadComponent implements OnInit {
     this.pmemvalues = '';
     this.cpuvalues = '';
     this.memvalues = '';
-    console.log(cputest)
-    // --using flatMap--
-
     this.workloadArray.map(element => {
       element.DropDownList.map(element => {
         console.log(element)
@@ -729,8 +708,6 @@ export class WorkloadComponent implements OnInit {
 
   addWorkLoad(data, parentData) {
     this.selectedWorkLoadName = '';
-    console.log(data.DisableList);
-    
     this.disableTest(data.DisableList,'addClass');
     if (!this.workLoadDataArray.some(item => item.Name === data.Name)) {
       this.workLoadDataArray.push(
@@ -789,11 +766,9 @@ export class WorkloadComponent implements OnInit {
   }
 
   disableTest(data,type) {
-    console.log('in disabled');
     if(type == 'addClass') {
       $('.workLoadTreeCC').each(function (index, item) {
         var $item = $(item);
-        console.log($item.text());
         data.forEach(element => {
           if ($item.text().toLowerCase().replace(/ /g,"") == element.toLowerCase().replace(/ /g,"")) {
             $item.addClass('disabledbutton');
@@ -803,7 +778,6 @@ export class WorkloadComponent implements OnInit {
     } else {
       $('.workLoadTreeCC').each(function (index, item) {
         var $item = $(item);
-        console.log($item.text());
         data.forEach(element => {
           if ($item.text().toLowerCase().replace(/ /g,"") == element.toLowerCase().replace(/ /g,"")) {
             $item.removeClass('disabledbutton');
@@ -811,22 +785,18 @@ export class WorkloadComponent implements OnInit {
         });      
       });
     }
-    
+    this.workLoadDataArray.forEach(element => {
+      $('.workLoadTreeCC').each(function (index, item) {
+        var $item = $(item);
+        element.DisableList.forEach(element1 => {
+          if ($item.text().toLowerCase().replace(/ /g,"") == element1.toLowerCase().replace(/ /g,"")) {
+            $item.addClass('disabledbutton');
+          }
+        });  
+      });
+    })
   }
 
-  // makeArray(count, content) {
-  //   var result = [];
-  //   if(typeof content == "function") {
-  //      for(var i = 0; i < count; i++) {
-  //         result.push(content(i));
-  //     }
-  //   } else {
-  //     for(var i = 0; i < count; i++) {
-  //         result.push(content);
-  //     }        
-  // }
-  // return result;
-  // }
   range(start, stop, step) {
     var a = [start], b = start;
     while (b < stop) {

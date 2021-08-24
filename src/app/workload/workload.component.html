@@ -29,13 +29,11 @@
          <div>
             <div class="card curvedCorners workLoadCard" style="margin-top: -25px;
             height: calc(65vh - 157px) !important;">
-            <!-- height: calc(100vh - 157px) !important;"> -->
                   <div class="card-header curvedCorners" style="background-color: rgba(0,0,0,0);
                   border-bottom: none;">
                      <h6>Workload - {{workLoadName}}</h6>
                      <ng-container *ngFor="let item of workloadArray">
                         <ng-container *ngFor="let item1 of item.DropDownList">
-                           <!-- style="overflow: auto !important; height: calc(49vh - 150px);"  -->
                            <div class="workLoadTableCC" style="height: calc(49vh - 144px); overflow: auto;" [ngClass]="'workLoadTable'+item.Index+item1.Index">
                               <div class="curvedCorners table-responsive workLoadTableCC workLoadDiv" id="workLoadFixHead"
                                  (scroll)="onScroll($event)" [ngClass]="'workLoadTable'+item.Index+item1.Index"
@@ -69,123 +67,6 @@
                                     </tbody>
                                  </table>
                               </div>
-                              <!-- <div class="curvedCorners table-responsive workLoadTableCC workLoadDiv" id="workLoadFixHead"
-                                 (scroll)="onScroll($event)" [ngClass]="'workLoadTable'+item.Index+item1.Index"
-                                 *ngIf="item1.Note==''">
-                                 <table class="table workLoadTableCC" [ngClass]="'workLoadTable'+item.Index+item1.Index">
-                                    <thead class="tatTableHeader">
-                                       <tr>
-                                          <ng-container *ngFor="let item2 of item1.TableData.Header">
-                                             <th style="border-right-color:#fff !important;z-index:2;" class="textCenter">
-                                                {{item2}}</th>
-                                          </ng-container>
-                                       </tr>
-                                    </thead>
-                                    <tbody>
-                                       <ng-container *ngFor="let item3 of item1.TableData.Row;let workloadIndex = index">
-                                          <tr [ngClass]="'workLoadTableRow'+item.Index+item1.Index+item3.GroupID"
-                                             [attr.id]="'curWLid'+item.Index+item1.Index+item3.GroupID">
-         
-                                             <td class="comonTd" *ngIf="item1.TableData.Header.length <=4">
-                                                <div *ngIf="item3.Action == 'Slider'">
-                                                   <div class="sliderDiv" style="margin-left: 14px;">
-                                                      <a>{{item3.min}}</a>
-                                                      <mat-slider class="matSlider" (click)="enableIndex()"
-                                                         [ngClass]="zindex? 'zindex':''" [min]="item3.min" [max]="item3.max"
-                                                         [(ngModel)]="item3.slider" [disabled]="item3.Status == 'Running'"
-                                                         thumbLabel [step]="item3.stepping" tickInterval="1" class="md-subhead">
-                                                      </mat-slider>
-                                                      <a>{{item3.max}}</a>
-                                                   </div>
-                                                </div>
-                                                <div *ngIf="item3.Action == 'Dropdown'">
-                                                   <select class="form-control dropdownControl"
-                                                      [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index">
-                                                      <option *ngFor="let item4 of item3.DropdownValue">
-                                                         {{item4.Data}}
-                                                      </option>
-                                                   </select>
-                                                </div>
-                                             </td>
-                                          
-                                             <td class="comonTd" *ngIf="item1.TableData.Header.length >4">
-         
-                                                <div style="margin-left:14px ;">
-                                                   <select class="form-control dropdownControl"
-                                                      [(ngModel)]="item3.SelectedCPU" (change)="getComboTestValue(item3)"
-                                                      [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index">
-                                                      <option *ngFor="let item4 of item3.CpuTests" [ngValue]="item4">
-                                                         {{item4}}
-                                                      </option>
-                                                   </select>
-                                                </div>
-                                             </td>
-         
-                                             <td class="comonTd" *ngIf="item1.TableData.Header.length >4">
-         
-                                                <div >
-                                                   <select class="form-control dropdownControl" (change)="getComboTestValue(item3)"
-                                                      [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index"
-                                                      [(ngModel)]="item3.SelectedMem">
-                                                      <option *ngFor="let item4 of item3.MemTests" [ngValue]="item4">
-                                                         {{item4}}
-                                                      </option>
-                                                   </select>
-                                                </div>
-                                             </td>
-         
-                                             <td class="comonTd" *ngIf="item1.TableData.Header.length >4">
-         
-                                                <div>
-                                                   <select class="form-control dropdownControl"
-                                                   (change)="getComboTestValue(item3)"
-                                                      [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index"
-                                                      [(ngModel)]="item3.SelectedPMem">
-                                                      <option *ngFor="let item4 of item3.PmemTests" [ngValue]="item4">
-                                                         {{item4}}
-                                                      </option>
-                                                   </select>
-                                                </div>
-                                             </td>
-         
-                                             
-                                             <td class="comonTd">
-                                                <button style="min-width:80px;" *ngIf="item3.Action == 'Slider'"
-                                                   [ngClass]="{'greenBtnColor':item3.ButtonName == 'Start','redBtnColor':item3.ButtonName === 'Stop','marginBtnTopFirst': workloadIndex == 0,'marginBtnTopNotFirst' : workloadIndex != 0}"
-                                                   class="{{ 'workLoadSetButton'+item.Index+item1.Index+item3.Index}} btn btn-sm tableTextAllign"
-                                                   (click)="workLoadStartStop('slider',item3,item.Name,item.Index,item1.Name,item1.Index)"
-                                                   matTooltip={{item3.ToolTip}}
-                                                   matTooltipPosition="below">{{item3.ButtonName}}</button>
-                                                <button style="min-width:80px;" *ngIf="item3.Action == 'Dropdown'"
-                                                   [ngClass]="{'greenBtnColor':item3.ButtonName == 'Start','redBtnColor':item3.ButtonName === 'Stop','marginBtnTopFirst': workloadIndex == 0,'marginBtnTopNotFirst' : workloadIndex != 0}"
-                                                   class="{{ 'workLoadSetButton'+item.Index+item1.Index+item3.Index}} btn btn-sm "
-                                                   (click)="workLoadStartStop('dropdown',item.Index+item1.Index+':'+item3.Index,item.Name,item.Index,item1.Name,item1.Index)"
-                                                   matTooltip={{item3.ToolTip}}
-                                                   matTooltipPosition="below">{{item3.ButtonName}}</button>
-                                             </td>
-                                             <td class="comonTd">
-                                                <a
-                                                   [ngClass]="{'text-success':item3.Status.toLowerCase() == 'running','text-danger':item3.Status.toLowerCase() == 'failed'}">
-                                                   {{item3.Status}}</a>
-                                             </td>
-                                          </tr>
-                                       
-                                       </ng-container>
-         
-         
-                                    </tbody>
-                                 </table>
-                              </div> -->
-                              <!-- <div class="table workLoadTableCC" [ngClass]="'workLoadTable'+item.Index+item1.Index" *ngIf="item1.Name == 'Combo Test'">
-                                 <br>
-                                 <b>Note: </b> Values for the selected Test(s) will be fetched from the respective tabs
-                                 <br>
-                                 <b>Selected CPU Value:<span> {{cpuvalues}}</span> </b> 
-                                 <br>
-                                 <b>Selected MEM Value:<span> {{memvalues}}</span></b>
-                                 <br>
-                                 <b>Selected PMEM Value:<span> {{pmemvalues}}</span></b>
-                              </div> -->
          
                               <ng-container>
                                  <div style="margin-left: 5px;">
@@ -361,32 +242,6 @@
                                              </div>
                                           </div>
                                        </div>
-                                       <!-- <div class="col-sm-3 col-md-3 card1 curvedCorners card-padding"
-                                          style="max-height: 170px !important;border: 1px solid #80808099;  " >
-                                          <div  *ngFor="let item5 of item1.TableData.Row">
-                                             <div class="fixedtop" style="margin-top: 0;">
-                                                <input type="checkbox" [(ngModel)]="item5.SelectAllThread" [indeterminate]="item5.AtleastOneThreadSelected"
-                                                   (change)="selectedAllThreadData(item5)">
-                                                <label style="margin-left: 8px;">All Thread</label>
-                                             </div>
-                                             <div class="scroll" style="max-height: 110px !important;">
-                                                <ul>
-                                                   <div class="list-style">
-                                                      <li class="corevalues" *ngFor="let item6 of item5.ThreadData">
-                                                         <input type="checkbox" [(ngModel)]="item6.isSelected"
-                                                            (change)="selectedThreadData(item4)"> &nbsp;
-                                                         {{item6.Name}}
-                                                      </li>
-                                                      
-                                                   </div>
-                                                </ul>
-                                             </div>
-                                          </div>
-                                             
-                                          
-                                       </div> -->
-                                       
-                                       
          
                                     </div>
                                  </div>
