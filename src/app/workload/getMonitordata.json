@@ -1,535 +1,527 @@
 {
-  "Command": "GetWorkLoadData",
-  "CommandStatus": {
-    "Status": "Success",
-    "Message": ""
-  },
-  "Data": [
-    {
-      "Name": "CPUTest",
-      "TestIndex": "0",
-      "expand": "true",
-      "TestMode": [
-        {
-          "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
-          "Name": "TDP",
-          "TestModeIndex": "0",
-          "ToolTip": "CPU Workload that generates different power Levels for different Workloads in Percentage. Useful for testing  system stability in terms of thermal and power",
-          "TableData": {
-            "Header": [
-              "Note"
-            ],
-            "Row": [
-              {
-                "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
-               
-                "Index": "0",
-                "GroupID": "6",
-               
-                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-               
-                "ButtonName": "Start",
-                "Status": "Stopped",
-                "isSelected": true
-              }
-            ]
-          }
-        },
-        {
-          "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
-          "Name": "nTDP",
-          "TestModeIndex": "1",
-          "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-          "TableData": {
-            "Header": [
-              "Note"
-            ],
-            "Row": [
-              {
-                "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
-               
-                "Index": "1",
-                "GroupID": "6",
-               
-                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-                
-                "ButtonName": "Start",
-                "Status": "Stopped",
-                "isSelected": true
-              }
-            ]
-          }
-        },
-        {
-          "Note": "",
-          "Name": "Core 1A/SSE",
-          "TestModeIndex": "2",
-          "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-          "TableData": {
-            "Header": [
-              
-              "Levels",
-              "Action",
-              "Status"
-            ],
-            "Row": [
-              {
-               
-                "Index": "0",
-                "GroupID": "6",
-                "Action": "Slider",
-                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-                "min": 10,
-                "max": 100,
-                "stepping": 10,
-                "ButtonName": "Start",
-                "Status": "Stopped",
-                "isSelected": true,
-                "SelectAllThread": true,
-                
-                "PackageCount": 8,
-                "PackageAllSelected": true,
-                "PackageStart": "CPU 0",
-                "PackageEnd": "CPU 2",
-                "DroporCheck": true,
-                "CoreStart": "Core 0",
-                "CoreEnd": "Core 2",
-                "CoreCount": 128,
-                "ThreadStart": "Thread 0",
-                "ThreadEnd": "Thread 1",
-                "ThreadCount": 2
-              }
-            ]
-          }
-        },
-        {
-          "Note": "",
-          "Name": "Core AVX2",
-          "TestModeIndex": "3",
-          "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-          "TableData": {
-            "Header": [
-              
-              "Levels",
-              "Action",
-              "Status"
-            ],
-            "Row": [
-              {
-                
-                "Index": "0",
-                "GroupID": "6",
-                "Action": "Slider",
-                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-                "min": 10,
-                "max": 100,
-                "stepping": 10,
-                "ButtonName": "Start",
-                "Status": "Stopped",
-                "isSelected": true,
-                
-                "SelectAllThread": true,
-                
-                "PackageCount": 8,
-                "PackageAllSelected": true,
-                "PackageStart": "CPU 0",
-                "PackageEnd": "CPU 2",
-                "DroporCheck": true,
-                "CoreStart": "Core 0",
-                "CoreEnd": "Core 2",
-                "CoreCount": 128,
-                "ThreadStart": "Thread 0",
-                "ThreadEnd": "Thread 1",
-                "ThreadCount": 2
-              }
-            ]
-          }
-        },
-        {
-          "Note": "",
-          "Name": "Core AVX2-512 ",
-          "TestModeIndex": "4",
-          "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-          "TableData": {
-            "Header": [
-              
-              "Levels",
-              "Action",
-              "Status"
-            ],
-            "Row": [
-              {
-                
-                "Index": "0",
-                "GroupID": "6",
-                "Action": "Slider",
-                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-                "min": 10,
-                "max": 100,
-                "stepping": 10,
-                "ButtonName": "Start",
-                "Status": "Stopped",
-                "isSelected": true,
-                
-                "SelectAllThread": true,
-                
-                "PackageCount": 8,
-                "PackageAllSelected": true,
-                "PackageStart": "CPU 0",
-                "PackageEnd": "CPU 2",
-                "DroporCheck": true,
-                "CoreStart": "Core 0",
-                "CoreEnd": "Core 2",
-                "CoreCount": 128,
-                "ThreadStart": "Thread 0",
-                "ThreadEnd": "Thread 1",
-                "ThreadCount": 2
-              }
-            ]
-          }
-        },
-        {
-          "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
-          "Name": "PMAX",
-          "TestModeIndex": "5",
-          "ToolTip": "CPU Workload that generates different power Levels for different Workloads in Percentage. Useful for testing  system stability in terms of thermal and power",
-          "TableData": {
-            "Header": [
-              "Note"
-            ],
-            "Row": [
-              {
-                "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
-               
-                "Index": "1",
-                "GroupID": "6",
-               
-                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-                
-                "ButtonName": "Start",
-                "Status": "Stopped",
-                "isSelected": true
-              }
-            ]
-          }
-        },
-        {
-          "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
-          "Name": "PMAX.App",
-          "TestModeIndex": "6",
-          "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-          "TableData": {
-            "Header": [
-              "Note"
-            ],
-            "Row": [
-              {
-                "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
-               
-                "Index": "1",
-                "GroupID": "6",
-               
-                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-                
-                "ButtonName": "Start",
-                "Status": "Stopped",
-                "isSelected": true
-              }
-            ]
-          }
-        }
-      ]
+    "Command": "GetWorkLoadData",
+    "CommandStatus": {
+      "Status": "Success",
+      "Message": ""
     },
-    {
-      "Name": "MEM Test",
-      "TestIndex": "1",
-      "expand": "true",
-      "TestMode": [
-        {
-          "Note": "",
-          "Name": "Memory Read",
-          "TestModeIndex": "0",
-          "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
-          "TableData": {
-            "Header": [
-              
-              "Levels",
-              "Action",
-              "Status"
-            ],
-            "Row": [
-              {
+    "Data": [
+      {
+        "Name": "CPUTest",
+        "Index": "0",
+        "expand": "true",
+        "DropDownList": [
+          {
+            "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+            "Name": "TDP",
+            "Index": "0",
+            "ToolTip": "CPU Workload that generates different power Levels for different Workloads in Percentage. Useful for testing  system stability in terms of thermal and power",
+            "TableData": {
+              "Header": [
+                "Note"
+              ],
+              "Row": [
+                {
+                  "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+                 
+                  "Index": "0",
+                  "GroupID": "6",
+                 
+                  "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                 
+                  "ButtonName": "Start",
+                  "Status": "Stopped",
+                  "isSelected": true
+                }
+              ]
+            },
+            "DisableList": ["PMAX","PMAX.APP"]
+          },
+          {
+            "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+            "Name": "nTDP",
+            "Index": "1",
+            "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+            "TableData": {
+              "Header": [
+                "Note"
+              ],
+              "Row": [
+                {
+                  "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+                 
+                  "Index": "1",
+                  "GroupID": "6",
+                 
+                  "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                  
+                  "ButtonName": "Start",
+                  "Status": "Stopped",
+                  "isSelected": true
+                }
+              ]
+            },
+            "DisableList": ["PMAX","PMAX.APP"]
+          },
+          {
+            "Note": "",
+            "Name": "Core 1A/SSE",
+            "Index": "2",
+            "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+            "TableData": {
+              "Header": [
                 
-                "Index": "0",
-                "GroupID": "6",
-                "Action": "Slider",
-                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-                "min": 10,
-                "max": 100,
-                "stepping": 10,
-                "ButtonName": "Start",
-                "Status": "Stopped",
-                "isSelected": true,
-               
-                "PackageCount": 8,
-                "PackageAllSelected": true,
-                "PackageStart": "CPU 0",
-                "PackageEnd": "CPU 2",
-                "DroporCheck": true,
-                "CoreStart": "Core 0",
-                "CoreEnd": "Core 2",
-                "CoreCount": 3
-              }
-            ]
+                "Levels",
+                "Action",
+                "Status"
+              ],
+              "Row": [
+                {
+                 
+                  "Index": "0",
+                  "GroupID": "6",
+                  "Action": "Slider",
+                  "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                  "min": 10,
+                  "powerLevel": 20,
+                  
+                  "max": 100,
+                  "stepping": 10,
+                  "ButtonName": "Start",
+                  "Status": "Stopped",
+                  "isSelected": true,
+                  "SelectAllThread": true,
+                  
+                  "PackageCount": 8,
+                  "PackageAllSelected": true,
+                  "PackageStart": "CPU 0",
+                  "PackageEnd": "CPU 2",
+                  "DroporCheck": true,
+                  "CoreStart": "Core 0",
+                  "CoreEnd": "Core 2",
+                  "CoreCount": 128,
+                  "ThreadStart": "Thread 0",
+                  "ThreadEnd": "Thread 1",
+                  "ThreadCount": 2
+                }
+              ]
+            },
+            "DisableList": ["PMAX","PMAX.APP"]
+          },
+          {
+            "Note": "",
+            "Name": "Core AVX2",
+            "Index": "3",
+            "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+            "TableData": {
+              "Header": [
+                
+                "Levels",
+                "Action",
+                "Status"
+              ],
+              "Row": [
+                {
+                  
+                  "Index": "0",
+                  "GroupID": "6",
+                  "Action": "Slider",
+                  "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                  "min": 10,
+                  "powerLevel": 20,
+                  
+                  "max": 100,
+                  "stepping": 10,
+                  "ButtonName": "Start",
+                  "Status": "Stopped",
+                  "isSelected": true,
+                  
+                  "SelectAllThread": true,
+                  
+                  "PackageCount": 8,
+                  "PackageAllSelected": true,
+                  "PackageStart": "CPU 0",
+                  "PackageEnd": "CPU 2",
+                  "DroporCheck": true,
+                  "CoreStart": "Core 0",
+                  "CoreEnd": "Core 2",
+                  "CoreCount": 128,
+                  "ThreadStart": "Thread 0",
+                  "ThreadEnd": "Thread 1",
+                  "ThreadCount": 2
+                }
+              ]
+            },
+            "DisableList": ["PMAX","PMAX.APP"]
+          },
+          {
+            "Note": "",
+            "Name": "Core AVX2-512 ",
+            "Index": "4",
+            "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+            "TableData": {
+              "Header": [
+                
+                "Levels",
+                "Action",
+                "Status"
+              ],
+              "Row": [
+                {
+                  
+                  "Index": "0",
+                  "GroupID": "6",
+                  "Action": "Slider",
+                  "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                  "min": 10,
+                  "powerLevel": 20,
+                  
+                  "max": 100,
+                  "stepping": 10,
+                  "ButtonName": "Start",
+                  "Status": "Stopped",
+                  "isSelected": true,
+                  
+                  "SelectAllThread": true,
+                  
+                  "PackageCount": 8,
+                  "PackageAllSelected": true,
+                  "PackageStart": "CPU 0",
+                  "PackageEnd": "CPU 2",
+                  "DroporCheck": true,
+                  "CoreStart": "Core 0",
+                  "CoreEnd": "Core 2",
+                  "CoreCount": 128,
+                  "ThreadStart": "Thread 0",
+                  "ThreadEnd": "Thread 1",
+                  "ThreadCount": 2
+                }
+              ]
+            },
+            "DisableList": ["PMAX","PMAX.APP"]
+          },
+          {
+            "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+            "Name": "PMAX",
+            "Index": "5",
+            "ToolTip": "CPU Workload that generates different power Levels for different Workloads in Percentage. Useful for testing  system stability in terms of thermal and power",
+            "TableData": {
+              "Header": [
+                "Note"
+              ],
+              "Row": [
+                {
+                  "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+                 
+                  "Index": "1",
+                  "GroupID": "6",
+                 
+                  "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                  
+                  "ButtonName": "Start",
+                  "Status": "Stopped",
+                  "isSelected": true
+                }
+              ]
+            },
+            "DisableList": ["TDP","nTDP"]
+          },
+          {
+            "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+            "Name": "PMAX.App",
+            "Index": "6",
+            "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+            "TableData": {
+              "Header": [
+                "Note"
+              ],
+              "Row": [
+                {
+                  "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+                 
+                  "Index": "1",
+                  "GroupID": "6",
+                 
+                  "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                  
+                  "ButtonName": "Start",
+                  "Status": "Stopped",
+                  "isSelected": true
+                }
+              ]
+            },
+            "DisableList": ["TDP","nTDP"]
           }
-        },
-        {
-          "Note": "",
-          "Name": "Memory Write",
-          "TestModeIndex": "1",
-          "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
-          "TableData": {
-            "Header": [
-              
-              "Levels",
-              "Action",
-              "Status"
-            ],
-            "Row": [
-              {
+        ]
+      },
+      {
+        "Name": "MEM Test",
+        "Index": "1",
+        "expand": "true",
+        "DropDownList": [
+          {
+            "Note": "",
+            "Name": "Memory Read",
+            "Index": "0",
+            "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
+            "TableData": {
+              "Header": [
                 
-                "Index": "0",
-                "GroupID": "6",
-                "Action": "Slider",
-                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-                "min": 10,
-                "max": 100,
-                "stepping": 10,
-                "ButtonName": "Start",
-                "Status": "Stopped",
-                "isSelected": true,
+                "Levels",
+                "Action",
+                "Status"
+              ],
+              "Row": [
+                {
+                  
+                  "Index": "0",
+                  "GroupID": "6",
+                  "Action": "Slider",
+                  "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                  "min": 10,
+                  "powerLevel": 20,
+                  
+                  "max": 100,
+                  "stepping": 10,
+                  "ButtonName": "Start",
+                  "Status": "Stopped",
+                  "isSelected": true,
+                 
+                  "PackageCount": 8,
+                  "PackageAllSelected": true,
+                  "PackageStart": "CPU 0",
+                  "PackageEnd": "CPU 2",
+                  "DroporCheck": true,
+                  "CoreStart": "Core 0",
+                  "CoreEnd": "Core 2",
+                  "CoreCount": 3
+                }
+              ]
+            },
+            "DisableList": []
+          },
+          {
+            "Note": "",
+            "Name": "Memory Write",
+            "Index": "1",
+            "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
+            "TableData": {
+              "Header": [
                 
-                "PackageCount": 8,
-                "PackageAllSelected": true,
-                "PackageStart": "CPU 0",
-                "PackageEnd": "CPU 2",
-                "DroporCheck": true,
-                "CoreStart": "Core 0",
-                "CoreEnd": "Core 2",
-                "CoreCount": 3
+                "Levels",
+                "Action",
+                "Status"
+              ],
+              "Row": [
+                {
+                  
+                  "Index": "0",
+                  "GroupID": "6",
+                  "Action": "Slider",
+                  "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                  "min": 10,
+                  "powerLevel": 20,
+                  
+                  "max": 100,
+                  "stepping": 10,
+                  "ButtonName": "Start",
+                  "Status": "Stopped",
+                  "isSelected": true,
+                  
+                  "PackageCount": 8,
+                  "PackageAllSelected": true,
+                  "PackageStart": "CPU 0",
+                  "PackageEnd": "CPU 2",
+                  "DroporCheck": true,
+                  "CoreStart": "Core 0",
+                  "CoreEnd": "Core 2",
+                  "CoreCount": 3
+                  
+                }
+              ]
+            },
+            "DisableList": []
+          },
+          {
+            "Note": "",
+            "Name": "Memory Rd/Wr",
+            "Index": "2",
+            "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
+            "TableData": {
+              "Header": [
                 
-              }
-            ]
+                "Levels",
+                "Action",
+                "Status"
+              ],
+              "Row": [
+                {
+                  
+                  "Index": "0",
+                  "GroupID": "6",
+                  "Action": "Slider",
+                  "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                  "min": 10,
+                  "powerLevel": 20,
+                  
+                  "max": 100,
+                  "stepping": 10,
+                  "ButtonName": "Start",
+                  "Status": "Stopped",
+                  "isSelected": true,
+                  
+                  "PackageCount": 8,
+                  "PackageAllSelected": true,
+                  "PackageStart": "CPU 0",
+                  "PackageEnd": "CPU 2",
+                  "DroporCheck": true,
+                  "CoreStart": "Core 0",
+                  "CoreEnd": "Core 2",
+                  "CoreCount": 3
+                }
+              ]
+            },
+            "DisableList": []
+          },
+          {
+            "Note": "",
+            "Name": "Extended Rd/Wr",
+            "Index": "3",
+            "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
+            "TableData": {
+              "Header": [
+                
+                "Levels",
+                "Action",
+                "Status"
+              ],
+              "Row": [
+                {
+                  "Name": "Write with Delay",
+                  "Index": "0",
+                  "GroupID": "0",
+                  "Action": "Slider",
+                  "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
+                  "min": 50,
+                  "max": 500,
+                  "stepping": 50,
+                  "ButtonName": "Start",
+                  "Status": "Stopped",
+                  "isSelected": true,
+                  
+                  "PackageCount": 8,
+                  "PackageAllSelected": true,
+                  "PackageStart": "CPU 0",
+                  "PackageEnd": "CPU 2",
+                  "DroporCheck": true,
+                  "CoreStart": "Core 0",
+                  "CoreEnd": "Core 2",
+                  "CoreCount": 3
+                }
+              ]
+            },
+            "DisableList": []
           }
-        },
-        {
-          "Note": "",
-          "Name": "Memory Rd/Wr",
-          "TestModeIndex": "2",
-          "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
-          "TableData": {
-            "Header": [
-              
-              "Levels",
-              "Action",
-              "Status"
-            ],
-            "Row": [
-              {
+        ]
+      },
+      {
+        "Name": "PMEM Test",
+        "Index": "2",
+        "expand": "true",
+        "DropDownList": [
+          {
+            "Note": "",
+            "Name": "AD Read",
+            "Index": "0",
+            "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
+            "TableData": {
+              "Header": [
                 
-                "Index": "0",
-                "GroupID": "6",
-                "Action": "Slider",
-                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-                "min": 10,
-                "max": 100,
-                "stepping": 10,
-                "ButtonName": "Start",
-                "Status": "Stopped",
-                "isSelected": true,
+                "Levels",
+                "Action",
+                "Status"
+              ],
+              "Row": [
+                {
+                  
+                  "Index": "0",
+                  "GroupID": "6",
+                  "Action": "Slider",
+                  "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                  "min": 10,
+                  "powerLevel": 20,
+                  
+                  "max": 100,
+                  "stepping": 10,
+                  "ButtonName": "Start",
+                  "Status": "Stopped",
+                  "isSelected": true,
+                  
+                  "SelectAllThread": true,
+                  
+                  "PackageCount": 8,
+                  "PackageAllSelected": true,
+                  "PackageStart": "CPU 0",
+                  "PackageEnd": "CPU 2",
+                  "DroporCheck": true,
+                  "CoreStart": "Core 0",
+                  "CoreEnd": "Core 2",
+                  "CoreCount": 128,
+                  "ThreadStart": "Thread 0",
+                  "ThreadEnd": "Thread 1",
+                  "ThreadCount": 2
+                }
+              ]
+            },
+            "DisableList": []
+          },
+          {
+            "Note": "",
+            "Name": "AD Write",
+            "Index": "1",
+            "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
+            "TableData": {
+              "Header": [
                 
-                "PackageCount": 8,
-                "PackageAllSelected": true,
-                "PackageStart": "CPU 0",
-                "PackageEnd": "CPU 2",
-                "DroporCheck": true,
-                "CoreStart": "Core 0",
-                "CoreEnd": "Core 2",
-                "CoreCount": 3
-              }
-            ]
+                "Levels",
+                "Action",
+                "Status"
+              ],
+              "Row": [
+                {
+                  
+                  "Index": "0",
+                  "GroupID": "6",
+                  "Action": "Slider",
+                  "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                  "min": 10,
+                  "powerLevel": 20,
+                  
+                  "max": 100,
+                  "stepping": 10,
+                  "ButtonName": "Start",
+                  "Status": "Stopped",
+                  "isSelected": true,
+                  
+                  "SelectAllThread": true,
+                  
+                  "PackageCount": 8,
+                  "PackageAllSelected": true,
+                  "PackageStart": "CPU 0",
+                  "PackageEnd": "CPU 2",
+                  
+                  "DroporCheck": true,
+                  "CoreStart": "Core 0",
+                  "CoreEnd": "Core 2",
+                  "CoreCount": 128,
+                  "ThreadStart": "Thread 0",
+                  "ThreadEnd": "Thread 1",
+                  "ThreadCount": 2
+                }
+              ]
+            } ,
+            "DisableList": []
           }
-        },
-        {
-          "Note": "",
-          "Name": "Extended Rd/Wr",
-          "TestModeIndex": "3",
-          "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
-          "TableData": {
-            "Header": [
-              
-              "Levels",
-              "Action",
-              "Status"
-            ],
-            "Row": [
-              {
-                "Name": "Write with Delay",
-                "Index": "0",
-                "GroupID": "0",
-                "Action": "Slider",
-                "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
-                "min": 50,
-                "max": 500,
-                "stepping": 50,
-                "ButtonName": "Start",
-                "Status": "Stopped",
-                "isSelected": true,
-                
-                "PackageCount": 8,
-                "PackageAllSelected": true,
-                "PackageStart": "CPU 0",
-                "PackageEnd": "CPU 2",
-                "DroporCheck": true,
-                "CoreStart": "Core 0",
-                "CoreEnd": "Core 2",
-                "CoreCount": 3
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "Name": "PMEM Test",
-      "TestIndex": "2",
-      "expand": "true",
-      "TestMode": [
-        {
-          "Note": "",
-          "Name": "AD Read",
-          "TestModeIndex": "0",
-          "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
-          "TableData": {
-            "Header": [
-              
-              "Levels",
-              "Action",
-              "Status"
-            ],
-            "Row": [
-              {
-                
-                "Index": "0",
-                "GroupID": "6",
-                "Action": "Slider",
-                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-                "min": 10,
-                "max": 100,
-                "stepping": 10,
-                "ButtonName": "Start",
-                "Status": "Stopped",
-                "isSelected": true,
-                
-                "SelectAllThread": true,
-                
-                "PackageCount": 8,
-                "PackageAllSelected": true,
-                "PackageStart": "CPU 0",
-                "PackageEnd": "CPU 2",
-                "DroporCheck": true,
-                "CoreStart": "Core 0",
-                "CoreEnd": "Core 2",
-                "CoreCount": 128,
-                "ThreadStart": "Thread 0",
-                "ThreadEnd": "Thread 1",
-                "ThreadCount": 2
-              }
-            ]
-          }
-        },
-        {
-          "Note": "",
-          "Name": "AD Write",
-          "TestModeIndex": "1",
-          "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
-          "TableData": {
-            "Header": [
-              
-              "Levels",
-              "Action",
-              "Status"
-            ],
-            "Row": [
-              {
-                
-                "Index": "0",
-                "GroupID": "6",
-                "Action": "Slider",
-                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-                "min": 10,
-                "max": 100,
-                "stepping": 10,
-                "ButtonName": "Start",
-                "Status": "Stopped",
-                "isSelected": true,
-                
-                "SelectAllThread": true,
-                
-                "PackageCount": 8,
-                "PackageAllSelected": true,
-                "PackageStart": "CPU 0",
-                "PackageEnd": "CPU 2",
-                
-                "DroporCheck": true,
-                "CoreStart": "Core 0",
-                "CoreEnd": "Core 2",
-                "CoreCount": 128,
-                "ThreadStart": "Thread 0",
-                "ThreadEnd": "Thread 1",
-                "ThreadCount": 2
-              }
-            ]
-          } 
-        }
-      ]
-    },
-    {
-      "Name": "COMBO Test",
-      "TestIndex": "3",
-      "expand": "true",
-      "TestMode": [
-        {
-          "Note": "",
-          "Name": "Combo Test",
-          "TestModeIndex": "0",
-          "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
-          "TableData": {
-            "Header": [
-              "CPU Tests",
-              "Mem Tests",
-              "PMem Tests",
-              "Action",
-              "Status"
-            ],
-            "Row": [
-              {
-                "Index":"0",
-                "SelectedCPU": "Core 1A/SSE",
-                "SelectedMem": "Memory Read",
-                "SelectedPMem": "AD Read",
-                "CpuTests" : ["Tdp", "Ntdp", "Core 1A/SSE","Core AVX2"],
-                "MemTests": ["Memory Read", "Memory Write", "Memory Rd/Wr"],
-                "PmemTests": ["AD Read","AD Write"],
-                "ButtonName": "Start",
-                "Status": "Stopped",
-                "Action": "Dropdown",
-                "Note": "Values for the selected Test(s) will be fetched from the respective tabs"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  ]
-}
+        ]
+      }
+    ]
+  }

@@ -7,12 +7,13 @@
                   <!-- <span  (click)="expandCollapse(item)"><i [ngClass]="{'intelicon-plus': !item.expand ,'intelicon-minus': item.expand}" class="intelicon-plus"></i></span > -->
                   {{item.Name}}
                   <ul *ngIf="item.expand" style="list-style: none;padding:0px;cursor: pointer">
-                     <ng-container *ngFor="let item1 of item.TestMode; let i = index">
+                     <ng-container *ngFor="let item1 of item.DropDownList; let i = index">
                         <li class="workLoadTreeCC" matTooltip={{item1.ToolTip}} matTooltipPosition="below"
-                           [ngClass]="'workloadTree'+item.TestIndex+item1.TestModeIndex"
-                           (click)="workLoadTree(item.TestIndex+item1.TestModeIndex+';'+item1.Name)">
-                           <i class="fas fa-angle-right"></i> {{item1.Name}}
+                           [ngClass]="'workloadTree'+item.Index+item1.Index"
+                           (click)="workLoadTree(item.Index+item1.Index+';'+item1.Name)">
+                           <i class="fas fa-angle-right"></i>{{item1.Name}}
                         </li>
+                        
                      </ng-container>
                   </ul>
                </li>
@@ -33,13 +34,13 @@
                   border-bottom: none;">
                      <h6>Workload - {{workLoadName}}</h6>
                      <ng-container *ngFor="let item of workloadArray">
-                        <ng-container *ngFor="let item1 of item.TestMode">
+                        <ng-container *ngFor="let item1 of item.DropDownList">
                            <!-- style="overflow: auto !important; height: calc(49vh - 150px);"  -->
-                           <div class="workLoadTableCC" style="height: calc(49vh - 144px); overflow: auto;" [ngClass]="'workLoadTable'+item.TestIndex+item1.TestModeIndex">
+                           <div class="workLoadTableCC" style="height: calc(49vh - 144px); overflow: auto;" [ngClass]="'workLoadTable'+item.Index+item1.Index">
                               <div class="curvedCorners table-responsive workLoadTableCC workLoadDiv" id="workLoadFixHead"
-                                 (scroll)="onScroll($event)" [ngClass]="'workLoadTable'+item.TestIndex+item1.TestModeIndex"
+                                 (scroll)="onScroll($event)" [ngClass]="'workLoadTable'+item.Index+item1.Index"
                                  *ngIf="item1.Note !==''">
-                                 <table class="table workLoadTableCC" [ngClass]="'workLoadTable'+item.TestIndex+item1.TestModeIndex">
+                                 <table class="table workLoadTableCC" [ngClass]="'workLoadTable'+item.Index+item1.Index">
                                     <thead class="tatTableHeader">
                                        <tr>
                                           <ng-container *ngFor="let item2 of item1.TableData.Header">
@@ -50,30 +51,15 @@
                                     </thead>
                                     <tbody>
                                        <ng-container *ngFor="let item3 of item1.TableData.Row;let workloadIndex = index">
-                                          <tr [ngClass]="'workLoadTableRow'+item.TestIndex+item1.TestModeIndex+item3.GroupID"
-                                             [attr.id]="'curWLid'+item.TestIndex+item1.TestModeIndex+item3.GroupID">
+                                          <tr [ngClass]="'workLoadTableRow'+item.Index+item1.Index+item3.GroupID"
+                                             [attr.id]="'curWLid'+item.Index+item1.Index+item3.GroupID">
          
                                              <td class="comonTd,align-middle"
-                                                [ngClass]="'workLoadTableFirstRow'+item.TestIndex+item1.TestModeIndex+item3.Index"
+                                                [ngClass]="'workLoadTableFirstRow'+item.Index+item1.Index+item3.Index"
                                                 style="line-height: 35px;min-height: 15px;height: 15px;padding: 0px !important;text-align: center;">
                                                 {{item3.Note}}
                                              </td>
          
-                                             <!-- <td class="comonTd">
-                                                <button style="min-width:80px;" 
-                                                   [ngClass]="{'greenBtnColor':item3.ButtonName == 'Start','redBtnColor':item3.ButtonName === 'Stop','marginBtnTopFirst': workloadIndex == 0,'marginBtnTopNotFirst' : workloadIndex != 0}"
-                                                   class="{{ 'workLoadSetButton'+item.TestIndex+item1.TestModeIndex+item3.Index}} btn btn-sm tableTextAllign"
-                                                   (click)="workLoadStartStop('note',item3,item.Name,item.TestIndex,item1.Name,item1.TestModeIndex)"
-                                                   matTooltip={{item3.ToolTip}}
-                                                   matTooltipPosition="below">{{item3.ButtonName}}</button>
-         
-                                             </td>
-                                             <td class="comonTd">
-                                                <a
-                                                   [ngClass]="{'text-success':item3.Status.toLowerCase() == 'running','text-danger':item3.Status.toLowerCase() == 'failed'}">
-                                                   {{item3.Status}}
-                                                </a>
-                                             </td> -->
                                           </tr>
          
          
@@ -83,10 +69,10 @@
                                     </tbody>
                                  </table>
                               </div>
-                              <div class="curvedCorners table-responsive workLoadTableCC workLoadDiv" id="workLoadFixHead"
-                                 (scroll)="onScroll($event)" [ngClass]="'workLoadTable'+item.TestIndex+item1.TestModeIndex"
+                              <!-- <div class="curvedCorners table-responsive workLoadTableCC workLoadDiv" id="workLoadFixHead"
+                                 (scroll)="onScroll($event)" [ngClass]="'workLoadTable'+item.Index+item1.Index"
                                  *ngIf="item1.Note==''">
-                                 <table class="table workLoadTableCC" [ngClass]="'workLoadTable'+item.TestIndex+item1.TestModeIndex">
+                                 <table class="table workLoadTableCC" [ngClass]="'workLoadTable'+item.Index+item1.Index">
                                     <thead class="tatTableHeader">
                                        <tr>
                                           <ng-container *ngFor="let item2 of item1.TableData.Header">
@@ -97,8 +83,8 @@
                                     </thead>
                                     <tbody>
                                        <ng-container *ngFor="let item3 of item1.TableData.Row;let workloadIndex = index">
-                                          <tr [ngClass]="'workLoadTableRow'+item.TestIndex+item1.TestModeIndex+item3.GroupID"
-                                             [attr.id]="'curWLid'+item.TestIndex+item1.TestModeIndex+item3.GroupID">
+                                          <tr [ngClass]="'workLoadTableRow'+item.Index+item1.Index+item3.GroupID"
+                                             [attr.id]="'curWLid'+item.Index+item1.Index+item3.GroupID">
          
                                              <td class="comonTd" *ngIf="item1.TableData.Header.length <=4">
                                                 <div *ngIf="item3.Action == 'Slider'">
@@ -114,7 +100,7 @@
                                                 </div>
                                                 <div *ngIf="item3.Action == 'Dropdown'">
                                                    <select class="form-control dropdownControl"
-                                                      [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index">
+                                                      [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index">
                                                       <option *ngFor="let item4 of item3.DropdownValue">
                                                          {{item4.Data}}
                                                       </option>
@@ -127,7 +113,7 @@
                                                 <div style="margin-left:14px ;">
                                                    <select class="form-control dropdownControl"
                                                       [(ngModel)]="item3.SelectedCPU" (change)="getComboTestValue(item3)"
-                                                      [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index">
+                                                      [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index">
                                                       <option *ngFor="let item4 of item3.CpuTests" [ngValue]="item4">
                                                          {{item4}}
                                                       </option>
@@ -139,7 +125,7 @@
          
                                                 <div >
                                                    <select class="form-control dropdownControl" (change)="getComboTestValue(item3)"
-                                                      [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index"
+                                                      [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index"
                                                       [(ngModel)]="item3.SelectedMem">
                                                       <option *ngFor="let item4 of item3.MemTests" [ngValue]="item4">
                                                          {{item4}}
@@ -153,7 +139,7 @@
                                                 <div>
                                                    <select class="form-control dropdownControl"
                                                    (change)="getComboTestValue(item3)"
-                                                      [ngClass]="'workLoadTableButton'+item.TestIndex+item1.TestModeIndex+item3.Index"
+                                                      [ngClass]="'workLoadTableButton'+item.Index+item1.Index+item3.Index"
                                                       [(ngModel)]="item3.SelectedPMem">
                                                       <option *ngFor="let item4 of item3.PmemTests" [ngValue]="item4">
                                                          {{item4}}
@@ -166,14 +152,14 @@
                                              <td class="comonTd">
                                                 <button style="min-width:80px;" *ngIf="item3.Action == 'Slider'"
                                                    [ngClass]="{'greenBtnColor':item3.ButtonName == 'Start','redBtnColor':item3.ButtonName === 'Stop','marginBtnTopFirst': workloadIndex == 0,'marginBtnTopNotFirst' : workloadIndex != 0}"
-                                                   class="{{ 'workLoadSetButton'+item.TestIndex+item1.TestModeIndex+item3.Index}} btn btn-sm tableTextAllign"
-                                                   (click)="workLoadStartStop('slider',item3,item.Name,item.TestIndex,item1.Name,item1.TestModeIndex)"
+                                                   class="{{ 'workLoadSetButton'+item.Index+item1.Index+item3.Index}} btn btn-sm tableTextAllign"
+                                                   (click)="workLoadStartStop('slider',item3,item.Name,item.Index,item1.Name,item1.Index)"
                                                    matTooltip={{item3.ToolTip}}
                                                    matTooltipPosition="below">{{item3.ButtonName}}</button>
                                                 <button style="min-width:80px;" *ngIf="item3.Action == 'Dropdown'"
                                                    [ngClass]="{'greenBtnColor':item3.ButtonName == 'Start','redBtnColor':item3.ButtonName === 'Stop','marginBtnTopFirst': workloadIndex == 0,'marginBtnTopNotFirst' : workloadIndex != 0}"
-                                                   class="{{ 'workLoadSetButton'+item.TestIndex+item1.TestModeIndex+item3.Index}} btn btn-sm "
-                                                   (click)="workLoadStartStop('dropdown',item.TestIndex+item1.TestModeIndex+':'+item3.Index,item.Name,item.TestIndex,item1.Name,item1.TestModeIndex)"
+                                                   class="{{ 'workLoadSetButton'+item.Index+item1.Index+item3.Index}} btn btn-sm "
+                                                   (click)="workLoadStartStop('dropdown',item.Index+item1.Index+':'+item3.Index,item.Name,item.Index,item1.Name,item1.Index)"
                                                    matTooltip={{item3.ToolTip}}
                                                    matTooltipPosition="below">{{item3.ButtonName}}</button>
                                              </td>
@@ -189,8 +175,8 @@
          
                                     </tbody>
                                  </table>
-                              </div>
-                              <div class="table workLoadTableCC" [ngClass]="'workLoadTable'+item.TestIndex+item1.TestModeIndex" *ngIf="item1.Name == 'Combo Test'">
+                              </div> -->
+                              <!-- <div class="table workLoadTableCC" [ngClass]="'workLoadTable'+item.Index+item1.Index" *ngIf="item1.Name == 'Combo Test'">
                                  <br>
                                  <b>Note: </b> Values for the selected Test(s) will be fetched from the respective tabs
                                  <br>
@@ -199,11 +185,11 @@
                                  <b>Selected MEM Value:<span> {{memvalues}}</span></b>
                                  <br>
                                  <b>Selected PMEM Value:<span> {{pmemvalues}}</span></b>
-                              </div>
+                              </div> -->
          
                               <ng-container>
                                  <div style="margin-left: 5px;">
-                                    <div class="row  workLoadTableCC" [ngClass]="'workLoadTableDropdown'+item.TestIndex+item1.TestModeIndex"
+                                    <div class="row  workLoadTableCC" [ngClass]="'workLoadTableDropdown'+item.Index+item1.Index"
                                        *ngFor="let item4 of item1.TableData.Row" style="width: 100% !important;">
          
                                        <div class="col-sm-4 card curvedCorners card-padding">
@@ -267,26 +253,30 @@
                                           </div>
          
                                        </div>
-                                       <div class=" col-sm-3 card1 curvedCorners card1-padding" style="max-height: 170px !important;
-                                       border: 1px solid #80808099" *ngIf="item4.ThreadStart">
-                                          <div class="fixedtop">
-                                             <input id="core" type="checkbox" type="checkbox" [(ngModel)]="item4.SelectAllThread" [indeterminate]="item4.AtleastOneThreadSelected"
-                                                (change)="selectedAllThreadData(item4)">
-                                             <label for="core" style="margin-left: 8px;">Select Thread</label>
+
+                                       <div class="col-sm-3 card1 curvedCorners card-padding">
+                                          <label>
+                                             <b>
+                                                Power Level
+                                             </b>
+                                          </label>
+                                          <div class="row">
+                                             <div class="col-sm-6">
+                                                <label></label><br>
+                                                <select class="btn selectedBtn alertFontSize" [(ngModel)]="item4.min">
+                                                   <option [ngValue]="'select'" class="alertFontSize">--Select--
+                                                   </option>
+                                                   <option *ngFor="let item5 of item4.levels" [ngValue]="item5"
+                                                      class="alertFontSize">
+                                                      {{item5}}</option>
+                                                </select>
+                                             </div>
+         
+                                             
                                           </div>
-                                          <div class="scroll" style="max-height: 110px !important;">
-                                             <ul>
-                                                <div class="list-style">
-                                                   <li class="corevalues" *ngFor="let item6 of item4.ThreadData">
-                                                      <input type="checkbox" [(ngModel)]="item6.isSelected"
-                                                         (change)="selectedThreadData(item4)"> &nbsp;
-                                                      {{item6.Name}}
-                                                   </li>
-                                                </div>
-                                             </ul>
-                                          </div>
-                                          
+         
                                        </div>
+                                       
          
                                        <div style="margin: 10px;" (change)="toggleStatus()">
                                           <label class="switch">
@@ -299,7 +289,7 @@
          
                                     </div>
          
-                                    <div class="row workLoadTableCC" [ngClass]="'workLoadTableCheckBox'+item.TestIndex+item1.TestModeIndex"
+                                    <div class="row workLoadTableCC" [ngClass]="'workLoadTableCheckBox'+item.Index+item1.Index"
                                        style=" width: 100% !important;">
          
                                        
@@ -315,13 +305,13 @@
                                              <div class="scroll" style="max-height: 110px !important;">
                                                 <ul>
                                                    <div class="list-style">
-                                                      <li [ngClass]="'cpuClicked'+item.TestIndex+item1.TestModeIndex+item6.Index"
+                                                      <li [ngClass]="'cpuClicked'+item.Index+item1.Index+item6.Index"
                                                          class="list-style cpuTree"
                                                          *ngFor="let item6 of item5.PackageData; let i=index">
                                                          <input type="checkbox" [(ngModel)]="item6.isSelected"
                                                             (click)="cpuCheckboxClicked(item6)" [indeterminate]="item6.AtleastOneCoreSelected"
-                                                            (change)="isAllSelected(item5,item6,item.TestIndex+item1.TestModeIndex+item6.Index+';'+item6.Name)">&nbsp;<a style="cursor: pointer;"
-                                                            (click)="cpuClicked(item6,item.TestIndex+item1.TestModeIndex+item6.Index+';'+item6.Name)">&nbsp;{{item6.Name}}</a>
+                                                            (change)="isAllSelected(item5,item6,item.Index+item1.Index+item6.Index+';'+item6.Name)">&nbsp;<a style="cursor: pointer;"
+                                                            (click)="cpuClicked(item6,item.Index+item1.Index+item6.Index+';'+item6.Name)">&nbsp;{{item6.Name}}</a>
                                                       </li>
                                                    </div>
                                                 </ul>
@@ -348,6 +338,55 @@
                                           </div>
                                        </div>
                                        
+                                       
+                                       <div id="threadSelection" class="col-sm-3 col-md-3 card1 curvedCorners card1-padding"
+                                          style="max-height: 170px !important;">
+                                          <div *ngFor="let item5 of item1.TableData.Row">
+                                             <div class="fixedtop">
+                                                <input type="checkbox" [(ngModel)]="item5.SelectAllThread" [indeterminate]="item5.AtleastOneThreadSelected"
+                                                   (change)="selectedAllThreadData(item5)">
+                                                <label style="margin-left: 8px;">Select Thread</label>
+                                             </div>
+                                             <div class="scroll" style="max-height: 110px !important;">
+                                                <ul>
+                                                   <div class="list-style">
+                                                      <li 
+                                                         *ngFor="let item6 of item5.ThreadData; let i=index">
+                                                         <input type="checkbox" [(ngModel)]="item6.isSelected"
+                                                         (change)="selectedThreadData(item5)"> &nbsp;
+                                                      {{item6.Name}}
+                                                      </li>
+                                                   </div>
+                                                </ul>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <!-- <div class="col-sm-3 col-md-3 card1 curvedCorners card-padding"
+                                          style="max-height: 170px !important;border: 1px solid #80808099;  " >
+                                          <div  *ngFor="let item5 of item1.TableData.Row">
+                                             <div class="fixedtop" style="margin-top: 0;">
+                                                <input type="checkbox" [(ngModel)]="item5.SelectAllThread" [indeterminate]="item5.AtleastOneThreadSelected"
+                                                   (change)="selectedAllThreadData(item5)">
+                                                <label style="margin-left: 8px;">All Thread</label>
+                                             </div>
+                                             <div class="scroll" style="max-height: 110px !important;">
+                                                <ul>
+                                                   <div class="list-style">
+                                                      <li class="corevalues" *ngFor="let item6 of item5.ThreadData">
+                                                         <input type="checkbox" [(ngModel)]="item6.isSelected"
+                                                            (change)="selectedThreadData(item4)"> &nbsp;
+                                                         {{item6.Name}}
+                                                      </li>
+                                                      
+                                                   </div>
+                                                </ul>
+                                             </div>
+                                          </div>
+                                             
+                                          
+                                       </div> -->
+                                       
+                                       
          
                                     </div>
                                  </div>
@@ -355,9 +394,9 @@
                               </ng-container>
                            </div>
 
-                           <div class="btnDiv workLoadTableCC"  [ngClass]="'workLoadTable'+item.TestIndex+item1.TestModeIndex">
+                           <div class="btnDiv workLoadTableCC"  [ngClass]="'workLoadTable'+item.Index+item1.Index">
                               <button type="button" id="addWorkLoadbtn" class="btn btn-primary greenBtnColor"  (click)="addWorkLoad(item1,item)" >
-                                 Add/Update Workload
+                                 Add Workload
                               </button>
                            </div>
                         </ng-container>
@@ -369,39 +408,33 @@
                   
       
             </div>
-            <div class="card curvedCorners workLoadCard" style="margin-top: 5px;height: calc(60vh - 149px) !important">
+
+            <!-- selected tests display -->
+            <div class="card curvedCorners workLoadCard" style="margin-top: 5px;height:34vh !important">
                <div class="card-header curvedCorners" style="padding-bottom: 7px;">
                    <h6 class="cardHeading">Selected Tests</h6>
-                   <div class="card" style="height: calc(98vh - 449px);">
+                   <div class="card" style="height:21vh;">
                        <div class="card-body statusBody" style="overflow: auto;">
                            <div class="bodyDataAnalysis" style="height: 84%;" >
-                              <!-- <div   *ngFor = "let data of workLoadDataArray">        
-                                 <td>
-                                    <span class="fas fa-edit" (click)="workLoadTree(data.editIndex)"style="color: #595352;"></span>&nbsp;&nbsp;             
-                                    <span class="fa fa-times-circle" (click)="removeData(data)"style="color: red;"></span>&nbsp;&nbsp;{{data.Name}}
-                             
-                                 </td>
-                                 <td>
-                                    {{data.editIndex}}
-                                 </td>
-                              </div> -->
+                              
 
                               <table style="width: 100%;">
                                  
                                  <tbody>
                                     <ng-container *ngFor="let data of workLoadDataArray">
-                                       <tr>
+                                       <tr  >
       
                                          
                                           <td  style="width: 80%;">
-                                             <span class="fas fa-edit" (click)="workLoadTree(data.editIndex)"style="color: #595352;"></span>&nbsp;&nbsp;             
-                                             <span class="fa fa-times-circle" (click)="removeData(data)"style="color: red;"></span>&nbsp;&nbsp; {{data.Name}}
+                                             <span class="fas fa-edit" (click)="updateWorkload(data)"style="color: #595352;"></span>&nbsp;&nbsp;             
+                                             <span class="fa fa-times-circle" (click)="removeData(data)"style="color: red;"></span>&nbsp;&nbsp; 
+                                             <span [ngClass]="{'colorSelectedTree1': data.Name === selectedWorkLoadName}">{{data.Name}}</span> 
                                              
                                           </td>
                                           <td>
                                              <span *ngIf="data.status.toLowerCase() == 'running'" class="fas fa-stop-circle" (click)="stopIndvWorkload(data)"style="color: red;"></span>            
                                              <span *ngIf="data.status.toLowerCase() == 'failed' || data.status.toLowerCase() == 'stopped'" class="fas fa-play-circle" (click)="startIndvWorkload(data)"style="color: green;"></span>
-                                             <!-- {{data.status}} -->
+                                             
                                              <a
                                                 [ngClass]="{'text-success':data.status.toLowerCase() == 'running','text-danger':data.status.toLowerCase() == 'failed'}">
                                                 &nbsp;&nbsp; {{data.status}}

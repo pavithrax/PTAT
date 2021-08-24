@@ -1,1655 +1,514 @@
 {
-    "Command": "GetWorkLoadData",
-    "CommandStatus": {
-      "Status": "Success",
-      "Message": ""
+  "Command": "GetWorkLoadData",
+  "CommandStatus": {
+    "Status": "Success",
+    "Message": ""
+  },
+  "Data": [
+    {
+      "Name": "CPUTest",
+      "Index": "0",
+      "expand": "true",
+      "DropDownList": [
+        {
+          "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+          "Name": "TDP",
+          "Index": "0",
+          "ToolTip": "CPU Workload that generates different power Levels for different Workloads in Percentage. Useful for testing  system stability in terms of thermal and power",
+          "TableData": {
+            "Header": [
+              "Note"
+            ],
+            "Row": [
+              {
+                "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+               
+                "Index": "0",
+                "GroupID": "6",
+               
+                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+               
+                "ButtonName": "Start",
+                "Status": "Stopped",
+                "isSelected": true
+              }
+            ]
+          }
+        },
+        {
+          "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+          "Name": "nTDP",
+          "Index": "1",
+          "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+          "TableData": {
+            "Header": [
+              "Note"
+            ],
+            "Row": [
+              {
+                "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+               
+                "Index": "1",
+                "GroupID": "6",
+               
+                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                
+                "ButtonName": "Start",
+                "Status": "Stopped",
+                "isSelected": true
+              }
+            ]
+          }
+        },
+        {
+          "Note": "",
+          "Name": "Core 1A/SSE",
+          "Index": "2",
+          "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+          "TableData": {
+            "Header": [
+              
+              "Levels",
+              "Action",
+              "Status"
+            ],
+            "Row": [
+              {
+               
+                "Index": "0",
+                "GroupID": "6",
+                "Action": "Slider",
+                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                "min": 10,
+                "powerLevel": 20,
+                "levels": [10,20,30,40,50,60,70,80,90,100],
+                "max": 100,
+                "stepping": 10,
+                "ButtonName": "Start",
+                "Status": "Stopped",
+                "isSelected": true,
+                "SelectAllThread": true,
+                
+                "PackageCount": 8,
+                "PackageAllSelected": true,
+                "PackageStart": "CPU 0",
+                "PackageEnd": "CPU 2",
+                "DroporCheck": true,
+                "CoreStart": "Core 0",
+                "CoreEnd": "Core 2",
+                "CoreCount": 128,
+                "ThreadStart": "Thread 0",
+                "ThreadEnd": "Thread 1",
+                "ThreadCount": 2
+              }
+            ]
+          }
+        },
+        {
+          "Note": "",
+          "Name": "Core AVX2",
+          "Index": "3",
+          "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+          "TableData": {
+            "Header": [
+              
+              "Levels",
+              "Action",
+              "Status"
+            ],
+            "Row": [
+              {
+                
+                "Index": "0",
+                "GroupID": "6",
+                "Action": "Slider",
+                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                "min": 10,
+                "powerLevel": 20,
+                "levels": [10,20,30,40,50,60,70,80,90,100],
+                "max": 100,
+                "stepping": 10,
+                "ButtonName": "Start",
+                "Status": "Stopped",
+                "isSelected": true,
+                
+                "SelectAllThread": true,
+                
+                "PackageCount": 8,
+                "PackageAllSelected": true,
+                "PackageStart": "CPU 0",
+                "PackageEnd": "CPU 2",
+                "DroporCheck": true,
+                "CoreStart": "Core 0",
+                "CoreEnd": "Core 2",
+                "CoreCount": 128,
+                "ThreadStart": "Thread 0",
+                "ThreadEnd": "Thread 1",
+                "ThreadCount": 2
+              }
+            ]
+          }
+        },
+        {
+          "Note": "",
+          "Name": "Core AVX2-512 ",
+          "Index": "4",
+          "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+          "TableData": {
+            "Header": [
+              
+              "Levels",
+              "Action",
+              "Status"
+            ],
+            "Row": [
+              {
+                
+                "Index": "0",
+                "GroupID": "6",
+                "Action": "Slider",
+                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                "min": 10,
+                "powerLevel": 20,
+                "levels": [10,20,30,40,50,60,70,80,90,100],
+                "max": 100,
+                "stepping": 10,
+                "ButtonName": "Start",
+                "Status": "Stopped",
+                "isSelected": true,
+                
+                "SelectAllThread": true,
+                
+                "PackageCount": 8,
+                "PackageAllSelected": true,
+                "PackageStart": "CPU 0",
+                "PackageEnd": "CPU 2",
+                "DroporCheck": true,
+                "CoreStart": "Core 0",
+                "CoreEnd": "Core 2",
+                "CoreCount": 128,
+                "ThreadStart": "Thread 0",
+                "ThreadEnd": "Thread 1",
+                "ThreadCount": 2
+              }
+            ]
+          }
+        },
+        {
+          "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+          "Name": "PMAX",
+          "Index": "5",
+          "ToolTip": "CPU Workload that generates different power Levels for different Workloads in Percentage. Useful for testing  system stability in terms of thermal and power",
+          "TableData": {
+            "Header": [
+              "Note"
+            ],
+            "Row": [
+              {
+                "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+               
+                "Index": "1",
+                "GroupID": "6",
+               
+                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                
+                "ButtonName": "Start",
+                "Status": "Stopped",
+                "isSelected": true
+              }
+            ]
+          }
+        },
+        {
+          "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+          "Name": "PMAX.App",
+          "Index": "6",
+          "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+          "TableData": {
+            "Header": [
+              "Note"
+            ],
+            "Row": [
+              {
+                "Note": "Power level or Core and Thread selections are not applicable for TDP/nTDP, or PMAX/PMAX.App tests",
+               
+                "Index": "1",
+                "GroupID": "6",
+               
+                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                
+                "ButtonName": "Start",
+                "Status": "Stopped",
+                "isSelected": true
+              }
+            ]
+          }
+        }
+      ]
     },
-    "Data": [
-      {
-        "Name": "CPU Component",
-        "Index": "0",
-        "expand": "true",
-        "DropDownList": [
-          {
-            "Name": "CPU Power",
-            "Index": "0",
-            "ToolTip": "CPU Workload that generates different power Levels for different Workloads in Percentage. Useful for testing  system stability in terms of thermal and power",
-            "TableData": {
-              "Header": [
-                {
-                  "HeaderValue": "Instance"
-                },
-                {
-                  "HeaderValue": "Levels"
-                },
-                {
-                  "HeaderValue": "Action"
-                },
-                {
-                  "HeaderValue": "Status"
-                }
-              ],
-              "Row": [
-                {
-                  "Name": "CPU",
-                  "Index": "0",
-                  "GroupID": "0",
-                  "Action": "Slider",
-                  "min": 50,
-                  "max": 100,
-                  "stepping": 10,
-                  "ButtonName": "Start",
-                  "Status": "Stopped",
-                  "Start": "CPU_0",
-                  "End": "CPU_3",
-                  "DroporCheck": false,
-                  "isSelected": true,
-                  "Data": [
-                    {
-                      "start": "Core 0",
-                      "end": "Core 3",
-                      "children": [
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 15,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 18,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 3,
-                            "Name": "0-Core 0",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 33,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 36,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 21,
-                            "Name": "0-Core 1",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 51,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 54,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 39,
-                            "Name": "0-Core 2",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 69,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 72,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 57,
-                            "Name": "0-Core 3",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        }
-                      ],
-                      "data": {
-                        "Header": "",
-                        "Index": 2,
-                        "Name": "CPU_0",
-                        "ToolTip": "",
-                        "isSelected": true
-                      }
-                    },
-                    {
-                      "start": "Core 0",
-                      "end": "Core 3",
-                      "children": [
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 15,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 18,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 3,
-                            "Name": "1-Core 0",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 33,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 36,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 21,
-                            "Name": "1-Core 1",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 51,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 54,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 39,
-                            "Name": "1-Core 2",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 69,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 72,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 57,
-                            "Name": "1-Core 3",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        }
-                      ],
-                      "data": {
-                        "Header": "",
-                        "Index": 2,
-                        "Name": "CPU_1",
-                        "ToolTip": "",
-                        "isSelected": true
-                      }
-                    },
-                    {
-                      "start": "Core 0",
-                      "end": "Core 3",
-                      "children": [
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 15,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 18,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 3,
-                            "Name": "2-Core 0",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 33,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 36,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 21,
-                            "Name": "2-Core 1",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 51,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 54,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 39,
-                            "Name": "2-Core 2",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 69,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 72,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 57,
-                            "Name": "2-Core 3",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        }
-                      ],
-                      "data": {
-                        "Header": "",
-                        "Index": 2,
-                        "Name": "CPU_2",
-                        "ToolTip": "",
-                        "isSelected": true
-                      }
-                    },
-                    {
-                      "start": "Core 0",
-                      "end": "Core 3",
-                      "children": [
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 15,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 18,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 3,
-                            "Name": "3-Core 0",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 33,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 36,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 21,
-                            "Name": "3-Core 1",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 51,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 54,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 39,
-                            "Name": "3-Core 2",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 69,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 72,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 57,
-                            "Name": "3-Core 3",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        }
-                      ],
-                      "data": {
-                        "Header": "",
-                        "Index": 2,
-                        "Name": "CPU_3",
-                        "ToolTip": "",
-                        "isSelected": true
-                      }
-                    }
-                  ],
-                  "StartCore": "0-Core 0",
-                  "EndCore": "2-Core 1",
-                  "Coredata": [
-                    {
-                      "Header": "",
-                      "Index": 3,
-                      "Name": "0-Core 0",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 21,
-                      "Name": "0-Core 1",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "0-Core 2",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "0-Core 3",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 3,
-                      "Name": "1-Core 0",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 21,
-                      "Name": "1-Core 1",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "1-Core 2",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "1-Core 3",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 3,
-                      "Name": "2-Core 0",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 21,
-                      "Name": "2-Core 1",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "2-Core 2",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "2-Core 3",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 3,
-                      "Name": "3-Core 0",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 21,
-                      "Name": "3-Core 1",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "3-Core 2",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "3-Core 3",
-                      "ToolTip": "",
-                      "isSelected": true
-                    }
-                  ]
-                }
-              ]
-            }
-          },
-          {
-            "Name": "CPU-Utilization",
-            "Index": "1",
-            "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-            "TableData": {
-              "Header": [
-                {
-                  "HeaderValue": "Instance"
-                },
-                {
-                  "HeaderValue": "Levels"
-                },
-                {
-                  "HeaderValue": "Action"
-                },
-                {
-                  "HeaderValue": "Status"
-                }
-              ],
-              "Row": [
-                {
-                  "Name": "CPU0",
-                  "Index": "0",
-                  "GroupID": "6",
-                  "Action": "Slider",
-                  "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
-                  "min": 10,
-                  "max": 100,
-                  "stepping": 10,
-                  "ButtonName": "Start",
-                  "Status": "Stopped",
-                  "Start": "CPU_4",
-                  "End": "CPU_6",
-                  
-                  "DroporCheck": false,
-                  "isSelected": true,
-                  "Data": [
-                    {
-                      "start": "Core 0",
-                      "end": "Core 3",
-                      "children": [
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 15,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 18,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 3,
-                            "Name": "Core 0",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 33,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 36,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 21,
-                            "Name": "Core 1",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 51,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 54,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 39,
-                            "Name": "Core 2",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 69,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 72,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 57,
-                            "Name": "Core 3",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        }
-                      ],
-                      "data": {
-                        "Header": "",
-                        "Index": 2,
-                        "Name": "CPU_4",
-                        "ToolTip": "",
-                        "isSelected": true
-                      }
-                    },
-                    {
-                      "start": "Core 0",
-                      "end": "Core 3",
-                      "children": [
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 15,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 18,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 3,
-                            "Name": "Core 0",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 33,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 36,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 21,
-                            "Name": "Core 1",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 51,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 54,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 39,
-                            "Name": "Core 2",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 69,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 72,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 57,
-                            "Name": "Core 3",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        }
-                      ],
-                      "data": {
-                        "Header": "",
-                        "Index": 2,
-                        "Name": "CPU_5",
-                        "ToolTip": "",
-                        "isSelected": true
-                      }
-                    },
-                    {
-                      "start": "Core 0",
-                      "end": "Core 3",
-                      "children": [
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 15,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 18,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 3,
-                            "Name": "Core 0",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 33,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 36,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 21,
-                            "Name": "Core 1",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 51,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 54,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 39,
-                            "Name": "Core 2",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 69,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 72,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 57,
-                            "Name": "Core 3",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        }
-                      ],
-                      "data": {
-                        "Header": "",
-                        "Index": 2,
-                        "Name": "CPU_6",
-                        "ToolTip": "",
-                        "isSelected": true
-                      }
-                    }
-                  ],
-                  "StartCore": "0-Core 0",
-                  "EndCore": "2-Core 1",
-                  "Coredata": [
-                    {
-                      "Header": "",
-                      "Index": 3,
-                      "Name": "0-Core 0",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 21,
-                      "Name": "0-Core 1",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "0-Core 2",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "0-Core 3",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 3,
-                      "Name": "1-Core 0",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 21,
-                      "Name": "1-Core 1",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "1-Core 2",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "1-Core 3",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 3,
-                      "Name": "2-Core 0",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 21,
-                      "Name": "2-Core 1",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "2-Core 2",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "2-Core 3",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 3,
-                      "Name": "3-Core 0",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 21,
-                      "Name": "3-Core 1",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "3-Core 2",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "3-Core 3",
-                      "ToolTip": "",
-                      "isSelected": true
-                    }
-                  ]
-                }
-              ]
-            }
+    {
+      "Name": "MEM Test",
+      "Index": "1",
+      "expand": "true",
+      "DropDownList": [
+        {
+          "Note": "",
+          "Name": "Memory Read",
+          "Index": "0",
+          "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
+          "TableData": {
+            "Header": [
+              
+              "Levels",
+              "Action",
+              "Status"
+            ],
+            "Row": [
+              {
+                
+                "Index": "0",
+                "GroupID": "6",
+                "Action": "Slider",
+                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                "min": 10,
+                "powerLevel": 20,
+                "levels": [10,20,30,40,50,60,70,80,90,100],
+                "max": 100,
+                "stepping": 10,
+                "ButtonName": "Start",
+                "Status": "Stopped",
+                "isSelected": true,
+               
+                "PackageCount": 8,
+                "PackageAllSelected": true,
+                "PackageStart": "CPU 0",
+                "PackageEnd": "CPU 2",
+                "DroporCheck": true,
+                "CoreStart": "Core 0",
+                "CoreEnd": "Core 2",
+                "CoreCount": 3
+              }
+            ]
           }
-        ]
-      },
-      {
-        "Name": "Memory Component",
-        "Index": "1",
-        "expand": "true",
-        "DropDownList": [
-          {
-            "Name": "Memory Workload",
-            "Index": "0",
-            "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
-            "TableData": {
-              "Header": [
-                {
-                  "HeaderValue": "Instance"
-                },
-                {
-                  "HeaderValue": "Levels"
-                },
-                {
-                  "HeaderValue": "Action"
-                },
-                {
-                  "HeaderValue": "Status"
-                }
-              ],
-              "Row": [
-                {
-                  "Name": "Write with Delay",
-                  "Index": "0",
-                  "GroupID": "0",
-                  "Action": "Slider",
-                  "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
-                  "min": 50,
-                  "max": 500,
-                  "stepping": 50,
-                  "ButtonName": "Start",
-                  "Status": "Stopped",
-                  "Start": "CPU_7",
-                  "End": "CPU_8",
-                  "DroporCheck": false,
-                  "isSelected": true,
-                  "Data": [
-                    {
-                      "start": "Core 0",
-                      "end": "Core 3",
-                      "children": [
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 15,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 18,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 3,
-                            "Name": "Core 0",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 33,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 36,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 21,
-                            "Name": "Core 1",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 51,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 54,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 39,
-                            "Name": "Core 2",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 69,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 72,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 57,
-                            "Name": "Core 3",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        }
-                      ],
-                      "data": {
-                        "Header": "",
-                        "Index": 2,
-                        "Name": "CPU_7",
-                        "ToolTip": "",
-                        "isSelected": true
-                      }
-                    },
-                    {
-                      "start": "Core 0",
-                      "end": "Core 3",
-                      "children": [
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 15,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 18,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 3,
-                            "Name": "Core 0",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 33,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 36,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 21,
-                            "Name": "Core 1",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 51,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 54,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 39,
-                            "Name": "Core 2",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        },
-                        {
-                          "children": [
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 69,
-                                "Name": "Thread 0",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            },
-                            {
-                              "data": {
-                                "Header": "",
-                                "Index": 72,
-                                "Name": "Thread 1",
-                                "ToolTip": "",
-                                "isSelected": true
-                              }
-                            }
-                          ],
-                          "data": {
-                            "Header": "",
-                            "Index": 57,
-                            "Name": "Core 3",
-                            "ToolTip": "",
-                            "isSelected": true
-                          }
-                        }
-                      ],
-                      "data": {
-                        "Header": "",
-                        "Index": 2,
-                        "Name": "CPU_8",
-                        "ToolTip": "",
-                        "isSelected": true
-                      }
-                    }
-                  ],
-                  "StartCore": "0-Core 0",
-                  "EndCore": "2-Core 1",
-                  "Coredata": [
-                    {
-                      "Header": "",
-                      "Index": 3,
-                      "Name": "0-Core 0",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 21,
-                      "Name": "0-Core 1",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "0-Core 2",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "0-Core 3",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 3,
-                      "Name": "1-Core 0",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 21,
-                      "Name": "1-Core 1",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "1-Core 2",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "1-Core 3",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 3,
-                      "Name": "2-Core 0",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 21,
-                      "Name": "2-Core 1",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "2-Core 2",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "2-Core 3",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 3,
-                      "Name": "3-Core 0",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 21,
-                      "Name": "3-Core 1",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "3-Core 2",
-                      "ToolTip": "",
-                      "isSelected": true
-                    },
-                    {
-                      "Header": "",
-                      "Index": 39,
-                      "Name": "3-Core 3",
-                      "ToolTip": "",
-                      "isSelected": true
-                    }
-                  ]
-                }
-              ]
-            }
+        },
+        {
+          "Note": "",
+          "Name": "Memory Write",
+          "Index": "1",
+          "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
+          "TableData": {
+            "Header": [
+              
+              "Levels",
+              "Action",
+              "Status"
+            ],
+            "Row": [
+              {
+                
+                "Index": "0",
+                "GroupID": "6",
+                "Action": "Slider",
+                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                "min": 10,
+                "powerLevel": 20,
+                "levels": [10,20,30,40,50,60,70,80,90,100],
+                "max": 100,
+                "stepping": 10,
+                "ButtonName": "Start",
+                "Status": "Stopped",
+                "isSelected": true,
+                
+                "PackageCount": 8,
+                "PackageAllSelected": true,
+                "PackageStart": "CPU 0",
+                "PackageEnd": "CPU 2",
+                "DroporCheck": true,
+                "CoreStart": "Core 0",
+                "CoreEnd": "Core 2",
+                "CoreCount": 3
+                
+              }
+            ]
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          "Note": "",
+          "Name": "Memory Rd/Wr",
+          "Index": "2",
+          "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
+          "TableData": {
+            "Header": [
+              
+              "Levels",
+              "Action",
+              "Status"
+            ],
+            "Row": [
+              {
+                
+                "Index": "0",
+                "GroupID": "6",
+                "Action": "Slider",
+                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                "min": 10,
+                "powerLevel": 20,
+                "levels": [10,20,30,40,50,60,70,80,90,100],
+                "max": 100,
+                "stepping": 10,
+                "ButtonName": "Start",
+                "Status": "Stopped",
+                "isSelected": true,
+                
+                "PackageCount": 8,
+                "PackageAllSelected": true,
+                "PackageStart": "CPU 0",
+                "PackageEnd": "CPU 2",
+                "DroporCheck": true,
+                "CoreStart": "Core 0",
+                "CoreEnd": "Core 2",
+                "CoreCount": 3
+              }
+            ]
+          }
+        },
+        {
+          "Note": "",
+          "Name": "Extended Rd/Wr",
+          "Index": "3",
+          "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
+          "TableData": {
+            "Header": [
+              
+              "Levels",
+              "Action",
+              "Status"
+            ],
+            "Row": [
+              {
+                "Name": "Write with Delay",
+                "Index": "0",
+                "GroupID": "0",
+                "Action": "Slider",
+                "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
+                "min": 50,
+                "max": 500,
+                "stepping": 50,
+                "ButtonName": "Start",
+                "Status": "Stopped",
+                "isSelected": true,
+                
+                "PackageCount": 8,
+                "PackageAllSelected": true,
+                "PackageStart": "CPU 0",
+                "PackageEnd": "CPU 2",
+                "DroporCheck": true,
+                "CoreStart": "Core 0",
+                "CoreEnd": "Core 2",
+                "CoreCount": 3
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "Name": "PMEM Test",
+      "Index": "2",
+      "expand": "true",
+      "DropDownList": [
+        {
+          "Note": "",
+          "Name": "AD Read",
+          "Index": "0",
+          "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
+          "TableData": {
+            "Header": [
+              
+              "Levels",
+              "Action",
+              "Status"
+            ],
+            "Row": [
+              {
+                
+                "Index": "0",
+                "GroupID": "6",
+                "Action": "Slider",
+                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                "min": 10,
+                "powerLevel": 20,
+                "levels": [10,20,30,40,50,60,70,80,90,100],
+                "max": 100,
+                "stepping": 10,
+                "ButtonName": "Start",
+                "Status": "Stopped",
+                "isSelected": true,
+                
+                "SelectAllThread": true,
+                
+                "PackageCount": 8,
+                "PackageAllSelected": true,
+                "PackageStart": "CPU 0",
+                "PackageEnd": "CPU 2",
+                "DroporCheck": true,
+                "CoreStart": "Core 0",
+                "CoreEnd": "Core 2",
+                "CoreCount": 128,
+                "ThreadStart": "Thread 0",
+                "ThreadEnd": "Thread 1",
+                "ThreadCount": 2
+              }
+            ]
+          }
+        },
+        {
+          "Note": "",
+          "Name": "AD Write",
+          "Index": "1",
+          "ToolTip": "For Each memory  Selected number of delay instructions will be executed",
+          "TableData": {
+            "Header": [
+              
+              "Levels",
+              "Action",
+              "Status"
+            ],
+            "Row": [
+              {
+                
+                "Index": "0",
+                "GroupID": "6",
+                "Action": "Slider",
+                "ToolTip": "Utilization workloads. Reference purpose only. On some systems percentages may not work as expected. Useful for PState and performance based tests. This is not a thermal test.",
+                "min": 10,
+                "powerLevel": 20,
+                "levels": [10,20,30,40,50,60,70,80,90,100],
+                "max": 100,
+                "stepping": 10,
+                "ButtonName": "Start",
+                "Status": "Stopped",
+                "isSelected": true,
+                
+                "SelectAllThread": true,
+                
+                "PackageCount": 8,
+                "PackageAllSelected": true,
+                "PackageStart": "CPU 0",
+                "PackageEnd": "CPU 2",
+                
+                "DroporCheck": true,
+                "CoreStart": "Core 0",
+                "CoreEnd": "Core 2",
+                "CoreCount": 128,
+                "ThreadStart": "Thread 0",
+                "ThreadEnd": "Thread 1",
+                "ThreadCount": 2
+              }
+            ]
+          } 
+        }
+      ]
+    }
+  ]
+}
