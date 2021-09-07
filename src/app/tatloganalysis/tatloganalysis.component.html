@@ -62,6 +62,7 @@
                             <i class="far fa-caret-square-down" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                             <ul  class="dropdown-menu scrollable-menu" role="menu" style="font-weight:normal;overflow-y: auto;max-height: 110px; position: relative;margin-top: 10px;">
                               <li *ngFor="let row1 of data.Row; let k = index; let even=even"  style="margin-left: 5px;margin-right: 5px;font-size:11px;white-space: nowrap;" class="tatLogAnalysisLi dropdown-submenu">
+                                
                                 <span  *ngIf="row1[1] == '' && row1[2] == ''">
                                   <input type="checkbox" id="{{k}}" checked  (click)="consolidatedResultTab($event,tabindexCount,k)"/> 
                                   <label for="{{k}}">{{consolidatedTabDDspilt(row1)}}</label>

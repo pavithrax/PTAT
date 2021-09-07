@@ -1,0 +1,2493 @@
+<html lang='en'>
+
+<head>
+    <title>PTAT Log Analysis</title>
+    <meta charset='UTF-8' />
+    <script>
+        window.onload = function () {
+            var chart1 = new CanvasJS.Chart(grapContainer1, {
+                "toolTip": {
+                    "shared": true
+                },
+                "width": 855,
+                "height": 207,
+                "zoomEnabled": true,
+                "axisY": {
+                    "includeZero": false,
+                    "labelFontSize": 10
+                },
+                "axisX": {
+                    "labelAngle": 0,
+                    "labelFontSize": 10
+                },
+                "legend": {
+                    "verticalAlign": "bottom",
+                    "horizontalAlign": "center",
+                    "cursor": "pointer",
+                    "fontSize": 10
+                },
+                "data": [
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU0-Frequency (GHz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 1.8,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0.8,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0.9,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 1.3,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU1-Frequency (GHz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 1.8,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0.8,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0.9,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 1.3,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU2-Frequency (GHz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 1.8,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0.9,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0.9,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 1.3,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU3-Frequency (GHz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 1.8,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0.9,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0.9,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 1.3,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU4-Frequency (GHz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 1.8,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0.9,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0.9,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 1.3,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU5-Frequency (GHz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 1.8,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0.9,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0.9,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 1.3,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU6-Frequency (GHz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 1.8,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0.9,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0.9,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 1.3,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU7-Frequency (GHz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 1.8,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0.9,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0.9,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 1.4,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU0-is Throttling",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU1-is Throttling",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU2-is Throttling",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU3-is Throttling",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU4-is Throttling",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU5-is Throttling",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU6-is Throttling",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU7-is Throttling",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU HFM frequency(Ghz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 2.3,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 2.3,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 2.3,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 2.3,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 2.3,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 2.3,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 2.3,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 2.3,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU LFM frequency(Ghz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 0.4,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0.4,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 0.4,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0.4,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 0.4,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 0.4,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 0.4,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 0.4,
+                                "x": 7
+                            }
+                        ]
+                    }
+                ]
+            }); chart1.render(); 
+            var chart2 = new CanvasJS.Chart(grapContainer2, {
+                "toolTip": {
+                    "shared": true
+                },
+                "width": 855,
+                "height": 207,
+                "zoomEnabled": true,
+                "axisY": {
+                    "includeZero": false,
+                    "labelFontSize": 10
+                },
+                "axisX": {
+                    "labelAngle": 0,
+                    "labelFontSize": 10
+                },
+                "legend": {
+                    "verticalAlign": "bottom",
+                    "horizontalAlign": "center",
+                    "cursor": "pointer",
+                    "fontSize": 10
+                },
+                "data": [
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU0-DTS(Degree C/10)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 5.1,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 5,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 5.1,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 5.1,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 5.1,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU1-DTS(Degree C/10)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 5.1,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 5,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 5.1,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 5.1,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 5,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU2-DTS(Degree C/10)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU3-DTS(Degree C/10)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU4-DTS(Degree C/10)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 5,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 5.1,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU5-DTS(Degree C/10)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 5,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 5.1,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU6-DTS(Degree C/10)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 5.1,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "CPU7-DTS(Degree C/10)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 5.1,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "Miscellaneous-TCC Offset Temperature(Degree C)/10",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 0.1,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0.1,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 0.1,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0.1,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 0.1,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 0.1,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 0.1,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 0.1,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "Gfx Component-DTS(Degree C)/10",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 5.1,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 5.1,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "Miscellaneous-MSR Package Temperature(Degree C)/10",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "Miscellaneous-MMIO Package Temperature(Degree C)/10",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 5.2,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 5.3,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 5.4,
+                                "x": 7
+                            }
+                        ]
+                    }
+                ]
+            }); chart2.render(); 
+            var chart3 = new CanvasJS.Chart(grapContainer3, {
+                "toolTip": {
+                    "shared": true
+                },
+                "width": 855,
+                "height": 207,
+                "zoomEnabled": true,
+                "axisY": {
+                    "includeZero": false,
+                    "labelFontSize": 10
+                },
+                "axisX": {
+                    "labelAngle": 0,
+                    "labelFontSize": 10
+                },
+                "legend": {
+                    "verticalAlign": "bottom",
+                    "horizontalAlign": "center",
+                    "cursor": "pointer",
+                    "fontSize": 10
+                },
+                "data": [
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "Gfx P0 frequency(Ghz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 1.15,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 1.15,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 1.15,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 1.15,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 1.15,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 1.15,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 1.15,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 1.15,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "Gfx PN frequency(Ghz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 0.3,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0.3,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 0.3,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0.3,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 0.3,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 0.3,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 0.3,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 0.3,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "Gfx Pstate Limit(Ghz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "Gfx-Unslice Freq(Ghz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 0.45,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 7
+                            }
+                        ]
+                    },
+                    {
+                        "type": "line",
+                        "showInLegend": true,
+                        "markerType": "none",
+                        "markerBorderColor": "white",
+                        "markerBorderThickness": 2,
+                        "name": "Gfx-Slice Freq(Ghz)",
+                        "dataPoints": [
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 0
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 1
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 2
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 3
+                            },
+                            {
+                                "label": "",
+                                "y": 0.45,
+                                "x": 4
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 5
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 6
+                            },
+                            {
+                                "label": "",
+                                "y": 0,
+                                "x": 7
+                            }
+                        ]
+                    }
+                ]
+            }); chart3.render();
+        }
+    </script>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table,
+        td,
+        th {
+            font: 1px solid #dee2e6;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #337ab7;
+        }
+
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #fff
+        }
+
+        .tab button {
+            color: black;
+            height: 36px;
+            margin: 0px;
+            background-color: #e8e8e8;
+            border-right: #fff;
+            margin-top: 10px;
+            border: #fff;
+            min-width: 150px;
+        }
+
+        .tab button.active {
+            color: black;
+            height: 36px;
+            margin: 0px;
+            background-color: #fff;
+            border: 1px solid #AEAEAE;
+            border-bottom: 1px solid white;
+            margin-top: 10px;
+            border-top-left-radius: 7px !important;
+            border-top-right-radius: 7px !important;
+            outline: -webkit-focus-ring-color auto 0px ! important;
+            min-width: 150px;
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none
+        }
+
+        .topright {
+            float: right;
+            cursor: pointer;
+            font-size: 28px
+        }
+
+        th {
+            color: #ffff;
+            background-color: #005eb7;
+            padding: 7px
+        }
+
+        table {
+            border-collapse: collapse
+        }
+
+        table,
+        td,
+        th {
+            border: 1px solid #dee2e6;
+            padding: 5px
+        }
+
+        tbody {
+            font-size: 13px
+        }
+
+        .padTop20 {
+            padding-top: 20px
+        }
+
+        .green {
+            color: green
+        }
+
+        .red {
+            color: red
+        }
+
+        .lightgrey {
+            font-weight: 600
+        }
+
+        .yellowColor {
+            color: #ecc325
+        }
+
+        .curvedCorners {
+            border-radius: 7px !important;
+        }
+
+        .tab button.focus {
+            -webkit-focus-ring-color: auto 0px ! important;
+        }
+
+        .tableLeftRadius {
+            border-top-left-radius: 7px !important;
+        }
+
+        .tableRightRadius {
+            border-top-right-radius: 7px !important;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            background: #F1F1F1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+            background: #C1C1C1;
+        }
+
+        button {
+            font-family: Intel Clear;
+        }
+    </style>
+</head>
+
+<body style="overflow: hidden;background: #183544;color: #525252;max-height:100%;font-family:Intel Clear">
+    <div class="tab"
+        style="border-top-left-radius: 7px !important;border-top-right-radius: 7px !important;padding-left: 30px;background-color: #e8e8e8;border-bottom-color: #fff;">
+        <button class='tablinks active' onclick='tatlogtab(event, "Package Informaiton")'>Package Informaiton </button>
+        <button class='tablinks' onclick='tatlogtab(event, "CPU Turbo Analysis")'>CPU Turbo Analysis</button>
+        <button class='tablinks' onclick='tatlogtab(event, "Temparature Analysis")'>Temparature Analysis</button>
+        <button class='tablinks' onclick='tatlogtab(event, "Gfx Turbo Analysis")'>Gfx Turbo Analysis</button>
+        <button class='tablinks' onclick='tatlogtab(event, "Power Limit Behaviour")'>Power Limit Behaviour</button>
+        <button class='tablinks' onclick='tatlogtab(event, "Consolidated results")'>Consolidated results</button>
+    </div>
+    <div id='Package Informaiton' class='tabcontent'
+        style='display: block;height: 89%;overflow-y: scroll;background-color: #fff;border-bottom-left-radius: 7px ! important;border-bottom-right-radius: 7px ! important;'>
+        <div style='padding:20px;'>
+            <table style='background-color: #fff'>
+                <tr>
+                    <th class='tableLeftRadius'>Parameter</th>
+                    <th class='tableRightRadius'>Value</th>
+                </tr>
+                <tr>
+                    <td>LFM(MHz)</td>
+                    <td>400</td>
+                </tr>
+                <tr>
+                    <td>HFM(MHz)</td>
+                    <td>2300</td>
+                </tr>
+                <tr>
+                    <td>PN Frequency(MHz)</td>
+                    <td>400</td>
+                </tr>
+                <tr>
+                    <td>1- Core Active(MHz)</td>
+                    <td>4900</td>
+                </tr>
+                <tr>
+                    <td>2- Core Active(MHz)</td>
+                    <td>4800</td>
+                </tr>
+                <tr>
+                    <td>3- Core Active(MHz)</td>
+                    <td>4300</td>
+                </tr>
+                <tr>
+                    <td>4- Core Active(MHz)</td>
+                    <td>4300</td>
+                </tr>
+                <tr>
+                    <td>Current P State</td>
+                    <td>Not Supported</td>
+                </tr>
+                <tr>
+                    <td>GFx P0 Frequency</td>
+                    <td>1150</td>
+                </tr>
+                <tr>
+                    <td>GFx P1 Frequency</td>
+                    <td>300</td>
+                </tr>
+                <tr>
+                    <td>GFx PN Frequency</td>
+                    <td>300</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id='CPU Turbo Analysis'
+        style='height: 91%;background-color: #fff;padding: 0px;border-bottom-left-radius: 7px ! important;border-bottom-right-radius: 7px ! important;'
+        class='tabcontent'>
+        <div id=grapContainer1 style='width: 100%;padding-bottom: 10px;'></div>
+    </div>
+    <div id='Temparature Analysis'
+        style='height: 91%;background-color: #fff;padding: 0px;border-bottom-left-radius: 7px ! important;border-bottom-right-radius: 7px ! important;'
+        class='tabcontent'>
+        <div id=grapContainer2 style='width: 100%;padding-bottom: 10px;'></div>
+    </div>
+    <div id='Gfx Turbo Analysis'
+        style='height: 91%;background-color: #fff;padding: 0px;border-bottom-left-radius: 7px ! important;border-bottom-right-radius: 7px ! important;'
+        class='tabcontent'>
+        <div id=grapContainer3 style='width: 100%;padding-bottom: 10px;'></div>
+    </div>
+    <div id='Power Limit Behaviour' class='tabcontent'
+        style='display: none;height: 89%;overflow-y: scroll;background-color: #fff;border-bottom-left-radius: 7px ! important;border-bottom-right-radius: 7px ! important;'>
+        <div style='padding:20px;'>
+            <table style='background-color: #fff'>
+                <tr>
+                    <th class='tableLeftRadius'>Parameter</th>
+                    <th>Enabled</th>
+                    <th>Power(Watts)</th>
+                    <th>Time(Seconds)</th>
+                    <th>Critical Clamp</th>
+                    <th class='tableRightRadius'>Lock Enabled</th>
+                </tr>
+                <tr>
+                    <td>MSR Power Limit_1 </td>
+                    <td class='green'>Yes</td>
+                    <td class='green'>44.0</td>
+                    <td class='green'>28.0</td>
+                    <td class='green'>1</td>
+                    <td>NA</td>
+                </tr>
+                <tr>
+                    <td>MSR Power Limit_2 </td>
+                    <td class='green'>Yes</td>
+                    <td class='green'>51.0</td>
+                    <td class='green'>0.002441</td>
+                    <td>NA</td>
+                    <td>NA</td>
+                </tr>
+                <tr>
+                    <td>MMIO Power Limit_1 </td>
+                    <td class='green'>Yes</td>
+                    <td class='green'>15.0</td>
+                    <td class='green'>32.0</td>
+                    <td class='green'>1</td>
+                    <td>NA</td>
+                </tr>
+                <tr>
+                    <td>MMIO Power Limit_2 </td>
+                    <td class='green'>Yes</td>
+                    <td class='green'>16.0</td>
+                    <td class='green'>0.002441</td>
+                    <td>NA</td>
+                    <td>NA</td>
+                </tr>
+                <tr>
+                    <td>MSR Psys Power Limit_3 </td>
+                    <td class='green'>No</td>
+                    <td class='green'>0.0</td>
+                    <td class='green'>1e-06</td>
+                    <td>NA</td>
+                    <td class='green'>Yes</td>
+                </tr>
+                <tr>
+                    <td>PECI Power Limit_3 </td>
+                    <td class='green'>No</td>
+                    <td class='green'>0.0</td>
+                    <td class='green'>1e-06</td>
+                    <td>NA</td>
+                    <td>NA</td>
+                </tr>
+                <tr>
+                    <td>PECI Pkg Power Limit_1 </td>
+                    <td class='green'>No</td>
+                    <td class='green'>0.0</td>
+                    <td class='green'>0.000977</td>
+                    <td class='green'>0</td>
+                    <td>NA</td>
+                </tr>
+                <tr>
+                    <td>PECI Pkg Power Limit_2 </td>
+                    <td class='red'>(Transition : No->Invalid)</td>
+                    <td class='green'>0.0</td>
+                    <td class='green'>0.000977</td>
+                    <td>NA</td>
+                    <td>NA</td>
+                </tr>
+                <tr>
+                    <td>MSR Psys Power Limit_1 </td>
+                    <td class='green'>No</td>
+                    <td class='green'>0.0</td>
+                    <td class='green'>28.0</td>
+                    <td class='green'>0</td>
+                    <td>NA</td>
+                </tr>
+                <tr>
+                    <td>MSR Psys Power Limit_2 </td>
+                    <td class='green'>No</td>
+                    <td class='green'>0.0</td>
+                    <td class='green'>0.000977</td>
+                    <td class='green'>0</td>
+                    <td>NA</td>
+                </tr>
+                <tr>
+                    <td>Peci Psys Power Limit_1 </td>
+                    <td class='green'>0</td>
+                    <td class='green'>0.0</td>
+                    <td class='red'>(Transition : 0.0312->0.001)</td>
+                    <td class='green'>0</td>
+                    <td>NA</td>
+                </tr>
+                <tr>
+                    <td>Peci Psys Power Limit_2 </td>
+                    <td class='green'>0</td>
+                    <td class='green'>0.0</td>
+                    <td class='green'>0.000977</td>
+                    <td class='green'>0</td>
+                    <td>NA</td>
+                </tr>
+                <tr>
+                    <td>PECI Power Limit_4 </td>
+                    <td>NA</td>
+                    <td class='green'>0.0</td>
+                    <td>NA</td>
+                    <td>NA</td>
+                    <td>NA</td>
+                </tr>
+                <tr>
+                    <td>MSR Power Limit_4 </td>
+                    <td>NA</td>
+                    <td class='green'>17.0</td>
+                    <td>NA</td>
+                    <td>NA</td>
+                    <td>NA</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id='Consolidated results' class='tabcontent'
+        style='display: none;height: 89%;overflow-y: scroll;background-color: #fff;border-bottom-left-radius: 7px ! important;border-bottom-right-radius: 7px ! important;'>
+        <div style='padding:20px;'>
+            <table style='background-color: #fff'>
+                <tr>
+                    <th class='tableLeftRadius'>Test Name</th>
+                    <th>Result</th>
+                    <th>Remarks</th>
+                    <th class='tableRightRadius'>Solution</th>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU0 Throttling Analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td>CPU0 never throttled</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU1 Throttling Analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td>CPU1 never throttled</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU2 Throttling Analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td>CPU2 never throttled</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU3 Throttling Analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td>CPU3 never throttled</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU4 Throttling Analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td>CPU4 never throttled</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU5 Throttling Analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td>CPU5 never throttled</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU6 Throttling Analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td>CPU6 never throttled</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU7 Throttling Analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td>CPU7 never throttled</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU0 turbo analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>CPU0 Frequency always maintained above LFM</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU1 turbo analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>CPU1 Frequency always maintained above LFM</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU2 turbo analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>CPU2 Frequency always maintained above LFM</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU3 turbo analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>CPU3 Frequency always maintained above LFM</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU4 turbo analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>CPU4 Frequency always maintained above LFM</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU5 turbo analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>CPU5 Frequency always maintained above LFM</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU6 turbo analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>CPU6 Frequency always maintained above LFM</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU7 turbo analysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>CPU7 Frequency always maintained above LFM</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>GfxTurboAnalysis
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>Gfx frequency below PN(LFM) when workload not running</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU0-DTS(Degree C)
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>Max temperature is 53 degree C</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU1-DTS(Degree C)
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>Max temperature is 52 degree C</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU2-DTS(Degree C)
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>Max temperature is 54 degree C</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU3-DTS(Degree C)
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>Max temperature is 54 degree C</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU4-DTS(Degree C)
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>Max temperature is 52 degree C</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU5-DTS(Degree C)
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>Max temperature is 52 degree C</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU6-DTS(Degree C)
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>Max temperature is 54 degree C</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>CPU7-DTS(Degree C)
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>Max temperature is 54 degree C</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>Gfx Component-DTS(Degree C)
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>Max temperature is 52 degree C</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>Miscellaneous-MSR Package Temperature(Degree C)
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>Max temperature is 54 degree C</td>
+                    <td class='green'>-</td>
+                </tr>
+                <tr>
+                    <td colspan='4'>Miscellaneous-MMIO Package Temperature(Degree C)
+                </tr>
+                </td>
+                <tr>
+                    <td>Without PTAT workload</td>
+                    <td class='green'>Pass</td>
+                    <td class='green'>Max temperature is 54 degree C</td>
+                    <td class='green'>-</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        function tatlogtab(evt, tabName) { 
+            var i, tabcontent, tablinks; 
+            tabcontent = document.getElementsByClassName("tabcontent"); 
+            for (i = 0; i < tabcontent.length; i++) { 
+                tabcontent[i].style.display = "none"; 
+            } 
+            tablinks = document.getElementsByClassName("tablinks"); 
+            for (i = 0; i < tablinks.length; i++) { 
+                tablinks[i].className = tablinks[i].className.replace(" active", ""); 
+            } 
+            document.getElementById(tabName).style.display = "block"; 
+            evt.currentTarget.className += " active"; 
+        } 
+        document.getElementById("Package Informaiton").click();
+    </script>
+</body>
+<script src='C:\Program Files\Intel Corporation\Intel(R)PTAT\PTATGUI\assets\canvasjs.min.js'></script>
+<script src='canvasjs.min.js'></script>
+
+</html>

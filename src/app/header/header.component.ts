@@ -12,12 +12,15 @@ import { UtilityServiceService } from '../services/utility-service.service';
    styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+   // user checks
    settingsParameterCheckBox: boolean = true;
    monitorParameterCheckbox: boolean = true;
    customViewParameterCheckbox: boolean = true;
    graphParameterCheckbox: boolean = true;
    alertParameterCheckbox: boolean = true;
+
    isClicked: boolean = false;
+
    isTelemetryEnabled = false;
    versionNo = '';
    systemName = '';
@@ -97,6 +100,7 @@ export class HeaderComponent implements OnInit {
       return JSON.stringify(obj);
     }
 
+    // used for PTAT Improvement Program in settings 
    sendTelDta() {
 
       if (this.isTelemetryEnabled == false) {
@@ -313,6 +317,7 @@ export class HeaderComponent implements OnInit {
 
       });
 
+      // once load button with user checkbox is done this is used
       this.SocketService.removeFromMonitorList().subscribe(message => {
          if (message) {
             this.settingsParameter = 0;
@@ -351,6 +356,8 @@ export class HeaderComponent implements OnInit {
             var loadWorkSpaceCommand = '{"Command" : "LoadWorkspace","Args":'+'"'+path+','+this.settingsParameter+","+this.monitorParameter+","+this.customeviewParameter+","+this.graphParameter+","+this.alertParameter+'"'+'}'
             this.SocketService.sendMessage(loadWorkSpaceCommand);
             this.isLoadwrkSpace = false;
+
+            // to check in the monitor tab if monitor and log is started, if started to stop
             if($('.startButton').text().toLowerCase().trim() == "stop monitor"){
                var command = '{"Command" : "StopMonitor"}'
                this.SocketService.sendMessage(command);
@@ -369,7 +376,7 @@ export class HeaderComponent implements OnInit {
          
       });
 
-
+      // above fun "LoadWorkspace" resp. data subscription
       this.SocketService.getLoadWrkSpc().subscribe(message => {
          if (message.CommandStatus.Status == "Success") {
             this.displayLoadWorkspace = 'none';
@@ -389,7 +396,8 @@ export class HeaderComponent implements OnInit {
                this.SocketService.sendMessage(command);
                //this.SocketService.sendMessage("GetMonitorData()");
                //this.SocketService.sendMessage("MonitorView()");
-            }
+            } 
+            // not needed
             if (this.customViewParameterCheckbox == true) {
                var monitorCommand = '{"Command" : "MonitorView"}'
                var command = '{"Command" : "LoadCustomViewData"}'
@@ -722,9 +730,12 @@ savewarrenCov(){
 
    submitLoadWorkspace() {
          this.spinner.show();
+         // to remove monitor data
          var command = '{"Command" : "RemoveFromMonitorList"}'
          this.SocketService.sendMessage(command);
          //this.SocketService.sendMessage("RemoveFromMonitorList()");
+
+         // to remove everything from graph
          this.util.checkLiveAnalysisParam(1);
          this.isLoadwrkSpace = true;
          this.util.loadWorkSpaceFlagData(1);
@@ -788,6 +799,8 @@ savewarrenCov(){
     }
    
    plotPowerClk(){
+      this.plotGraph = !this.plotGraph;
+      // not used 
        if(this.plotGraph == true){
          this.plotGraph = false;
        }else{

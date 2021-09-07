@@ -68,9 +68,13 @@ imonflagChecking(any){
  getCdkDropConnectedToList() {
    return this.cdkDropConnectedToList;
  }
+
+ // may not be used
  setCustomWorkSpace(data){
    this.customWorkSpace$.emit(data);
  }
+
+ // may not be used
  getCustomWorkSpace(){
    return this.customWorkSpace$;
  }

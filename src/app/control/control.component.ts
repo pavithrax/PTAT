@@ -4,6 +4,8 @@ import { SocketService } from '../db/socket.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { HostListener } from "@angular/core";
 import {MatSidenav} from '@angular/material/sidenav'; 
+import { AppComponent } from '../app.component';
+import * as data from './control-resp.json';
 
 @Component({
   selector: 'app-control',
@@ -13,6 +15,7 @@ import {MatSidenav} from '@angular/material/sidenav';
 export class ControlComponent implements OnInit {
   @ViewChild('sidenav',{static: false}) sidenav: MatSidenav;
   //controlLoadArray:any;
+  dataType: any = '';
   controlResponse:any;
   setControlResponse:any;
   controlName:any;
@@ -37,11 +40,16 @@ export class ControlComponent implements OnInit {
   enableIndex(){
     this.zindex = true;
   }
-  constructor(private SocketService: SocketService,private spinner: NgxSpinnerService) { }
+  constructor(private SocketService: SocketService,private spinner: NgxSpinnerService,private app: AppComponent) { }
 
   cmdSetControl = "SetControl(#componentName,#componentIndex,#controlName,#controlIndex,#instanceName,#instanceIndex,#newvalue)";
 
   ngOnInit() {
+    if(this.app.platform == 'server') {
+      this.dataType = 'Serverside';
+    } else {
+      this.dataType = 'Clientside';
+    }
 
     this.SocketService.getToolInfo().subscribe(message => {
       if (message) {
@@ -61,10 +69,16 @@ export class ControlComponent implements OnInit {
 
     this.SocketService.getControlDataRes().subscribe(message => {
       if (message) {
-        this.controlResponse = message.Data;
-        var firstContolName = message.Data[0].DropDownList[0].Name;
+        // this.controlResponse = message.Data;
+        this.controlResponse = data.Data;
+        console.log(this.controlResponse);
+        console.log(data.Data[0].Index);
+        
+        var firstContolName = data.Data[0].DropDownList[0].Name;
+        console.log(firstContolName);
+        console.log(data.Data[0].Index.toString()+data.Data[0].DropDownList[0].Index.toString() +';'+firstContolName);
         setTimeout(() => {
-          this.controlTree('00'+';'+firstContolName);
+          this.controlTree(data.Data[0].Index +data.Data[0].DropDownList[0].Index.toString() +';'+firstContolName);
           this.spinner.hide();
         }, 0); 
       }
@@ -72,8 +86,8 @@ export class ControlComponent implements OnInit {
 
     this.SocketService.updateControlDataRes().subscribe(message => {
       if (message) {
-        //this.controlId = splitResponce[0];
-        // this.firstItemName = splitResponce[1];
+        //this.controlId = splitResponse[0];
+        // this.firstItemName = splitResponse[1];
         // var firstContolName = message.Data[0].DropDownList[0].Name;
         this.controlResponse = message.Data;
         //var firstContolName = this.firstItemName;
@@ -109,11 +123,14 @@ export class ControlComponent implements OnInit {
     item.expand = !item.expand;
   }
 
-  controlTree(responce){
-    var splitResponce = responce.split(";");
+  controlTree(response){
+    // var response = data.toString()+res;
+    console.log(response);;
+    
+    var splitResponse = response.split(";");
 
-    this.controlId = splitResponce[0];
-    this.firstItemName = splitResponce[1];
+    this.controlId = splitResponse[0];
+    this.firstItemName = splitResponse[1];
 
     this.controlName = this.firstItemName;
     let controlTable = "controlTable" + this.controlId;

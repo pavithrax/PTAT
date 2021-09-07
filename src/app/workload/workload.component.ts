@@ -36,7 +36,6 @@ export class WorkloadComponent implements OnInit {
   selectedThread;
   core: any = {}
   cpuName: string;
-  count = 0;
   val: any = []
   cpuvalues: any = [];
   memvalues: any = [];
@@ -739,6 +738,9 @@ export class WorkloadComponent implements OnInit {
   startIndvWorkload(data) {
     this.selectedWorkLoadName = '';
     data.status = 'Running';
+    $('.startstopworkload').html('Stop Workload');
+    $('.startstopworkload').removeClass("greenBtnColor");
+    $('.startstopworkload').addClass('redBtnColor');
 
   }
 
@@ -746,12 +748,18 @@ export class WorkloadComponent implements OnInit {
     this.selectedWorkLoadName = '';
     data.status = 'Stopped';
 
+    let count = this.workLoadDataArray.filter(item => item.status == 'Running');
+    if(count.length == 0) {
+      $('.startstopworkload').html('Start Workload');
+      $('.startstopworkload').addClass("greenBtnColor");
+      $('.startstopworkload').removeClass('redBtnColor');
+    }
+
   }
 
   startAllWorkload() {
     this.selectedWorkLoadName = '';
-    this.count +=1;
-    if(this.count % 2 == 0) {
+    if($('.startstopworkload').text().toLowerCase()== 'stop workload') {
       this.workLoadDataArray.forEach(item => item.status = 'Stopped');
       $('.startstopworkload').html('Start Workload');
       $('.startstopworkload').addClass("greenBtnColor");
@@ -765,6 +773,7 @@ export class WorkloadComponent implements OnInit {
    
   }
 
+  // to disable the treeviewlist when a certain test is added to workload
   disableTest(data,type) {
     if(type == 'addClass') {
       $('.workLoadTreeCC').each(function (index, item) {
@@ -797,6 +806,7 @@ export class WorkloadComponent implements OnInit {
     })
   }
 
+  // iterator to create sequence of package and cores
   range(start, stop, step) {
     var a = [start], b = start;
     while (b < stop) {

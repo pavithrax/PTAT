@@ -590,7 +590,7 @@ liveGraphFeature:any = [];
 			}
 		});
 
-
+		// used when we load the graph params from "load workspace"
 		this.SocketService.getMonitorDataRes().subscribe(message => {
 			if (this.dataType == 'Clientside' && message) {
 				this.liveGraphList.length = 0;

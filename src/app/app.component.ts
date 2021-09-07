@@ -43,7 +43,7 @@ export class AppComponent {
    licenseNavBar: boolean = true;
    sidePanelToggleFlag: number = 0;
    powerVisualizationOpenStatus: any = "";
-   platform: string = "client";
+   platform: string = "server";
 
    constructor(private utility: UtilityServiceService, private spinner: NgxSpinnerService, public socket: SocketService) {
 
@@ -427,7 +427,7 @@ export class AppComponent {
          this.workloadClickCount = this.workloadClickCount + 1
       } else if (val.toLowerCase() == "control") {
          this.spinner.show();
-         if (this.controlClickCount == 0) {
+         // if (this.controlClickCount == 0) {
             var getControlDataCommand = '{"Command" : "GetControlData"}'
             this.socket.sendMessage(getControlDataCommand);
             //this.socket.sendMessage(otherViewCommand);
@@ -435,15 +435,16 @@ export class AppComponent {
                this.socket.sendMessage(otherViewCommand);
             }
 
-         } else {
-            var getUpdatedControlDataCommand = '{"Command" : "GetUpdatedControlData"}'
-            this.socket.sendMessage(getUpdatedControlDataCommand);
-            //this.socket.sendMessage(otherViewCommand);
-            if (this.powerVisualizationOpenStatus != true) {
-               this.socket.sendMessage(otherViewCommand);
-            }
+         // } 
+         // else {
+         //    var getUpdatedControlDataCommand = '{"Command" : "GetUpdatedControlData"}'
+         //    this.socket.sendMessage(getUpdatedControlDataCommand);
+         //    //this.socket.sendMessage(otherViewCommand);
+         //    if (this.powerVisualizationOpenStatus != true) {
+         //       this.socket.sendMessage(otherViewCommand);
+         //    }
 
-         }
+         // }
          this.controlClickCount = this.controlClickCount + 1
       } else if (val.toLowerCase() == "live analysis") {
 

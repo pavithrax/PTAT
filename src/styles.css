@@ -408,7 +408,7 @@ button:focus {
   }
 
   .workLoadCard{
-    height: calc(100vh - 153px) !important;
+    height: calc(100vh - 157px) !important;
     margin-top: -21px;
     margin-left: 30px;
   }
