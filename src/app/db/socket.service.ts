@@ -41,6 +41,7 @@ export class SocketService {
   public isStartMonitorRes$: Subject<any>;
   public isStopMonitorRes$: Subject<any>;
   public isGetLogHeaderRes$: Subject<any>;
+  public isGetLogHeaderServerRes$: Subject<any>;
   public isStartLoggingRes$: Subject<any>;
   public isStopLoggingRes$: Subject<any>;
   public isGetSolverDataRes$: Subject<any>;
@@ -154,6 +155,7 @@ export class SocketService {
     this.isStartMonitorRes$ = new Subject<any>();
     this.isStopMonitorRes$ = new Subject<any>();
     this.isGetLogHeaderRes$ = new Subject<any>();
+    this.isGetLogHeaderServerRes$ = new Subject<any>();
     this.isStartLoggingRes$ = new Subject<any>();
     this.isStopLoggingRes$ = new Subject<any>();
     this.isStartWorkloadDataRes$ = new Subject<any>(); 
@@ -424,6 +426,8 @@ export class SocketService {
           this.isStopMonitorRes$.next(data);
         }else if(data.Command == constant.GetLogHeader_CMD){
           this.isGetLogHeaderRes$.next(data);
+        }else if(data.Command == constant.GetLogHeaderServer_CMD){
+          this.isGetLogHeaderServerRes$.next(data);
         }else if(data.Command == constant.StartLogging_CMD){
           this.isStartLoggingRes$.next(data);
         }else if(data.Command == constant.StopLogging_CMD){
@@ -840,6 +844,9 @@ export class SocketService {
     return this.isGetLogHeaderRes$.asObservable();
   }
 
+  GetLogHeaderServerRes(){
+    return this.isGetLogHeaderServerRes$.asObservable();
+  }
   StartLoggingRes(){
     return this.isStartLoggingRes$.asObservable();
   }

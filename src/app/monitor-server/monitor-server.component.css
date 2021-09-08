@@ -4,7 +4,7 @@
 
 ::ng-deep .p-treetable .p-treetable-tbody > tr > td {
     font-family: 'Intel Clear';
-    font-size: 13px!important;
+    font-size: 11px!important;
 }
 
 /* ::ng-deep .p-component{
@@ -49,7 +49,7 @@
 
 ::ng-deep .p-treetable .p-treetable-thead > tr > th {
     font-family: 'Intel Clear';
-    font-size: 14px!important;
+    font-size: 13px!important;
 }
 
 
@@ -73,7 +73,7 @@
 
 
 ::ng-deep .columnSizeShrink {
-    width: 15% !important;
+    width: 25% !important;
   }
   
 ::ng-deep .columnSizeExpand {
@@ -84,3 +84,29 @@
 ::ng-deep .p-resizable-column .p-highlight{
     color:#d6dbe0ed !important;
 }
+
+.pi {
+    font-family: 'primeicons';
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    font-size: 12px !important;
+    line-height: 1;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.sysData {
+    background-color: white;
+    padding: 10px;
+    border: 2px solid;
+    margin: 10px;
+    font-size: 12px;
+}
+
+td:first-child { 
+    width: 140px !important;
+}
+th:first-child { width: 140px !important;}

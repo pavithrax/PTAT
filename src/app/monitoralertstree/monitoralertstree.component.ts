@@ -215,12 +215,14 @@ childNode(event) {
    if(parentCheckBoxStatus){
       //$('#'+minimizedId).remove();
        //cmd = 'AddToMonitorList('+parent_Index+','+Index+')';
-       cmd = '{"Command" : "AddToMonitorList","Args":'+'"'+parent_Index+','+Index+'"'+'}'
+      //  cmd = '{"Command" : "AddToMonitorList","Args":'+'"'+parent_Index+','+Index+'"'+'}'
+       cmd = '{"Command" : "AddToMonitorList","Args":'+'"'+Index+'"'+'}'
    }else{
 	$('#'+minimizedId).remove();
       //$('#maximizeDiv').empty();
       //  cmd = 'RemoveFromMonitorList('+parent_Index+','+Index+')'; 
-      cmd = '{"Command" : "RemoveFromMonitorList","Args":'+'"'+parent_Index+','+Index+'"'+'}'
+      // cmd = '{"Command" : "RemoveFromMonitorList","Args":'+'"'+parent_Index+','+Index+'"'+'}'
+      cmd = '{"Command" : "RemoveFromMonitorList","Args":'+'"'+Index+'"'+'}'
    }
    this.SocketService.sendMessage(cmd);
    this.data.updateData(arrayOfData);

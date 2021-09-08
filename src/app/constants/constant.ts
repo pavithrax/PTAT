@@ -35,6 +35,7 @@ export class constant {
     public static StopWorkload_CMD  = "StopWorkload";
     public static SetControl_CMD  = "SetControl"
     public static GetLogHeader_CMD  =  "GetLogHeader";
+    public static GetLogHeaderServer_CMD  =  "GetLogHeaderServer";
     public static StartLogging_CMD  =  "StartLogging";
     public static StopLogging_CMD  =  "StopLogging";
     public static GetSolverData_CMD = "GetSolverData";

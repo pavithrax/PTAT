@@ -66,6 +66,9 @@ export class MonitorServerComponent implements OnInit {
 
     loading: boolean;
 
+    showMonitorLogginModal:boolean;
+    showHideStartLoggingCheckBoxStatus: boolean = false;
+
     constructor(private SocketService: SocketService) { }
 
 
@@ -81,6 +84,11 @@ export class MonitorServerComponent implements OnInit {
     selectedcount: any;
     counter: number = 1;
 
+    colHeaders: {
+        'CPU':['Name','Core Frequency','Uncore Frequency','Utilization','IPC','CD','C1','C6','PC2','Temperature','DTS','Voltage','Power'],
+        'MEM': ['Name','Dts']
+
+    };
 
     ngOnInit() {
         this.loading = true;
@@ -88,6 +96,7 @@ export class MonitorServerComponent implements OnInit {
 
 
         this.SocketService.getMonitorDataRes().subscribe(message => {
+            console.log(message);
             if (message) {
                 var command = '{"Command" : "GetComponentData"}'
                 var getSettingsCommand = '{"Command" : "GetSettings"}'
@@ -147,6 +156,40 @@ export class MonitorServerComponent implements OnInit {
                 // DELETE this code - above code is just to mock start monitor call
             }
         });
+
+
+        this.SocketService.GetLogHeaderServerRes().subscribe(message => {
+            if (message) {
+              if(message.ShowPopup == 1){
+                if( this.showMonitorLogginModal = true){
+                
+                }else{
+                  this.showMonitorLogginModal = true;
+                }
+              }else if(message.ShowPopup == 0) {
+                this.showMonitorLogginModal = false;
+              }
+              var command = '{"Command" : "StartLogging"}'
+              this.SocketService.sendMessage(command);
+              // this.SocketService.sendMessage("StartLogging()");
+              this.loggingstatus = !this.loggingstatus; 
+            }
+      
+          });
+      
+      
+          this.SocketService.StartLoggingRes().subscribe(message => {
+            if (message) {
+            
+            }
+          });
+      
+      
+          this.SocketService.StopLoggingRes().subscribe(message => {
+            if (message) {
+              this.loggingstatus = true;  
+            }
+          });
     }
 
 
@@ -155,7 +198,7 @@ export class MonitorServerComponent implements OnInit {
         console.log(this.tabView.tabs[this.selectedIndex].header);
         this.selectedTab = this.tabView.tabs[this.selectedIndex].header;
 
-        //send the command to backend to load Component specific data
+        //send the command to backend to load Component specific data --- not really
 
         if (this.selectedTab == "CPU") {
 
@@ -247,8 +290,12 @@ export class MonitorServerComponent implements OnInit {
         ];
 
         this.selectedColumns = this.cols;
-        this.serverData = this.dataArr[0]["CPU"];
+        console.log(this.tabData[0]);
+        
+        this.serverData = this.dataArr[0][this.tabData[0]];
         this.selectedTab = this.tabData[0];
+        console.log(this.serverData);
+        
         //this.toggleTreeView(true);
     }
 
@@ -286,7 +333,7 @@ export class MonitorServerComponent implements OnInit {
             this.SocketService.sendMessage(command);
             //this.SocketService.sendMessage("GetLogHeader()");
         } else {
-            var stopLoggingCommand = '{"Command" : "StopLoggingServer"}'
+            var stopLoggingCommand = '{"Command" : "StopLogging"}'
             this.SocketService.sendMessage(stopLoggingCommand);
             //this.SocketService.sendMessage("StopLogging()");
         }
@@ -295,7 +342,9 @@ export class MonitorServerComponent implements OnInit {
 
 
     highlightFirstLevelData(array) {
-        //console.log(array);
+        // console.log('node '+ node);
+        
+        // console.log(array);
         const col = 'Name'; // the name of a field column you got from your getTable()
         if (array[col].includes('CPU')) {
             return 'highlight_grid_row';
@@ -317,4 +366,15 @@ export class MonitorServerComponent implements OnInit {
     toggleRow(node: TreeNode, toogle: boolean){
         node.expanded = toogle;
     }
+
+    // if there's a modal popup info from the response, then on
+    closeMonitorLogginModal(){
+        this.showMonitorLogginModal = false;
+        if (this.showHideStartLoggingCheckBoxStatus == true) {
+          var command = '{"Command" : "DisableWarnings","Args":"monitor"}'
+          this.SocketService.sendMessage(command);
+        } else {
+          this.showMonitorLogginModal = false;
+        }
+      }
 }

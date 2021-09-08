@@ -1,12 +1,11 @@
-<div class="card curvedCorners">
+<div class="card curvedCorners" style="margin-top: -1.5rem;border: none !important;background: #fff !important;">
     <p-tabView (onChange)="onTabChange($event)" [activeIndex]="selectedIndex">
         <p-tabPanel *ngFor="let item of tabData; let i = index" [selected]="i == 0" header="{{item}}">
-
-            <p-treeTable #tt [value]="serverData" [columns]="selectedColumns" [scrollable]="true" scrollHeight="50vh"
-                [style]="{width:'100%', height:'100%'}" [scrollable]="true" [resizableColumns]="true"
+            <div style="margin-top: -1rem;">
+                <p-treeTable #tt [value]="serverData" [columns]="selectedColumns" [scrollable]="true" scrollHeight="37vh"
+                [style]="{width:'100%', height:'50vh'}" [scrollable]="true" [resizableColumns]="true"
                 columnResizeMode="fit" [reorderableColumns]="true" [autoLayout]="true" styleClass="p-treetable-sm"
                 sortMode="multiple">
-
                 <!-- <ng-template pTemplate="caption">
                     <div style="text-align: right">
                         <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
@@ -19,16 +18,17 @@
                 <ng-template pTemplate="caption">
                     <div class="p-grid">
 
-                        <div class="p-col columnFilterDropdown">
+                        <!-- table col filter -->
+                        <!-- <div class="p-col columnFilterDropdown">
 
                             <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
                                 selectedItemsLabel="{0} columns selected" [style]="{'width': '12em'}"
                                 defaultLabel="Choose Columns">
                             </p-multiSelect>
-                        </div>
-                        <!-- <button (click)="toggleTreeView(false)">collapse all</button> -->
+                        </div> -->
+                        <!-- <button (click)="toggleTreeView(false)">collapse all</button> commented line -->
 
-                        <div class="p-col loggingButtons">
+                        <div class="p-col loggingButtons" style="margin-top: -3.2rem;">
 
                             <div id="monitorBtns" class="col-8 col-md-5 col-sm-5" style="padding-left:0px !important;">
                                 <button type="button" class="btn logButton"
@@ -52,28 +52,29 @@
 
                 <ng-template pTemplate="colgroup" let-columns>
                     <colgroup>
-                        <col *ngFor="let col of columns" style="width:350px">
+                        <col *ngFor="let col of columns" >
                     </colgroup>
                 </ng-template>
 
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th *ngFor="let col of columns" ttResizableColumn ttReorderableColumn
-                            [ttSortableColumn]="col.field">
-                            {{col.header}}
-                            <i class="fa fa-sort" style="font-size: 1rem"></i>
-                            <!-- <p-treeTableSortIcon [field]="col.field"></p-treeTableSortIcon> -->
+                        <!-- [ttSortableColumn]="col.field" -->
+                        <th *ngFor="let col of columns" ttResizableColumn ttReorderableColumn >
+                            <!-- <span *ngIf="col.header == 'Name'" style="width: 200px !important"> </span>
+                            <span *ngIf="col.header !== 'Name'" style="width: auto;"> {{col.header}} </span> -->
+                            {{col.header}}                        
 
                         </th>
                     </tr>
 
-                    <tr>
+                    <!-- used to sort the table -->
+                    <!-- <tr>
                         <th *ngFor="let col of columns">
                             <input pInputText type="text"
                                 (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)"
                                 style="padding:0px;border-radius : 5px;">
                         </th>
-                    </tr>
+                    </tr> -->
                 </ng-template>
 
                 <!-- <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
@@ -90,13 +91,13 @@
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                     <tr>
                         <td *ngFor="let col of selectedColumns; let i = index"
-                            [ngClass]="highlightFirstLevelData(rowData)">
-                            <span *ngIf="col.field == 'Name'">
+                            [ngClass]="highlightFirstLevelData(rowData)" >
+                            <span *ngIf="col.field == 'Name'" style="width: 300px;">
                                 <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                                 <span class="serverMonitorData-{{rowData.Index}}">{{rowData.Name}}</span>
                             </span>
                             <span *ngFor="let feature of rowData.Features">
-                                <span *ngIf="col.field == feature['Name']" class="serverMonitorData-{{feature['Index']}}">
+                                <span *ngIf="col.field == feature['Name']"  style="width: 300px;" class="serverMonitorData-{{feature['Index']}}">
                                     {{feature['Value']}}
                                 </span>
                             </span>
@@ -111,9 +112,62 @@
                     </tr>
                 </ng-template>
             </p-treeTable>
+            </div>
+        
 
             
         </p-tabPanel>
     </p-tabView>
+    <!-- shud be made dynamic in future -->
+    <div class="sysData">
+        <b>System Data</b>
+        <br>
+        <label>CPU Usage</label> &nbsp;&nbsp;
+        <button class="btn btn-primary" style="font-size: 11px;" > -</button>  &nbsp;&nbsp;
+        <label>MEM Power</label>  &nbsp;&nbsp;
+        <button class="btn btn-primary"  style="font-size: 11px;"> -</button>  &nbsp;&nbsp;
+        <label>MEM Usage</label>  &nbsp;&nbsp;
+        <button class="btn btn-primary"  style="font-size: 11px;"> -</button>  &nbsp;&nbsp;
+        <label>MEM Read</label>  &nbsp;&nbsp;
+        <button class="btn btn-primary"  style="font-size: 11px;">-</button>  &nbsp;&nbsp;
+        <label>MEM Write</label>  &nbsp;&nbsp;
+        <button class="btn btn-primary"  style="font-size: 11px;"> -</button>
+    </div>
 
 </div>
+
+<!-- startStop monitor logging common popup starts -->
+<div class="modal popupBackgroundColor" id="tatFeatureModal"  [style.display]="showMonitorLogginModal ? 'block' : 'none'">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+      
+        <div class="modal-header" style="padding: 7px;z-index: 20;">
+          <i style="color:#FFF000" class="fas fa-exclamation-triangle"><label style="color:#fff;padding-left: 5px;" class="modal-title">Warning</label></i>
+          <button type="button" class="close" data-dismiss="modal" (click)="closeMonitorLogginModal()">&times;</button>
+        </div>
+      
+        <div class="modal-body" style="padding: 10px;margin-top: -10px;height: 180px;overflow-y: auto;">
+          <label><i style="color:orange" class="fa fa-exclamation-circle "></i>  If<strong> Intel SGX </strong>is supported and enabled, please expect power error reporting due to this feature. While it is safe to enable this feature, it is recommended to disable the SGX feature in BIOS to avoid known power reporting errors during your PTAT system characterizations.</label>
+          <label><i style="color:orange" class="fa fa-exclamation-circle "></i>  If <strong>VBS </strong>is enabled on the system, some parameters may read as "Invalid". Please disable VBS while running PTAT.</label>
+          <label><i style="color:orange" class="fa fa-exclamation-circle "></i>  PTAT reads some parameters from <strong>Mailbox interface</strong>. When this interface is accessed simultaneously by PTAT and any other software, then PTAT may sometimes show abnormal values e.g. negative or big numeric number. Users are advised to ignore such values and continue with their debug with normal values. Please refer to "Known issues and cannot be fixed" section in PTAT help doc for full list of the parameters that are affected.</label>
+        </div>
+      
+        <div class="modal-footer" style="padding: 5px 10px 5px 10px;">
+            <div id="checkboxDiv" class="col-11 form-check" style="margin:0px !important; overflow:hidden;">
+              <div class="col-2 checkboxParent">
+                <input class="form-check-input col-2" [(ngModel)]="showHideStartLoggingCheckBoxStatus" style="float: left! important;" type="checkbox"  value="" id="defaultCheck1">
+              </div>
+              <div class="col-10">
+                <label class="form-check-label col-10" style="float: left! important;padding-left: 1px;">
+                  Do not show this dialog again
+                </label>
+              </div>
+            </div>
+            <button type="button" class="col-1 btn greenBtnColor" style="margin:0px !important;" (click)="closeMonitorLogginModal()" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <!-- startStop monitor logging common popup ends -->

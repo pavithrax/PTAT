@@ -644,10 +644,10 @@ liveGraphFeature:any = [];
 				let arg1Index = this.liveGraphArg1Arr.findIndex(x => x == this.argOne);
 				let arg2Index = this.liveGraphArg2Arr.findIndex(x => x == this.argTwo);
 		
-		
-		
-				// var command = '{"Command" : "AddParamToGraph","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
-				var command = '{"Command" : "AddParamToGraph1","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
+				console.log(arg2Index);
+				
+				// var command = '{"Command" : "AddParamToGraph1","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
+				var command = '{"Command" : "AddParamToGraph1","Args":'+'"'+this.argTwo.Index+","+this.argThreeIndex+",-1"+'"'+'}'
 				this.SocketService.sendMessage(command);
 				//this.SocketService.sendMessage("AddParamToGraph1("+compIndex+","+arg1Index+","+arg2Index+",-1)");
 				this.liveGraphDuplicatError = "";

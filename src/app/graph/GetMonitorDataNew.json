@@ -1622,5 +1622,15 @@
 				}
 			]
 		}
-	]
+	],
+	"TableColNames" : {
+		"CPU": ["Name","Core Frequency"],
+		"MEM" : [],
+		"PCH": []
+	},
+	"SystemData" : {
+		"cpuPower": 45,
+		"memPower": 45
+	}
+	
 }
