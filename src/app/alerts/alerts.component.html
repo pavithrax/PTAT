@@ -75,7 +75,7 @@
                 <div class="row" *ngIf="dataType == 'Clientside'">
                     <div class="form-group col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1" >
                         <select id="inputComb"  class="btn alertDropDownBtnColor alertFontSize" [(ngModel)] = "selectedKey" 
-                        (ngModelChange)="featuresArray = [];firstChildArray = [];firstChildArray = data.Treelist">
+                        (ngModelChange)="featuresArray = [];firstChildArray = [];firstChildArray = selectedKey.Treelist;">
                             <option  *ngFor="let itemComb of objArray" [ngValue]="itemComb" class="alertFontSize">{{itemComb.Name}}</option>
                         </select>
                     </div>

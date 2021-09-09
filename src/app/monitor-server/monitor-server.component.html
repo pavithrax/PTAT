@@ -52,7 +52,7 @@
 
                 <ng-template pTemplate="colgroup" let-columns>
                     <colgroup>
-                        <col *ngFor="let col of columns" >
+                        <col *ngFor="let col of columns" style="min-width: 75px;">
                     </colgroup>
                 </ng-template>
 
@@ -122,6 +122,8 @@
     <div class="sysData">
         <b>System Data</b>
         <br>
+        <label>CPU Power</label> &nbsp;&nbsp;
+        <button class="btn btn-primary" style="font-size: 11px;" > -</button>  &nbsp;&nbsp;
         <label>CPU Usage</label> &nbsp;&nbsp;
         <button class="btn btn-primary" style="font-size: 11px;" > -</button>  &nbsp;&nbsp;
         <label>MEM Power</label>  &nbsp;&nbsp;

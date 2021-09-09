@@ -25,3 +25,11 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+To run this application you need 
+    node with NPM, and angular 8
+
+Once these are installed, clone the repo, 
+    locate the file in command prompt and give npm install to install all the dependencies..
+    to run the application give ng server --open in cmd prompt ---> this opens a tab in default browser.

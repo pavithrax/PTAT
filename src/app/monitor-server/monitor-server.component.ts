@@ -84,16 +84,11 @@ export class MonitorServerComponent implements OnInit {
     selectedcount: any;
     counter: number = 1;
 
-    colHeaders: {
-        'CPU':['Name','Core Frequency','Uncore Frequency','Utilization','IPC','CD','C1','C6','PC2','Temperature','DTS','Voltage','Power'],
-        'MEM': ['Name','Dts']
+    colHeaders: any = [];
 
-    };
 
     ngOnInit() {
         this.loading = true;
-
-
 
         this.SocketService.getMonitorDataRes().subscribe(message => {
             console.log(message);
@@ -104,7 +99,18 @@ export class MonitorServerComponent implements OnInit {
                     this.SocketService.sendMessage(getSettingsCommand);
                 }
                 this.SocketService.sendMessage(command);
-
+                let colHeaders1 = {
+                    'CPU':['Name','Core Frequency','Uncore Frequency','Utilization','IPC','C0','C1','C6','PC2','Temperature','DTS','Voltage','Power'],
+                    'MEM': ['Name','Dts']
+            
+                };
+                // let arr;
+                Object.keys(colHeaders1).forEach(key => this.colHeaders.push({
+                    Name: key,
+                    child: colHeaders1[key]
+                }));
+                console.log(this.colHeaders);
+                    
                 this.counter++
 
                 //console.log(message.data);
@@ -198,7 +204,7 @@ export class MonitorServerComponent implements OnInit {
         console.log(this.tabView.tabs[this.selectedIndex].header);
         this.selectedTab = this.tabView.tabs[this.selectedIndex].header;
 
-        //send the command to backend to load Component specific data --- not really
+        //send the command to backend to load Component specific data --- not really and to be removed
 
         if (this.selectedTab == "CPU") {
 
@@ -208,7 +214,7 @@ export class MonitorServerComponent implements OnInit {
                 { field: 'Uncore Frequency', header: 'UnCoreFrequency' },
                 { field: 'Utilization', header: 'Utilization' },
                 { field: 'IPC', header: 'IPC' },
-                { field: 'CD', header: 'CD' },
+                { field: 'C0', header: 'C0' },
                 { field: 'C1', header: 'C1' },
                 { field: 'C6', header: 'C6' },
                 { field: 'PC2', header: 'PC2' },
@@ -229,7 +235,7 @@ export class MonitorServerComponent implements OnInit {
                 { field: 'Uncore Frequency', header: 'UnCoreFrequency' },
                 { field: 'Utilization', header: 'Utilization' },
                 { field: 'IPC', header: 'IPC' },
-                { field: 'CD', header: 'CD' },
+                { field: 'C0', header: 'C0' },
                 { field: 'C1', header: 'C1' },
                 { field: 'C6', header: 'C6' },
                 { field: 'PC2', header: 'PC2' },
@@ -250,7 +256,7 @@ export class MonitorServerComponent implements OnInit {
                 { field: 'Uncore Frequency', header: 'UnCoreFrequency' },
                 { field: 'Utilization', header: 'Utilization' },
                 { field: 'IPC', header: 'IPC' },
-                { field: 'CD', header: 'CD' },
+                { field: 'C0', header: 'C0' },
                 { field: 'C1', header: 'C1' },
                 { field: 'C6', header: 'C6' },
                 { field: 'PC2', header: 'PC2' },
@@ -263,6 +269,22 @@ export class MonitorServerComponent implements OnInit {
             this.selectedColumns = this.cols;
             this.serverData = this.dataArr[0]["MEM"];
         }
+        // above code to be removed
+
+        
+        let array = this.colHeaders.map(item => item.Name == this.selectedTab);
+        console.log(array);
+        
+        this.cols = [];
+        array.child.forEach(element1 => {
+            console.log(element1);
+            
+            this.cols.push({field:element1,header: element1.replace(" ","") })
+        });
+        console.log(this.cols);
+        this.selectedColumns = this.cols;
+        this.serverData = this.dataArr[0][this.selectedTab];
+
     }
 
 
@@ -273,21 +295,39 @@ export class MonitorServerComponent implements OnInit {
             this.tabData.push(e);
         });
 
-        this.cols = [
-            { field: 'Name', header: 'Name' },
-            { field: 'Core Frequency', header: 'CoreFrequency' },
-            { field: 'Uncore Frequency', header: 'UnCoreFrequency' },
-            { field: 'Utilization', header: 'Utilization' },
-            { field: 'IPC', header: 'IPC' },
-            { field: 'CD', header: 'CD' },
-            { field: 'C1', header: 'C1' },
-            { field: 'C6', header: 'C6' },
-            { field: 'PC2', header: 'PC2' },
-            { field: 'Temperature', header: 'Temperature' },
-            { field: 'DTS', header: 'DTS' },
-            { field: 'Voltage', header: 'Voltage' },
-            { field: 'Power', header: 'Power' }
-        ];
+        // to be removed later 
+        // this.cols = [
+        //     { field: 'Name', header: 'Name' },
+        //     { field: 'Core Frequency', header: 'CoreFrequency' },
+        //     { field: 'Uncore Frequency', header: 'UnCoreFrequency' },
+        //     { field: 'Utilization', header: 'Utilization' },
+        //     { field: 'IPC', header: 'IPC' },
+        //     { field: 'C0', header: 'C0' },
+        //     { field: 'C1', header: 'C1' },
+        //     { field: 'C6', header: 'C6' },
+        //     { field: 'PC2', header: 'PC2' },
+        //     { field: 'Temperature', header: 'Temperature' },
+        //     { field: 'DTS', header: 'DTS' },
+        //     { field: 'Voltage', header: 'Voltage' },
+        //     { field: 'Power', header: 'Power' }
+        // ];
+
+
+        this.cols = [];
+        this.colHeaders.forEach(element => {
+            if(element.Name == this.tabData[0]) {
+                console.log(element);
+                
+                element.child.forEach(element1 => {
+                    console.log(element1);
+                    
+                    this.cols.push({field:element1,header: element1.replace(" ","") })
+                });
+                
+            }
+        });
+        console.log(this.cols);
+        
 
         this.selectedColumns = this.cols;
         console.log(this.tabData[0]);
@@ -376,5 +416,5 @@ export class MonitorServerComponent implements OnInit {
         } else {
           this.showMonitorLogginModal = false;
         }
-      }
+    }
 }

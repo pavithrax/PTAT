@@ -582,13 +582,8 @@ export class AlertsComponent implements OnInit {
   // Onclick of submit proceeding to Alert Start here
   proceedAlert(){
     if(this.alertInputData.some((item)=>item.selectedInputVal == undefined || item.selectedInputVal == "")){
-      // this.errorInputBox = true;
-      // setTimeout(() => {
-      //   this.errorInputBox = false;
-      // }, 2000);
       this.alertMessage = "Make sure none of the text boxes are empty!"
     }else{
-      // this.errorInputBox = false;  
       this.alertMessage = "";
       this.alertSummaryErrorType = this.errorType;
 
@@ -646,16 +641,7 @@ export class AlertsComponent implements OnInit {
       this.SocketService.sendMessage(updateAlertListCmd);
     }
 
-    // Send Comand Before Pushing to array ends Here
-
-
-    // Checking fresh entry or edit before pushing starts here
     
-    // if(this.editIndex > -1){
-    //   this.summaryData[this.editIndex] = expSummary;
-    // }else{
-    //   this.summaryData.push(expSummary);
-    // }
 
     // Checking fresh entry or edit before pushing starts here
     
@@ -684,7 +670,6 @@ export class AlertsComponent implements OnInit {
 
   //  Strating/Stoping Alert Function Starts Here
    alertStartStop(val){
-    //let cmdStartStop = (val == 'Start Alerts') ? "StartAlert()" : "StopAlert()";
    if(val == "Start Alerts"){
         var path = ""
         if(this.osInformation = "windows"){
@@ -810,27 +795,6 @@ export class AlertsComponent implements OnInit {
     event.preventDefault();
   }
 
-   
-  // Recent Alert Show/Hide with functionallity ends here
-
-  // recentlerts(){
-  //    let alertSummaryResponseData = this.alertSummaryResponse.Data;
-  //    this.recentAlertData = this.alertSummaryResponse.Data;
-     
-  //    for(let alertCount = 0;alertCount < this.alertSummaryResponse.Data.length;alertCount++){
-  //     console.log("first",alertSummaryResponseData[alertCount].AlertExpression);
-  //     let expression = alertSummaryResponseData[alertCount].AlertExpression;
-      
-  //     for(let count =0;count<this.summaryData.length;count++){
-  //         if(expression == this.summaryData[count].name){
-  //           var index = count;
-  //           console.log("second",index);
-  //           this.summaryData[index].alertCount = alertSummaryResponseData[alertCount].Count;
-  //         }
-  //     }
-  //   }
-  // }
-  
   // Code to get clinet data and server data
   selectedComponetData(data) {
     this.featuresArray = [];
@@ -925,6 +889,11 @@ export class AlertsComponent implements OnInit {
   selectedDataForClient() {
     var  command = '{"Command" : "GetParamType","Args":'+'"'+this.selectedFeature.Index+'"'+'}';
     this.SocketService.sendMessage(command);
+    console.log(this.getParamArrayId);
+    
+    // this.alertInputData[this.getParamArrayId].itemType = message.Data;
+    // this.alertInputData[this.getParamArrayId].conditionType = message.Data == 1 ? this.stringType[0].id : this.alertInputData[this.getParamArrayId].conditionType = this.numberType[0].id;
+  
     this.selectedFeature.conditionType = 0;
     this.selectedFeature.itemType = 2;
     this.selectedFeature.itemUnit = this.selectedFeature.unit;
@@ -933,9 +902,9 @@ export class AlertsComponent implements OnInit {
     this.selectedFeature.itemPname = this.selectedFeature.Row.split(",")[0];
     this.selectedFeature.expSymbol = '';
     this.selectedFeature.itemIndex = this.selectedFeature.Index;
+console.log(this.alertInputData.length - 1);
 
     this.alertInputData[this.alertInputData.length - 1] = this.selectedFeature;
     
   }
-  
 }
