@@ -281,7 +281,7 @@
       
                                          
                                           <td  style="width: 80%;">
-                                             <span class="fas fa-edit" (click)="updateWorkload(data)"style="color: #595352;"></span>&nbsp;&nbsp;             
+                                             <span class="fas fa-edit" (click)="editWorkload(data)"style="color: #595352;"></span>&nbsp;&nbsp;             
                                              <span class="fa fa-times-circle" (click)="removeData(data)"style="color: red;"></span>&nbsp;&nbsp; 
                                              <span [ngClass]="{'colorSelectedTree1': data.Name === selectedWorkLoadName}">{{data.Name}}</span> 
                                              
@@ -321,3 +321,23 @@
       </mat-sidenav-content>
    </mat-sidenav-container>
 </div>
+
+<div class="modal popupBackgroundColor"  [style.display]="showWorkloadModal ? 'block' : 'none'">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+       <div class="modal-header" style="padding: 7px;">
+         <i style="color:#FFF000" class="fas fa-exclamation-triangle"><label style="color:#fff;padding-left: 5px;" class="modal-title">Warning</label></i>
+         <button type="button" class="close" data-dismiss="modal" (click)="closeWorkloadWarningModal()">&times;</button>
+       </div>
+     
+       <div class="modal-body" style="padding: 10px;margin-top: 5px;">
+         <label>Workloads like {{workLoadName}} needs atleast One Package to be Selected!</label>
+        </div> 
+     
+       <div class="modal-footer" style="padding: 5px 10px 5px 10px;">
+           <button type="button" class="col-2 col-md-1 btn greenBtnColor" (click)="closeWorkloadWarningModal()" data-dismiss="modal">Close</button>
+       </div>
+       
+     </div>
+   </div>
+ </div>

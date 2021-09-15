@@ -6,7 +6,7 @@ import { SocketService } from '../db/socket.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { HostListener } from "@angular/core";
 import { MatSidenav } from '@angular/material/sidenav';
-import * as  data from './getMonitordata.json';
+import * as  data from './getWorkload.json';
 import { AppComponent } from '../app.component';
 
 @Component({
@@ -41,6 +41,8 @@ export class WorkloadComponent implements OnInit {
   memvalues: any = [];
   pmemvalues: any = [];
   coreValue: any = [];
+  showWorkloadModal: boolean = false;
+
   constructor(private SocketService: SocketService, private spinner: NgxSpinnerService, private app: AppComponent) {
     this.dataType = this.app.platform;
   }
@@ -74,7 +76,7 @@ export class WorkloadComponent implements OnInit {
         this.workloadArray.forEach(element => {
           element.DropDownList.forEach(element1 => {
             element1.TableData.Row.forEach(element2 => {
-              element2.levels = this.range(element2.min,element2.max,element2.stepping)
+              element2.levels = this.range(element2.min, element2.max, element2.stepping)
               if (element2.PackageStart) {
                 element2.CoreData = this.iterator(element2.CoreStart.split(" ")[0], element2.CoreCount);
                 if (element2.ThreadCount) {
@@ -358,8 +360,8 @@ export class WorkloadComponent implements OnInit {
         }
       });
     });
-    if(!checkValue.TableData.Row[0].ThreadStart) {
-      $('.' + workLoadTableCheckBox+ " #threadSelection").hide();
+    if (!checkValue.TableData.Row[0].ThreadStart) {
+      $('.' + workLoadTableCheckBox + " #threadSelection").hide();
     }
     let workLoadTableDropdown = "workLoadTableDropdown" + workLoadId;
     if (checkValue.Note !== '' || !(checkValue.TableData.Row[0].PackageData)) {
@@ -374,6 +376,7 @@ export class WorkloadComponent implements OnInit {
 
   }
 
+  // not used to be removed later
   workLoadStartStop(arg, arg1, arg2, arg3, arg4, arg5) {
     this.currentStartStopButtonClass = "";
     let componentName = arg2;
@@ -595,7 +598,7 @@ export class WorkloadComponent implements OnInit {
 
 
   }
-
+  // iterator to create sequence of package and cores
   iterator(str, count) {
     let arr: any = [];
     for (let i = 0; i < count; i++) {
@@ -706,33 +709,50 @@ export class WorkloadComponent implements OnInit {
   }
 
   addWorkLoad(data, parentData) {
-    this.selectedWorkLoadName = '';
-    this.disableTest(data.DisableList,'addClass');
-    if (!this.workLoadDataArray.some(item => item.Name === data.Name)) {
-      this.workLoadDataArray.push(
-        {
-          Name: data.Name,
-          editIndex: parentData.Index + data.Index + ';' + data.Name,
-          status: "Stopped",
-          DisableList: data.DisableList
-        })
+    console.log(data);
+    let continueExe = false;
+    if(data.TableData.Row[0].DroporCheck == false ) {
+      if(data.TableData.Row[0].AtleastOnePackageSelected || data.TableData.Row[0].PackageAllSelected) {
+        continueExe = true
+      }
+      else {
+        continueExe = false;
+        this.showWorkloadModal = true;
+      }
+    } else {
+      continueExe = true;
     }
-
-    this.workLoadDataArray.forEach(element => {
-     $('.workLoadTable'+element.editIndex.split(";")[0] + ' #addWorkLoadbtn').text('Update Workload');
-    })
+    if(continueExe) {
+      this.selectedWorkLoadName = '';
+      this.disableTest(data.DisableList, 'addClass');
+      if (!this.workLoadDataArray.some(item => item.Name === data.Name)) {
+        this.workLoadDataArray.push(
+          {
+            Name: data.Name,
+            ParentName: parentData.Name,
+            editIndex: parentData.Index + data.Index + ';' + data.Name,
+            status: "Stopped",
+            DisableList: data.DisableList
+          })
+      }
+  
+      this.workLoadDataArray.forEach(element => {
+        $('.workLoadTable' + element.editIndex.split(";")[0] + ' #addWorkLoadbtn').text('Update Workload');
+      })
+    }
+    
   }
 
-  updateWorkload(data) {
+  editWorkload(data) {
     this.selectedWorkLoadName = data.Name;
     this.workLoadTree(data.editIndex);
   }
   removeData(data) {
     this.selectedWorkLoadName = '';
-    $('.workLoadTable'+data.editIndex.split(";")[0] + ' #addWorkLoadbtn').text('Add Workload');
+    $('.workLoadTable' + data.editIndex.split(";")[0] + ' #addWorkLoadbtn').text('Add Workload');
     let arr = this.workLoadDataArray.filter(data1 => data1 !== data);
     this.workLoadDataArray = arr;
-    this.disableTest(data.DisableList,'remove');
+    this.disableTest(data.DisableList, 'remove');
   }
 
   startIndvWorkload(data) {
@@ -742,6 +762,28 @@ export class WorkloadComponent implements OnInit {
     $('.startstopworkload').removeClass("greenBtnColor");
     $('.startstopworkload').addClass('redBtnColor');
 
+    this.startWorkLoadCmd(data);
+    let sendingData: any = {};
+
+    sendingData.cmd = 'StartWorkload';
+    console.log(data);
+
+    //   {
+    //     "cmd" : "StartWorkload",
+    //     "params" :  [
+    //             {
+    //                 "workload" : "cpu",
+    //                 "core-test" : "sse",
+    //                 "pwr-level": 50,
+    //                 "pkg-range" : [],
+    //                 "core-range" : []               
+    //             },
+    //             {
+    //                 "workload" : "mem",
+    //                 ...
+    //             }
+    //      ]            
+    // }
   }
 
   stopIndvWorkload(data) {
@@ -749,7 +791,7 @@ export class WorkloadComponent implements OnInit {
     data.status = 'Stopped';
 
     let count = this.workLoadDataArray.filter(item => item.status == 'Running');
-    if(count.length == 0) {
+    if (count.length == 0) {
       $('.startstopworkload').html('Start Workload');
       $('.startstopworkload').addClass("greenBtnColor");
       $('.startstopworkload').removeClass('redBtnColor');
@@ -757,63 +799,143 @@ export class WorkloadComponent implements OnInit {
 
   }
 
+  // css changes basically
   startAllWorkload() {
     this.selectedWorkLoadName = '';
-    if($('.startstopworkload').text().toLowerCase()== 'stop workload') {
+    if ($('.startstopworkload').text().toLowerCase() == 'stop workload') {
       this.workLoadDataArray.forEach(item => item.status = 'Stopped');
       $('.startstopworkload').html('Start Workload');
       $('.startstopworkload').addClass("greenBtnColor");
       $('.startstopworkload').removeClass('redBtnColor');
     } else {
-      this.workLoadDataArray.forEach(item => item.status = 'Running');
+      this.workLoadDataArray.forEach(item =>{ 
+        item.status = 'Running';
+        this.startWorkLoadCmd(item);
+      });
       $('.startstopworkload').html('Stop Workload');
       $('.startstopworkload').removeClass("greenBtnColor");
       $('.startstopworkload').addClass('redBtnColor');
     }
-   
+
   }
 
   // to disable the treeviewlist when a certain test is added to workload
-  disableTest(data,type) {
-    if(type == 'addClass') {
+  disableTest(data, type) {
+    if (type == 'addClass') {
       $('.workLoadTreeCC').each(function (index, item) {
         var $item = $(item);
         data.forEach(element => {
-          if ($item.text().toLowerCase().replace(/ /g,"") == element.toLowerCase().replace(/ /g,"")) {
+          if ($item.text().toLowerCase().replace(/ /g, "") == element.toLowerCase().replace(/ /g, "")) {
             $item.addClass('disabledbutton');
           }
-        });      
+        });
       });
     } else {
       $('.workLoadTreeCC').each(function (index, item) {
         var $item = $(item);
         data.forEach(element => {
-          if ($item.text().toLowerCase().replace(/ /g,"") == element.toLowerCase().replace(/ /g,"")) {
+          if ($item.text().toLowerCase().replace(/ /g, "") == element.toLowerCase().replace(/ /g, "")) {
             $item.removeClass('disabledbutton');
           }
-        });      
+        });
       });
     }
     this.workLoadDataArray.forEach(element => {
       $('.workLoadTreeCC').each(function (index, item) {
         var $item = $(item);
         element.DisableList.forEach(element1 => {
-          if ($item.text().toLowerCase().replace(/ /g,"") == element1.toLowerCase().replace(/ /g,"")) {
+          if ($item.text().toLowerCase().replace(/ /g, "") == element1.toLowerCase().replace(/ /g, "")) {
             $item.addClass('disabledbutton');
           }
-        });  
+        });
       });
     })
   }
 
-  // iterator to create sequence of package and cores
+  // iterator to create powerlevel
   range(start, stop, step) {
     var a = [start], b = start;
     while (b < stop) {
-        a.push(b += step || 1);
+      a.push(b += step || 1);
     }
     return a;
+    
+    
   }
+
+  startWorkLoadCmd(data) {
+    let selectedtest;
+    let cmd: any = {}
+    cmd.cmd = 'StartWorkload';
+    let dummyThread = [], packageStart = [], coreStart = [];
+    this.workloadArray.forEach(element => {
+      if (element.Name == data.ParentName) {
+        element.DropDownList.forEach(child => {
+          if (child.Name == data.Name) {
+            selectedtest = child;
+          }
+        });
+      }
+    });
+    // start workload params
+    cmd.params = {
+      "workload": data.ParentName, // CPU ie., parent value
+      "coreTest": data.Name, // TDP or Core IAsse ie., child
+      "powerlevel": 0, // power level
+      "pkgRange": [], //  holds selected pkgs from dropdown
+      "coreRange": [], //  holds selected cores from dropdown
+      'selectedPkgs': {}, //  holds selcetd pkgs nd core from checkbox
+      'selectedThreads': [], // holds selcetd threads from checkbox
+      'isDataSelectedFromRange': false
+    }
+
+    // for tests like tdp ie., no power level selection
+    if (selectedtest.Note !== "") {
+      cmd.params.powerlevel = 100
+    } else {
+      let testData = selectedtest.TableData.Row[0]
+      cmd.params.powerlevel = testData.powerLevel
+      console.log(testData);
+      testData.ThreadData.forEach(element => {
+        if(element.isSelected) {
+          dummyThread.push(element.Name)
+        }
+      });
+      cmd.params.selectedThreads = dummyThread;
+
+      // dropcheck == true ie., selection is from range(dropdown) else selection is freom checkbox
+      if(testData.DroporCheck) {
+
+        cmd.params.isDataSelectedFromRange = true;
+        packageStart.push(testData.PackageStart,testData.PackageEnd);
+        coreStart.push(testData.CoreStart,testData.CoreEnd);
+
+        cmd.params.pkgRange = packageStart;
+        cmd.params.coreRange = coreStart;
+      } else {
+       
+        let obj = {}
+        testData.PackageData.forEach(element => {
+          let coreData = element.CoreData.filter(item => item.isSelected);
+          if(coreData.length > 0) {
+            let arr = [];
+            coreData.map(item => arr.push(item.Name))
+            obj[element.Name] = arr;
+          }
+        });
+        // console.log(obj);
+        cmd.params.selectedPkgs = obj;
+      }
+     
+    }
+    cmd.extraString = data.editIndex;
+    console.log(cmd);
+  }
+
+  closeWorkloadWarningModal() {
+    this.showWorkloadModal = false;
+  }
+  
 }
 
 

@@ -181,21 +181,21 @@ export class MonitorServerComponent implements OnInit {
               this.loggingstatus = !this.loggingstatus; 
             }
       
-          });
-      
-      
-          this.SocketService.StartLoggingRes().subscribe(message => {
-            if (message) {
-            
-            }
-          });
-      
-      
-          this.SocketService.StopLoggingRes().subscribe(message => {
-            if (message) {
-              this.loggingstatus = true;  
-            }
-          });
+        });
+    
+    
+        this.SocketService.StartLoggingRes().subscribe(message => {
+        if (message) {
+        
+        }
+        });
+    
+    
+        this.SocketService.StopLoggingRes().subscribe(message => {
+        if (message) {
+            this.loggingstatus = true;  
+        }
+        });
     }
 
 
