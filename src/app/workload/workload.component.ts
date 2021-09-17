@@ -63,7 +63,7 @@ export class WorkloadComponent implements OnInit {
     this.SocketService.WorkLoadDataRes().subscribe(message => {
       if (message) {
         this.StopGfxWorkload("");
-        this.workloadArray = data.Data;
+        this.workloadArray = message.Data;
 
         var firstWorkloadName = this.workloadArray[0].DropDownList[0].Name;
         this.dropOrCheckBooleanValue = '00' + ';' + firstWorkloadName;
@@ -75,21 +75,21 @@ export class WorkloadComponent implements OnInit {
 
         this.workloadArray.forEach(element => {
           element.DropDownList.forEach(element1 => {
-            element1.TableData.Row.forEach(element2 => {
-              element2.levels = this.range(element2.min, element2.max, element2.stepping)
-              if (element2.PackageStart) {
-                element2.CoreData = this.iterator(element2.CoreStart.split(" ")[0], element2.CoreCount);
-                if (element2.ThreadCount) {
-                  element2.ThreadData = this.iterator(element2.ThreadStart.split(" ")[0], element2.ThreadCount);
-                }
-
-                element2.PackageData = this.iterator(element2.PackageStart.split(" ")[0], element2.PackageCount);
-                element2.PackageData.forEach(element3 => {
-                  element3.CoreAllSelected = true;
-                  element3.CoreData = this.iterator(element2.CoreStart.split(" ")[0], element2.CoreCount);
-                });
+            let element2 = element1.TableData.Row;
+            element2.PackageData = this.iterator(element2.PackageStart.split(" ")[0], element2.PackageCount);
+            element2.levels = this.range(element2.min, element2.max, element2.stepping);
+            if (element2.CoreStart) {
+              element2.CoreData = this.iterator(element2.CoreStart.split(" ")[0], element2.CoreCount);
+              if (element2.ThreadCount) {
+                element2.ThreadData = this.iterator(element2.ThreadStart.split(" ")[0], element2.ThreadCount);
               }
-            });
+              element2.PackageData.forEach(element3 => {
+                element3.CoreAllSelected = true;
+                element3.CoreData = this.iterator(element2.CoreStart.split(" ")[0], element2.CoreCount);
+              });
+            }
+
+            
           });
         });
 
@@ -345,28 +345,29 @@ export class WorkloadComponent implements OnInit {
       element.DropDownList.forEach(element1 => {
         if (element1.Name == this.dropOrCheckBooleanValue.split(";")[1]) {
           checkValue = element1;
-          element1.TableData.Row.forEach(element2 => {
-            // not used as combo test is not in use
-            // if (this.workLoadName == 'Combo Test') {
+          if (element1.TableData.Row.PackageData) {
+            this.core = element1.TableData.Row.PackageData[0];
+          }
+          // element1.TableData.Row.forEach(element2 => {
+          //   // not used as combo test is not in use
+          //   // if (this.workLoadName == 'Combo Test') {
 
-            //   this.getComboTestValue(element2);
-            // }
-            if (element2.PackageData) {
-              this.core = element2.PackageData[0];
-            }
+          //   //   this.getComboTestValue(element2);
+          //   // }
+            
 
-          });
+          // });
 
         }
       });
     });
-    if (!checkValue.TableData.Row[0].ThreadStart) {
+    if (!checkValue.TableData.Row.ThreadStart) {
       $('.' + workLoadTableCheckBox + " #threadSelection").hide();
     }
     let workLoadTableDropdown = "workLoadTableDropdown" + workLoadId;
-    if (checkValue.Note !== '' || !(checkValue.TableData.Row[0].PackageData)) {
-      $('.' + workLoadTableCheckBox).hide();
-      $('.' + workLoadTableDropdown).hide();
+    if (checkValue.Note !== '' || !(checkValue.TableData.Row.PackageData)) {
+      // $('.' + workLoadTableCheckBox).hide();
+      // $('.' + workLoadTableDropdown).hide();
     }
 
     if (this.core) {
@@ -514,7 +515,7 @@ export class WorkloadComponent implements OnInit {
       });
     });
 
-    if (!checkValue.TableData.Row[0].DroporCheck) {
+    if (!checkValue.TableData.Row.DroporCheck) {
       // $('.' + workLoadTableDropdown).addClass("disabledbutton");
       $('.' + workLoadTableDropdown).find('.card').addClass("disabledbutton");
       $('.' + workLoadTableCheckBox).find('.card').removeClass("disabledbutton");
@@ -639,30 +640,30 @@ export class WorkloadComponent implements OnInit {
     //to check and uncheck select all package when we check core 
     this.workloadArray.forEach(element => {
       element.DropDownList.forEach(element1 => {
-        element1.TableData.Row.forEach(data1 => {
-          if (data1.PackageData) {
-            // this.isAllSelected(element2);        
-            let count1 = 0;
+        let data1 = element1.TableData.Row;
+        if (data1.PackageData) {
+          // this.isAllSelected(element2);        
+          let count1 = 0;
 
-            data1.PackageData.forEach(element => {
+          data1.PackageData.forEach(element => {
 
-              if (element.isSelected == true) {
-                count1 += 1;
-              }
-            });
-            if (count1 == data1.PackageData.length) {
-              data1.PackageAllSelected = true;
-            } else {
-              data1.PackageAllSelected = false;
+            if (element.isSelected == true) {
+              count1 += 1;
             }
-            if (count1 == 0 || count1 == data1.PackageData.length) {
-              data1.AtleastOnePackageSelected = false
-            } else {
-              data1.AtleastOnePackageSelected = true;
-            }
-
+          });
+          if (count1 == data1.PackageData.length) {
+            data1.PackageAllSelected = true;
+          } else {
+            data1.PackageAllSelected = false;
           }
-        });
+          if (count1 == 0 || count1 == data1.PackageData.length) {
+            data1.AtleastOnePackageSelected = false
+          } else {
+            data1.AtleastOnePackageSelected = true;
+          }
+
+        }
+
       });
     });
   }
@@ -695,13 +696,13 @@ export class WorkloadComponent implements OnInit {
       element.DropDownList.map(element => {
         console.log(element)
         if (cputest.SelectedCPU == element.Name) {
-          element.TableData.Row[0].PackageData
+          element.TableData.Row.PackageData
             .flatMap(data => data.isSelected ? this.cpuvalues += data.Name + ' ' : this.cpuvalues += '')
         } else if (cputest.SelectedMem == element.Name) {
-          element.TableData.Row[0].PackageData
+          element.TableData.Row.PackageData
             .flatMap(data => data.isSelected ? this.memvalues += data.Name + ' ' : this.memvalues += '')
         } else if (cputest.SelectedPMem == element.Name) {
-          element.TableData.Row[0].PackageData
+          element.TableData.Row.PackageData
             .flatMap(data => data.isSelected ? this.pmemvalues += data.Name + ' ' : this.pmemvalues += '');
         }
       });
@@ -710,9 +711,11 @@ export class WorkloadComponent implements OnInit {
 
   addWorkLoad(data, parentData) {
     console.log(data);
+    console.log(parentData);
+    
     let continueExe = false;
-    if(data.TableData.Row[0].DroporCheck == false ) {
-      if(data.TableData.Row[0].AtleastOnePackageSelected || data.TableData.Row[0].PackageAllSelected) {
+    if(data.TableData.Row.DroporCheck == false ) {
+      if(data.TableData.Row.AtleastOnePackageSelected || data.TableData.Row.PackageAllSelected) {
         continueExe = true
       }
       else {
@@ -757,7 +760,7 @@ export class WorkloadComponent implements OnInit {
 
   startIndvWorkload(data) {
     this.selectedWorkLoadName = '';
-    data.status = 'Running';
+    // data.status = 'Running';
     $('.startstopworkload').html('Stop Workload');
     $('.startstopworkload').removeClass("greenBtnColor");
     $('.startstopworkload').addClass('redBtnColor');
@@ -797,6 +800,9 @@ export class WorkloadComponent implements OnInit {
       $('.startstopworkload').removeClass('redBtnColor');
     }
 
+    if (this.startInterval) {
+      clearInterval(this.startInterval);
+   }
   }
 
   // css changes basically
@@ -807,9 +813,13 @@ export class WorkloadComponent implements OnInit {
       $('.startstopworkload').html('Start Workload');
       $('.startstopworkload').addClass("greenBtnColor");
       $('.startstopworkload').removeClass('redBtnColor');
+      if (this.startInterval) {
+        clearInterval(this.startInterval);
+     }
     } else {
       this.workLoadDataArray.forEach(item =>{ 
-        item.status = 'Running';
+        // item.status = 'Running';
+        // needs to deleted later mock data to check start workload
         this.startWorkLoadCmd(item);
       });
       $('.startstopworkload').html('Stop Workload');
@@ -862,6 +872,7 @@ export class WorkloadComponent implements OnInit {
     
     
   }
+  startInterval: any;
 
   startWorkLoadCmd(data) {
     let selectedtest;
@@ -893,7 +904,7 @@ export class WorkloadComponent implements OnInit {
     if (selectedtest.Note !== "") {
       cmd.params.powerlevel = 100
     } else {
-      let testData = selectedtest.TableData.Row[0]
+      let testData = selectedtest.TableData.Row
       cmd.params.powerlevel = testData.powerLevel
       console.log(testData);
       testData.ThreadData.forEach(element => {
@@ -930,12 +941,23 @@ export class WorkloadComponent implements OnInit {
     }
     cmd.extraString = data.editIndex;
     console.log(cmd);
+
+    this.startInterval = setInterval(() => {
+        this.update(cmd);
+    }, 1000);
   }
 
   closeWorkloadWarningModal() {
     this.showWorkloadModal = false;
   }
   
+  update(cmd) {
+    console.log(cmd);
+    let dummy  = this.workLoadDataArray.filter(item => item.Name == cmd.params.coreTest);
+    console.log(dummy);
+    
+    dummy[0].status = 'Running';
+  }
 }
 
 

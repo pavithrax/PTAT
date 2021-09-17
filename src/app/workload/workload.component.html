@@ -34,8 +34,9 @@
                      <h6>Workload - {{workLoadName}}</h6>
                      <ng-container *ngFor="let item of workloadArray">
                         <ng-container *ngFor="let item1 of item.DropDownList">
+                           <!-- {{item1.TableData.Row.PackageCount}} -->
                            <div class="workLoadTableCC" style="height: calc(49vh - 144px); overflow: auto;" [ngClass]="'workLoadTable'+item.Index+item1.Index">
-                              <div class="curvedCorners table-responsive workLoadTableCC workLoadDiv" id="workLoadFixHead"
+                              <!-- <div class="curvedCorners table-responsive workLoadTableCC workLoadDiv" id="workLoadFixHead"
                                  (scroll)="onScroll($event)" [ngClass]="'workLoadTable'+item.Index+item1.Index"
                                  *ngIf="item1.Note !==''">
                                  <table class="table workLoadTableCC" [ngClass]="'workLoadTable'+item.Index+item1.Index">
@@ -66,23 +67,23 @@
          
                                     </tbody>
                                  </table>
-                              </div>
+                              </div> -->
          
                               <ng-container>
                                  <div style="margin-left: 5px;">
                                     <div class="row  workLoadTableCC" [ngClass]="'workLoadTableDropdown'+item.Index+item1.Index"
-                                       *ngFor="let item4 of item1.TableData.Row" style="width: 100% !important;">
+                                        style="width: 100% !important;">
          
                                        <div class="col-sm-4 card curvedCorners card-padding">
                                           <label><b>Package Selection</b></label>
                                           <div class="row">
                                              <div class="col-sm-6">
                                                 <label>From</label><br>
-                                                <select class="btn selectedBtn alertFontSize" [(ngModel)]="item4.PackageStart"
+                                                <select class="btn selectedBtn alertFontSize" [(ngModel)]="item1.TableData.Row.PackageStart"
                                                    (change)="startEndCores()">
                                                    <option [ngValue]="'select'" class="alertFontSize">--Select--
                                                    </option>
-                                                   <option *ngFor="let item5 of item4.PackageData" [ngValue]="item5.Name"
+                                                   <option *ngFor="let item5 of item1.TableData.Row.PackageData" [ngValue]="item5.Name"
                                                       class="alertFontSize">
                                                       {{item5.Name}}</option>
                                                 </select>
@@ -91,18 +92,18 @@
                                              <div class="col-sm-6">
                                                 <label>To</label>
                                                 <br>
-                                                <select class="btn selectedBtn alertFontSize" [(ngModel)]="item4.PackageEnd"
+                                                <select class="btn selectedBtn alertFontSize" [(ngModel)]="item1.TableData.Row.PackageEnd"
                                                    (change)="startEndCores()">
                                                    <option [ngValue]="'select'" class="alertFontSize">--Select--
                                                    </option>
-                                                   <option *ngFor="let item5 of item4.PackageData" [ngValue]="item5.Name"
+                                                   <option *ngFor="let item5 of item1.TableData.Row.PackageData" [ngValue]="item5.Name"
                                                       class="alertFontSize">
                                                       {{item5.Name}}</option>
                                                 </select>
                                              </div>
                                           </div>
                                        </div>
-                                       <div class="col-sm-4 card curvedCorners card-padding">
+                                       <div class="col-sm-4 card curvedCorners card-padding"  [style.display]="item1.TableData.Row.CoreData ? 'block' : 'none'">
                                           <label>
                                              <b>
                                                 Core Selection
@@ -111,10 +112,10 @@
                                           <div class="row">
                                              <div class="col-sm-6">
                                                 <label>From</label><br>
-                                                <select class="btn selectedBtn alertFontSize" [(ngModel)]="item4.CoreStart">
+                                                <select class="btn selectedBtn alertFontSize" [(ngModel)]="item1.TableData.Row.CoreStart">
                                                    <option [ngValue]="'select'" class="alertFontSize">--Select--
                                                    </option>
-                                                   <option *ngFor="let item5 of item4.CoreData" [ngValue]="item5.Name"
+                                                   <option *ngFor="let item5 of item1.TableData.Row.CoreData" [ngValue]="item5.Name"
                                                       class="alertFontSize">
                                                       {{item5.Name}}</option>
                                                 </select>
@@ -123,10 +124,10 @@
                                              <div class="col-sm-6">
                                                 <label>To</label>
                                                 <br>
-                                                <select class="btn selectedBtn alertFontSize" [(ngModel)]="item4.CoreEnd">
+                                                <select class="btn selectedBtn alertFontSize" [(ngModel)]="item1.TableData.Row.CoreEnd">
                                                    <option [ngValue]="'select'" class="alertFontSize">--Select--
                                                    </option>
-                                                   <option *ngFor="let item5 of item4.CoreData" [ngValue]="item5.Name"
+                                                   <option *ngFor="let item5 of item1.TableData.Row.CoreData" [ngValue]="item5.Name"
                                                       class="alertFontSize">
                                                       {{item5.Name}}</option>
                                                 </select>
@@ -144,10 +145,10 @@
                                           <div class="row">
                                              <div class="col-sm-6">
                                                 <label></label><br>
-                                                <select class="btn selectedBtn alertFontSize" [(ngModel)]="item4.min">
+                                                <select class="btn selectedBtn alertFontSize" [(ngModel)]="item1.TableData.Row.min">
                                                    <option [ngValue]="'select'" class="alertFontSize">--Select--
                                                    </option>
-                                                   <option *ngFor="let item5 of item4.levels" [ngValue]="item5"
+                                                   <option *ngFor="let item5 of item1.TableData.Row.levels" [ngValue]="item5"
                                                       class="alertFontSize">
                                                       {{item5}}</option>
                                                 </select>
@@ -161,7 +162,7 @@
          
                                        <div style="margin: 10px;" (change)="toggleStatus()">
                                           <label class="switch">
-                                             <input type="checkbox" [(ngModel)]="item4.DroporCheck">
+                                             <input type="checkbox" [(ngModel)]="item1.TableData.Row.DroporCheck">
                                              <span class="slider round"></span>
                                           </label>
                                           <label class="font-italic">&nbsp;&nbsp;Dropdown / Checkbox</label>
@@ -176,11 +177,11 @@
                                        
          
                                        <div class="col-sm-4 col-md-4 card curvedCorners card1-padding"
-                                          style="max-height: 170px !important;">
-                                          <div *ngFor="let item5 of item1.TableData.Row">
+                                          style="max-height: 170px !important;" *ngIf="item1.TableData.Row">
+                                          <!-- <div *ngFor="let item5 of "> -->
                                              <div class="fixedtop">
-                                                <input type="checkbox" [(ngModel)]="item5.PackageAllSelected" [indeterminate]="item5.AtleastOnePackageSelected"
-                                                   (change)="checkUncheckAll(item5)">
+                                                <input type="checkbox" [(ngModel)]="item1.TableData.Row.PackageAllSelected" [indeterminate]="item1.TableData.Row.AtleastOnePackageSelected"
+                                                   (change)="checkUncheckAll(item1.TableData.Row)">
                                                 <label style="margin-left: 8px;">Select Package</label>
                                              </div>
                                              <div class="scroll" style="max-height: 110px !important;">
@@ -188,19 +189,19 @@
                                                    <div class="list-style">
                                                       <li [ngClass]="'cpuClicked'+item.Index+item1.Index+item6.Index"
                                                          class="list-style cpuTree"
-                                                         *ngFor="let item6 of item5.PackageData; let i=index">
+                                                         *ngFor="let item6 of item1.TableData.Row.PackageData; let i=index">
                                                          <input type="checkbox" [(ngModel)]="item6.isSelected"
                                                             (click)="cpuCheckboxClicked(item6)" [indeterminate]="item6.AtleastOneCoreSelected"
-                                                            (change)="isAllSelected(item5,item6,item.Index+item1.Index+item6.Index+';'+item6.Name)">&nbsp;<a style="cursor: pointer;"
+                                                            (change)="isAllSelected(item1.TableData.Row,item6,item.Index+item1.Index+item6.Index+';'+item6.Name)">&nbsp;<a style="cursor: pointer;"
                                                             (click)="cpuClicked(item6,item.Index+item1.Index+item6.Index+';'+item6.Name)">&nbsp;{{item6.Name}}</a>
                                                       </li>
                                                    </div>
                                                 </ul>
                                              </div>
-                                          </div>
+                                          <!-- </div> -->
                                        </div>
                                        <div class="col-sm-4 col-md-4 card curvedCorners card1-padding"
-                                          style="max-height: 170px !important;">
+                                          style="max-height: 170px !important;"  [style.display]="core.CoreData ? 'block' : 'none'">
                                           <div class="fixedtop">
                                              <input id="core" type="checkbox" type="checkbox" [(ngModel)]="core.isSelected" [indeterminate]="core.AtleastOneCoreSelected"
                                              (change)="checkAndUnCheckCore(core)">
@@ -222,19 +223,19 @@
                                        
                                        <div id="threadSelection" class="col-sm-3 col-md-3 card1 curvedCorners card1-padding"
                                           style="max-height: 170px !important;">
-                                          <div *ngFor="let item5 of item1.TableData.Row">
+                                          <div>
                                              <div class="fixedtop">
-                                                <input type="checkbox" [(ngModel)]="item5.SelectAllThread" [indeterminate]="item5.AtleastOneThreadSelected"
-                                                   (change)="selectedAllThreadData(item5)">
+                                                <input type="checkbox" [(ngModel)]="item1.TableData.Row.SelectAllThread" [indeterminate]="item1.TableData.Row.AtleastOneThreadSelected"
+                                                   (change)="selectedAllThreadData(item1.TableData.Rowem5)">
                                                 <label style="margin-left: 8px;">Select Thread</label>
                                              </div>
                                              <div class="scroll" style="max-height: 110px !important;">
                                                 <ul>
                                                    <div class="list-style">
                                                       <li 
-                                                         *ngFor="let item6 of item5.ThreadData; let i=index">
+                                                         *ngFor="let item6 of  item1.TableData.Row.ThreadData; let i=index">
                                                          <input type="checkbox" [(ngModel)]="item6.isSelected"
-                                                         (change)="selectedThreadData(item5)"> &nbsp;
+                                                         (change)="selectedThreadData(item1.TableData.Row)"> &nbsp;
                                                       {{item6.Name}}
                                                       </li>
                                                    </div>
@@ -248,8 +249,9 @@
          
                               </ng-container>
                            </div>
-
+                           <label style="margin-top: 15px;" class=" workLoadTableCC" [ngClass]="'workLoadTable'+item.Index+item1.Index">{{item1.Note}}</label>
                            <div class="btnDiv workLoadTableCC"  [ngClass]="'workLoadTable'+item.Index+item1.Index">
+                              
                               <button type="button" id="addWorkLoadbtn" class="btn btn-primary greenBtnColor"  (click)="addWorkLoad(item1,item)" >
                                  Add Workload
                               </button>
