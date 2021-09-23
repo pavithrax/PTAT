@@ -105,11 +105,6 @@ export class AlertsComponent implements OnInit {
 
   ngOnInit() {
     
-    if(this.app.platform == 'server') {
-      this.dataType = 'Serverside';
-    } else {
-      this.dataType = 'Clientside';
-    }
     this.objArray = [];
     this.alertSecShowHide = true;
     
@@ -426,6 +421,14 @@ export class AlertsComponent implements OnInit {
          }else if(getToolInfoResponse[i].key == 'CurrentIpAddress'){
               this.currentIpAddress = getToolInfoResponse[i].value;
          }
+         else if(getToolInfoResponse[i].key == 'platform_sku'){
+            if(getToolInfoResponse[i].value == 'server') {
+              this.dataType = 'Serverside';
+            } else {
+              this.dataType = 'Clientside';
+            }
+          }
+         
 
         }
 
@@ -806,7 +809,7 @@ export class AlertsComponent implements OnInit {
       if(data.data.Features.length > 0 && data != 'select') {
         this.getFeaturesData(data.data.Features);
       }
-      if(data.children.length > 0 && data != 'select') {
+      if(data.children && data.children.length > 0 && data != 'select') {
         this.getFirstChildernDataFromComponent(data.children);
       }
     }

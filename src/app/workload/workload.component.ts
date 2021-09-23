@@ -348,6 +348,11 @@ export class WorkloadComponent implements OnInit {
           if (element1.TableData.Row.PackageData) {
             this.core = element1.TableData.Row.PackageData[0];
           }
+          if(element1.TableData.Row.levels.length == 1) { 
+            $('.powerLevel').addClass("disabledbutton");
+          } else {
+            $('.powerLevel').removeClass("disabledbutton");
+          }
           // element1.TableData.Row.forEach(element2 => {
           //   // not used as combo test is not in use
           //   // if (this.workLoadName == 'Combo Test') {

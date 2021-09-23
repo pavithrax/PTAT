@@ -101,7 +101,8 @@ export class SocketService {
   public isGetGraphPoints$: Subject<any>;
   public ishostNotConnected$: Subject<any>;
   public ishostDisconnected$: Subject<any>;
-  public portNumber = 49861;
+  public portNumber = 9000;
+  // public portNumber = 49861;
   public isCastroCoveConfig$: Subject<any>;
   public isWarrenCoveConfig$: Subject<any>;
   public isSetWarrenCoveConfig$: Subject<any>;

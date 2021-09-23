@@ -41,7 +41,8 @@ export class TargetHostErrorComponent implements OnInit {
       }
    });
 
-    this.portNumber = 49861;
+    this.portNumber = 9000;
+    // this.portNumber = 49861;
 
     this.SocketService.hostNotConnectedErrorHandling().subscribe(message => {
       if (message) {

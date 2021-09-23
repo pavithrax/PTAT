@@ -107,15 +107,7 @@ liveGraphFeature:any = [];
 	private app: AppComponent) { }
 
   ngOnInit() {
-
-	if(this.app.platform == 'server') {
-		this.dataType = 'Serverside';
-	} else {
-		this.dataType = 'Clientside';
-	}
-
-	
-	// }
+	  
 	this.utility.settingsRefreshValue.subscribe(data => {
 		this.refreshTime = data;
 	})
@@ -305,6 +297,14 @@ liveGraphFeature:any = [];
 			  }else if(getToolInfoResponse[i].key == 'InstalledPath'){
 					this.InstalledPath = getToolInfoResponse[i].value;
 			  }
+			  else if(getToolInfoResponse[i].key == 'platform_sku'){
+				if(getToolInfoResponse[i].value == 'server') {
+				  this.dataType = 'Serverside';
+				} else {
+				  this.dataType = 'Clientside';
+				}
+			  }
+			 
 		   }
 		   console.log(this.logFilePath);
 		}

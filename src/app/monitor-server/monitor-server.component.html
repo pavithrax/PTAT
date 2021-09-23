@@ -1,34 +1,16 @@
 <div class="card curvedCorners" style="margin-top: -1.5rem;border: none !important;background: #fff !important;">
     <p-tabView (onChange)="onTabChange($event)" [activeIndex]="selectedIndex">
         <p-tabPanel *ngFor="let item of tabData; let i = index" [selected]="i == 0" header="{{item}}">
-            <div style="margin-top: -1rem;">
+            <div style="margin-top: -0.7rem;">
                 <p-treeTable #tt [value]="serverData" [columns]="selectedColumns" [scrollable]="true" scrollHeight="37vh"
                 [style]="{width:'100%', height:'50vh'}" [scrollable]="true" [resizableColumns]="true"
                 columnResizeMode="fit" [reorderableColumns]="true" [autoLayout]="true" styleClass="p-treetable-sm"
                 sortMode="multiple">
-                <!-- <ng-template pTemplate="caption">
-                    <div style="text-align: right">
-                        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
-                        <input type="text" pInputText size="50" placeholder="Global Filter"
-                            (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-                    </div>
-                </ng-template> -->
 
-
+                <!-- buttons moved to the end of the page ie., with system data
                 <ng-template pTemplate="caption">
                     <div class="p-grid">
-
-                        <!-- table col filter -->
-                        <!-- <div class="p-col columnFilterDropdown">
-
-                            <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-                                selectedItemsLabel="{0} columns selected" [style]="{'width': '12em'}"
-                                defaultLabel="Choose Columns">
-                            </p-multiSelect>
-                        </div> -->
-                        <!-- <button (click)="toggleTreeView(false)">collapse all</button> commented line -->
-
-                        <div class="p-col loggingButtons" style="margin-top: -3.2rem;">
+                        <div class="p-col loggingButtons">
 
                             <div id="monitorBtns" class="col-8 col-md-5 col-sm-5" style="padding-left:0px !important;">
                                 <button type="button" class="btn logButton"
@@ -47,46 +29,24 @@
                             </div>
                         </div>
                     </div>
-                </ng-template>
+                </ng-template> -->
 
-
+                <div style="margin-top: 2px;"></div>
                 <ng-template pTemplate="colgroup" let-columns>
                     <colgroup>
-                        <col *ngFor="let col of columns" style="min-width: 75px;">
+                        <col *ngFor="let col of columns" style="min-width: 100px;">
                     </colgroup>
                 </ng-template>
 
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <!-- [ttSortableColumn]="col.field" -->
+                      
                         <th *ngFor="let col of columns" ttResizableColumn ttReorderableColumn >
-                            <!-- <span *ngIf="col.header == 'Name'" style="width: 200px !important"> </span>
-                            <span *ngIf="col.header !== 'Name'" style="width: auto;"> {{col.header}} </span> -->
                             {{col.header}}                        
 
                         </th>
                     </tr>
-
-                    <!-- used to sort the table -->
-                    <!-- <tr>
-                        <th *ngFor="let col of columns">
-                            <input pInputText type="text"
-                                (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)"
-                                style="padding:0px;border-radius : 5px;">
-                        </th>
-                    </tr> -->
                 </ng-template>
-
-                <!-- <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                    <tr>
-                        <td *ngFor="let col of columns; let i = index" [ngClass]="getOrderStyle(rowData) && 'monitorValue' + col.field +
-                            rowData['index']">
-                            <p-treeTableToggler [rowNode]=" rowNode" *ngIf="i == 0">
-                            </p-treeTableToggler>
-                            <span>{{rowData[col.field]}}</span>
-                        </td>
-                    </tr>
-                </ng-template> -->
 
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                     <tr>
@@ -111,7 +71,7 @@
                         <td [attr.colspan]="cols.length">No data found.</td>
                     </tr>
                 </ng-template>
-            </p-treeTable>
+                </p-treeTable>
             </div>
         
 
@@ -122,8 +82,25 @@
     <div class="sysData">
         <b>System Data</b>
         <br>
-        <label>CPU Power</label> &nbsp;&nbsp;
-        <button class="btn btn-primary" style="font-size: 11px;" > -</button>  &nbsp;&nbsp;
+        <span *ngFor="let data of systemDataHeaders">
+            <label>{{data.Name}}</label>&nbsp;&nbsp;
+            <button class="btn btn-primary serverMonitorData-{{data.Index}}" style="font-size: 11px;" > {{data.Value}}</button>  &nbsp;&nbsp;
+        </span>
+        <button type="button" class="btn logButton"
+            [disabled]="btnFlag1 && loggingstatus == true"
+            style="float:right;margin-right:6px; padding:6px !important;"
+            (click)="startLoggingClick()"
+            [ngClass]="loggingstatus ? 'greenBtnColor' : 'redBtnColor'">{{
+            loggingstatus == true ? 'Start
+            Logging' : 'Stop Logging' }}</button>
+        <button type="button" class="btn startButton" [disabled]="btnFlag"
+            style="float:right;margin-right:10px; padding:6px !important;"
+            (click)="startMonitorClick()"
+            [ngClass]="monitorstatus ? 'greenBtnColor' : 'redBtnColor'">
+            {{ monitorstatus == true ? 'Start Monitor' : 'Stop Monitor'}}
+        </button>
+        <!-- <label>CPU Power</label> &nbsp;&nbsp;
+        
         <label>CPU Usage</label> &nbsp;&nbsp;
         <button class="btn btn-primary" style="font-size: 11px;" > -</button>  &nbsp;&nbsp;
         <label>MEM Power</label>  &nbsp;&nbsp;
@@ -133,7 +110,7 @@
         <label>MEM Read</label>  &nbsp;&nbsp;
         <button class="btn btn-primary"  style="font-size: 11px;">-</button>  &nbsp;&nbsp;
         <label>MEM Write</label>  &nbsp;&nbsp;
-        <button class="btn btn-primary"  style="font-size: 11px;"> -</button>
+        <button class="btn btn-primary"  style="font-size: 11px;"> -</button> -->
     </div>
 
 </div>

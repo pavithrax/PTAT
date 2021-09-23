@@ -37,13 +37,14 @@ export class AppComponent {
    liveAnalysisClickCount: number = 0;
    ScriptClickCount: number = 0;
    tatLogAnalysisClickCount: number = 0;
-   public portNumber = 49861;
+   public portNumber = 9000;
+   // public portNumber = 49861;
    osInformation: any = "";
    hideNavBar: any = true;
    licenseNavBar: boolean = true;
    sidePanelToggleFlag: number = 0;
    powerVisualizationOpenStatus: any = "";
-   platform: string = "server";
+   platform: string = "";
 
    constructor(private utility: UtilityServiceService, private spinner: NgxSpinnerService, public socket: SocketService) {
 
@@ -125,7 +126,10 @@ export class AppComponent {
                   this.platform = this.getToolInfoResponse[i].value;
                   console.log(this.platform);
                }
-
+               else if (this.getToolInfoResponse[i].key == 'platform_sku'){
+                  this.platform = this.getToolInfoResponse[i].value;
+                  console.log(this.platform);
+               }
 
             }
 

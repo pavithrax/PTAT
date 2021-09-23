@@ -85,7 +85,7 @@ export class MonitorServerComponent implements OnInit {
     counter: number = 1;
 
     colHeaders: any = [];
-
+    systemDataHeaders:any = [];
 
     ngOnInit() {
         this.loading = true;
@@ -99,23 +99,32 @@ export class MonitorServerComponent implements OnInit {
                     this.SocketService.sendMessage(getSettingsCommand);
                 }
                 this.SocketService.sendMessage(command);
-                let colHeaders1 = {
-                    'CPU':['Name','Core Frequency','Uncore Frequency','Utilization','IPC','C0','C1','C6','PC2','Temperature','DTS','Voltage','Power'],
-                    'MEM': ['Name','Dts']
+                // let colHeaders1 = {
+                //     'CPU':['Name','Core Frequency','Uncore Frequency','Utilization','IPC','C0','C1','C6','PC2','Temperature','DTS','Voltage','Power'],
+                //     'MEM': ['Name','Dts']
             
-                };
+                // };
+                let colHeaders1 = message.TableHeader;
+                this.systemDataHeaders = message.SystemData;
+                // this.systemDataHeaders.forEach(element => {
+                //     element.Value = "-";
+                // });
                 // let arr;
                 Object.keys(colHeaders1).forEach(key => this.colHeaders.push({
                     Name: key,
                     child: colHeaders1[key]
                 }));
+               
+                this.colHeaders.forEach(element => {
+                    element.child.splice(0,0,'Name')
+                });
                 console.log(this.colHeaders);
-                    
                 this.counter++
 
                 //console.log(message.data);
                 this.dataArr = message.Data;
                 this.setUpGrid();
+                
             }
         });
 
@@ -130,8 +139,8 @@ export class MonitorServerComponent implements OnInit {
                     var startMonitorResponseHandler = message.Data;
                     var smrhLen = startMonitorResponseHandler.length - 1;
                     for (let i = 0; i <= smrhLen; i++) {
-                        let key = startMonitorResponseHandler[i].index;
-                        let value = startMonitorResponseHandler[i].value;
+                        let key = startMonitorResponseHandler[i].Key;
+                        let value = startMonitorResponseHandler[i].Value;
                         let classToAppend = "serverMonitorData-" + key;
                         $("." + classToAppend).html(value);
                     }
@@ -200,119 +209,126 @@ export class MonitorServerComponent implements OnInit {
 
 
     onTabChange($event) {
+        console.log($event);
+        this.cols = [];
         this.selectedIndex = $event.index;
         console.log(this.tabView.tabs[this.selectedIndex].header);
         this.selectedTab = this.tabView.tabs[this.selectedIndex].header;
 
         //send the command to backend to load Component specific data --- not really and to be removed
 
-        if (this.selectedTab == "CPU") {
+        // if (this.selectedTab == "CPU") {
 
-            this.cols = [
-                { field: 'Name', header: 'Name' },
-                { field: 'Core Frequency', header: 'CoreFrequency' },
-                { field: 'Uncore Frequency', header: 'UnCoreFrequency' },
-                { field: 'Utilization', header: 'Utilization' },
-                { field: 'IPC', header: 'IPC' },
-                { field: 'C0', header: 'C0' },
-                { field: 'C1', header: 'C1' },
-                { field: 'C6', header: 'C6' },
-                { field: 'PC2', header: 'PC2' },
-                { field: 'Temperature', header: 'Temperature' },
-                { field: 'DTS', header: 'DTS' },
-                { field: 'Voltage', header: 'Voltage' },
-                { field: 'Power', header: 'Power' }
-            ];
+        //     this.cols = [
+        //         { field: 'Name', header: 'Name' },
+        //         { field: 'Core Frequency', header: 'CoreFrequency' },
+        //         { field: 'Uncore Frequency', header: 'UnCoreFrequency' },
+        //         { field: 'Utilization', header: 'Utilization' },
+        //         { field: 'IPC', header: 'IPC' },
+        //         { field: 'C0', header: 'C0' },
+        //         { field: 'C1', header: 'C1' },
+        //         { field: 'C6', header: 'C6' },
+        //         { field: 'PC2', header: 'PC2' },
+        //         { field: 'Temperature', header: 'Temperature' },
+        //         { field: 'DTS', header: 'DTS' },
+        //         { field: 'Voltage', header: 'Voltage' },
+        //         { field: 'Power', header: 'Power' }
+        //     ];
 
-            this.selectedColumns = this.cols;
-            this.serverData = this.dataArr[0]["CPU"];
-        }
-        else if (this.selectedTab == "PCH") {
+        //     this.selectedColumns = this.cols;
+        //     this.serverData = this.dataArr[0]["CPU"];
+        // }
+        // else if (this.selectedTab == "PCH") {
 
-            this.cols = [
-                { field: 'Name', header: 'Name' },
-                { field: 'Core Frequency', header: 'CoreFrequency' },
-                { field: 'Uncore Frequency', header: 'UnCoreFrequency' },
-                { field: 'Utilization', header: 'Utilization' },
-                { field: 'IPC', header: 'IPC' },
-                { field: 'C0', header: 'C0' },
-                { field: 'C1', header: 'C1' },
-                { field: 'C6', header: 'C6' },
-                { field: 'PC2', header: 'PC2' },
-                { field: 'Temperature', header: 'Temperature' },
-                { field: 'DTS', header: 'DTS' },
-                { field: 'Voltage', header: 'Voltage' },
-                { field: 'Power', header: 'Power' }
-            ];
+        //     this.cols = [
+        //         { field: 'Name', header: 'Name' },
+        //         { field: 'Core Frequency', header: 'CoreFrequency' },
+        //         { field: 'Uncore Frequency', header: 'UnCoreFrequency' },
+        //         { field: 'Utilization', header: 'Utilization' },
+        //         { field: 'IPC', header: 'IPC' },
+        //         { field: 'C0', header: 'C0' },
+        //         { field: 'C1', header: 'C1' },
+        //         { field: 'C6', header: 'C6' },
+        //         { field: 'PC2', header: 'PC2' },
+        //         { field: 'Temperature', header: 'Temperature' },
+        //         { field: 'DTS', header: 'DTS' },
+        //         { field: 'Voltage', header: 'Voltage' },
+        //         { field: 'Power', header: 'Power' }
+        //     ];
 
-            this.selectedColumns = this.cols;
-            this.serverData = this.dataArr[0]["PCH"];
-        }
-        else if (this.selectedTab == "MEM") {
+        //     this.selectedColumns = this.cols;
+        //     this.serverData = this.dataArr[0]["PCH"];
+        // }
+        // else if (this.selectedTab == "MEM") {
 
-            this.cols = [
-                { field: 'Name', header: 'Name' },
-                { field: 'Core Frequency', header: 'CoreFrequency' },
-                { field: 'Uncore Frequency', header: 'UnCoreFrequency' },
-                { field: 'Utilization', header: 'Utilization' },
-                { field: 'IPC', header: 'IPC' },
-                { field: 'C0', header: 'C0' },
-                { field: 'C1', header: 'C1' },
-                { field: 'C6', header: 'C6' },
-                { field: 'PC2', header: 'PC2' },
-                { field: 'Temperature', header: 'Temperature' },
-                { field: 'DTS', header: 'DTS' },
-                { field: 'Voltage', header: 'Voltage' },
-                { field: 'Power', header: 'Power' }
-            ];
+        //     this.cols = [
+        //         { field: 'Name', header: 'Name' },
+        //         { field: 'Core Frequency', header: 'CoreFrequency' },
+        //         { field: 'Uncore Frequency', header: 'UnCoreFrequency' },
+        //         { field: 'Utilization', header: 'Utilization' },
+        //         { field: 'IPC', header: 'IPC' },
+        //         { field: 'C0', header: 'C0' },
+        //         { field: 'C1', header: 'C1' },
+        //         { field: 'C6', header: 'C6' },
+        //         { field: 'PC2', header: 'PC2' },
+        //         { field: 'Temperature', header: 'Temperature' },
+        //         { field: 'DTS', header: 'DTS' },
+        //         { field: 'Voltage', header: 'Voltage' },
+        //         { field: 'Power', header: 'Power' }
+        //     ];
 
-            this.selectedColumns = this.cols;
-            this.serverData = this.dataArr[0]["MEM"];
-        }
+        //     this.selectedColumns = this.cols;
+        //     this.serverData = this.dataArr[0]["MEM"];
+        // }
         // above code to be removed
 
+        console.log(this.colHeaders);
+        console.log(this.selectedTab);
         
-        let array = this.colHeaders.map(item => item.Name == this.selectedTab);
-        console.log(array);
-        
-        this.cols = [];
-        array.child.forEach(element1 => {
-            console.log(element1);
-            
-            this.cols.push({field:element1,header: element1.replace(" ","") })
+        this.colHeaders.forEach(item => {
+            if(item.Name == this.selectedTab) {
+                item.child.forEach(element1 => {
+                    console.log(element1);
+                    
+                    this.cols.push({field:element1,header: element1.replace(" ","") })
+                });
+            }
         });
+       
+        
         console.log(this.cols);
         this.selectedColumns = this.cols;
-        this.serverData = this.dataArr[0][this.selectedTab];
+        this.dataArr.forEach(element => {
+            // Object.entries(element) 
+            let arr = Object.keys(element);
+            console.log(arr);
+            
+            if(arr[0] == this.selectedTab) {
+                this.serverData = element[arr[0]];
+            }
+        });
+        
+        // if(this.selectedTab == 'MEM') {
+        //     this.serverData = this.dataArr[0]["MEM"];
+        // }
+        console.log(this.serverData);
+        console.log(this.dataArr);
+        
 
     }
 
 
 
     setUpGrid() {
-        Object.keys(this.dataArr[0]).forEach((e) => {
-            //console.log(e);
-            this.tabData.push(e);
+        console.log(this.dataArr);
+        this.dataArr.forEach(element => {
+            Object.keys(element).forEach((e) => {
+                console.log(e);
+                this.tabData.push(e);
+            });
         });
-
-        // to be removed later 
-        // this.cols = [
-        //     { field: 'Name', header: 'Name' },
-        //     { field: 'Core Frequency', header: 'CoreFrequency' },
-        //     { field: 'Uncore Frequency', header: 'UnCoreFrequency' },
-        //     { field: 'Utilization', header: 'Utilization' },
-        //     { field: 'IPC', header: 'IPC' },
-        //     { field: 'C0', header: 'C0' },
-        //     { field: 'C1', header: 'C1' },
-        //     { field: 'C6', header: 'C6' },
-        //     { field: 'PC2', header: 'PC2' },
-        //     { field: 'Temperature', header: 'Temperature' },
-        //     { field: 'DTS', header: 'DTS' },
-        //     { field: 'Voltage', header: 'Voltage' },
-        //     { field: 'Power', header: 'Power' }
-        // ];
-
-
+        
+        console.log(this.tabData);
         this.cols = [];
         this.colHeaders.forEach(element => {
             if(element.Name == this.tabData[0]) {
@@ -330,7 +346,7 @@ export class MonitorServerComponent implements OnInit {
         
 
         this.selectedColumns = this.cols;
-        console.log(this.tabData[0]);
+        console.log(this.tabData);
         
         this.serverData = this.dataArr[0][this.tabData[0]];
         this.selectedTab = this.tabData[0];
