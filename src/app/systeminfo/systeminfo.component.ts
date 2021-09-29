@@ -30,7 +30,68 @@ export class SysteminfoComponent implements OnInit {
         if(message.CommandStatus.Status == 'Success'){
           if(!this.receivedData){
           this.receivedData = true;
-          this.setSystemInfoData(message.Data);
+          // this.setSystemInfoData(message.Data);
+          let data =  [
+            {
+              "Information": [
+                {
+                  "Index": '1',
+                  "Name": "CPU0",
+                  "Value": ["CPUID : 0xA067 ","Stepping : 0x1 ","Graphics ID : 0x4C8A "],
+                  'expand': true
+                },
+                {
+                  "Index": '2',
+                  "Name": "CPU1",
+                  "Value": ["CPUID : 0xA067 ","Stepping : 0x1 ","Graphics ID : 0x4C8A "],
+                  'expand': true
+                },
+                {
+                  "Index": '3',
+                  "Name": "CPU2",
+                  "Value": ["CPUID : 0xA067 ","Stepping : 0x1 ","Graphics ID : 0x4C8A "],
+                  'expand': true
+                }
+              ],
+              "pluginName": "CPU Component"
+            },
+            {
+              "Information": [
+                {
+                  "Index": '4',
+                  "Name": "MEM0",
+                  "Value": ["MEMID : 0xA067 ","Stepping : 0x1 ","Graphics ID : 0x4C8A "],
+                  'expand': true
+                },
+                {
+                  "Index": '5',
+                  "Name": "MEM1",
+                  "Value": ["MEMID : 0xA067 ","Stepping : 0x1 ","Graphics ID : 0x4C8A "],
+                  'expand': true
+                },
+                {
+                  "Index": '6',
+                  "Name": "MEM2",
+                  "Value": ["MEMID : 0xA067 ","Stepping : 0x1 ","Graphics ID : 0x4C8A "],
+                  'expand': true
+                }
+              ],
+              "pluginName": "MEM Component"
+            },
+            {
+              "Information": [
+                {
+                  "Index": '7',
+                  "Name": "PCH",
+                  "Value": ["PCHID : 0x4384 "],
+                  'expand': true
+                }
+              ],
+              "pluginName": "PCH Component"
+            }
+          ]
+        
+          this.setSystemInfoData(data);
         }
         
         }else{
@@ -76,5 +137,8 @@ export class SysteminfoComponent implements OnInit {
       }
   }
 
+  collapseOrExpand(item) {
+    item.expand = !item.expand;
+  }
 
 }
