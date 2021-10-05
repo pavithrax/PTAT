@@ -190,10 +190,10 @@ childNode(event) {
    var cmd = ""
    if(checkBoxStatus){
       //var cmd = 'AddToMonitorList('+Index+')';
-       cmd = '{"Command" : "AddToMonitorList","Args":'+'"'+Index+'"'+'}'
+       cmd = '{"Command" : "AddToMonitorList","params" : {"Args":'+'"'+Index+'"'+'}}'
    }else{
       // var cmd = 'RemoveFromMonitorList('+Index+')';
-       cmd =  '{"Command" : "RemoveFromMonitorList","Args":'+'"'+Index+'"'+'}'
+       cmd =  '{"Command" : "RemoveFromMonitorList","params" : {"Args":'+'"'+Index+'"'+'}}'
    }
    this.SocketService.sendMessage(cmd);
  }
@@ -216,13 +216,13 @@ childNode(event) {
       //$('#'+minimizedId).remove();
        //cmd = 'AddToMonitorList('+parent_Index+','+Index+')';
       //  cmd = '{"Command" : "AddToMonitorList","Args":'+'"'+parent_Index+','+Index+'"'+'}'
-       cmd = '{"Command" : "AddToMonitorList","Args":'+'"'+Index+'"'+'}'
+       cmd = '{"Command" : "AddToMonitorList","params" : {"Args":'+'"'+Index+'"'+'}}'
    }else{
 	$('#'+minimizedId).remove();
       //$('#maximizeDiv').empty();
       //  cmd = 'RemoveFromMonitorList('+parent_Index+','+Index+')'; 
       // cmd = '{"Command" : "RemoveFromMonitorList","Args":'+'"'+parent_Index+','+Index+'"'+'}'
-      cmd = '{"Command" : "RemoveFromMonitorList","Args":'+'"'+Index+'"'+'}'
+      cmd = '{"Command" : "RemoveFromMonitorList","params" : {"Args":'+'"'+Index+'"'+'}}'
    }
    this.SocketService.sendMessage(cmd);
    this.data.updateData(arrayOfData);
@@ -267,11 +267,12 @@ superParentNode(event,obj,superparent){
    if(parentCheckBoxStatus){
       $('#maximizeDiv').empty();
       // var cmd = 'AddPluginToMonitorList('+Index+')';
-       cmd = '{"Command" : "AddPluginToMonitorList","Args":'+'"'+Index+'"'+'}'
+       cmd = '{"Command" : "AddToMonitorList","params" : {"Args":'+'"'+Index+'"'+'}}'
    }else{
       // var cmd = 'RemovePluginFromMonitorList('+Index+')'; 
-       cmd = '{"Command" : "RemovePluginFromMonitorList","Args":'+'"'+Index+'"'+'}'
+       cmd = '{"Command" : "RemoveFromMonitorList","params" : {"Args":'+'"'+Index+'"'+'}}'
    }
+   
    this.SocketService.sendMessage(cmd);
    this.data.updateData(arrayOfData);
 
@@ -283,7 +284,12 @@ superParentNode(event,obj,superparent){
 
  
 monitorNode(event,obj){
+   console.log(event);
+   console.log(obj);
+   
+   
    let arrayOfData = [];
+   let Index = obj.Index;
    let parentCheckBoxStatus = event.currentTarget.checked;
    var treeListLen = obj.Treelist.length-1;
    for (let i = 0 ; i<=treeListLen;i++){
@@ -303,13 +309,17 @@ monitorNode(event,obj){
       $('#maximizeDiv').empty();
       $('.equalspacing').show();
       // var cmd = 'AddToMonitorList()';
-      cmd = '{"Command" : "AddToMonitorList"}'
+      // cmd = '{"Command" : "AddToMonitorList"}'
+      cmd = '{"Command" : "AddToMonitorList","params" : {"Args":'+'"'+Index+'"'+'}}'
    }else{
       $('#maximizeDiv').empty();
       // var cmd = 'RemoveFromMonitorList()';
-      cmd = '{"Command" : "RemoveFromMonitorList"}'
+      // cmd = '{"Command" : "RemoveFromMonitorList"}'
+      cmd =  '{"Command" : "RemoveFromMonitorList","params" : {"Args":'+'"'+Index+'"'+'}}'
       $('.equalspacing').hide(); 
    }
+
+   
    this.SocketService.sendMessage(cmd);
 
    this.data.updateData(arrayOfData);

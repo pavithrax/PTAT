@@ -743,12 +743,12 @@ export class WorkloadComponent implements OnInit {
             DisableList: data.DisableList
           })
       }
-  
+
       this.workLoadDataArray.forEach(element => {
         $('.workLoadTable' + element.editIndex.split(";")[0] + ' #addWorkLoadbtn').text('Update Workload');
       })
     }
-    
+
   }
 
   editWorkload(data) {
@@ -807,7 +807,7 @@ export class WorkloadComponent implements OnInit {
 
     if (this.startInterval) {
       clearInterval(this.startInterval);
-   }
+    }
   }
 
   // css changes basically
@@ -820,9 +820,9 @@ export class WorkloadComponent implements OnInit {
       $('.startstopworkload').removeClass('redBtnColor');
       if (this.startInterval) {
         clearInterval(this.startInterval);
-     }
+      }
     } else {
-      this.workLoadDataArray.forEach(item =>{ 
+      this.workLoadDataArray.forEach(item => {
         // item.status = 'Running';
         // needs to deleted later mock data to check start workload
         this.startWorkLoadCmd(item);
@@ -874,15 +874,15 @@ export class WorkloadComponent implements OnInit {
       a.push(b += step || 1);
     }
     return a;
-    
-    
+
+
   }
   startInterval: any;
 
   startWorkLoadCmd(data) {
     let selectedtest;
     let cmd: any = {}
-    cmd.cmd = 'StartWorkload';
+    cmd.Command = 'StartWorkload';
     let dummyThread = [], packageStart = [], coreStart = [];
     this.workloadArray.forEach(element => {
       if (element.Name == data.ParentName) {
@@ -893,75 +893,101 @@ export class WorkloadComponent implements OnInit {
         });
       }
     });
+    cmd.params = [];
     // start workload params
-    cmd.params = {
+    // cmd.extraString = data.editIndex;
+    let params = {
       "workload": data.ParentName, // CPU ie., parent value
-      "coreTest": data.Name, // TDP or Core IAsse ie., child
-      "powerlevel": 0, // power level
-      "pkgRange": [], //  holds selected pkgs from dropdown
-      "coreRange": [], //  holds selected cores from dropdown
-      'selectedPkgs': {}, //  holds selcetd pkgs nd core from checkbox
-      'selectedThreads': [], // holds selcetd threads from checkbox
-      'isDataSelectedFromRange': false
+      "core-test": data.Name, // TDP or Core IAsse ie., child
+      "pwr-level": 0, // power level
+      "pkg-range": [], //  holds selected pkgs from dropdown
+      "core-range": [], //  holds selected cores from dropdown
+      // 'selectedPkgs': {}, //  holds selcetd pkgs nd core from checkbox
+      'selected-threads': [], // holds selcetd threads from checkbox
+      'workload-str': data.editIndex
+      // 'isDataSelectedFromRange': false
     }
 
     // for tests like tdp ie., no power level selection
     if (selectedtest.Note !== "") {
-      cmd.params.powerlevel = 100
+      params['pwr-level'] = 100
     } else {
       let testData = selectedtest.TableData.Row
-      cmd.params.powerlevel = testData.powerLevel
+      params['pwr-level'] = testData.powerLevel
       console.log(testData);
       testData.ThreadData.forEach(element => {
-        if(element.isSelected) {
-          dummyThread.push(element.Name)
+        if (element.isSelected) {
+          dummyThread.push(parseInt(element.Name.replace(/[^\d]/g, '')))
         }
       });
-      cmd.params.selectedThreads = dummyThread;
+      params['selected-threads'] = dummyThread;
 
       // dropcheck == true ie., selection is from range(dropdown) else selection is freom checkbox
-      if(testData.DroporCheck) {
+      if (testData.DroporCheck) {
 
-        cmd.params.isDataSelectedFromRange = true;
-        packageStart.push(testData.PackageStart,testData.PackageEnd);
-        coreStart.push(testData.CoreStart,testData.CoreEnd);
+        // params.isDataSelectedFromRange = true; to be uncommented later
 
-        cmd.params.pkgRange = packageStart;
-        cmd.params.coreRange = coreStart;
+
+        // packageStart.push(testData.PackageStart,testData.PackageEnd);
+        // coreStart.push(testData.CoreStart,testData.CoreEnd);
+
+        params['pkg-range'] = this.iterator1(parseInt(testData.PackageStart.replace(/[^\d]/g, '')), parseInt(testData.PackageEnd.replace(/[^\d]/g, '')));
+        params['core-range'] = this.iterator1(parseInt(testData.CoreStart.replace(/[^\d]/g, '')), parseInt(testData.CoreEnd.replace(/[^\d]/g, '')));
+        // params.coreRange = coreStart;
       } else {
-       
+
         let obj = {}
         testData.PackageData.forEach(element => {
           let coreData = element.CoreData.filter(item => item.isSelected);
-          if(coreData.length > 0) {
+          if (coreData.length > 0) {
             let arr = [];
             coreData.map(item => arr.push(item.Name))
             obj[element.Name] = arr;
           }
         });
         // console.log(obj);
-        cmd.params.selectedPkgs = obj;
+        // params.selectedPkgs = obj;
       }
-     
+      
     }
-    cmd.extraString = data.editIndex;
-    console.log(cmd);
+    cmd.params.push(params)
 
-    this.startInterval = setInterval(() => {
-        this.update(cmd);
-    }, 1000);
+    console.log(cmd);
+    let asd = {
+      "cmd": "StartWorkload",
+      "params": {
+        "workload": "CPUTest",
+        "core-test": "avx2",
+        "pwr-level": 50,
+        "pkg-range": [0],
+        "core-range": [0,1,2, 3,4,5],
+        "selected-threads": [ 0, 1 ],
+        "workload-str": "00;avx2"
+      }
+    }
+    // this.startInterval = setInterval(() => {
+    //     this.update(cmd);
+    // }, 1000);
   }
 
   closeWorkloadWarningModal() {
     this.showWorkloadModal = false;
   }
-  
+
   update(cmd) {
     console.log(cmd);
-    let dummy  = this.workLoadDataArray.filter(item => item.Name == cmd.params.coreTest);
+    let dummy = this.workLoadDataArray.filter(item => item.Name == cmd.params.coreTest);
     console.log(dummy);
-    
+
     dummy[0].status = 'Running';
+  }
+
+  iterator1(start, end) {
+    let arr: any = [];
+    for (let i = start; i <= end; i++) {
+      arr.push(i);
+    }
+    return arr;
   }
 }
 

@@ -159,8 +159,8 @@
          
                                        </div>
                                        
-         
-                                       <div style="margin: 10px;" (change)="toggleStatus()">
+                                       <!-- remove class disabledbutton later -->
+                                       <div style="margin: 10px;" (change)="toggleStatus()" class="disabledbutton">
                                           <label class="switch">
                                              <input type="checkbox" [(ngModel)]="item1.TableData.Row.DroporCheck">
                                              <span class="slider round"></span>
@@ -270,7 +270,7 @@
             <div class="card curvedCorners workLoadCard" style="margin-top: 5px;height:34vh !important">
                <div class="card-header curvedCorners" style="padding-bottom: 7px;">
                    <h6 class="cardHeading">Selected Tests</h6>
-                   <div class="card" style="height:21vh;">
+                   <div class="card" style="height:70%;">
                        <div class="card-body statusBody" style="overflow: auto;">
                            <div class="bodyDataAnalysis" style="height: 84%;" >
                               

@@ -107,6 +107,6 @@
 }
 
 td:first-child { 
-    width: 140px !important;
+    width: 200px !important;
 }
-th:first-child { width: 140px !important;}
+th:first-child { width: 200px !important;}

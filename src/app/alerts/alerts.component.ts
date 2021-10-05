@@ -595,6 +595,8 @@ export class AlertsComponent implements OnInit {
     let UidList = "";
     let expAddition = [];
     for(let i = 0; i < this.alertInputData.length; i++) {
+      console.log(this.alertInputData[i]);
+      
       let e = this.alertInputData[i];
       let exp = {
         "expSymbol": e.expSymbol,
@@ -608,11 +610,13 @@ export class AlertsComponent implements OnInit {
         "underScore": "_"
       };   
       //Explanantion is below
+      console.log(exp);
       
       expStr += ((exp.expSymbol) ? exp.expSymbol : "") + exp.itemPname+ exp.underScore + exp.itemName+exp.itemUnit+
         ((exp.itemType == 1) ? this.stringType : this.numberType)[exp.conditionType]["symbol"]+
         exp.selectedInputVal;      
         //Explanantion is below
+      console.log(expStr);
       
 
       expId += ((exp.expSymbol) ? exp.expSymbol : "") +"$" + exp.itemIndex + "$" +((exp.itemType == 1) ? this.stringType : this.numberType)[exp.conditionType]["symbol"] +
@@ -873,7 +877,9 @@ export class AlertsComponent implements OnInit {
           parentName += "_"+ this.selectedSecondChildComponent.data.Name
         }
       }
-      this.selectedFeature.itemUnit = this.selectedFeature.unit;
+      console.log(this.selectedFeature);
+      
+      this.selectedFeature.itemUnit = this.selectedFeature.Param.unit;
       this.selectedFeature.underScore = "_";
       this.selectedFeature.itemName = this.selectedFeature.Name;
       this.selectedFeature.itemPname = parentName;
