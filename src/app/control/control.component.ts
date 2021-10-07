@@ -69,8 +69,10 @@ export class ControlComponent implements OnInit {
 
     this.SocketService.getControlDataRes().subscribe(message => {
       if (message) {
-        // this.controlResponse = message.Data;
-        this.controlResponse = data.Data;
+        this.controlResponse = message.Data;
+        let data:any = {};
+        data.Data = message.Data
+        // this.controlResponse = data.Data;
         console.log(this.controlResponse);
         console.log(data.Data[0].Index);
         

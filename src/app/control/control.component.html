@@ -27,8 +27,8 @@
             <h6>Control - {{controlName}}</h6>
             <ng-container *ngFor="let item of controlResponse">
               <ng-container *ngFor="let item1 of item.DropDownList">    
-                <div class="curvedCorners table-responsive controlTableCC hide controlDiv" id="controlFixHead" style="height: calc(100vh - 221px) !important" [ngClass]="'controlTable'+item.Index+item1.Index">
-                  <table  class="table controlTableCC hide" [ngClass]="'controlTable'+item.Index+item1.Index">                  
+                <div class="curvedCorners table-responsive controlTableCC  controlDiv" id="controlFixHead" style="height: calc(100vh - 221px) !important" [ngClass]="'controlTable'+item.Index+item1.Index">
+                  <table  class="table controlTableCC" [ngClass]="'controlTable'+item.Index+item1.Index">                  
                     <thead class="tatTableHeader">
                       <tr>
                         <ng-container *ngFor="let item2 of item1.header">

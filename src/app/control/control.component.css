@@ -11,7 +11,9 @@
   my-slider {
     transform: scale(2);
   }
-  
+  .hide{
+    display: none!important;
+  }
   ::ng-deep .mat-accent .mat-slider-thumb {
     background-color: #005EB7;
   } 
