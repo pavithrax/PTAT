@@ -97,136 +97,175 @@ export class WorkloadComponent implements OnInit {
 
     });
 
+    // this.SocketService.StartWorkloadRes().subscribe(message => {
+    //   console.log(message);
+      
+    //   if (message) {
+
+    //     // if($('.'+"workLoadSetButton"+this.currentStartStopButtonClass).text().toLowerCase() == "start"){
+    //     //   $('.'+"workLoadSetButton"+this.currentStartStopButtonClass).html("Stop");
+    //     //   $('.'+"workLoadSetButton"+this.currentStartStopButtonClass).removeClass("tatButtonColour");
+    //     //   $('.'+"workLoadSetButton"+this.currentStartStopButtonClass).addClass('btn-danger');
+    //     // }  
+
+    //     this.response = message;
+    //     //var dummy = '{"Command":"StartWorkload","CommandStatus":{"Status":"Success","Message":""},"Data":{"Component":{"Name":"CPU Component","Index":"0"},"DropDownData":{"Name":"CPU Power","Index":"0"},"Instance":{"Name":"Gfx","Index":"34","Status":"UIAction","Count":"1","Filename":"Gfxworkload.html","Arguments":"255","DisableList":"5"}}}';
+    //     //var dummyJSON = JSON.parse(dummy);
+    //     //this.response = dummyJSON;
+    //     // console.log(message);
+    //     var tempData = this.response.Data;
+    //     let parIndex = tempData.Component.Index;
+    //     let childIndex = tempData.DropDownData.Index;
+    //     let instanceIndex = tempData.Instance.Index;
+    //     let instanceStatus = tempData.Instance.Status;
+    //     let disableIndex = tempData.Instance.DisableList;
+    //     let count = tempData.Instance.Count;
+    //     let gfxFileName = tempData.Instance.Filename;
+    //     let gfxArguments = tempData.Instance.Arguments;
+    //     //let currentValue = "workLoadTableFourthColumn"+parIndex+childIndex+instanceIndex;
+
+    //     if (instanceStatus.toLowerCase() == "running" || instanceStatus.toLowerCase() == "uiaction") {
+    //       if ($('.' + "workLoadSetButton" + this.currentStartStopButtonClass).text().toLowerCase() == "start") {
+    //         $('.' + "workLoadSetButton" + this.currentStartStopButtonClass).html("Stop");
+    //         $('.' + "workLoadSetButton" + this.currentStartStopButtonClass).removeClass("greenBtnColor");
+    //         $('.' + "workLoadSetButton" + this.currentStartStopButtonClass).addClass('redBtnColor');
+    //       }
+
+
+    //       if (count != undefined) {
+    //         instanceStatus = "Running";
+    //         gfxFileName = "assets//" + gfxFileName;
+    //         var filename = [];
+    //         var args = [];
+    //         var workloadCount = 0;
+
+    //         filename[workloadCount] = gfxFileName;
+
+    //         args[workloadCount] = gfxArguments;
+
+    //         var gfxDivId = "divGfx" + workloadCount + "_" + parIndex + childIndex + instanceIndex;
+    //         var gfxFrameId = "frameGfx" + workloadCount + "_" + parIndex + childIndex + instanceIndex;
+
+    //         var filepath = filename[workloadCount] + '?str=' + args[workloadCount];
+
+    //         var gfxContainerDiv = document.createElement('div');
+    //         gfxContainerDiv.setAttribute('id', gfxDivId);
+    //         gfxContainerDiv.setAttribute('class', "gfxDivStyle");
+
+    //         var gfxContainerFrame = document.createElement('iframe');
+    //         gfxContainerFrame.setAttribute('id', gfxFrameId);
+    //         gfxContainerFrame.setAttribute('class', "gfxFrameStyle");
+
+    //         var body = document.getElementById("pageBody");
+    //         body.appendChild(gfxContainerDiv);
+    //         gfxContainerDiv.appendChild(gfxContainerFrame);
+    //         gfxContainerDiv.setAttribute('title', "GFX Workload");
+    //         this.launchGfxWorkload(filepath, gfxDivId, gfxFrameId);
+    //         this.g_GfxDialogId.push(gfxDivId);
+    //       }
+    //     }
+
+
+    //     this.workloadArray[parIndex].DropDownList[childIndex].TableData.Row[instanceIndex].Status = instanceStatus;
+    //     if (instanceStatus.toLowerCase() == "failed") {
+    //       return false;
+    //     }
+    //     if (disableIndex == undefined || disableIndex == null) {
+    //       return false;
+    //     }
+    //     var disableArray = disableIndex.split(',');
+    //     var len = disableArray.length;
+    //     for (let i = 0; i < len; i++) {
+    //       var tableClass = 'workLoadTableRow' + parIndex + childIndex + disableArray[i];
+    //       $('.' + tableClass).find("button").attr("disabled", "disabled");
+    //     }
+
+    //   }
+    // });
+
     this.SocketService.StartWorkloadRes().subscribe(message => {
-
-      if (message) {
-
-        // if($('.'+"workLoadSetButton"+this.currentStartStopButtonClass).text().toLowerCase() == "start"){
-        //   $('.'+"workLoadSetButton"+this.currentStartStopButtonClass).html("Stop");
-        //   $('.'+"workLoadSetButton"+this.currentStartStopButtonClass).removeClass("tatButtonColour");
-        //   $('.'+"workLoadSetButton"+this.currentStartStopButtonClass).addClass('btn-danger');
-        // }  
-
-        this.response = message;
-        //var dummy = '{"Command":"StartWorkload","CommandStatus":{"Status":"Success","Message":""},"Data":{"Component":{"Name":"CPU Component","Index":"0"},"DropDownData":{"Name":"CPU Power","Index":"0"},"Instance":{"Name":"Gfx","Index":"34","Status":"UIAction","Count":"1","Filename":"Gfxworkload.html","Arguments":"255","DisableList":"5"}}}';
-        //var dummyJSON = JSON.parse(dummy);
-        //this.response = dummyJSON;
-        // console.log(message);
-        var tempData = this.response.Data;
-        let parIndex = tempData.Component.Index;
-        let childIndex = tempData.DropDownData.Index;
-        let instanceIndex = tempData.Instance.Index;
-        let instanceStatus = tempData.Instance.Status;
-        let disableIndex = tempData.Instance.DisableList;
-        let count = tempData.Instance.Count;
-        let gfxFileName = tempData.Instance.Filename;
-        let gfxArguments = tempData.Instance.Arguments;
-        //let currentValue = "workLoadTableFourthColumn"+parIndex+childIndex+instanceIndex;
-
-        if (instanceStatus.toLowerCase() == "running" || instanceStatus.toLowerCase() == "uiaction") {
-          if ($('.' + "workLoadSetButton" + this.currentStartStopButtonClass).text().toLowerCase() == "start") {
-            $('.' + "workLoadSetButton" + this.currentStartStopButtonClass).html("Stop");
-            $('.' + "workLoadSetButton" + this.currentStartStopButtonClass).removeClass("greenBtnColor");
-            $('.' + "workLoadSetButton" + this.currentStartStopButtonClass).addClass('redBtnColor');
-          }
-
-
-          if (count != undefined) {
-            instanceStatus = "Running";
-            gfxFileName = "assets//" + gfxFileName;
-            var filename = [];
-            var args = [];
-            var workloadCount = 0;
-
-            filename[workloadCount] = gfxFileName;
-
-            args[workloadCount] = gfxArguments;
-
-            var gfxDivId = "divGfx" + workloadCount + "_" + parIndex + childIndex + instanceIndex;
-            var gfxFrameId = "frameGfx" + workloadCount + "_" + parIndex + childIndex + instanceIndex;
-
-            var filepath = filename[workloadCount] + '?str=' + args[workloadCount];
-
-            var gfxContainerDiv = document.createElement('div');
-            gfxContainerDiv.setAttribute('id', gfxDivId);
-            gfxContainerDiv.setAttribute('class', "gfxDivStyle");
-
-            var gfxContainerFrame = document.createElement('iframe');
-            gfxContainerFrame.setAttribute('id', gfxFrameId);
-            gfxContainerFrame.setAttribute('class', "gfxFrameStyle");
-
-            var body = document.getElementById("pageBody");
-            body.appendChild(gfxContainerDiv);
-            gfxContainerDiv.appendChild(gfxContainerFrame);
-            gfxContainerDiv.setAttribute('title', "GFX Workload");
-            this.launchGfxWorkload(filepath, gfxDivId, gfxFrameId);
-            this.g_GfxDialogId.push(gfxDivId);
-          }
+      console.log(message);
+      
+      if(message) {
+       
+        if(message.CommandStatus.Status !== 'error') {
+          $('.startstopworkload').html('Stop Workload');
+          $('.startstopworkload').removeClass("greenBtnColor");
+          $('.startstopworkload').addClass('redBtnColor');
+          this.workLoadDataArray.forEach(item => {
+            if(item.Name == message.Data.params['core-test'] && item.editIndex == message.Data.params['workload-str']) {
+              item.status = 'Running';
+            }
+          })
         }
-
-
-        this.workloadArray[parIndex].DropDownList[childIndex].TableData.Row[instanceIndex].Status = instanceStatus;
-        if (instanceStatus.toLowerCase() == "failed") {
-          return false;
-        }
-        if (disableIndex == undefined || disableIndex == null) {
-          return false;
-        }
-        var disableArray = disableIndex.split(',');
-        var len = disableArray.length;
-        for (let i = 0; i < len; i++) {
-          var tableClass = 'workLoadTableRow' + parIndex + childIndex + disableArray[i];
-          $('.' + tableClass).find("button").attr("disabled", "disabled");
-        }
-
+        
       }
-    });
 
+    })
+
+
+    // this.SocketService.StopWorkloadRes().subscribe(message => {
+    //   if (message) {
+    //     // console.log("workload Data Received");
+    //     //console.log(message);
+
+    //     if ($('.' + "workLoadSetButton" + this.currentStartStopButtonClass).text().toLowerCase() == "stop") {
+    //       $('.' + "workLoadSetButton" + this.currentStartStopButtonClass).html("Start");
+    //       $('.' + "workLoadSetButton" + this.currentStartStopButtonClass).removeClass('redBtnColor');
+    //       $('.' + "workLoadSetButton" + this.currentStartStopButtonClass).addClass("greenBtnColor");
+    //     }
+
+    //     this.response = message;
+    //     var tempData = this.response.Data;
+    //     let parIndex = tempData.Component.Index;
+    //     let childIndex = tempData.DropDownData.Index;
+    //     let instanceIndex = tempData.Instance.Index;
+    //     let instanceStatus = tempData.Instance.Status;
+    //     let disableIndex = tempData.Instance.DisableList;
+    //     var gfxDialogIdEndsWith = parIndex + childIndex + instanceIndex;
+    //     this.StopGfxWorkload(gfxDialogIdEndsWith);
+    //     //  let currentValue = "workLoadTableFourthColumn"+parIndex+childIndex+instanceIndex;
+    //     //   if(instanceStatus.toLowerCase() == "running"){
+    //     //    $("."+currentValue).addClass('text-success')
+    //     //   }else if(instanceStatus.toLowerCase() == "failed"){
+    //     //     $("."+currentValue).addClass('text-danger')
+    //     //   }else{
+    //     //     $("."+currentValue).removeClass('text-danger');
+    //     //     $("."+currentValue).removeClass('text-success');
+    //     //   }
+    //     //     $("."+currentValue).html(instanceStatus);
+    //     this.workloadArray[parIndex].DropDownList[childIndex].TableData.Row[instanceIndex].Status = instanceStatus;
+
+    //     if (disableIndex == undefined || disableIndex == null) {
+    //       return false;
+    //     }
+
+    //     var disableArray = disableIndex.split(',');
+    //     for (let i = 0; i < disableArray.length; i++) {
+    //       var tableClass = 'workLoadTableRow' + parIndex + childIndex + disableArray[i];
+    //       $('.' + tableClass).find("button").removeAttr("disabled");
+    //     }
+    //   }
+    // });
 
     this.SocketService.StopWorkloadRes().subscribe(message => {
-      if (message) {
-        // console.log("workload Data Received");
-        //console.log(message);
-
-        if ($('.' + "workLoadSetButton" + this.currentStartStopButtonClass).text().toLowerCase() == "stop") {
-          $('.' + "workLoadSetButton" + this.currentStartStopButtonClass).html("Start");
-          $('.' + "workLoadSetButton" + this.currentStartStopButtonClass).removeClass('redBtnColor');
-          $('.' + "workLoadSetButton" + this.currentStartStopButtonClass).addClass("greenBtnColor");
-        }
-
-        this.response = message;
-        var tempData = this.response.Data;
-        let parIndex = tempData.Component.Index;
-        let childIndex = tempData.DropDownData.Index;
-        let instanceIndex = tempData.Instance.Index;
-        let instanceStatus = tempData.Instance.Status;
-        let disableIndex = tempData.Instance.DisableList;
-        var gfxDialogIdEndsWith = parIndex + childIndex + instanceIndex;
-        this.StopGfxWorkload(gfxDialogIdEndsWith);
-        //  let currentValue = "workLoadTableFourthColumn"+parIndex+childIndex+instanceIndex;
-        //   if(instanceStatus.toLowerCase() == "running"){
-        //    $("."+currentValue).addClass('text-success')
-        //   }else if(instanceStatus.toLowerCase() == "failed"){
-        //     $("."+currentValue).addClass('text-danger')
-        //   }else{
-        //     $("."+currentValue).removeClass('text-danger');
-        //     $("."+currentValue).removeClass('text-success');
-        //   }
-        //     $("."+currentValue).html(instanceStatus);
-        this.workloadArray[parIndex].DropDownList[childIndex].TableData.Row[instanceIndex].Status = instanceStatus;
-
-        if (disableIndex == undefined || disableIndex == null) {
-          return false;
-        }
-
-        var disableArray = disableIndex.split(',');
-        for (let i = 0; i < disableArray.length; i++) {
-          var tableClass = 'workLoadTableRow' + parIndex + childIndex + disableArray[i];
-          $('.' + tableClass).find("button").removeAttr("disabled");
+      console.log(message);
+      
+      if(message) {
+        
+        this.workLoadDataArray.forEach(item => {
+          if(item.Name == message.Data.params['core-test'] && item.editIndex == message.Data.params['workload-str']) {
+            item.status = 'Stopped';
+          }
+        });
+        let count = this.workLoadDataArray.filter(item => item.status == 'Running');
+        if (count.length == 0) {
+          $('.startstopworkload').html('Start Workload');
+          $('.startstopworkload').addClass("greenBtnColor");
+          $('.startstopworkload').removeClass('redBtnColor');
         }
       }
-    });
-
+    })
   }
 
 
@@ -766,9 +805,9 @@ export class WorkloadComponent implements OnInit {
   startIndvWorkload(data) {
     this.selectedWorkLoadName = '';
     // data.status = 'Running';
-    $('.startstopworkload').html('Stop Workload');
-    $('.startstopworkload').removeClass("greenBtnColor");
-    $('.startstopworkload').addClass('redBtnColor');
+    // $('.startstopworkload').html('Stop Workload');
+    // $('.startstopworkload').removeClass("greenBtnColor");
+    // $('.startstopworkload').addClass('redBtnColor');
 
     this.startWorkLoadCmd(data);
     let sendingData: any = {};
@@ -796,40 +835,47 @@ export class WorkloadComponent implements OnInit {
 
   stopIndvWorkload(data) {
     this.selectedWorkLoadName = '';
-    data.status = 'Stopped';
-
+    // data.status = 'Stopped';
+    this.stopWorkloadCmd(data);
     let count = this.workLoadDataArray.filter(item => item.status == 'Running');
     if (count.length == 0) {
-      $('.startstopworkload').html('Start Workload');
-      $('.startstopworkload').addClass("greenBtnColor");
-      $('.startstopworkload').removeClass('redBtnColor');
+      // $('.startstopworkload').html('Start Workload');
+      // $('.startstopworkload').addClass("greenBtnColor");
+      // $('.startstopworkload').removeClass('redBtnColor');
     }
 
-    if (this.startInterval) {
-      clearInterval(this.startInterval);
-    }
+    // if (this.startInterval) {
+    //   clearInterval(this.startInterval);
+    // }
   }
 
   // css changes basically
   startAllWorkload() {
     this.selectedWorkLoadName = '';
     if ($('.startstopworkload').text().toLowerCase() == 'stop workload') {
-      this.workLoadDataArray.forEach(item => item.status = 'Stopped');
-      $('.startstopworkload').html('Start Workload');
-      $('.startstopworkload').addClass("greenBtnColor");
-      $('.startstopworkload').removeClass('redBtnColor');
+
+      
+      this.workLoadDataArray.forEach(item => {
+        this.stopWorkloadCmd(item);
+      });
+
+      // below code to be removed later
+      // $('.startstopworkload').html('Start Workload');
+      // $('.startstopworkload').addClass("greenBtnColor");
+      // $('.startstopworkload').removeClass('redBtnColor');
       if (this.startInterval) {
         clearInterval(this.startInterval);
       }
+      // above code to be removed later
     } else {
       this.workLoadDataArray.forEach(item => {
-        // item.status = 'Running';
-        // needs to deleted later mock data to check start workload
         this.startWorkLoadCmd(item);
       });
-      $('.startstopworkload').html('Stop Workload');
-      $('.startstopworkload').removeClass("greenBtnColor");
-      $('.startstopworkload').addClass('redBtnColor');
+      //below code to be removed later
+      // $('.startstopworkload').html('Stop Workload');
+      // $('.startstopworkload').removeClass("greenBtnColor");
+      // $('.startstopworkload').addClass('redBtnColor');
+      // above code to be removed later
     }
 
   }
@@ -858,11 +904,14 @@ export class WorkloadComponent implements OnInit {
     this.workLoadDataArray.forEach(element => {
       $('.workLoadTreeCC').each(function (index, item) {
         var $item = $(item);
-        element.DisableList.forEach(element1 => {
-          if ($item.text().toLowerCase().replace(/ /g, "") == element1.toLowerCase().replace(/ /g, "")) {
-            $item.addClass('disabledbutton');
-          }
-        });
+        if(element.DisableList) {
+          element.DisableList.forEach(element1 => {
+            if ($item.text().toLowerCase().replace(/ /g, "") == element1.toLowerCase().replace(/ /g, "")) {
+              $item.addClass('disabledbutton');
+            }
+          });
+        }
+        
       });
     })
   }
@@ -894,8 +943,6 @@ export class WorkloadComponent implements OnInit {
       }
     });
     cmd.params = [];
-    // start workload params
-    // cmd.extraString = data.editIndex;
     let params = {
       "workload": data.ParentName, // CPU ie., parent value
       "core-test": data.Name, // TDP or Core IAsse ie., child
@@ -909,8 +956,14 @@ export class WorkloadComponent implements OnInit {
     }
 
     // for tests like tdp ie., no power level selection
-    if (selectedtest.Note !== "") {
+    if (!selectedtest.TableData.Row.CoreCount || !selectedtest.TableData.Row.CoreCount == undefined) {
       params['pwr-level'] = 100
+      let testData = selectedtest.TableData.Row
+      params['pkg-range'] = this.iterator1(parseInt(testData.PackageStart.replace(/[^\d]/g, '')), parseInt(testData.PackageEnd.replace(/[^\d]/g, '')));
+      
+      let cmd = '{"Command": "StartWorkload","params":[{"workload":"'+params.workload+ '","core-test":"'+ params['core-test']+ '","pwr-level": 100,"pkg-range":['+params['pkg-range']+'], "core-range": [],"selected-threads": [],"workload-str":"'+ data.editIndex+'"}]}'
+      this.SocketService.sendMessage(cmd);
+
     } else {
       let testData = selectedtest.TableData.Row
       params['pwr-level'] = testData.powerLevel
@@ -925,15 +978,12 @@ export class WorkloadComponent implements OnInit {
       // dropcheck == true ie., selection is from range(dropdown) else selection is freom checkbox
       if (testData.DroporCheck) {
 
-        // params.isDataSelectedFromRange = true; to be uncommented later
-
-
-        // packageStart.push(testData.PackageStart,testData.PackageEnd);
-        // coreStart.push(testData.CoreStart,testData.CoreEnd);
-
         params['pkg-range'] = this.iterator1(parseInt(testData.PackageStart.replace(/[^\d]/g, '')), parseInt(testData.PackageEnd.replace(/[^\d]/g, '')));
         params['core-range'] = this.iterator1(parseInt(testData.CoreStart.replace(/[^\d]/g, '')), parseInt(testData.CoreEnd.replace(/[^\d]/g, '')));
-        // params.coreRange = coreStart;
+        let cmd = '{"Command": "StartWorkload","params":[{"workload":"'+params.workload+ '","core-test":"'+ params['core-test']+ '","pwr-level":'+ params['pwr-level']+',"pkg-range":['+params['pkg-range']+'], "core-range": ['+params['core-range']+'],"selected-threads": ['+params['selected-threads']+'],"workload-str":"'+ data.editIndex+'"}]}'
+        // let cmd = '{"Command": "StartWorkload","params":[{"workload":"pmem","core-test":"PMEM Read","pwr-level":50,"pkg-range":[0], "core-range": [0,1,2,3,4,5,6,7],"selected-threads": [0,1],"workload-str":"10;PMEM Read"}]}'
+        this.SocketService.sendMessage(cmd);
+
       } else {
 
         let obj = {}
@@ -945,6 +995,7 @@ export class WorkloadComponent implements OnInit {
             obj[element.Name] = arr;
           }
         });
+        // to be checked later when they backend is implemented for checkbox
         // console.log(obj);
         // params.selectedPkgs = obj;
       }
@@ -952,24 +1003,17 @@ export class WorkloadComponent implements OnInit {
     }
     cmd.params.push(params)
 
-    console.log(cmd);
-    let asd = {
-      "cmd": "StartWorkload",
-      "params": {
-        "workload": "CPUTest",
-        "core-test": "avx2",
-        "pwr-level": 50,
-        "pkg-range": [0],
-        "core-range": [0,1,2, 3,4,5],
-        "selected-threads": [ 0, 1 ],
-        "workload-str": "00;avx2"
-      }
-    }
-    // this.startInterval = setInterval(() => {
-    //     this.update(cmd);
-    // }, 1000);
+    // console.log(cmd);
+    // this.SocketService.sendMessage(cmd);
+    
+    
   }
 
+  stopWorkloadCmd(data) {
+    let cmd = '{"Command": "StopWorkload","params": [{"workload": "' +data.ParentName+'","core-test":"'+ data.Name+'","workload-str": "'+data.editIndex+'"}]}'
+    this.SocketService.sendMessage(cmd);
+    
+  }
   closeWorkloadWarningModal() {
     this.showWorkloadModal = false;
   }

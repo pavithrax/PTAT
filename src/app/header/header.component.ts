@@ -663,8 +663,8 @@ savewarrenCov(){
    }
 
 
-   resetworkLoad(){
-      var command = '{"Command" : "ResetControl"}'
+   resetControl(){
+      var command = '{"Command" : "ResetAllControl"}'
       this.SocketService.sendMessage(command);
       //this.SocketService.sendMessage("ResetControl()");
    }

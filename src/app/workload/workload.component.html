@@ -145,7 +145,7 @@
                                           <div class="row">
                                              <div class="col-sm-6">
                                                 <label></label><br>
-                                                <select class="btn selectedBtn alertFontSize" [(ngModel)]="item1.TableData.Row.min">
+                                                <select class="btn selectedBtn alertFontSize" [(ngModel)]="item1.TableData.Row.powerLevel">
                                                    <option [ngValue]="'select'" class="alertFontSize">--Select--
                                                    </option>
                                                    <option *ngFor="let item5 of item1.TableData.Row.levels" [ngValue]="item5"
@@ -249,13 +249,21 @@
          
                               </ng-container>
                            </div>
-                           <label style="margin-top: 15px;" class=" workLoadTableCC" [ngClass]="'workLoadTable'+item.Index+item1.Index">{{item1.Note}}</label>
-                           <div class="btnDiv workLoadTableCC"  [ngClass]="'workLoadTable'+item.Index+item1.Index">
+                           <div class="row">
+                              <div class="col-sm-10">
+                                 <label style="margin-top: 15px;" class=" workLoadTableCC" [ngClass]="'workLoadTable'+item.Index+item1.Index">{{item1.Note}}</label>
+                              </div>
+                              <div class="col-sm-2">
+                                 <div class="btnDiv workLoadTableCC"  [ngClass]="'workLoadTable'+item.Index+item1.Index">
                               
-                              <button type="button" id="addWorkLoadbtn" class="btn btn-primary greenBtnColor"  (click)="addWorkLoad(item1,item)" >
-                                 Add Workload
-                              </button>
+                                    <button type="button" id="addWorkLoadbtn" class="btn btn-primary greenBtnColor"  (click)="addWorkLoad(item1,item)" >
+                                       Add Workload
+                                    </button>
+                                 </div>
+                              </div>
                            </div>
+                           
+                           
                         </ng-container>
                         
                      </ng-container>
@@ -289,11 +297,11 @@
                                              
                                           </td>
                                           <td>
-                                             <span *ngIf="data.status.toLowerCase() == 'running'" class="fas fa-stop-circle" (click)="stopIndvWorkload(data)"style="color: red;"></span>            
-                                             <span *ngIf="data.status.toLowerCase() == 'failed' || data.status.toLowerCase() == 'stopped'" class="fas fa-play-circle" (click)="startIndvWorkload(data)"style="color: green;"></span>
+                                             <span *ngIf="data.status == 'Running'" class="fas fa-stop-circle" (click)="stopIndvWorkload(data)"style="color: red;"></span>            
+                                             <span *ngIf="data.status == 'Failed' || data.status == 'Stopped'" class="fas fa-play-circle" (click)="startIndvWorkload(data)"style="color: green;"></span>
                                              
                                              <a
-                                                [ngClass]="{'text-success':data.status.toLowerCase() == 'running','text-danger':data.status.toLowerCase() == 'failed'}">
+                                                [ngClass]="{'text-success':data.status == 'Running','text-danger':data.status == 'Failed'}">
                                                 &nbsp;&nbsp; {{data.status}}
                                              </a>
                                              

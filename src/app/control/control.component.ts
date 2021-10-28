@@ -29,6 +29,9 @@ export class ControlComponent implements OnInit {
   showControlWarningModal:boolean;
   controlWarningCheckBoxStatus: boolean = false;
 
+  controltable: any = '';
+  controltree: any = '';
+
   @HostListener('scroll', ['$event'])
   onScroll(event: any) {
     if(event.target.scrollTop == 0 )   {
@@ -45,11 +48,11 @@ export class ControlComponent implements OnInit {
   cmdSetControl = "SetControl(#componentName,#componentIndex,#controlName,#controlIndex,#instanceName,#instanceIndex,#newvalue)";
 
   ngOnInit() {
-    if(this.app.platform == 'server') {
-      this.dataType = 'Serverside';
-    } else {
-      this.dataType = 'Clientside';
-    }
+    // if(this.app.platform == 'server') {
+    //   this.dataType = 'Serverside';
+    // } else {
+    //   this.dataType = 'Clientside';
+    // }
 
     this.SocketService.getToolInfo().subscribe(message => {
       if (message) {
@@ -57,6 +60,12 @@ export class ControlComponent implements OnInit {
          for (var i = 0; i < this.getToolInfoResponse.length; i++) {
             if (this.getToolInfoResponse[i].key == 'ShowControlWarning') {
                this.controlWarningPopupStatus = this.getToolInfoResponse[i].value;
+            } else if(this.getToolInfoResponse[i].key == 'platform_sku'){
+              if(this.getToolInfoResponse[i].value == 'server') {
+                this.dataType = 'Serverside';
+              } else {
+                this.dataType = 'Clientside';
+              }
             }
          }
       } else {
@@ -76,17 +85,41 @@ export class ControlComponent implements OnInit {
         console.log(this.controlResponse);
         console.log(data.Data[0].Index);
         
+        this.controlResponse.forEach(element => {
+          if(element.Name == 'CPU Component') {
+            element.DropDownList.forEach(element1 => {
+              if(element1.Name == 'Integrated Graphics') {
+                if(element1.TableData[0].param.currentLevel == 0) {
+                  element1.TableData[0].param.currentLevel = 'No Limit'
+                }
+                element1.TableData[0].param.DropDownValue[0]='No Limit'
+              }
+            });
+          }
+        });
+        
         var firstContolName = data.Data[0].DropDownList[0].Name;
         console.log(firstContolName);
         console.log(data.Data[0].Index.toString()+data.Data[0].DropDownList[0].Index.toString() +';'+firstContolName);
         setTimeout(() => {
-          this.controlTree(data.Data[0].Index +data.Data[0].DropDownList[0].Index.toString() +';'+firstContolName);
+          if(this.controltable== '' || this.controltree == '') {
+            this.controlTree(data.Data[0].Index +data.Data[0].DropDownList[0].Index.toString() +';'+firstContolName);
+          } else  {
+            $('.controlTableCC').addClass('hide');
+            $('.controlTreeCC').removeClass('colorSelectedTree');
+            $(this.controltree).addClass('colorSelectedTree');  
+            $(this.controltable).removeClass('hide');
+           
+          }
+          
           this.spinner.hide();
         }, 0); 
       }
     });
 
     this.SocketService.updateControlDataRes().subscribe(message => {
+      console.log(message);
+      
       if (message) {
         //this.controlId = splitResponse[0];
         // this.firstItemName = splitResponse[1];
@@ -103,6 +136,7 @@ export class ControlComponent implements OnInit {
 
 
     this.SocketService.SetControlRes().subscribe(message => {
+      console.log(message);
       if (message) {
        this.setControlResponse = message;
       let setControlReceived = this.setControlResponse.Data.DropDownData.updateCurrentLevel;
@@ -126,7 +160,7 @@ export class ControlComponent implements OnInit {
   }
 
   controlTree(response){
-    // var response = data.toString()+res;
+
     console.log(response);;
     
     var splitResponse = response.split(";");
@@ -141,9 +175,17 @@ export class ControlComponent implements OnInit {
     $('.controlTreeCC').removeClass('colorSelectedTree');
     $("."+controlTree).addClass('colorSelectedTree');  
     $("."+controlTable).removeClass('hide');
+    this.controltable = "."+controlTable
+    this.controltree = "."+controlTree
+
+    
   }
   
-  setControl(arg,arg1,arg2,arg3,arg4,arg5){
+  setControl(arg,arg1,arg2,arg3,arg4,arg5,name,parent){
+    console.log(arg,arg1,arg2,arg3,arg4,arg5);
+    console.log(parent);
+    
+    // not used to be deleted later
     let componentName = arg2;
     let componentIndex = arg3;
     let controlName = arg4;
@@ -166,18 +208,23 @@ export class ControlComponent implements OnInit {
     if(sliderValToBackend !== sliderValToBackend){
       sliderValToBackend = 0;
     }
-      var command :any = "";
-      // command = this.cmdSetControl;
-      //command = command.replace("#componentName",componentName).replace("#componentIndex",componentIndex).replace("#controlName",controlName).replace("#controlIndex",controlIndex).replace("#instanceName",currentRowName).replace("#instanceIndex",rowIndex).replace("#newvalue",sliderValToBackend);
-      var setControlCommand = '{"Command" : "SetControl","Args":'+'"'+componentName+","+componentIndex+","+controlName+","+controlIndex+","+currentRowName+","+rowIndex+","+sliderValToBackend+'"'+'}'
-      this.setControlCommonCommand = setControlCommand;
+     let referenceCommand = ''
+      console.log(arg1.slider);
+      
+      let sliderVal = Math.floor(arg1.slider/arg1.param.Stepsize);
+      if(sliderVal == NaN || sliderVal === NaN || arg1.slider == undefined) {
+        sliderVal = arg1.param.Min;
+      }
+      console.log(sliderVal);
+      referenceCommand = '{"Command": "StartControl","params": [{"control":"'+ parent.controlInfo+ '", "set_level": [{"test": "'+arg1.param.commandInfo+'", "level": '+sliderVal+'} ]}]}'
+      console.log(referenceCommand);
+     this.setControlCommonCommand = referenceCommand;
       if(this.controlWarningPopupStatus == 0){
         this.SocketService.sendMessage(this.setControlCommonCommand);
       }
-      //this.SocketService.sendMessage(setControlCommand);
 
     }else if(arg === "dropdown"){
-      var receivedRowReferance = arg1.split(':');
+      var receivedRowReferance = name.split(':');
       var currentRowIndex = receivedRowReferance[1];
       var rowReferance = receivedRowReferance[0]+receivedRowReferance[1];
       var currentSelectedRowName = $('.controlTableFirstRow'+rowReferance).html().trim();
@@ -191,14 +238,16 @@ export class ControlComponent implements OnInit {
             dropDownIndex = i
         }
       }
-      //command = this.cmdSetControl;
-      //command = command.replace("#componentName",componentName).replace("#componentIndex", componentIndex).replace("#controlName", controlName).replace("#controlIndex", controlIndex).replace("#instanceName", currentSelectedRowName).replace("#instanceIndex",currentRowIndex).replace("#newvalue",dropDownIndex);
-      var setControlCommand = '{"Command" : "SetControl","Args":'+'"'+componentName+","+componentIndex+","+controlName+","+controlIndex+","+currentSelectedRowName+","+currentRowIndex+","+dropDownIndex+'"'+'}'
-      this.setControlCommonCommand = setControlCommand;
+      
+      // use the below format
+      // let referenceCommand = '{"scriptCmds": [{"Command": "StartControl","params": [{"control": "cpu_od_clk_mod","set_level": [{"test": "core 0", "level": 2} ]}]}]}'
+      let referenceCommand = '';
+      referenceCommand = '{"Command": "StartControl","params": [{"control":"'+ parent.controlInfo + '", "set_level": [{"test": "'+arg1.param.commandInfo+'", "level": '+dropDownIndex+',"Index":"3"} ]}]}';
+      console.log(referenceCommand);
+      this.setControlCommonCommand = referenceCommand;
       if(this.controlWarningPopupStatus == 0){
         this.SocketService.sendMessage(this.setControlCommonCommand);
       }
-      // this.SocketService.sendMessage(setControlCommand);
     }
   }
 

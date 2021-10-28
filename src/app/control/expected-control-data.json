@@ -1,0 +1,335 @@
+{
+	"Command": "GetControlData",
+	"CommandStatus": {
+		"Message": "successmessages",
+		"Status": "Success"
+	},
+	"Data": [
+		{
+			"DropDownList": [
+				{
+					"Index": "2",
+					"Name": "IA Turbo ON/OFF",
+					"controlInfo":"cpu_turbo",
+					"TableData": [
+						{
+							"Index": "3",
+							"Name": "CPU 0",
+							
+							"param": {
+								"Action": "DropDown",
+								"ButtonName": "Set",
+								"DropDownValue": [
+									"Disable",
+									"Enable"
+								],
+								"commandInfo": "core_0",
+								"coreId": 0,
+								"currentLevel": "Enable"
+							}
+						},
+						{
+							"Index": "4",
+							"Name": "CPU 1",
+							
+							"param": {
+								"Action": "DropDown",
+								"ButtonName": "Set",
+								"DropDownValue": [
+									"Disable",
+									"Enable"
+								],
+								"commandInfo": "core_1",
+								"coreId": 1,
+								"currentLevel": "Enable"
+							}
+						}
+					],
+					"Tooltip": "CPU Control that would allow to either Enable or Disable Intel(R) Dyanmic Acceleration Technology ",
+					"header": [
+						"Instance",
+						"Levels",
+						"Action",
+						"CurrentLevel"
+					]
+				},
+				{
+					"Index": "11",
+					"Name": "IA on Demand Clock Modulation",
+					"controlInfo":"cpu_od_clk_mod",
+					"TableData": [
+						{
+							"Index": "12",
+							"Name": "CPU 0",
+							"param": {
+								"Action": "Slider",
+								"ButtonName": "Set",
+								"Max": 93.75,
+								"Min": 0.0,
+								"Stepsize": 6.25,
+								"commandInfo": "core_0",
+								"coreId": 0,
+								"currentLevel": 0
+							}
+						},
+						{
+							"Index": "13",
+							"Name": "CPU 1",
+							"param": {
+								"Action": "Slider",
+								"ButtonName": "Set",
+								"Max": 93.75,
+								"Min": 0.0,
+								"Stepsize": 6.25,
+								"commandInfo": "core_1",
+								"coreId": 1,
+								"currentLevel": 0
+							}
+						}
+					],
+					"Tooltip": "CPU Control that would enable Processor Based On Demand Throttling. This control can be applied on individual cores",
+					"header": [
+						"Instance",
+						"Levels",
+						"Action",
+						"CurrentLevel"
+					]
+				},
+				{
+					"Index": "20",
+					"Name": "Integrated Graphics",
+					"controlInfo":"cpu_gfx",
+					"TableData": [
+						{
+							"Index": "21",
+							"Name": "Gfx Frequency Limit",
+							"Tooltip": "Limits maximum Gfx frequency that can be attained",
+							"param": {
+								"Action": "DropDown",
+								"ButtonName": "Set",
+								"Max": 1150,
+								"Min": 300,
+								"Stepsize": 50,
+								"commandInfo": "cpu_gfx_freq",
+								"currentLevel": 0
+							}
+						}
+					],
+					"Tooltip": "This control helps to modify or tune Gfx parameters",
+					"header": [
+						"Instance",
+						"Levels",
+						"Action",
+						"CurrentLevel"
+					]
+				},
+				{
+					"Index": "22",
+					"Name": "Package",
+					"controlInfo":"package",
+					"TableData": [
+						{
+							"Index": "23",
+							"Name": "MSR Package Power Limit-1 Power",
+							"Tooltip": "CPU Control that would enable to change Package_Power_Limit_1. Please refer to Section 6 of the PTAT user guide for more information.",
+							"param": {
+								"Action": "Slider",
+								"ButtonName": "Set",
+								"Max": 19.5,
+								"Min": 1.0,
+								"Stepsize": 0.5,
+								"commandInfo": "cpu_msr_pl1_pow",
+								"currentLevel": 10
+							}
+						},
+						{
+							"Index": "24",
+							"Name": "MSR Package Power Limit-2 Power",
+							"Tooltip": "CPU Control that would enable to change Package_Power_Limit_2. Please refer to Section 6 of the PTAT user guide for more information.",
+							"param": {
+								"Action": "Slider",
+								"ButtonName": "Set",
+								"Max": 250.0,
+								"Min": 4.0,
+								"Stepsize": 1.0,
+								"commandInfo": "cpu_msr_pl2_pow",
+								"currentLevel": 57
+							}
+						},
+						{
+							"Index": "25",
+							"Name": "MMIO Package Power Limit-1 Power",
+							"Tooltip": "CPU Control that would enable to change MMIO_Power_Limit_1_Power.",
+							"param": {
+								"Action": "Slider",
+								"ButtonName": "Set",
+								"Max": 156.0,
+								"Min": 8.0,
+								"Stepsize": 4.0,
+								"commandInfo": "cpu_mmio_pl1_pow",
+								"currentLevel": 28
+							}
+						}
+					],
+					"header": [
+						"Instance",
+						"Levels",
+						"Action",
+						"CurrentLevel"
+					]
+				},
+				{
+					"Index": "35",
+					"Name": "Power Delivery",
+					"controlInfo":"cpu_pmax",
+					"TableData": [
+						{
+							"Index": "36",
+							"Name": "Active Duration in a cycle(secs)",
+							"Tooltip": "Set the active duration(secs) for the workload",
+							"param": {
+								"Action": "Slider",
+								"ButtonName": "Set",
+								"Max": 100,
+								"Min": 1,
+								"Stepsize": 1,
+								"commandInfo": "cpu_pd_act_dur",
+								"currentLevel": 1
+							}
+						},
+						{
+							"Index": "37",
+							"Name": "Start Delay(secs)",
+							"Tooltip": "Set the start delay(secs) for the workload",
+							"param": {
+								"Action": "Slider",
+								"ButtonName": "Set",
+								"Max": 100,
+								"Min": 0,
+								"Stepsize": 1,
+								"commandInfo": "cpu_pd_start_delay",
+								"currentLevel": 0
+							}
+						},
+						{
+							"Index": "38",
+							"Name": "Idle Duration in a cycle(secs)",
+							"Tooltip": "Set the idle time duration(secs) between cycles",
+							"param": {
+								"Action": "Slider",
+								"ButtonName": "Set",
+								"Max": 100,
+								"Min": 0,
+								"Stepsize": 1,
+								"commandInfo": "cpu_pd_idle_dur",
+								"currentLevel": 0
+							}
+						}
+					],
+					"Tooltip": "This control helps to set parameters for Power Delivery workload",
+					"header": [
+						"Instance",
+						"Levels",
+						"Action",
+						"CurrentLevel"
+					]
+				}
+			],
+			"Index": "1",
+			"Name": "CPU Component",
+			"expand": true
+		},
+		{
+			"DropDownList": [
+				{
+					"Index": "40",
+					"Name": "LTR Ignore",
+					"controlInfo":"soix_ltr_ignore",
+					"TableData": [
+						{
+							"Index": "41",
+							"Name": "SPA",
+							"param": {
+								"Action": "DropDown",
+								"ButtonName": "Set",
+								"DropDownValue": [
+									"LTR Ignore",
+									"LTR Ignore Reset"
+								],
+								"commandInfo": "soix_spa",
+								"currentLevel": "LtrIgnoreReset"
+							}
+						},
+						{
+							"Index": "42",
+							"Name": "SPB",
+							"param": {
+								"Action": "DropDown",
+								"ButtonName": "Set",
+								"DropDownValue": [
+									"LTR Ignore",
+									"LTR Ignore Reset"
+								],
+								"commandInfo": "soix_spb",
+								"currentLevel": "LtrIgnoreReset"
+							}
+						},
+						{
+							"Index": "43",
+							"Name": "SATA",
+							"param": {
+								"Action": "DropDown",
+								"ButtonName": "Set",
+								"DropDownValue": [
+									"LTR Ignore",
+									"LTR Ignore Reset"
+								],
+								"commandInfo": "soix_sata",
+								"currentLevel": "LtrIgnoreReset"
+							}
+						},
+						{
+							"Index": "44",
+							"Name": "GBE",
+							"param": {
+								"Action": "DropDown",
+								"ButtonName": "Set",
+								"DropDownValue": [
+									"LTR Ignore",
+									"LTR Ignore Reset"
+								],
+								"commandInfo": "soix_gbe",
+								"currentLevel": "LtrIgnoreReset"
+							}
+						},
+						{
+							"Index": "45",
+							"Name": "XHCI",
+							"param": {
+								"Action": "DropDown",
+								"ButtonName": "Set",
+								"DropDownValue": [
+									"LTR Ignore",
+									"LTR Ignore Reset"
+								],
+								"commandInfo": "soix_xhci",
+								"currentLevel": "LtrIgnoreReset"
+							}
+						}
+					],
+					"Tooltip": "Used to ignore lTR of specific SOiX IP",
+					"header": [
+						"Instance",
+						"Levels",
+						"Action",
+						"CurrentLevel"
+					]
+				}
+			],
+			"Index": "39",
+			"Name": "SOiX Component",
+			"expand": true
+		}
+	],
+	"Index": "0"
+}

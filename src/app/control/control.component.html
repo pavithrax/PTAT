@@ -59,10 +59,10 @@
                             </div>
                           </td>
                           <td style="width:150px !important;" class="commonTd" >
-                              <button style="min-width:80px;" *ngIf="item3.param.Action == 'Slider'"  [ngClass]="{'controlSetBtnStyleFirst': workloadIndex == 0 ,'controlSetBtnStyle': workloadIndex != 0}" class="{{'controlSetButton'+item.Index+item1.Index+item3.Index}} btn btn-sm greenBtnColor greenBtnColorAlt"   type="submit"  (click)="setControl('slider',item3,item.Name,item.Index,item1.Name,item1.Index)" matTooltip={{item3.ToolTip}}  matTooltipPosition="below">
+                              <button style="min-width:80px;" *ngIf="item3.param.Action == 'Slider'"  [ngClass]="{'controlSetBtnStyleFirst': workloadIndex == 0 ,'controlSetBtnStyle': workloadIndex != 0}" class="{{'controlSetButton'+item.Index+item1.Index+item3.Index}} btn btn-sm greenBtnColor greenBtnColorAlt"   type="submit"  (click)="setControl('slider',item3,item.Name,item.Index,item1.Name,item1.Index,item3.Name,item1)" matTooltip={{item3.ToolTip}}  matTooltipPosition="below">
                                   {{item3.param.ButtonName}}
                               </button>
-                              <button style="min-width:80px;" *ngIf="item3.param.Action == 'DropDown'"  [ngClass]="{'controlSetBtnStyleFirst': workloadIndex == 0,'controlSetBtnStyle': workloadIndex != 0}" class="{{'controlSetButton'+item.Index+item1.Index+item3.Index}} btn btn-sm greenBtnColor greenBtnColorAlt"  type="submit"  (click)="setControl('dropdown',item.Index+item1.Index+':'+item3.Index,item.Name,item.Index,item1.Name,item1.Index)" matTooltip={{item3.ToolTip}}  matTooltipPosition="below">
+                              <button style="min-width:80px;" *ngIf="item3.param.Action == 'DropDown'"  [ngClass]="{'controlSetBtnStyleFirst': workloadIndex == 0,'controlSetBtnStyle': workloadIndex != 0}" class="{{'controlSetButton'+item.Index+item1.Index+item3.Index}} btn btn-sm greenBtnColor greenBtnColorAlt"  type="submit"  (click)="setControl('dropdown',item3,item.Name,item.Index,item1.Name,item1.Index,item.Index+item1.Index+':'+item3.Index,item1)" matTooltip={{item3.ToolTip}}  matTooltipPosition="below">
                                   {{item3.param.ButtonName}}
                               </button>                                  
                           </td>
