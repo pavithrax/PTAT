@@ -50,7 +50,7 @@ export class SocketService {
   public isStopSolverRes$: Subject<any>;
   public isResetControlRes$: Subject<any>;
   public isResetWorkloadRes$: Subject<any>;
-  public isGetComponentDataRes$: Subject<any>;
+  public isGetCommonDataRes$: Subject<any>;
   public isGetScriptDataRes$: Subject<any>;
   public isScriptCommandSelectedRes$: Subject<any>;
   public isScriptComponentSelectedRes$: Subject<any>;
@@ -168,7 +168,7 @@ export class SocketService {
     this.isStopSolverRes$ = new Subject<any>();
     this.isResetControlRes$ = new Subject<any>();
     this.isResetWorkloadRes$ = new Subject<any>();
-    this.isGetComponentDataRes$ = new Subject<any>();
+    this.isGetCommonDataRes$ = new Subject<any>();
     this.isGetScriptDataRes$ = new Subject<any>();
     this.isScriptCommandSelectedRes$ = new Subject<any>();
     this.isScriptComponentSelectedRes$ = new Subject<any>();
@@ -451,8 +451,8 @@ export class SocketService {
           this.isResetControlRes$.next(data);
         }else if(data.Command == constant.ResetWorkload_CMD){
           this.isResetWorkloadRes$.next(data);
-	      }else if(data.Command == constant.GetComponentData_CMD){
-          this.isGetComponentDataRes$.next(data);
+	      }else if(data.Command == constant.GetCommonData_CMD){
+          this.isGetCommonDataRes$.next(data);
         }else if(data.Command == constant.GetScriptData_CMD){
           this.isGetScriptDataRes$.next(data);
         }else if(data.Command == constant.ScriptComponentSelected_CMD){
@@ -881,8 +881,8 @@ export class SocketService {
   ResetWorkloadRes(){
     return this.isResetWorkloadRes$.asObservable();
   }
-  GetComponentDataRes(){
-    return this.isGetComponentDataRes$.asObservable();
+  GetCommonDataRes(){
+    return this.isGetCommonDataRes$.asObservable();
   }
   
   GetScriptDataRes(){

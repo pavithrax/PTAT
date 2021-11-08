@@ -179,7 +179,7 @@ export class MonitorComponent implements OnInit {
       if (message) {
         // console.log("print in console");
         // console.log(message.Data[0].Treelist);
-        var command = '{"Command" : "GetComponentData"}'
+        var command = '{"Command" : "GetCommonData"}'
         var getSettingsCommand = '{"Command" : "GetSettings"}'
         if(this.counter > 2){
           this.SocketService.sendMessage(getSettingsCommand);
@@ -187,7 +187,7 @@ export class MonitorComponent implements OnInit {
         this.SocketService.sendMessage(command);
      
         this.counter++
-        //this.SocketService.sendMessage("GetComponentData()");
+        //this.SocketService.sendMessage("GetCommonData()");
         //this.SocketService.sendMessage("GetSettings()");
         this.gridbuilder();
 
@@ -266,7 +266,7 @@ export class MonitorComponent implements OnInit {
       },50);
     });
 
-    // this.SocketService.GetComponentDataRes().subscribe(message => {
+    // this.SocketService.GetCommonDataRes().subscribe(message => {
     //   if (message) {
     //     if(message.CommandStatus.Status == 'Success'){
     //      this.componentData = message.Data;

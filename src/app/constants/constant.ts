@@ -44,7 +44,7 @@ export class constant {
     public static StopSolver_CMD = "StopSolver";
     public static ResetControl_CMD = "ResetControl";
     public static ResetWorkload_CMD = "ResetWorkload";
-    public static GetComponentData_CMD = "GetComponentData";
+    public static GetCommonData_CMD = "GetCommonData";
     public static GetScriptData_CMD = "GetScriptData";
     public static ScriptCommandSelected_CMD = "ScriptCommandSelected";
     public static ScriptComponentSelected_CMD = "ScriptComponentSelected";

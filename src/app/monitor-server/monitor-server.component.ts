@@ -93,7 +93,7 @@ export class MonitorServerComponent implements OnInit {
         this.SocketService.getMonitorDataRes().subscribe(message => {
             console.log(message);
             if (message) {
-                var command = '{"Command" : "GetComponentData"}'
+                var command = '{"Command" : "GetCommonData"}'
                 var getSettingsCommand = '{"Command" : "GetSettings"}'
                 if (this.counter > 2) {
                     this.SocketService.sendMessage(getSettingsCommand);

@@ -42,7 +42,7 @@ setComponetData(){
 
 }
 
-getComponentData(){
+GetCommonData(){
  
 }
 
