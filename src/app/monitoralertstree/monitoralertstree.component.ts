@@ -126,6 +126,12 @@ parentCheck1(superparentObj,parentObj1,parentObj,childObj) {
 
 //Click event on child checkbox  
 childCheck(superparentObj,parentObj,subparent,childObj) {
+   console.log(superparentObj);
+   console.log(parentObj);
+   console.log(subparent);
+   console.log(childObj);
+   
+   
   //SUBPARENT OBJ
    subparent.isSelected = childObj.every(function (itemChild: any) {
             return itemChild.isSelected == true;

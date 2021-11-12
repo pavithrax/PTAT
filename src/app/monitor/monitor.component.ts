@@ -192,6 +192,14 @@ export class MonitorComponent implements OnInit {
         this.gridbuilder();
 
         this.dataArr = message.Data;
+        this.dataArr.forEach(superparentObj => {
+          superparentObj.Treelist.forEach(parentObj => {
+            parentObj.Treelist.forEach(subparent => {
+              let childObj = subparent.SubTreeList
+              this.childCheck(superparentObj,parentObj,subparent,childObj)
+            });
+          });
+        });
 
         // setTimeout(function(){
         //  this.dataArr = this.testData.Data; 
@@ -793,7 +801,27 @@ closeMonitorLogginModal(){
   }
 }
 
+childCheck(superparentObj,parentObj,subparent,childObj) {
+  //SUBPARENT OBJ
+   subparent.isSelected = childObj.every(function (itemChild: any) {
+            return itemChild.isSelected == true;
+   });
 
+   //PARENT OBJECT
+   parentObj.isSelected = parentObj.Treelist.every(function (itemChild: any) {
+      return itemChild.isSelected == true;
+   });
+
+
+   //SET VALUE FOR
+   setTimeout(function(){
+    superparentObj.isSelected = superparentObj.Treelist.every(function(itemChild: any){
+      return itemChild.isSelected == true;
+
+    }) 
+
+   },500);
+  }
 }
 
 

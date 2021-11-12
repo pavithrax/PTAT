@@ -472,6 +472,10 @@ a.article:hover {
     color: red !important;
 }
 
+::ng-deep .TATMainContentLeft .mat-tab-label-active .fa-check-square{
+    color: #2f648b !important
+}
+
 
 ::ng-deep .TATMainContentLeft .mat-tab-label{
     padding: 0px ! important;

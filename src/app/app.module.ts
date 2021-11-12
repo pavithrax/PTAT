@@ -32,8 +32,8 @@ import { ErrorComponent } from './error/error.component';
 import { TargetHostErrorComponent } from './target-host-error/target-host-error.component';
 import { SysteminfoComponent } from './systeminfo/systeminfo.component';
 
-
 import {TreeTableModule} from 'primeng/treetable';
+import { TableModule } from "primeng/table";
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import {MultiSelectModule} from 'primeng/multiselect';
@@ -42,6 +42,7 @@ import {ToastModule} from 'primeng/toast';
 import {ContextMenuModule} from 'primeng/contextmenu';
 import { MonitorServerComponent } from './monitor-server/monitor-server.component';
 import { TabViewModule } from 'primeng/tabview';
+import { TurboComponent } from './turbo/turbo.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { TabViewModule } from 'primeng/tabview';
     ErrorComponent,
     TargetHostErrorComponent,
     SysteminfoComponent,
-    MonitorServerComponent
+    MonitorServerComponent,
+    TurboComponent
   ],
   entryComponents: [ HelpComponent],
   imports: [
@@ -98,7 +100,9 @@ import { TabViewModule } from 'primeng/tabview';
     MultiSelectModule,
     InputTextModule,
     ContextMenuModule,
-    TabViewModule
+    TabViewModule,
+    TableModule
+
  
   ],
   providers: [SocketService],

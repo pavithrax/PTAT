@@ -1,0 +1,78 @@
+<div class="card curvedCorners" style="border: none !important;background: #fff !important;">
+    
+    
+
+    <!-- <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <ng-container>
+                <th class="headerColor" [style.width.%]="columnWidth" *ngFor="let it of tableHeader">
+                    {{it}}
+                </th>
+            </ng-container>
+          </tr>
+        </thead>
+        <tbody>
+                <ng-container *ngFor="let item of tableData1">
+                    <tr >
+                        <td *ngFor="let it of item">{{it}}</td>
+                    </tr>
+                </ng-container>
+        </tbody>
+    </table> -->
+
+    <!-- <p-table #dt [columns]="cols" [value]="data" selectionMode="multiple" 
+    [scrollable]="true" scrollHeight="37vh"
+    [style]="{width:'100%', height:'50vh'}" [scrollable]="true" [resizableColumns]="true"
+    columnResizeMode="fit" [reorderableColumns]="true" [autoLayout]="true" 
+    >
+     
+    <div style="margin-top: 2px;"></div>
+                <ng-template pTemplate="colgroup" let-columns>
+                    <colgroup>
+                        <col *ngFor="let col of columns" style="min-width: 100px;">
+                    </colgroup>
+                </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns">
+              {{col.header}}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+              {{rowData[col.field]}}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table> -->
+    
+
+      <p-table [columns]="cols" [value]="data" [resizableColumns]="true" [reorderableColumns]="true"
+      [scrollable]="true" scrollHeight="60vh"
+    [style]="{width:'100%', height:'50vh'}" [scrollable]="true" [resizableColumns]="true"
+    columnResizeMode="fit" [reorderableColumns]="true" [autoLayout]="true" 
+      >
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns" style="min-width: 100px;">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" pResizableColumn>
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns" class="ui-resizable-column">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

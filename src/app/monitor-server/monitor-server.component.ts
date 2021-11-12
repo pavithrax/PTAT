@@ -142,7 +142,12 @@ export class MonitorServerComponent implements OnInit {
                         let key = startMonitorResponseHandler[i].Key;
                         let value = startMonitorResponseHandler[i].Value;
                         let classToAppend = "serverMonitorData-" + key;
-                        $("." + classToAppend).html(value);
+                        $("." + classToAppend).html(key  + ' - ' + value);
+                        if(startMonitorResponseHandler[i].Color) {
+                            let color = startMonitorResponseHandler[i].Color
+                            $("." + classToAppend).css('color',color);
+                        }
+                        
                     }
                 } else {
                 }

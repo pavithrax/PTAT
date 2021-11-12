@@ -2,8 +2,8 @@
     <p-tabView (onChange)="onTabChange($event)" [activeIndex]="selectedIndex">
         <p-tabPanel *ngFor="let item of tabData; let i = index" [selected]="i == 0" header="{{item}}">
             <div style="margin-top: -0.7rem;">
-                <p-treeTable #tt [value]="serverData" [columns]="selectedColumns" [scrollable]="true" scrollHeight="37vh"
-                [style]="{width:'100%', height:'50vh'}" [scrollable]="true" [resizableColumns]="true"
+                <p-treeTable #tt [value]="serverData" [columns]="selectedColumns" [scrollable]="true" scrollHeight="50vh"
+                [style]="{width:'100%', height:'calc(100vh - 290px)'}" [scrollable]="true" [resizableColumns]="true"
                 columnResizeMode="fit" [reorderableColumns]="true" [autoLayout]="true" styleClass="p-treetable-sm"
                 sortMode="multiple">
 

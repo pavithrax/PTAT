@@ -7,7 +7,7 @@
           <mat-tab *ngFor="let navItemName of navBarData" >
             <ng-template mat-tab-label style="padding:0px ! important;">
               <div class= "tempClass" (click)="setNavValue(navItemName.Name)" style="margin-top:-17px;height: 33px!important;line-height: 33px ! important;width:160px!important;text-align: center;padding-top: 2px;" >
-                    <i class="fas navIconColor" [ngClass]="{'fa-info-circle':navItemName.Name=='System Information','fa-desktop':navItemName.Name=='Monitor','fa-bell ':navItemName.Name=='Alerts','fa-dumbbell ':navItemName.Name=='Workload','fa-sliders-h ':navItemName.Name=='Control','fa-chart-bar ':navItemName.Name=='PTAT Log Analysis','fa-file-code ':navItemName.Name=='Scripts','fa-chart-line ':navItemName.Name=='Graph','fa-chart-area ':navItemName.Name=='Live Analysis'}"></i>
+                    <i class="fas navIconColor" [ngClass]="{'fa-info-circle':navItemName.Name=='System Information','fa-desktop':navItemName.Name=='Monitor','fa-bell ':navItemName.Name=='Alerts','fa-dumbbell ':navItemName.Name=='Workload','fa-sliders-h ':navItemName.Name=='Control','fa-chart-bar ':navItemName.Name=='PTAT Log Analysis','fa-file-code ':navItemName.Name=='Scripts','fa-chart-line ':navItemName.Name=='Graph','fa-chart-area ':navItemName.Name=='Live Analysis','fa-check-square':navItemName.Name=='Turbo Check'}"></i>
                     &nbsp;{{navItemName.Name}}
               </div>
             </ng-template>
@@ -19,7 +19,7 @@
       <!-- Scrolling Nav Bar -->
       <div class="contentStyle wrapper col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 nopadding" id="wrapperFixed">
         
-            <nav id="sidebar" class="sidenavColour" [hidden]="selectedNavValue == 'System Information' || selectedNavValue == 'Alerts' || selectedNavValue == 'Workload' || selectedNavValue == 'Control' || selectedNavValue == 'Scripts' || selectedNavValue == 'PTAT Log Analysis' || selectedNavValue == 'Graph' || selectedNavValue == 'Live Analysis' || (selectedNavValue == 'Monitor' && platform == 'server')">
+            <nav id="sidebar" class="sidenavColour" [hidden]="selectedNavValue == 'System Information' || selectedNavValue == 'Alerts' || selectedNavValue == 'Workload' || selectedNavValue == 'Control' || selectedNavValue == 'Scripts' || selectedNavValue == 'PTAT Log Analysis' || selectedNavValue == 'Graph' || selectedNavValue == 'Live Analysis' || selectedNavValue == 'Turbo Check' || (selectedNavValue == 'Monitor' && platform == 'server')">
             <app-monitoralertstree></app-monitoralertstree>
             </nav>
 
@@ -47,6 +47,7 @@
                   <app-tatloganalysis [hidden]="selectedNavValue !== 'PTAT Log Analysis'" class="nopadding nomargin"></app-tatloganalysis>  
                   <app-graph  [hidden]="selectedNavValue !== 'Graph'" class="nopadding nomargin"></app-graph>  
                   <app-live-analysis [hidden]="selectedNavValue !== 'Live Analysis'"  class="nopadding nomargin"></app-live-analysis>
+                  <app-turbo [hidden]="selectedNavValue !== 'Turbo Check'"  class="nopadding nomargin"></app-turbo>
                   <app-tatfeature></app-tatfeature>
                   <app-error></app-error>
                   <app-monitor-server [hidden]="selectedNavValue != 'Monitor'" *ngIf="platform == 'server'"></app-monitor-server>
@@ -77,7 +78,7 @@
           <mat-tab *ngFor="let navItemName of navBarData">
             <ng-template mat-tab-label >
             <div>
-                <i class="fas" [ngClass]="{'fa-desktop':navItemName.Name=='Monitor','fa-bell':navItemName.Name=='Alerts','fa-tasks':navItemName.Name=='Workload','fa-sliders-h':navItemName.Name=='Control','fa-chart-bar':navItemName.Name=='Offline Analysis','fa-code':navItemName.Name=='Scripts','fa-chart-line':navItemName.Name=='Graph','fa-map':navItemName.Name=='Live Analysis'}"></i>
+                <i class="fas" [ngClass]="{'fa-desktop':navItemName.Name=='Monitor','fa-bell':navItemName.Name=='Alerts','fa-tasks':navItemName.Name=='Workload','fa-sliders-h':navItemName.Name=='Control','fa-chart-bar':navItemName.Name=='Offline Analysis','fa-code':navItemName.Name=='Scripts','fa-chart-line':navItemName.Name=='Graph','fa-map':navItemName.Name=='Live Analysis','fa-check-square':navItemName.Name=='Turbo Check'}"></i>
                 &nbsp;{{navItemName.Name}}
             </div>
             </ng-template>
