@@ -76,23 +76,23 @@ export class TargetHostErrorComponent implements OnInit {
       }
     });
 
-    this.SocketService.changeConnectionErrorHandling1().subscribe(message => {
-      if (message) {
-      this.showTargetErrorModal = true;
-      // if(this.showTargetErrorModal == true){
+    // this.SocketService.changeConnectionErrorHandling1().subscribe(message => {
+    //   if (message) {
+    //   this.showTargetErrorModal = true;
+    //   // if(this.showTargetErrorModal == true){
 
-      // }else{
-      //   this.showTargetErrorModal = true;
-      // }
+    //   // }else{
+    //   //   this.showTargetErrorModal = true;
+    //   // }
         
-        if(message.CommandStatus.Status == "FAILED"){
-          this.targetHosterrorMessage = message.CommandStatus.Message
-        }else{
-          this.targetHosterrorMessage = "";
-        }
-        this.spinner.hide();
-      }
-    });
+    //     if(message.CommandStatus.Status == "FAILED"){
+    //       this.targetHosterrorMessage = message.CommandStatus.Message
+    //     }else{
+    //       this.targetHosterrorMessage = "";
+    //     }
+    //     this.spinner.hide();
+    //   }
+    // });
 
     
 
@@ -150,24 +150,24 @@ export class TargetHostErrorComponent implements OnInit {
     });
 
 
-    this.SocketService.getFavConnListRes().subscribe(message => {
-      if (message) {
-        if(message.CommandStatus.Status == "Success"){
-          this.FavouriteDeviceList = message.Data;
-          this.targetHosterrorMessage = "";
-          if(this.addFavListIdentifier == 2){
-            $(".removeActiveHeader").removeClass("active");
-            $(".removeActiveBody").removeClass("active show");
-            $(".addFavListActiveHeader").addClass("active");
-            $(".addFavListActiveBody").addClass("active show");
-          }
-        }else{
-          this.targetHosterrorMessage = message.CommandStatus.Message;
-        }
+    // this.SocketService.getFavConnListRes().subscribe(message => {
+    //   if (message) {
+    //     if(message.CommandStatus.Status == "Success"){
+    //       this.FavouriteDeviceList = message.Data;
+    //       this.targetHosterrorMessage = "";
+    //       if(this.addFavListIdentifier == 2){
+    //         $(".removeActiveHeader").removeClass("active");
+    //         $(".removeActiveBody").removeClass("active show");
+    //         $(".addFavListActiveHeader").addClass("active");
+    //         $(".addFavListActiveBody").addClass("active show");
+    //       }
+    //     }else{
+    //       this.targetHosterrorMessage = message.CommandStatus.Message;
+    //     }
         
 
-      }
-    });
+    //   }
+    // });
 
     this.SocketService.removeFromFavConnListRes().subscribe(message => {
       if (message) {
@@ -212,8 +212,8 @@ export class TargetHostErrorComponent implements OnInit {
     this.targetPortNumber = selectedRow.portno;
     this.targetName = selectedRow.name;
     //var command = "ChangeConnection(websockets,"+this.targetIpdAddress+","+this.targetPortNumber + ")";
-    var command = '{"Command" : "ChangeConnection","Args":'+'"'+'websockets,'+this.targetIpdAddress+','+this.targetPortNumber+'"'+'}'
-    this.SocketService.sendMessage(command);
+    // var command = '{"Command" : "ChangeConnection","Args":'+'"'+'websockets,'+this.targetIpdAddress+','+this.targetPortNumber+'"'+'}'
+    // this.SocketService.sendMessage(command);
     this.spinner.show();
 
     $(".removeActiveHeader").removeClass("active");
@@ -252,10 +252,10 @@ export class TargetHostErrorComponent implements OnInit {
 
   connectTarget(){
     //var command = "ChangeConnection(websockets,"+this.targetIpdAddress+","+this.targetPortNumber + ")";
-    var command = '{"Command" : "ChangeConnection","Args":'+'"'+'websockets,'+this.targetIpdAddress+','+this.targetPortNumber+'"'+'}'
+    // var command = '{"Command" : "ChangeConnection","Args":'+'"'+'websockets,'+this.targetIpdAddress+','+this.targetPortNumber+'"'+'}'
     if(this.targetIpdAddress != "" && this.targetPortNumber != ""){
-      this.SocketService.sendMessage(command);
-      this.spinner.show();
+      // this.SocketService.sendMessage(command);
+      // this.spinner.show();
       this.targetHosterrorMessage = "";
     }else{
       this.targetHosterrorMessage = "Enter IP Address , Port Number"

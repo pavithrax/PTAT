@@ -87,6 +87,7 @@ export class HeaderComponent implements OnInit {
    displayLoadWorkspace:any = "none";
    workspaceDataFromMonitor:Array<any> = [];
    counter:number = 1;
+   dataType = '';
    constructor(public GlobalDataService: GlobalDataService, private SocketService: SocketService,private spinner: NgxSpinnerService,
       private util: UtilityServiceService) {
 
@@ -143,6 +144,13 @@ export class HeaderComponent implements OnInit {
                      this.osInformation = "others";
                   }
                  }
+                 else if(this.getToolInfoResponse[i].key == 'platform_sku'){
+                  if(this.getToolInfoResponse[i].value == 'server') {
+                    this.dataType = 'Serverside';
+                  } else {
+                    this.dataType = 'Clientside';
+                  }
+                }
             }
 
          } else {
@@ -400,11 +408,10 @@ export class HeaderComponent implements OnInit {
             // not needed
             if (this.customViewParameterCheckbox == true) {
                var monitorCommand = '{"Command" : "MonitorView"}'
-               var command = '{"Command" : "LoadCustomViewData"}'
                this.SocketService.sendMessage(monitorCommand);
-               this.SocketService.sendMessage(command);
-               //this.SocketService.sendMessage("LoadCustomViewData()");
-               //this.SocketService.sendMessage("MonitorView()");
+
+               // var command = '{"Command" : "LoadCustomViewData"}' // not used i guess
+               // this.SocketService.sendMessage(command);
             }
             if (this.graphParameterCheckbox == true) {
                var monitorCommand = '{"Command" : "MonitorView"}'
@@ -464,7 +471,7 @@ export class HeaderComponent implements OnInit {
 
 
    this.SocketService.getMonitorDataRes().subscribe(message => {
-      if (message) {
+      if (message && this.dataType == 'Clientside') {
          this.showHidePowerVisualizationMenuCounter = 0;
          var monitorDataRes = message.Data[0].Treelist;
          for(let i=0;i<monitorDataRes.length;i++){

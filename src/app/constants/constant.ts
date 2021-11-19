@@ -3,17 +3,17 @@ export class constant {
     public static GETTATFEATURE_CMD = "GetTatFeatures";
     public static GETTOOLINFO_CMD = "GetToolInfo";
     public static GETTARGETINFO_CMD = "GetTargetInfo";
-    public static CHANGECONN_CMD = "ChangeConnection";
+    // public static CHANGECONN_CMD = "ChangeConnection";
     public static CheckTargetStatus_CMD = "CheckTargetStatus";
 
     public static RemoveFromFavConnList_CMD = "RemoveFromFavConnList";
     public static AddToFavConnList_CMD = "AddToFavConnList";
-    public static GetFavConnList_CMD = "GetFavConnList";
+    // public static GetFavConnList_CMD = "GetFavConnList";
     
-    public static VALIDATEGUID_CMD = "ValidateGUID";
-    public static TATHOSTSERVICE_CMD = "IsTATHostService";
+    // public static VALIDATEGUID_CMD = "ValidateGUID";
+    // public static TATHOSTSERVICE_CMD = "IsTATHostService"; // not needed, to be removed later 
     public static GETSETTINGS_CMD = "GetSettings";
-    public static SETAPPEVENTPROPERTIES_CMD = "SetAppEventProperties";
+    // public static SETAPPEVENTPROPERTIES_CMD = "SetAppEventProperties";
     public static TELEMETRYSETTINGS_CMD = "TelemetrySettings";
     public static SAVECUSTOMWRKSPC_CMD = "SaveCustomWorkspace";
     public static LOADWRKSPC_CMD = "LoadWorkspace";
@@ -62,7 +62,7 @@ export class constant {
     public static SCRIPTSTATUS_CMD = "ScriptStatus";
     public static STOPSCRIPTS_CMD = "StopScripts";
     public static REMOVEFROMCUSTOMVIEWLIST_CMD = "RemoveFromCustomViewList";
-    public static LoadCustomViewData_CMD = "LoadCustomViewData";
+    // public static LoadCustomViewData_CMD = "LoadCustomViewData";
     public static GetParamType_CMD = "GetParamType";
     public static AddToAlertList_CMD = "AddToAlertList";
     public static UpdateAlertList_CMD = "UpdateAlertList";

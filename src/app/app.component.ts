@@ -61,7 +61,7 @@ export class AppComponent {
             if (ind > -1) {
                guid = myURL.slice(ind + 1);
             }
-            var command = '{"Command" : "IsTATHostService","Args":' + '"' + guid + '"' + '}'
+            // var command = '{"Command" : "IsTATHostService","Args":' + '"' + guid + '"' + '}' // not used
             //console.log(command);
             this.getTatHostService();
             //this.socket.sendMessage(command);
@@ -173,8 +173,8 @@ export class AppComponent {
    changeConn() {
       this.socket.getChangeConn().subscribe(message => {
          if (message) {
-            var command = '{"Command" : "ValidateGUID","Args":"73350375-d63e-4c47-9635-2ec59626bf1b"}'
-            this.socket.sendMessage(command);
+            // var command = '{"Command" : "ValidateGUID","Args":"73350375-d63e-4c47-9635-2ec59626bf1b"}'
+            // this.socket.sendMessage(command);
             // this.socket.sendMessage("ValidateGUID(73350375-d63e-4c47-9635-2ec59626bf1b)");
          }
          this.workloadClickCount = 0;
@@ -185,16 +185,16 @@ export class AppComponent {
          this.ScriptClickCount = 0;
       });
    }
-   validateGuid() {
-      this.socket.getValidateGuid().subscribe(message => {
-         if (message) {
-            var command = '{"Command" : "SetAppEventProperties"}'
-            this.socket.sendMessage(command);
-            //this.socket.sendMessage("SetAppEventProperties()");
-         }
+   // validateGuid() {
+   //    this.socket.getValidateGuid().subscribe(message => {
+   //       if (message) {
+   //          // var command = '{"Command" : "SetAppEventProperties"}'
+   //          // this.socket.sendMessage(command);
+   //          //this.socket.sendMessage("SetAppEventProperties()");
+   //       }
 
-      });
-   }
+   //    });
+   // }
 
    getComponentLists() {
       this.socket.getComponentList().subscribe(message => {
@@ -204,28 +204,30 @@ export class AppComponent {
                "Name": "Turbo Check",
                "Index": "9"
             })
-            var command = '{"Command" : "GetFavConnList"}';
-            this.socket.sendMessage(command);
+            // var command = '{"Command" : "GetFavConnList"}';
+            // this.socket.sendMessage(command);
             // this.socket.sendMessage("GetFavConnList()");
             //this.socket.sendMessage("ChangeConnection(websockets,127.0.0.1,49866)");
-            var changeConnectioncommand = '{"Command" : "ChangeConnection","Args":"websockets,127.0.0.1,49866"}'
-            this.socket.sendMessage(changeConnectioncommand);
-         }
-      });
-   }
-   setAppEventProperties() {
-      this.socket.getSetAppEventproperties().subscribe(message => {
-         if (message) {
             var command = '{"Command" : "GetTargetInfo"}'
             this.socket.sendMessage(command);
-            //this.socket.sendMessage("GetTargetInfo()");
-            //this.socket.sendMessage("TelemetrySettings(1,1)");
+            // var changeConnectioncommand = '{"Command" : "ChangeConnection","Args":"websockets,127.0.0.1,49866"}'
+            // this.socket.sendMessage(changeConnectioncommand);
          }
-
       });
-
-
    }
+   // setAppEventProperties() {
+   //    this.socket.getSetAppEventproperties().subscribe(message => {
+   //       if (message) {
+   //          var command = '{"Command" : "GetTargetInfo"}'
+   //          this.socket.sendMessage(command);
+   //          //this.socket.sendMessage("GetTargetInfo()");
+   //          //this.socket.sendMessage("TelemetrySettings(1,1)");
+   //       }
+
+   //    });
+
+
+   // }
    telemetrySettings() {
       this.socket.getTelemetrySettings().subscribe(message => {
          if (message) {
@@ -301,9 +303,9 @@ export class AppComponent {
       this.getToolData();
       this.getTargetData();
       this.changeConn();
-      this.validateGuid();
+      // this.validateGuid();
       this.getComponentLists();
-      this.setAppEventProperties();
+      // this.setAppEventProperties();
       this.telemetrySettings();
       this.loadwrkspc();
 
@@ -504,9 +506,29 @@ export class AppComponent {
             this.socket.sendMessage(getSupportedOfflineAnalysisListCommand);
             //this.socket.sendMessage("GetSupportedOfflineAnalysisList()");
          } else {
-
+            if (this.powerVisualizationOpenStatus != true) {
+               this.socket.sendMessage(otherViewCommand);
+            }
          }
          this.tatLogAnalysisClickCount = this.tatLogAnalysisClickCount + 1;
+      } else if(val.toLowerCase() == 'graph') {
+         // else {
+            if (this.powerVisualizationOpenStatus != true) {
+               this.socket.sendMessage(otherViewCommand);
+            }
+         // }
+      } else if(val.toLowerCase() == 'alerts') {
+         // else {
+            if (this.powerVisualizationOpenStatus != true) {
+               this.socket.sendMessage(otherViewCommand);
+            }
+         // }
+      } else if(val.toLowerCase() == 'turbo') {
+         // else {
+            if (this.powerVisualizationOpenStatus != true) {
+               this.socket.sendMessage(otherViewCommand);
+            }
+         // }
       }
       // else if (val.toLowerCase() == "graph") {
 

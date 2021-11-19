@@ -647,7 +647,7 @@ liveGraphFeature:any = [];
 				console.log(arg2Index);
 				
 				// var command = '{"Command" : "AddParamToGraph1","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+this.argThreeIndex+",-1"+'"'+'}'
-				var command = '{"Command" : "AddParamToGraph1","Args":'+'"'+this.argTwo.Index+","+this.argThreeIndex+",-1"+'"'+'}'
+				var command = '{"Command" : "AddParamToGraph1","params": {"Args":'+'"'+this.argTwo.Index+","+this.argThreeIndex+'"'+'}}'
 				this.SocketService.sendMessage(command);
 				//this.SocketService.sendMessage("AddParamToGraph1("+compIndex+","+arg1Index+","+arg2Index+",-1)");
 				this.liveGraphDuplicatError = "";
@@ -678,7 +678,7 @@ liveGraphFeature:any = [];
 				argThread = this.liveGraphThread.findIndex(x => x == this.argThread);
 				argFeature = this.liveGraphFeature.findIndex(x => x == this.argFeature);
 
-				let command = '{"Command" : "AddParamToGraph1","Args":'+'"'+this.argFeature.Index+","+this.argThreeIndex+",-1"+'"'+'}'
+				let command = '{"Command" : "AddParamToGraph1","params": {"Args":'+'"'+this.argFeature.Index+","+this.argThreeIndex+'"'+'}}'
 				// let command = '{"Command" : "AddParamToGraph1","Args":'+'"'+compIndex+","+arg1Index+","+arg2Index+","+argThread+","+argFeature+","+this.argThreeIndex+",-1"+'"'+'}'
 				this.SocketService.sendMessage(command);
 			}else{
@@ -723,7 +723,7 @@ liveGraphFeature:any = [];
 		
 		
 		// var command = '{"Command" : "RemoveParamFromGraph","Args":'+'"'+commandParams+'"'+'}'
-		var command = '{"Command" : "RemoveParamFromGraph1","Args":'+'"'+commandParams+'"'+'}'
+		var command = '{"Command" : "RemoveParamFromGraph1","params": {"Args":'+'"'+commandParams+'"'+'}}'
 		this.SocketService.sendMessage(command);
 		//var cmd = "RemoveParamFromGraph1("+commandParams+")";
 	}
@@ -731,7 +731,7 @@ liveGraphFeature:any = [];
 		let lstLen = this.liveGraphList.length;
 		let commandParams = this.liveGraphUIDList.join();
 		// var command = '{"Command" : "RemoveParamFromGraph","Args":'+'"'+commandParams+'"'+'}'
-		var command = '{"Command" : "RemoveParamFromGraph1","Args":'+'"'+commandParams+'"'+'}'
+		var command = '{"Command" : "RemoveParamFromGraph1","params": {"Args":'+'"'+commandParams+'"'+'}}'
 		this.SocketService.sendMessage(command);
 		//var cmd = "RemoveParamFromGraph1("+commandParams+")";
 	}
@@ -871,7 +871,7 @@ liveGraphFeature:any = [];
 		this.offlineGraphStaticGraphName.push($(".paramSelected").attr("data-value"));
 		this.offlineGraphDirection.push($('#offlinegraphDirectionSelectBox').val());
 		var latestParamIndex = paramIndex+8;
-		var command = '{"Command" : "AddParamToGraph2","Args":'+'"'+latestParamIndex+'"'+'}'
+		var command = '{"Command" : "AddParamToGraph2","params":{"Args":'+'"'+latestParamIndex+'"'+'}}'
 		this.SocketService.sendMessage(command);
 		//this.SocketService.sendMessage("AddParamToGraph2("+latestParamIndex+")");
 		this.offlineGraphDuplicatError = "";
@@ -908,7 +908,7 @@ liveGraphFeature:any = [];
 				this.offlineGraphNameList.splice(removeIndex, 1);
 				this.offlineGraphDirection.splice(removeIndex, 1);
 				var latestParamIndex = paramIndex+8;
-				var command = '{"Command" : "RemoveParamFromGraph2","Args":'+'"'+latestParamIndex+'"'+'}'
+				var command = '{"Command" : "RemoveParamFromGraph2","params":{"Args":'+'"'+latestParamIndex+'"'+'}}'
 				this.SocketService.sendMessage(command);
 				//this.SocketService.sendMessage("RemoveParamFromGraph2("+latestParamIndex+")");
 				$(checkBoxCount[i]).parent().parent().remove();
@@ -928,7 +928,7 @@ liveGraphFeature:any = [];
 	for(let i=0;i<=this.offlineGraphStaticGraphId.length-1;i++){
 		offlineGraphLatestIndexList.push(this.offlineGraphStaticGraphId[i]+8);
 	}
-	var command = '{"Command" : "RemoveParamFromGraph2","Args":'+'"'+offlineGraphLatestIndexList+'"'+'}'
+	var command = '{"Command" : "RemoveParamFromGraph2","params":{"Args":'+'"'+offlineGraphLatestIndexList+'"'+'}}'
 	this.SocketService.sendMessage(command);
 	//this.SocketService.sendMessage("RemoveParamFromGraph2("+offlineGraphLatestIndexList+")");
 	//this.offlineGraphIndexList.length = 0;
@@ -1056,7 +1056,7 @@ sendCmd5Min(){
 	}
 	this.interval = 60*1000*5/this.refreshTime;
 	this.viewportSize = this.interval;
-	var command = '{"Command" : "GetGraphPoints","Args": "5"}'
+	var command = '{"Command" : "GetGraphPoints","params":{"Args": "5"}}'
 	this.SocketService.sendMessage(command);
 	//this.SocketService.sendMessage("GetGraphPoints(5)");
 	this.clearLiveGraph();
@@ -1067,7 +1067,7 @@ sendCmd15Min(){
 	}
 	this.interval = 60*1000*15/this.refreshTime;
 	this.viewportSize = this.interval;
-	var command = '{"Command" : "GetGraphPoints","Args": "15"}'
+	var command = '{"Command" : "GetGraphPoints","params":{"Args": "15"}}'
 	this.SocketService.sendMessage(command);
 	//this.SocketService.sendMessage("GetGraphPoints(15)");
 	this.clearLiveGraph();
@@ -1078,7 +1078,7 @@ sendCmd30Min(){
 	}
 	this.interval = 60*1000*30/this.refreshTime;
 	this.viewportSize = this.interval;
-	var command = '{"Command" : "GetGraphPoints","Args": "39"}'
+	var command = '{"Command" : "GetGraphPoints","params":{"Args": "39"}}'
 	this.SocketService.sendMessage(command);
 	//this.SocketService.sendMessage("GetGraphPoints(39)");
 }
@@ -1088,7 +1088,7 @@ sendCmd60Min(){
 	}
 	this.interval = 60*60*1000/this.refreshTime;
 	this.viewportSize = this.interval;
-	var command = '{"Command" : "GetGraphPoints","Args": "60"}'
+	var command = '{"Command" : "GetGraphPoints","params":{"Args": "60"}}'
 	this.SocketService.sendMessage(command);
 	//this.SocketService.sendMessage("GetGraphPoints(60)");
 }
@@ -1099,7 +1099,7 @@ sendCmd300Min(){
 	}
 	this.interval = 60*60*1000*5/this.refreshTime;
 	this.viewportSize = this.interval;
-	var command = '{"Command" : "GetGraphPoints","Args": "300"}'
+	var command = '{"Command" : "GetGraphPoints","params":{"Args": "300"}}'
 	this.SocketService.sendMessage(command);
 	//this.SocketService.sendMessage("GetGraphPoints(300)");
 }
@@ -1110,7 +1110,7 @@ sendCmd720Min(){
 	}
 	this.interval = 60*60*1000*12/this.refreshTime;
 	this.viewportSize = this.interval;
-	var command = '{"Command" : "GetGraphPoints","Args": "720"}'
+	var command = '{"Command" : "GetGraphPoints","params":{"Args": "720"}}'
 	this.SocketService.sendMessage(command);
 	//this.SocketService.sendMessage("GetGraphPoints(720)");
 }
@@ -1121,7 +1121,7 @@ reset(){
 	}
 	this.interval = 60*1000*1/this.refreshTime;
 	this.viewportSize = 60;
-	var command = '{"Command" : "GetGraphPoints","Args": "1"}'
+	var command = '{"Command" : "GetGraphPoints","params":{"Args": "1"}}'
 	this.SocketService.sendMessage(command);
 	//this.SocketService.sendMessage("GetGraphPoints(1)");
 	this.clearLiveGraph();
@@ -1185,7 +1185,7 @@ loadOfflineGraphSubmit(){
 		path = this.logFilePath.replace(/\\/g,"////");
 	}
 	var fullPath = path + $('#loadGraphFileName').val();
-	var command = '{"Command" : "LoadGraph2File","Args":'+'"'+fullPath+'"'+'}'
+	var command = '{"Command" : "LoadGraph2File","params":{"Args":'+'"'+fullPath+'"'+'}}'
 	//let command :any = "LoadGraph2File("+this.logFilePath+$('#loadGraphFileName').val()+")";
 	this.SocketService.sendMessage(command);
 }
@@ -1217,7 +1217,7 @@ openLoadModal() {
 		path = this.logFilePath.replace(/\\/g,"////");
 	}
 	console.log(path);
-	 var command = '{"Command" : "GetFilesInDir","Args":'+'"'+path+',log'+'"'+'}'
+	 var command = '{"Command" : "GetFilesInDir","params":{"Args":'+'"'+path+',log'+'"'+'}}'
 	 this.SocketService.sendMessage(command);
   }
 
@@ -1378,7 +1378,7 @@ openLoadModal() {
 		}else{
 			path = this.logFilePath.replace(/\\/g,"////");
 		}
-		var command = '{"Command" : "GetFilesInDir","Args":'+'"'+path+",log"+'"'+'}'
+		var command = '{"Command" : "GetFilesInDir","params":{"Args":'+'"'+path+",log"+'"'+'}}'
 		this.SocketService.sendMessage(command);
 	}
 

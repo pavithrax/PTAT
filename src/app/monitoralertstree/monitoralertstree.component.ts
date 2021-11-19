@@ -19,6 +19,7 @@ export class MonitoralertstreeComponent implements OnInit {
   hasclass:any=false;
   cdkDropConnectedToList:Array<String>;
 
+  dataType = ''
   constructor(private data : UtilityServiceService, private DataService:DataService, private SocketService: SocketService, private spinner:NgxSpinnerService) { 
    this.cdkDropConnectedToList = data.getCdkDropConnectedToList();
   }
@@ -30,9 +31,30 @@ export class MonitoralertstreeComponent implements OnInit {
   ngOnInit() {
    //this.dataArr = this.DataService.getData();
 
+   this.SocketService.getToolInfo().subscribe(message => {
+      if (message) {
+        //this.alertPath = message[8].value;
+        //this.currentIpAddress = message[3].value;
+        var getToolInfoResponse = message;
+        var len = getToolInfoResponse.length;
+        for (var i = 0; i < len; i++) {
+         if(getToolInfoResponse[i].key == 'platform_sku'){
+            if(getToolInfoResponse[i].value == 'server') {
+              this.dataType = 'Serverside';
+            } else {
+              this.dataType = 'Clientside';
+            }
+          }
+         
+
+        }
+
+
+      } 
+   });
 
    this.SocketService.getMonitorDataRes().subscribe(message => {
-      if (message) {
+      if (message && this.dataType == 'Clientside') {
        this.dataArr = message.Data;
       let cnt = this.countofCheckbox();
       this.data.passData(cnt);

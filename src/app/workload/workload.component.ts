@@ -77,10 +77,18 @@ export class WorkloadComponent implements OnInit {
           element.DropDownList.forEach(element1 => {
             let element2 = element1.TableData.Row;
             element2.PackageData = this.iterator(element2.PackageStart.split(" ")[0], element2.PackageCount);
-            element2.levels = this.range(element2.min, element2.max, element2.stepping);
+            if(element2.stepping) {
+              element2.levels = this.range(element2.min, element2.max, element2.stepping);
+            } else {
+              if(element2.min == element2.max) {
+                element2.levels = [element2.max];
+              }
+              
+            }
+            
             if (element2.CoreStart) {
               element2.CoreData = this.iterator(element2.CoreStart.split(" ")[0], element2.CoreCount);
-              if (element2.ThreadCount) {
+              if (element2.ThreadCount && element2.ThreadStart) {
                 element2.ThreadData = this.iterator(element2.ThreadStart.split(" ")[0], element2.ThreadCount);
               }
               element2.PackageData.forEach(element3 => {

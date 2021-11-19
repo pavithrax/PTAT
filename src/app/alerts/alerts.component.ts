@@ -547,7 +547,7 @@ export class AlertsComponent implements OnInit {
      $('#sidebar, #content').toggleClass('active');
     }
     
-    var  command = '{"Command" : "GetParamType","Args":'+'"'+event.item.element.nativeElement.dataset.itemIndex+'"'+'}'
+    var  command = '{"Command" : "GetParamType","params":{"Args":'+'"'+event.item.element.nativeElement.dataset.itemIndex+'"'+'}}'
     // let reqCmd = "GetParamType" + '(' +event.item.element.nativeElement.dataset.itemIndex + ')';
     this.SocketService.sendMessage(command);
 
@@ -640,8 +640,8 @@ export class AlertsComponent implements OnInit {
     var latestExpId = "("+expId+")";
    // var addCommandToSend = cmdAddAlertList +","+ typeCheck+"," + latestExpId+")";
     //var updateCommandToSend = cmdUpdateAlertList +","+ typeCheck+"," + latestExpId+","+this.editRowIndex+")";
-    var addToAlertListCmd = '{"Command" : "AddToAlertList","Args":'+'"'+'('+expStr+")"+','+typeCheck+','+latestExpId+'"'+'}'
-    var updateAlertListCmd = '{"Command" : "UpdateAlertList","Args":'+'"'+'('+expStr+')'+','+typeCheck+','+latestExpId+','+this.editRowIndex+'"'+'}'
+    var addToAlertListCmd = '{"Command" : "AddToAlertList","params":{"Args":'+'"'+'('+expStr+")"+','+typeCheck+','+latestExpId+'"'+'}}'
+    var updateAlertListCmd = '{"Command" : "UpdateAlertList","params":{"Args":'+'"'+'('+expStr+')'+','+typeCheck+','+latestExpId+','+this.editRowIndex+'"'+'}}'
     if(this.addUpdateAlertFlag == 1){
       this.SocketService.sendMessage(addToAlertListCmd);
     }else{
@@ -686,7 +686,7 @@ export class AlertsComponent implements OnInit {
         }
        var alertArguments = path+','+this.currentIpAddress;
       // var startAlertsCmd = 'StartAlert'+'('+alertArguments+')';
-      var startAlertsCmd = '{"Command" : "StartAlert","Args":'+'"'+alertArguments+'"'+'}'
+      var startAlertsCmd = '{"Command" : "StartAlert","params":{"Args":'+'"'+alertArguments+'"'+'}}'
       this.SocketService.sendMessage(startAlertsCmd);
       
     }else{
@@ -740,7 +740,7 @@ export class AlertsComponent implements OnInit {
      var rowUidList = this.summaryData[rowPosition].rowUidList;
      var rowId = rowUidList.slice(0,-1)
      //var deleteCommand = "RemoveFromAlertList"+'('+rowId+','+rowIndex+")";
-     var removeFromAlertListCommand = '{"Command" : "RemoveFromAlertList","Args":'+'"'+rowId+","+rowIndex+'"'+'}'
+     var removeFromAlertListCommand = '{"Command" : "RemoveFromAlertList","params":{"Args":'+'"'+rowId+","+rowIndex+'"'+'}}'
      this.SocketService.sendMessage(removeFromAlertListCommand);
     }
     
@@ -896,7 +896,7 @@ export class AlertsComponent implements OnInit {
 // to be used later if we dont get the itemtype in client response;
 
   selectedDataForClient() {
-    var  command = '{"Command" : "GetParamType","Args":'+'"'+this.selectedFeature.Index+'"'+'}';
+    var  command = '{"Command" : "GetParamType","params":{"Args":'+'"'+this.selectedFeature.Index+'"'+'}}';
     this.SocketService.sendMessage(command);
     console.log(this.getParamArrayId);
     

@@ -370,17 +370,17 @@ export class MonitorComponent implements OnInit {
       }
     });
 
-
-    this.SocketService.LoadCustomViewDataStatus().subscribe(message => {
-      if (message) {
-      this.spinner.hide();
-        if(message.CommandStatus.Status == 'Success'){
-          this.loadCustomWorkspace(message.Data);   
-        }else{
+    // LoadCustomViewData is not used in the project
+    // this.SocketService.LoadCustomViewDataStatus().subscribe(message => {
+    //   if (message) {
+    //   this.spinner.hide();
+    //     if(message.CommandStatus.Status == 'Success'){
+    //       this.loadCustomWorkspace(message.Data);   
+    //     }else{
           
-        }
-      }
-    });
+    //     }
+    //   }
+    // });
 
 
     

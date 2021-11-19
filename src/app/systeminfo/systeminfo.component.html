@@ -30,8 +30,8 @@
                         <tbody *ngIf="item.expand">
                           <tr *ngFor="let item1 of item.Value">
                             <!-- <td>{{item1 | json}}</td> -->
-                            <td *ngIf="item1.type == 'Child'"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item1.Key}}</td>
-                            <td *ngIf="item1.type !== 'Child'">{{item1.Key}}</td>
+                            <td> <span *ngIf="item1.type == 'Child'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{{item1.Key}}</td>
+                            <!-- <td *ngIf="item1.type !== 'Child'">{{item1.Key}}</td> -->
                             <td>{{item1.Value}}</td>
                             <!-- <td  [innerHTML]="item1"></td> -->
                         </tr>

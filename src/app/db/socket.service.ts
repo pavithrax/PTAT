@@ -11,7 +11,7 @@ export class SocketService {
   public isConn$: Subject<any>;
   public isTatConn$: Subject<any>;
   public changeConn$: Subject<any>;
-  public validateGuid$: Subject<any>;
+  // public validateGuid$: Subject<any>;
   public isGetTatFeature$: Subject<any>;
   public targetInfo$: Subject<any>;
   public toolInfo$: Subject<any>;
@@ -69,7 +69,7 @@ export class SocketService {
   public isStopScript$: Subject<any>;
   public isScriptStatus$: Subject<any>;
   public isRemoveFromCustomViewListRes$: Subject<any>;
-  public isLoadCustomViewData$: Subject<any>;
+  // public isLoadCustomViewData$: Subject<any>;
   public isGetParamType$: Subject<any>;
   public isAddToAlertList$: Subject<any>;
   public isUpdateAlertList$: Subject<any>;
@@ -107,12 +107,12 @@ export class SocketService {
   public isWarrenCoveConfig$: Subject<any>;
   public isSetWarrenCoveConfig$: Subject<any>;
   public isSetCastroCoveConfig$: Subject<any>;
-  public isChangeConnection$: Subject<any>;
+  // public isChangeConnection$: Subject<any>;
   public isCheckTargetStatus$: Subject<any>;
   public ishideSpinner$: Subject<any>;
   public isRemoveFromFavConnList$: Subject<any>;
   public isAddToFavConnList$: Subject<any>;
-  public isGetFavConnList$: Subject<any>;
+  // public isGetFavConnList$: Subject<any>;
   public isstartPowerVisualization$: Subject<any>;
   public isstopPowerVisualization$: Subject<any>;
   public getParamVal$: Subject<any>;
@@ -129,7 +129,7 @@ export class SocketService {
     this.isConn$ = new Subject<any>();
     this.isTatConn$ = new Subject<any>();
     this.isGetTatFeature$ = new Subject<any>();
-    this.validateGuid$ = new Subject<any>();
+    // this.validateGuid$ = new Subject<any>();
     this.changeConn$ = new Subject<any>();
     this.targetInfo$ = new Subject<any>();
     this.toolInfo$ = new Subject<any>();
@@ -187,7 +187,7 @@ export class SocketService {
     this.isStopScript$ = new Subject<any>();
     this.isScriptStatus$ = new Subject<any>();
     this.isRemoveFromCustomViewListRes$ = new Subject<any>();
-    this.isLoadCustomViewData$ = new Subject<any>();
+    // this.isLoadCustomViewData$ = new Subject<any>();
     this.isGetParamType$ = new Subject<any>();
     this.isAddToAlertList$ = new Subject<any>();
     this.isUpdateAlertList$ = new Subject<any>();
@@ -224,12 +224,12 @@ export class SocketService {
     this.isSetWarrenCoveConfig$= new Subject<any>();
     this.isSetCastroCoveConfig$= new Subject<any>();
 
-    this.isChangeConnection$= new Subject<any>();
+    // this.isChangeConnection$= new Subject<any>();
     this.isCheckTargetStatus$= new Subject<any>();
     this.ishideSpinner$= new Subject<any>();
     this.isRemoveFromFavConnList$= new Subject<any>();
     this.isAddToFavConnList$= new Subject<any>();
-    this.isGetFavConnList$= new Subject<any>(); 
+    // this.isGetFavConnList$= new Subject<any>(); 
     this.isstartPowerVisualization$= new Subject<any>(); 
     this.isstopPowerVisualization$= new Subject<any>();   
     this.getParamVal$ = new Subject<any>();
@@ -354,21 +354,22 @@ export class SocketService {
     // check if data exists
     if (data) {
       if (data.CommandStatus.Status.toLowerCase() == constant.SUCCESS_MSG) {
-        if (data.Command == constant.TATHOSTSERVICE_CMD) {
-          this.isTatConn$.next(data.Data);
-        }
-        else if (data.Command == constant.GETTOOLINFO_CMD) {
+        // if (data.Command == constant.TATHOSTSERVICE_CMD) {
+        //   this.isTatConn$.next(data.Data);
+        // }
+        // else 
+        if (data.Command == constant.GETTOOLINFO_CMD) {
           this.toolInfo$.next(data.Data);
-        }
-        else if (data.Command == constant.CHANGECONN_CMD) {
-          this.changeConn$.next(data);
-          this.targetStatus = 0;
+        // }
+        // else if (data.Command == constant.CHANGECONN_CMD) {
+        //   this.changeConn$.next(data);
+        //   this.targetStatus = 0;
         }else if (data.Command == constant.CheckTargetStatus_CMD) {
           this.isCheckTargetStatus$.next(data.Data);
         }
-        else if (data.Command == constant.VALIDATEGUID_CMD) {
-          this.validateGuid$.next(data);
-        }
+        // else if (data.Command == constant.VALIDATEGUID_CMD) {
+        //   this.validateGuid$.next(data);
+        // }
         else if (data.Command == constant.GETTARGETINFO_CMD) {
           this.targetInfo$.next(data.Data);
         }
@@ -378,9 +379,9 @@ export class SocketService {
         else if (data.Command == constant.GETSETTINGS_CMD) {
           this.getSettings$.next(data.Data);
         }   
-        else if (data.Command == constant.SETAPPEVENTPROPERTIES_CMD) {
-           this.setAppEventProp$.next(data);
-         }
+        // else if (data.Command == constant.SETAPPEVENTPROPERTIES_CMD) {
+        //    this.setAppEventProp$.next(data);
+        //  }
         else if (data.Command == constant.TELEMETRYSETTINGS_CMD) {
            this.telemetrySettings$.next(data);
          }
@@ -493,9 +494,11 @@ export class SocketService {
         } 
         else if(data.Command == constant.SCRIPTSTATUS_CMD){
           this.isScriptStatus$.next(data);
-        }else if(data.Command == constant.LoadCustomViewData_CMD){
-          this.isLoadCustomViewData$.next(data);
-        }else if(data.Command == constant.REMOVEFROMCUSTOMVIEWLIST_CMD){
+        }
+        // else if(data.Command == constant.LoadCustomViewData_CMD){
+        //   this.isLoadCustomViewData$.next(data);
+        // }
+        else if(data.Command == constant.REMOVEFROMCUSTOMVIEWLIST_CMD){
           this.isRemoveFromCustomViewListRes$.next(data);
         }else if(data.Command == constant.GetParamType_CMD){
           this.isGetParamType$.next(data);
@@ -567,9 +570,11 @@ export class SocketService {
           this.isRemoveFromFavConnList$.next(data);
         }else if (data.Command == constant.AddToFavConnList_CMD){
           this.isAddToFavConnList$.next(data);
-        }else if (data.Command == constant.GetFavConnList_CMD){
-          this.isGetFavConnList$.next(data);
-        }else if (data.Command == constant.startPowerVisualization_CMD){
+        }
+        // else if (data.Command == constant.GetFavConnList_CMD){
+        //   this.isGetFavConnList$.next(data);
+        // }
+        else if (data.Command == constant.startPowerVisualization_CMD){
           this.isstartPowerVisualization$.next(data);
         }else if (data.Command == constant.stopPowerVisualization_CMD){
           this.isstopPowerVisualization$.next(data);
@@ -582,22 +587,23 @@ export class SocketService {
         }
       }
       else {
-        if (data.Command == constant.TATHOSTSERVICE_CMD) {
-          this.isTatConn$.next(data.Data);
-        }
-        else if (data.Command == constant.GETTOOLINFO_CMD) {
+        // if (data.Command == constant.TATHOSTSERVICE_CMD) {
+        //   this.isTatConn$.next(data.Data);
+        // }
+        // else 
+        if (data.Command == constant.GETTOOLINFO_CMD) {
           this.isError$.next(data);
-        }
-        else if (data.Command == constant.CHANGECONN_CMD) {
-          this.isChangeConnection$.next(data);
-          this.targetStatus = 1;   
+        // }
+        // else if (data.Command == constant.CHANGECONN_CMD) {
+        //   this.isChangeConnection$.next(data);
+        //   this.targetStatus = 1;   
         }else if (data.Command == constant.CheckTargetStatus_CMD) {
           this.isCheckTargetStatus$.next(data);
           this.targetStatus = 1;
         }
-        else if (data.Command == constant.VALIDATEGUID_CMD) {
-          this.isError$.next(data);
-        }
+        // else if (data.Command == constant.VALIDATEGUID_CMD) {
+        //   this.isError$.next(data);
+        // }
         else if (data.Command == constant.GETTARGETINFO_CMD) {
           this.isError$.next(data);
         }
@@ -607,9 +613,9 @@ export class SocketService {
        else if (data.Command == constant.GETSETTINGS_CMD) {
           this.isError$.next(data);
         }  
-        else if (data.Command == constant.SETAPPEVENTPROPERTIES_CMD) {
-          this.isError$.next(data);
-         }
+        // else if (data.Command == constant.SETAPPEVENTPROPERTIES_CMD) {
+        //   this.isError$.next(data);
+        //  }
         else if (data.Command == constant.TELEMETRYSETTINGS_CMD) {
            this.telemetrySettings$.next(data);
          }
@@ -712,8 +718,8 @@ export class SocketService {
           //this.isRemoveFromFavConnList$.next(data);
         }else if (data.Command == constant.AddToFavConnList_CMD){
           this.isAddToFavConnList$.next(data);
-        }else if (data.Command == constant.GetFavConnList_CMD){
-          this.isGetFavConnList$.next(data);
+        // }else if (data.Command == constant.GetFavConnList_CMD){
+        //   this.isGetFavConnList$.next(data);
         }else if (data.Command == constant.startPowerVisualization_CMD){
           this.isstartPowerVisualization$.next(data);
         }else if (data.Command == constant.stopPowerVisualization_CMD){
@@ -740,9 +746,9 @@ export class SocketService {
   getChangeConn() {
     return this.changeConn$.asObservable();
   }
-  getValidateGuid() {
-    return this.validateGuid$.asObservable();
-  }
+  // getValidateGuid() {
+  //   return this.validateGuid$.asObservable();
+  // }
   getTargetInfo() {
     return this.targetInfo$.asObservable();
   }
@@ -758,9 +764,9 @@ export class SocketService {
    getSaveCustomWrkSpc() {
      return this.saveCustomWrkspc$.asObservable();
    }
-   getSetAppEventproperties() {
-      return this.setAppEventProp$.asObservable();
-   }
+  //  getSetAppEventproperties() {
+  //     return this.setAppEventProp$.asObservable();
+  //  }
    getTelemetrySettings() {
      return this.telemetrySettings$.asObservable();
    }
@@ -949,9 +955,9 @@ export class SocketService {
   RemoveFromCustomViewListRes(){
     return this.isRemoveFromCustomViewListRes$.asObservable();
   }
-  LoadCustomViewDataStatus(){
-    return this.isLoadCustomViewData$.asObservable();
-  }
+  // LoadCustomViewDataStatus(){
+  //   return this.isLoadCustomViewData$.asObservable();
+  // }
 
   isGetParamTypeStatus(){
     return this.isGetParamType$.asObservable();
@@ -1075,10 +1081,10 @@ export class SocketService {
     return this.isSetWarrenCoveConfig$.asObservable();
   }
 
-  changeConnectionErrorHandling1(){
-    return this.isChangeConnection$.asObservable();
+  // changeConnectionErrorHandling1(){
+  //   return this.isChangeConnection$.asObservable();
 
-  }
+  // }
 
   checkTargetStatusErrorHandling(){
     return this.isCheckTargetStatus$.asObservable();
@@ -1096,9 +1102,9 @@ export class SocketService {
       return this.isAddToFavConnList$.asObservable();
   }
 
-  getFavConnListRes(){
-    return this.isGetFavConnList$.asObservable();
-  }
+  // getFavConnListRes(){
+  //   return this.isGetFavConnList$.asObservable();
+  // }
 
 
   startPowerVisualizationRes(){
