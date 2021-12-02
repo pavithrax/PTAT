@@ -337,7 +337,7 @@ export class MonitorComponent implements OnInit {
     });
 
 
-    this.SocketService.GetLogHeaderRes().subscribe(message => {
+    this.SocketService.GetLogHeaderServerRes().subscribe(message => {
       if (message) {
         if(message.ShowPopup == 1){
           if( this.showMonitorLogginModal = true){
@@ -697,7 +697,7 @@ showAccordingly(nav){
    startLoggingClick(){
     //  this.loggingstatus = !this.loggingstatus;  
      if(this.loggingstatus){
-      var command = '{"Command" : "GetLogHeader"}'
+      var command = '{"Command" : "GetLogHeaderServer"}'
       this.SocketService.sendMessage(command);
       //this.SocketService.sendMessage("GetLogHeader()");
      }else{

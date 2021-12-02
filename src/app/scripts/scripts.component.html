@@ -88,7 +88,7 @@
                                     <button type="button" class="btn btn-sm greenBtnColor addbtn" (click)="addScript()" [disabled]="addState == '0'">
                                         Add
                                     </button>
-                                    <button type="button" class="btn btn-sm otherBtn resetbtn" (click)="resetForm()">
+                                    <button type="button" class="btn btn-sm otherBtn resetbtn" (click)="resetForm()" [disabled]="resetState == '0'" > 
                                         Reset
                                     </button>
                                 </div>
@@ -151,8 +151,8 @@
                         <td>
                             <input type="checkbox" [checked]="data.selected" (change)="check()" class="scriptCheckBox">
                         </td>
-                        <td>{{data.Cmd}}</td>
-                        <td>{{data.CompData}}</td>
+                        <td>{{data.Command}}</td>
+                        <td>{{data.Component}}</td>
                         <td>{{data.Arg1}}</td>
                         <td>{{data.Arg2}}</td>
                         <td>{{data.Arg3}}</td>

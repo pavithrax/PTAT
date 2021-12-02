@@ -57,6 +57,7 @@ export class SocketService {
   public isScriptArg1SelectedRes$: Subject<any>;
   public isScriptArg2SelectedRes$: Subject<any>;
   public isScriptArg3SelectedRes$: Subject<any>;
+  public isScriptArg4SelectedRes$: Subject<any>;
   public isScriptAddRowRes$: Subject<any>;
   public isScriptRemoveRowsRes$: Subject<any>;
   public isLoadScriptRes$: Subject<any>;
@@ -175,6 +176,7 @@ export class SocketService {
     this.isScriptArg1SelectedRes$ = new Subject<any>();
     this.isScriptArg2SelectedRes$ = new Subject<any>();
     this.isScriptArg3SelectedRes$ = new Subject<any>();
+    this.isScriptArg4SelectedRes$ = new Subject<any>();
     this.isScriptAddRowRes$ = new Subject<any>();    
     this.isScriptRemoveRowsRes$ = new Subject<any>();  
     this.isLoadScriptRes$ = new Subject<any>();  
@@ -464,6 +466,8 @@ export class SocketService {
           this.isScriptArg2SelectedRes$.next(data);
         }else if(data.Command == constant.ScriptArg3Selected_CMD){
           this.isScriptArg3SelectedRes$.next(data);
+        }else if(data.Command == constant.ScriptArg4Selected_CMD){
+          this.isScriptArg4SelectedRes$.next(data);
         }else if(data.Command == constant.ScriptCommandSelected_CMD){
           this.isScriptCommandSelectedRes$.next(data);
         }else if(data.Command == constant.ScriptAddRow_CMD){
@@ -915,6 +919,10 @@ export class SocketService {
 
   ScriptArg3SelectedRes(){
     return this.isScriptArg3SelectedRes$.asObservable();
+  }
+
+  ScriptArg4SelectedRes(){
+    return this.isScriptArg4SelectedRes$.asObservable();
   }
 
   ScriptAddRowRes(){

@@ -976,12 +976,15 @@ export class WorkloadComponent implements OnInit {
       let testData = selectedtest.TableData.Row
       params['pwr-level'] = testData.powerLevel
       console.log(testData);
-      testData.ThreadData.forEach(element => {
-        if (element.isSelected) {
-          dummyThread.push(parseInt(element.Name.replace(/[^\d]/g, '')))
-        }
-      });
-      params['selected-threads'] = dummyThread;
+      if(testData.ThreadData) {
+        testData.ThreadData.forEach(element => {
+          if (element.isSelected) {
+            dummyThread.push(parseInt(element.Name.replace(/[^\d]/g, '')))
+          }
+        });
+        params['selected-threads'] = dummyThread;
+      }
+      
 
       // dropcheck == true ie., selection is from range(dropdown) else selection is freom checkbox
       if (testData.DroporCheck) {

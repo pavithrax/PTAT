@@ -51,6 +51,7 @@ export class constant {
     public static ScriptArg1Selected_CMD = "ScriptArg1Selected";
     public static ScriptArg2Selected_CMD = "ScriptArg2Selected";
     public static ScriptArg3Selected_CMD = "ScriptArg3Selected";
+    public static ScriptArg4Selected_CMD = "ScriptArg4Selected";
     public static ScriptAddRow_CMD = "ScriptAddRow";
     public static ScriptRemoveRows_CMD = "ScriptRemoveRows";
     public static LOADSCRIPT_CMD = "LoadScript";

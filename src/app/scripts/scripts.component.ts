@@ -16,8 +16,8 @@ export class ScriptsComponent implements OnInit {
   passDeleteRows: any;
   respScriptArr = [];
   addState = '0';
-  dropdownresponse = [];
-  getComponentResp = [];
+  dropdownresponse:any;
+  getComponentResp:any;
   componentArr = [];
   arg1Arr = [];
   arg2Arr = [];
@@ -27,6 +27,7 @@ export class ScriptsComponent implements OnInit {
   removeState = '0';
   saveState = '0';
   executeState = '0';
+  resetState = '1';
   selectedFeatures: any = [];
   selectedFeatures1: any = [];
   arr = [];
@@ -36,15 +37,17 @@ export class ScriptsComponent implements OnInit {
   scriptStatusCode = 0;
   stopRequested = false;
   scriptStatus = '';
-  getArg2Resp = [];
-  getArg3Resp = [];
-  getArg1Resp = [];
+  getArg2Resp: any;
+  getArg4Resp: any;
+  getArg3Resp: any;
+  getArg1Resp: any;
   scriptDeleteList = [];
   getLoadScriptResp = [];
   getScriptResponse: any;
   getComponentResp1: any;
   getArg2Resp1: any;
   getArg3Resp1: any;
+  getArg4Resp1: any;
   getArg1Resp1: any;
   prevIndex: any;
   nextIndex: any;
@@ -92,25 +95,66 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
     this.SocketService.GetScriptDataRes().subscribe(message => {
       if (message) {
         this.getScriptResponse = message.Data;
-        if (this.getScriptResponse[0].DropDownList.DropDownData.Name == 'Command') {
-          if (this.respScriptArr = this.getScriptResponse[0].DropDownList.DropDownData.Row.length) {
-            this.respScriptArr = this.getScriptResponse[0].DropDownList.DropDownData.Row.split(",");
-            this.scriptsForm.get('selectedOption').setValue(this.respScriptArr[this.key]);
-          }
+        this.componentArr = [];
+        this.arg1Arr = [];
+        this.arg2Arr = [];
+        this.arg3Arr = [];
+        this.arg4Arr = [];
+        this.scriptsForm.get('compData').disable();
+        this.scriptsForm.get('arg1Data').disable();
+        this.scriptsForm.get('arg2Data').disable();
+        this.scriptsForm.get('arg3Data').disable();
+        this.scriptsForm.get('arg4Data').disable();
+        this.addState = '0';
+        if(message.Data.length > 0) {
+          this.respScriptArr = message.Data;
+          this.scriptsForm.get('selectedOption').setValue(message.Data[this.key])
         }
+        // if (this.getScriptResponse[0].DropDownList.DropDownData.Name == 'Command') {
+        //   if (this.respScriptArr = this.getScriptResponse[0].DropDownList.DropDownData.Row.length) {
+        //     this.respScriptArr = this.getScriptResponse[0].DropDownList.DropDownData.Row.split(",");
+        //     console.log(this.respScriptArr);
+        //     console.log(this.key);
+        //     console.log(this.respScriptArr[this.key]);
+            
+            
+        //     this.scriptsForm.get('selectedOption').setValue(this.respScriptArr[this.key]);
+        //   }
+        // }
+        console.log(this.scriptsForm);
       }
     });
 
     this.SocketService.ScriptCommandSelectedRes().subscribe(message => {
+      console.log(message);
+      
       if (message) {
-        this.dropdownresponse = message.Data[0].DropDownList;
-        this.ReceiveScriptResp();
+        // this.dropdownresponse = message.Data[0].DropDownList;
+        this.dropdownresponse = message.Data;
+        // this.dropdownresponse.length == 0 || 
+        console.log(message);
+        if(this.dropdownresponse.Command == 'None'){
+          this.scriptsForm.reset();
+          this.scriptsForm.get('selectedOption').setValue(this.respScriptArr[this.key]);
+          this.scriptsForm.get('compData').disable();
+          this.scriptsForm.get('arg1Data').disable();
+          this.scriptsForm.get('arg2Data').disable();
+          this.scriptsForm.get('arg3Data').disable();
+          this.scriptsForm.get('arg4Data').disable();
+          this.addState = "0";
+        } else {
+          this.ReceiveScriptResp();
+        }
+       
+
       }
     });
 
     this.SocketService.ScriptComponentSelectedRes().subscribe(message => {
+      console.log(message);
+      
       if (message) {
-        this.getComponentResp = message.Data[0].DropDownList;
+        this.getComponentResp = message.Data;
         if (this.getComponentResp) {
           this.onChangeofCmdScriptScriptResponse();
         }
@@ -119,7 +163,7 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
 
     this.SocketService.ScriptArg1SelectedRes().subscribe(message => {
       if (message) {
-        this.getArg1Resp1 = message.Data[0].DropDownList;
+        this.getArg1Resp1 = message.Data;
         if (this.getArg1Resp1) {
           this.getArg1Resp = this.getArg1Resp1;
           this.onChangeofArg1ScriptScriptResponse();
@@ -130,7 +174,7 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
 
     this.SocketService.ScriptArg2SelectedRes().subscribe(message => {
       if (message) {
-        this.getArg2Resp1 = message.Data[0].DropDownList;
+        this.getArg2Resp1 = message.Data;
         if (this.getArg2Resp1) {
           this.getArg2Resp = this.getArg2Resp1;
           this.onChangeofArg2ScriptScriptResponse();
@@ -140,7 +184,7 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
 
     this.SocketService.ScriptArg3SelectedRes().subscribe(message => {
       if (message) {
-        this.getArg3Resp1 = message.Data[0].DropDownList;
+        this.getArg3Resp1 = message.Data;
         if (this.getArg3Resp1) {
           this.getArg3Resp = this.getArg3Resp1;
           this.onChangeofArg3ScriptScriptResponse();
@@ -148,11 +192,20 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
       }
     });
 
+    this.SocketService.ScriptArg4SelectedRes().subscribe(message => {
+      if (message) {
+        this.getArg4Resp1 = message.Data;
+        if (this.getArg4Resp1) {
+          this.getArg4Resp = this.getArg4Resp1;
+          this.onChangeofArg4ScriptScriptResponse();
+        }
+      }
+    });
     this.SocketService.ScriptAddRowRes().subscribe(message => {
       if (message) {
         var scriptsArr =
         {
-          "Cmd": this.scriptsForm.get('selectedOption').value, "CompData": this.scriptsForm.get('compData').value, "Arg1": this.scriptsForm.get('arg1Data').value, "Arg2": this.scriptsForm.get('arg2Data').value, "Arg3": this.scriptsForm.get('arg3Data').value, "Arg4": this.scriptsForm.get('arg4Data').value, "selected": false, "executestatus": ""
+          "Command": this.scriptsForm.get('selectedOption').value, "Component": this.scriptsForm.get('compData').value, "Arg1": this.scriptsForm.get('arg1Data').value, "Arg2": this.scriptsForm.get('arg2Data').value, "Arg3": this.scriptsForm.get('arg3Data').value, "Arg4": this.scriptsForm.get('arg4Data').value, "selected": false, "executestatus": ""
 
         }
         this.selectedFeatures.push(scriptsArr);
@@ -224,6 +277,7 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
     });
 
     this.SocketService.getExecuteScriptsError().subscribe(message => {
+      this.resetState = '1';
       if (message) {
         this.scriptStatus = "Invalid Script";        
         this.scriptStatusCode = 1;        
@@ -257,6 +311,7 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
     });
 
     this.SocketService.getStopScriptsStatus().subscribe(message => {
+      this.resetState = '1';
       if (message) {
         if(this.stopRequested == true){
           this.scriptStatus = "User aborted"; 
@@ -275,12 +330,17 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
   onChangeofSelectScript(i) {
     var commanddropdownselecteditemindex = $("#mySelectCmdScript").prop('selectedIndex');
     //var cmd = "ScriptCommandSelected(-1" + "," + commanddropdownselecteditemindex + ":null" + "," + "-1:null,-1:null,-1:null,-1:null,-1:null)";
-    var cmd = '{"Command" : "ScriptCommandSelected","Args":'+'"'+'-1,'+commanddropdownselecteditemindex+':null'+','+'-1:null,-1:null,-1:null,-1:null,-1:null'+'"'+'}'
+    // var cmd = '{"Command" : "ScriptCommandSelected","Args":'+'"'+'-1,'+commanddropdownselecteditemindex+':null'+','+'-1:null,-1:null,-1:null,-1:null,-1:null'+'"'+'}'
+
+
+    var cmd = '{"Command": "ScriptCommandSelected","Args": {"Command": "'+this.scriptsForm.get('selectedOption').value +'","Component": "","Arg1": "","Arg2": "","Arg3": "","Arg4": ""}}'
+      
     this.SocketService.sendMessage(cmd);
   }
 
   ReceiveScriptResp() {
-
+    console.log(this.dropdownresponse);
+    
     this.arg4Arr = [];
     this.arg3Arr = [];
     this.arg2Arr = [];
@@ -292,117 +352,150 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
     this.scriptsForm.get('arg3Data').enable();
     this.scriptsForm.get('arg4Data').enable();
     this.addState = "1";
-    if(this.dropdownresponse.length == 0){
-      this.scriptsForm.reset();
-      this.scriptsForm.get('selectedOption').setValue(this.respScriptArr[this.key]);
-      this.scriptsForm.get('compData').disable();
-      this.scriptsForm.get('arg1Data').disable();
-      this.scriptsForm.get('arg2Data').disable();
-      this.scriptsForm.get('arg3Data').disable();
-      this.scriptsForm.get('arg4Data').disable();
-      this.addState = "0";
-    }
-
-    for (let i = 0; i < this.dropdownresponse.length; i++) {
-      if (this.dropdownresponse[i].Name == 'Component') {
-
-        if (this.dropdownresponse[i].Row != 'Disabled') {
-          if (this.dropdownresponse[i].Row.includes(':')) {
-            for (let k = 0; k < this.dropdownresponse[i].Row.split(",").length; k++) {
-              this.componentArr.push(this.dropdownresponse[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
-            }
-          }
-          else {
-            this.componentArr = this.dropdownresponse[i].Row.split(",");
-            this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
-          }
-
-        }
-        else {
-          this.scriptsForm.get('compData').setValue("");
-          this.scriptsForm.get('compData').disable();
-        }
-
-
+    
+    // else {
+      if(this.dropdownresponse.Component.length > 0 && this.dropdownresponse.Component != '') {
+        this.componentArr = this.dropdownresponse.Component; // adding data to component array
+        this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
+      }else {
+        this.scriptsForm.get('compData').setValue("");
+        this.scriptsForm.get('compData').disable();
       }
-      if (this.dropdownresponse[i].Name == 'Arg1') {
-        if (this.dropdownresponse[i].Row != 'Disabled') {
-          if (this.dropdownresponse[i].Row.includes(':')) {
-            for (let k = 0; k < this.dropdownresponse[i].Row.split(",").length; k++) {
-              this.arg1Arr.push(this.dropdownresponse[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
-            }
-          }
-          else {
-            this.arg1Arr = this.dropdownresponse[i].Row.split(",");
-            this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg1Data').setValue("");
-          this.scriptsForm.get('arg1Data').disable();
-        }
-
-      }
-      else if (this.dropdownresponse[i].Name == 'Arg2') {
-        if (this.dropdownresponse[i].Row != 'Disabled') {
-          if (this.dropdownresponse[i].Row.includes(':')) {
-            for (let k = 0; k < this.dropdownresponse[i].Row.split(",").length; k++) {
-              this.arg2Arr.push(this.dropdownresponse[i].Row.split(",")[k].slice(0, -2).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
-            }
-          }
-          else {
-            this.arg2Arr = this.dropdownresponse[i].Row.split(",");
-            this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg2Data').setValue("");
-          this.scriptsForm.get('arg2Data').disable();
-        }
 
 
+      if(this.dropdownresponse.Arg1.length > 0 && this.dropdownresponse.Arg1 != '') {
+        this.arg1Arr = this.dropdownresponse.Arg1; // adding data to Arg1 array
+        this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
+      }else {
+        this.scriptsForm.get('arg1Data').setValue("");
+        this.scriptsForm.get('arg1Data').disable();
       }
-      else if (this.dropdownresponse[i].Name == 'Arg3') {
-        if (this.dropdownresponse[i].Row != 'Disabled') {
-          if (this.dropdownresponse[i].Row.includes(':')) {
-            for (let k = 0; k < this.dropdownresponse[i].Row.split(",").length; k++) {
-              this.arg3Arr.push(this.dropdownresponse[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
-            }
-          }
-          else {
-            this.arg3Arr = this.dropdownresponse[i].Row.split(",");
-            this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg3Data').setValue("");
-          this.scriptsForm.get('arg3Data').disable();
-        }
 
+      if(this.dropdownresponse.Arg2.length > 0 && this.dropdownresponse.Arg2 != '') {
+        this.arg2Arr = this.dropdownresponse.Arg2; // adding data to Arg2 array
+        this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+      }else {
+        this.scriptsForm.get('arg2Data').setValue("");
+        this.scriptsForm.get('arg2Data').disable();
       }
-      else if (this.dropdownresponse[i].Name == 'Arg4') {
-        if (this.dropdownresponse[i].Row != 'Disabled') {
-          if (this.dropdownresponse[i].Row.includes(':')) {
-            for (let k = 0; k < this.dropdownresponse[i].Row.split(",").length; k++) {
-              this.arg4Arr.push(this.dropdownresponse[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
-            }
-          }
-          else {
-            this.arg4Arr = this.dropdownresponse[i].Row.split(",");
-            this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg4Data').setValue("");
-          this.scriptsForm.get('arg4Data').disable();
-        }
+
+      if(this.dropdownresponse.Arg3.length > 0 && this.dropdownresponse.Arg3 != '') {
+        this.arg3Arr = this.dropdownresponse.Arg3; // adding data to Arg3 array
+        this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.arg3Arr.length - 1]);
+      }else {
+        this.scriptsForm.get('arg3Data').setValue("");
+        this.scriptsForm.get('arg3Data').disable();
       }
-    }
+
+      if(this.dropdownresponse.Arg4.length > 0 && this.dropdownresponse.Arg4 != '') {
+        this.arg4Arr = this.dropdownresponse.Arg4; // adding data to Arg4 array
+        this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+      }else {
+        this.scriptsForm.get('arg4Data').setValue("");
+        this.scriptsForm.get('arg4Data').disable();
+      }
+    // } 
+
+    // for (let i = 0; i < this.dropdownresponse.length; i++) {
+    //   if (this.dropdownresponse[i].Name == 'Component') {
+
+    //     if (this.dropdownresponse[i].Row != 'Disabled') {
+    //       if (this.dropdownresponse[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.dropdownresponse[i].Row.split(",").length; k++) {
+    //           this.componentArr.push(this.dropdownresponse[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
+    //         }
+    //       }
+    //       else {
+    //         this.componentArr = this.dropdownresponse[i].Row.split(",");
+    //         this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
+    //       }
+
+    //     }
+    //     else {
+    //       this.scriptsForm.get('compData').setValue("");
+    //       this.scriptsForm.get('compData').disable();
+    //     }
+
+
+    //   }
+    //   if (this.dropdownresponse[i].Name == 'Arg1') {
+    //     if (this.dropdownresponse[i].Row != 'Disabled') {
+    //       if (this.dropdownresponse[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.dropdownresponse[i].Row.split(",").length; k++) {
+    //           this.arg1Arr.push(this.dropdownresponse[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+    //         this.arg1Arr = this.dropdownresponse[i].Row.split(",");
+    //         this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg1Data').setValue("");
+    //       this.scriptsForm.get('arg1Data').disable();
+    //     }
+
+    //   }
+    //   else if (this.dropdownresponse[i].Name == 'Arg2') {
+    //     if (this.dropdownresponse[i].Row != 'Disabled') {
+    //       if (this.dropdownresponse[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.dropdownresponse[i].Row.split(",").length; k++) {
+    //           this.arg2Arr.push(this.dropdownresponse[i].Row.split(",")[k].slice(0, -2).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+    //         this.arg2Arr = this.dropdownresponse[i].Row.split(",");
+    //         this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg2Data').setValue("");
+    //       this.scriptsForm.get('arg2Data').disable();
+    //     }
+
+
+    //   }
+    //   else if (this.dropdownresponse[i].Name == 'Arg3') {
+    //     if (this.dropdownresponse[i].Row != 'Disabled') {
+    //       if (this.dropdownresponse[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.dropdownresponse[i].Row.split(",").length; k++) {
+    //           this.arg3Arr.push(this.dropdownresponse[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+    //         this.arg3Arr = this.dropdownresponse[i].Row.split(",");
+    //         this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg3Data').setValue("");
+    //       this.scriptsForm.get('arg3Data').disable();
+    //     }
+
+    //   }
+    //   else if (this.dropdownresponse[i].Name == 'Arg4') {
+    //     if (this.dropdownresponse[i].Row != 'Disabled') {
+    //       if (this.dropdownresponse[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.dropdownresponse[i].Row.split(",").length; k++) {
+    //           this.arg4Arr.push(this.dropdownresponse[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+    //         this.arg4Arr = this.dropdownresponse[i].Row.split(",");
+    //         this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg4Data').setValue("");
+    //       this.scriptsForm.get('arg4Data').disable();
+    //     }
+    //   }
+    // }
   }
 
 
@@ -411,7 +504,7 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
 
     var scriptsArr =
     {
-      "Cmd": this.scriptsForm.get('selectedOption').value, "CompData": this.scriptsForm.get('compData').value, "Arg1": this.scriptsForm.get('arg1Data').value, "Arg2": this.scriptsForm.get('arg2Data').value, "Arg3": this.scriptsForm.get('arg3Data').value, "Arg4": this.scriptsForm.get('arg4Data').value, "selected": false, "executestatus": ""
+      "Command": this.scriptsForm.get('selectedOption').value, "Component": this.scriptsForm.get('compData').value, "Arg1": this.scriptsForm.get('arg1Data').value, "Arg2": this.scriptsForm.get('arg2Data').value, "Arg3": this.scriptsForm.get('arg3Data').value, "Arg4": this.scriptsForm.get('arg4Data').value, "selected": false, "executestatus": ""
 
     }
 
@@ -446,7 +539,11 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
     }
 
     //var cmd = "ScriptAddRow(" + rowIndex + "," + CmdScriptIndex + ":" + this.scriptsForm.get('selectedOption').value + "," + CompScriptIndex + ":" + compData + "," + Arg1ScriptIndex + ":" + arg1Data + "," + Arg2ScriptIndex + ":" + arg2Data + "," + Arg3ScriptIndex + ":" + arg3Data + "," + Arg4ScriptIndex + ":" + arg4Data +  ")";
-    var cmd =  '{"Command" : "ScriptAddRow","Args":'+'"'+rowIndex+','+CmdScriptIndex+':'+this.scriptsForm.get('selectedOption').value+','+CompScriptIndex+':'+compData+','+Arg1ScriptIndex+':'+arg1Data+','+Arg2ScriptIndex+':'+arg2Data+','+Arg3ScriptIndex+':'+arg3Data+','+Arg4ScriptIndex+':'+arg4Data+'"'+'}'
+    // var cmd =  '{"Command" : "ScriptAddRow","Args":'+'"'+rowIndex+','+CmdScriptIndex+':'+this.scriptsForm.get('selectedOption').value+','+CompScriptIndex+':'+compData+','+Arg1ScriptIndex+':'+arg1Data+','+Arg2ScriptIndex+':'+arg2Data+','+Arg3ScriptIndex+':'+arg3Data+','+Arg4ScriptIndex+':'+arg4Data+'"'+'}'
+
+
+    var cmd = '{"Command": "ScriptAddRow","Args": {"Command": "'+this.scriptsForm.get('selectedOption').value +'","Component": "'+this.scriptsForm.get('compData').value +'","Arg1": "'+this.scriptsForm.get('arg1Data').value +'","Arg2": "'+this.scriptsForm.get('arg2Data').value +'","Arg3": "'+this.scriptsForm.get('arg3Data').value +'","Arg4": "'+this.scriptsForm.get('arg4Data').value +'"}}'
+
     this.SocketService.sendMessage(cmd);
   }
 
@@ -495,8 +592,10 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
   deleteSelected() {
     let checkBoxCount = $('.scriptCheckBox');
     if (checkBoxCount.length && this.arr.length>0) {
+      console.log(this.arr);
+      
          //var cmd = "ScriptRemoveRows(" + this.arr.toString() + ")"
-          var cmd = '{"Command" : "ScriptRemoveRows","Args":'+'"'+this.arr.toString()+'"'+'}'
+          var cmd = '{"Command" : "ScriptRemoveRows","Args":'+'['+this.arr+']'+'}'
           this.SocketService.sendMessage(cmd);
     }
   }
@@ -530,7 +629,9 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
    this.prevIndex = event.previousIndex;
    this.nextIndex = event.currentIndex;
     //var cmd = "ScriptRowsDragAndDrop(" + event.previousIndex + "," + event.currentIndex + ")";
-    var cmd = '{"Command" : "ScriptRowsDragAndDrop","Args":'+'"'+event.previousIndex+','+event.currentIndex+'"'+'}'
+    // var cmd = '{"Command" : "ScriptRowsDragAndDrop","Args":'+'"'+event.previousIndex+','+event.currentIndex+'"'+'}'
+
+    var cmd = '{"Command":"ScriptRowsDragAndDrop","Args":{"previousIndex":'+event.previousIndex+',"currentIndex":'+event.currentIndex+'}}';
     this.SocketService.sendMessage(cmd);
     
 
@@ -538,6 +639,7 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
  
   //On button click of execute flow send cmd
   executeScript() {
+    this.resetState = '0';
     this.isScriptStatus = false;
     this.scriptStatus = "";
     this.selectedFeatures.forEach(function(x) { 
@@ -554,6 +656,7 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
   }
 
   stopScript(){
+    this.resetState = '1';
     //var cmd = "StopScripts()";
     var cmd = '{"Command" : "StopScripts"}'
     this.SocketService.sendMessage(cmd);
@@ -592,10 +695,13 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
 
   //On selection of component
   onChangeofCmdScriptScript(i) {
-    var commanddropdownselecteditemindex = $("#mySelectCmdScript").prop('selectedIndex');
-    var componentdropdownselecteditemindex = $("#mySelectCompScript").prop('selectedIndex');
+    // var commanddropdownselecteditemindex = $("#mySelectCmdScript").prop('selectedIndex');
+    // var componentdropdownselecteditemindex = $("#mySelectCompScript").prop('selectedIndex');
     //var cmd = "ScriptComponentSelected(-1" + "," + commanddropdownselecteditemindex + ":null" + "," + componentdropdownselecteditemindex + ":null,-1:null,-1:null,-1:null,-1:null)";
-    var cmd = '{"Command" : "ScriptComponentSelected","Args":'+'"'+'-1'+','+commanddropdownselecteditemindex+':null'+','+componentdropdownselecteditemindex+':null,-1:null,-1:null,-1:null,-1:null'+'"'+'}'
+    // var cmd = '{"Command" : "ScriptComponentSelected","Args":'+'"'+'-1'+','+commanddropdownselecteditemindex+':null'+','+componentdropdownselecteditemindex+':null,-1:null,-1:null,-1:null,-1:null'+'"'+'}'
+
+    var cmd = '{"Command": "ScriptComponentSelected","Args": {"Command": "'+this.scriptsForm.get('selectedOption').value +'","Component": "'+this.scriptsForm.get('compData').value +'","Arg1": "","Arg2": "","Arg3": "","Arg4": ""}}'
+    // var cmd = '{"Command": "ScriptComponentSelected","Args": {"Command": "'+this.scriptsForm.get('selectedOption').value +'","Component": "'+this.scriptsForm.get('compData').value +'","Arg1": "'+this.scriptsForm.get('compData').value +'","Arg2": "","Arg3": "","Arg4": ""}}'
     this.SocketService.sendMessage(cmd);
   }
   onChangeofCmdScriptScriptResponse(){
@@ -604,125 +710,159 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
     this.arg3Arr = [];
     this.arg2Arr = [];
     this.arg1Arr = [];
-    for (let i = 0; i < this.getComponentResp.length; i++) {
-      if (this.getComponentResp[i].Name == 'Component') {
 
-        if (this.getComponentResp[i].Row != 'Disabled') {
-          if (this.getComponentResp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getComponentResp[i].Row.split(",").length; k++) {
-              this.componentArr.push(this.getComponentResp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
-            }
-          }
-          else {
-
-            this.componentArr = this.getComponentResp[i].Row.split(",");
-            this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
-          }
-
-        }
-        else {
-          this.scriptsForm.get('compData').setValue("");
-          this.scriptsForm.get('compData').disable();
-        }
-
-
-      }
-      if (this.getComponentResp[i].Name == 'Arg1') {
-        if (this.getComponentResp[i].Row != 'Disabled') {
-          if (this.getComponentResp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getComponentResp[i].Row.split(",").length; k++) {
-
-              this.arg1Arr.push(this.getComponentResp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg1Arr = this.getComponentResp[i].Row.split(",");
-            this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg1Data').setValue("");
-          this.scriptsForm.get('arg1Data').disable();
-        }
-
-      }
-      else if (this.getComponentResp[i].Name == 'Arg2') {
-        if (this.getComponentResp[i].Row != 'Disabled') {
-          if (this.getComponentResp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getComponentResp[i].Row.split(",").length; k++) {
-
-              this.arg2Arr.push(this.getComponentResp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg2Arr = this.getComponentResp[i].Row.split(",");
-            this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg2Data').setValue("");
-          this.scriptsForm.get('arg2Data').disable();
-        }
-
-
-      }
-      else if (this.getComponentResp[i].Name == 'Arg3') {
-        if (this.getComponentResp[i].Row != 'Disabled') {
-          if (this.getComponentResp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getComponentResp[i].Row.split(",").length; k++) {
-
-              this.arg3Arr.push(this.getComponentResp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg3Arr = this.getComponentResp[i].Row.split(",");
-            this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg3Data').setValue("");
-          this.scriptsForm.get('arg3Data').disable();
-        }
-
-      }
-      else if (this.getComponentResp[i].Name == 'Arg4') {
-        if (this.getComponentResp[i].Row != 'Disabled') {
-          if (this.getComponentResp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getComponentResp[i].Row.split(",").length; k++) {
-
-              this.arg4Arr.push(this.getComponentResp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg4Arr = this.getComponentResp[i].Row.split(",");
-            this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg4Data').setValue("");
-          this.scriptsForm.get('arg4Data').disable();
-        }
-      }
+    if(this.getComponentResp.Arg1.length > 0 && this.getComponentResp.Arg1 != '') {
+      this.arg1Arr = this.getComponentResp.Arg1; // adding data to Arg1 array
+      this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
+    }else {
+      this.scriptsForm.get('arg1Data').setValue("");
+      this.scriptsForm.get('arg1Data').disable();
     }
+
+    if(this.getComponentResp.Arg2.length > 0 && this.getComponentResp.Arg2 != '') {
+      this.arg2Arr = this.getComponentResp.Arg2; // adding data to Arg2 array
+      this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+    }else {
+      this.scriptsForm.get('arg2Data').setValue("");
+      this.scriptsForm.get('arg2Data').disable();
+    }
+
+    if(this.getComponentResp.Arg3.length > 0 && this.getComponentResp.Arg3 != '') {
+      this.arg3Arr = this.getComponentResp.Arg3; // adding data to Arg3 array
+      this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.arg3Arr.length - 1]);
+    }else {
+      this.scriptsForm.get('arg3Data').setValue("");
+      this.scriptsForm.get('arg3Data').disable();
+    }
+
+    if(this.getComponentResp.Arg4.length > 0 && this.getComponentResp.Arg4 != '') {
+      this.arg4Arr = this.getComponentResp.Arg4; // adding data to Arg4 array
+      this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    }else {
+      this.scriptsForm.get('arg4Data').setValue("");
+      this.scriptsForm.get('arg4Data').disable();
+    }
+    // for (let i = 0; i < this.getComponentResp.length; i++) {
+    //   if (this.getComponentResp[i].Name == 'Component') {
+
+    //     if (this.getComponentResp[i].Row != 'Disabled') {
+    //       if (this.getComponentResp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getComponentResp[i].Row.split(",").length; k++) {
+    //           this.componentArr.push(this.getComponentResp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.componentArr = this.getComponentResp[i].Row.split(",");
+    //         this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
+    //       }
+
+    //     }
+    //     else {
+    //       this.scriptsForm.get('compData').setValue("");
+    //       this.scriptsForm.get('compData').disable();
+    //     }
+
+
+    //   }
+    //   if (this.getComponentResp[i].Name == 'Arg1') {
+    //     if (this.getComponentResp[i].Row != 'Disabled') {
+    //       if (this.getComponentResp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getComponentResp[i].Row.split(",").length; k++) {
+
+    //           this.arg1Arr.push(this.getComponentResp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg1Arr = this.getComponentResp[i].Row.split(",");
+    //         this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg1Data').setValue("");
+    //       this.scriptsForm.get('arg1Data').disable();
+    //     }
+
+    //   }
+    //   else if (this.getComponentResp[i].Name == 'Arg2') {
+    //     if (this.getComponentResp[i].Row != 'Disabled') {
+    //       if (this.getComponentResp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getComponentResp[i].Row.split(",").length; k++) {
+
+    //           this.arg2Arr.push(this.getComponentResp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg2Arr = this.getComponentResp[i].Row.split(",");
+    //         this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg2Data').setValue("");
+    //       this.scriptsForm.get('arg2Data').disable();
+    //     }
+
+
+    //   }
+    //   else if (this.getComponentResp[i].Name == 'Arg3') {
+    //     if (this.getComponentResp[i].Row != 'Disabled') {
+    //       if (this.getComponentResp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getComponentResp[i].Row.split(",").length; k++) {
+
+    //           this.arg3Arr.push(this.getComponentResp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg3Arr = this.getComponentResp[i].Row.split(",");
+    //         this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg3Data').setValue("");
+    //       this.scriptsForm.get('arg3Data').disable();
+    //     }
+
+    //   }
+    //   else if (this.getComponentResp[i].Name == 'Arg4') {
+    //     if (this.getComponentResp[i].Row != 'Disabled') {
+    //       if (this.getComponentResp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getComponentResp[i].Row.split(",").length; k++) {
+
+    //           this.arg4Arr.push(this.getComponentResp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg4Arr = this.getComponentResp[i].Row.split(",");
+    //         this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg4Data').setValue("");
+    //       this.scriptsForm.get('arg4Data').disable();
+    //     }
+    //   }
+    // }
   }
 
   //On selection of Arg1
 
   onChangeofArg1ScriptScript(i) {
-    var commanddropdownselecteditemindex = $("#mySelectCmdScript").prop('selectedIndex');
-    var componentdropdownselecteditemindex = $("#mySelectCompScript").prop('selectedIndex');
-    var arg1dropdownselecteditemindex = $("#mySelectArg1Script").prop('selectedIndex');
+    // var commanddropdownselecteditemindex = $("#mySelectCmdScript").prop('selectedIndex');
+    // var componentdropdownselecteditemindex = $("#mySelectCompScript").prop('selectedIndex');
+    // var arg1dropdownselecteditemindex = $("#mySelectArg1Script").prop('selectedIndex');
     //var cmd = "ScriptArg1Selected(-1" + "," + commanddropdownselecteditemindex + ":null" + "," + componentdropdownselecteditemindex + ":null" + "," + arg1dropdownselecteditemindex + ":null" + "," + "-1:null,-1:null,-1:null)";
-    var cmd = '{"Command" : "ScriptArg1Selected","Args":'+'"'+'-1,'+commanddropdownselecteditemindex+':null,'+componentdropdownselecteditemindex+':null,'+arg1dropdownselecteditemindex+':null,'+'-1:null,-1:null,-1:null'+'"'+'}'
+    // var cmd = '{"Command" : "ScriptArg1Selected","Args":'+'"'+'-1,'+commanddropdownselecteditemindex+':null,'+componentdropdownselecteditemindex+':null,'+arg1dropdownselecteditemindex+':null,'+'-1:null,-1:null,-1:null'+'"'+'}'
+
+    var cmd = '{"Command": "ScriptArg1Selected","Args": {"Command": "'+this.scriptsForm.get('selectedOption').value +'","Component": "'+this.scriptsForm.get('compData').value +'","Arg1": "'+this.scriptsForm.get('arg1Data').value +'","Arg2": "","Arg3": "","Arg4": ""}}'
     this.SocketService.sendMessage(cmd);
   }
 
@@ -736,115 +876,139 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
     this.arg4Arr = [];
     this.arg3Arr = [];
     this.arg2Arr = [];
-    for (let i = 0; i < this.getArg1Resp.length; i++) {
-      if (this.getArg1Resp[i].Name == 'Component') {
 
-        if (this.getArg1Resp[i].Row != 'Disabled') {
-          if (this.getArg1Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg1Resp[i].Row.split(",").length; k++) {
-              this.componentArr.push(this.getArg1Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
-            }
-          }
-          else {
-
-            this.componentArr = this.getArg1Resp[i].Row.split(",");
-            this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
-          }
-
-        }
-        else {
-          this.scriptsForm.get('compData').setValue("");
-          this.scriptsForm.get('compData').disable();
-        }
-
-
-      }
-      if (this.getArg1Resp[i].Name == 'Arg1') {
-        if (this.getArg1Resp[i].Row != 'Disabled') {
-          if (this.getArg1Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg1Resp[i].Row.split(",").length; k++) {
-
-              this.arg1Arr.push(this.getArg1Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg1Arr = this.getArg1Resp[i].Row.split(",");
-            this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg1Data').setValue("");
-          this.scriptsForm.get('arg1Data').disable();
-        }
-
-      }
-      else if (this.getArg1Resp[i].Name == 'Arg2') {
-        if (this.getArg1Resp[i].Row != 'Disabled') {
-          if (this.getArg1Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg1Resp[i].Row.split(",").length; k++) {
-
-              this.arg2Arr.push(this.getArg1Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg2Arr = this.getArg1Resp[i].Row.split(",");
-            this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg2Data').setValue("");
-          this.scriptsForm.get('arg2Data').disable();
-        }
-
-
-      }
-      else if (this.getArg1Resp[i].Name == 'Arg3') {
-        if (this.getArg1Resp[i].Row != 'Disabled') {
-          if (this.getArg1Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg1Resp[i].Row.split(",").length; k++) {
-
-              this.arg3Arr.push(this.getArg1Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg3Arr = this.getArg1Resp[i].Row.split(",");
-            this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg3Data').setValue("");
-          this.scriptsForm.get('arg3Data').disable();
-        }
-
-      }
-      else if (this.getArg1Resp[i].Name == 'Arg4') {
-        if (this.getArg1Resp[i].Row != 'Disabled') {
-          if (this.getArg1Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg1Resp[i].Row.split(",").length; k++) {
-
-              this.arg4Arr.push(this.getArg1Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg4Arr = this.getArg1Resp[i].Row.split(",");
-            this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg4Data').setValue("");
-          this.scriptsForm.get('arg4Data').disable();
-        }
-      }
+    if(this.getArg1Resp.Arg2.length > 0 && this.getArg1Resp.Arg2 != '') {
+      this.arg2Arr = this.getArg1Resp.Arg2; // adding data to Arg2 array
+      this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+    }else {
+      this.scriptsForm.get('arg2Data').setValue("");
+      this.scriptsForm.get('arg2Data').disable();
     }
+
+    if(this.getArg1Resp.Arg3.length > 0 && this.getArg1Resp.Arg3 != '') {
+      this.arg3Arr = this.getArg1Resp.Arg3; // adding data to Arg3 array
+      this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.arg3Arr.length - 1]);
+    }else {
+      this.scriptsForm.get('arg3Data').setValue("");
+      this.scriptsForm.get('arg3Data').disable();
+    }
+
+    if(this.getArg1Resp.Arg4.length > 0 && this.getArg1Resp.Arg4 != '') {
+      this.arg4Arr = this.getArg1Resp.Arg4; // adding data to Arg4 array
+      this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    }else {
+      this.scriptsForm.get('arg4Data').setValue("");
+      this.scriptsForm.get('arg4Data').disable();
+    }
+    // for (let i = 0; i < this.getArg1Resp.length; i++) {
+    //   if (this.getArg1Resp[i].Name == 'Component') {
+
+    //     if (this.getArg1Resp[i].Row != 'Disabled') {
+    //       if (this.getArg1Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg1Resp[i].Row.split(",").length; k++) {
+    //           this.componentArr.push(this.getArg1Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.componentArr = this.getArg1Resp[i].Row.split(",");
+    //         this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
+    //       }
+
+    //     }
+    //     else {
+    //       this.scriptsForm.get('compData').setValue("");
+    //       this.scriptsForm.get('compData').disable();
+    //     }
+
+
+    //   }
+    //   if (this.getArg1Resp[i].Name == 'Arg1') {
+    //     if (this.getArg1Resp[i].Row != 'Disabled') {
+    //       if (this.getArg1Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg1Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg1Arr.push(this.getArg1Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg1Arr = this.getArg1Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg1Data').setValue("");
+    //       this.scriptsForm.get('arg1Data').disable();
+    //     }
+
+    //   }
+    //   else if (this.getArg1Resp[i].Name == 'Arg2') {
+    //     if (this.getArg1Resp[i].Row != 'Disabled') {
+    //       if (this.getArg1Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg1Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg2Arr.push(this.getArg1Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg2Arr = this.getArg1Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg2Data').setValue("");
+    //       this.scriptsForm.get('arg2Data').disable();
+    //     }
+
+
+    //   }
+    //   else if (this.getArg1Resp[i].Name == 'Arg3') {
+    //     if (this.getArg1Resp[i].Row != 'Disabled') {
+    //       if (this.getArg1Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg1Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg3Arr.push(this.getArg1Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg3Arr = this.getArg1Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg3Data').setValue("");
+    //       this.scriptsForm.get('arg3Data').disable();
+    //     }
+
+    //   }
+    //   else if (this.getArg1Resp[i].Name == 'Arg4') {
+    //     if (this.getArg1Resp[i].Row != 'Disabled') {
+    //       if (this.getArg1Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg1Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg4Arr.push(this.getArg1Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg4Arr = this.getArg1Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg4Data').setValue("");
+    //       this.scriptsForm.get('arg4Data').disable();
+    //     }
+    //   }
+    // }
   }
 
 
@@ -852,12 +1016,14 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
 
   //On selection of Arg2
   onChangeofArg2ScriptScript(i) {
-    var commanddropdownselecteditemindex = $("#mySelectCmdScript").prop('selectedIndex');
-    var componentdropdownselecteditemindex = $("#mySelectCompScript").prop('selectedIndex');
-    var arg1dropdownselecteditemindex = $("#mySelectArg1Script").prop('selectedIndex');
-    var arg2dropdownselecteditemindex = $("#mySelectArg2Script").prop('selectedIndex');
+    // var commanddropdownselecteditemindex = $("#mySelectCmdScript").prop('selectedIndex');
+    // var componentdropdownselecteditemindex = $("#mySelectCompScript").prop('selectedIndex');
+    // var arg1dropdownselecteditemindex = $("#mySelectArg1Script").prop('selectedIndex');
+    // var arg2dropdownselecteditemindex = $("#mySelectArg2Script").prop('selectedIndex');
     //var cmd = "ScriptArg2Selected(-1" + "," + commanddropdownselecteditemindex + ":null" + "," + componentdropdownselecteditemindex + ":null" + "," + arg1dropdownselecteditemindex + ":null" + "," + arg2dropdownselecteditemindex + ":null" + "," + "-1:null,-1:null)";
-    var cmd = '{"Command" : "ScriptArg2Selected","Args":'+'"'+'-1,'+commanddropdownselecteditemindex+':null,'+componentdropdownselecteditemindex+':null,'+arg1dropdownselecteditemindex+':null,'+arg2dropdownselecteditemindex+':null,'+'-1:null,-1:null'+'"'+'}'
+    // var cmd = '{"Command" : "ScriptArg2Selected","Args":'+'"'+'-1,'+commanddropdownselecteditemindex+':null,'+componentdropdownselecteditemindex+':null,'+arg1dropdownselecteditemindex+':null,'+arg2dropdownselecteditemindex+':null,'+'-1:null,-1:null'+'"'+'}'
+
+    var cmd = '{"Command": "ScriptArg2Selected","Args": {"Command": "'+this.scriptsForm.get('selectedOption').value +'","Component": "'+this.scriptsForm.get('compData').value +'","Arg1": "'+this.scriptsForm.get('arg1Data').value +'","Arg2": "'+this.scriptsForm.get('arg2Data').value +'","Arg3": "","Arg4": ""}}'
     this.SocketService.sendMessage(cmd);
   }
 
@@ -866,125 +1032,142 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
     this.arg4Arr = [];
     this.arg3Arr = [];
 
-    for (let i = 0; i < this.getArg2Resp.length; i++) {
-      if (this.getArg2Resp[i].Name == 'Component') {
-
-        if (this.getArg2Resp[i].Row != 'Disabled') {
-          if (this.getArg2Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg2Resp[i].Row.split(",").length; k++) {
-              this.componentArr.push(this.getArg2Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
-            }
-          }
-          else {
-
-            this.componentArr = this.getArg2Resp[i].Row.split(",");
-            this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
-          }
-
-        }
-        else {
-          this.scriptsForm.get('compData').setValue("");
-          this.scriptsForm.get('compData').disable();
-        }
-
-
-      }
-      if (this.getArg2Resp[i].Name == 'Arg1') {
-        if (this.getArg2Resp[i].Row != 'Disabled') {
-          if (this.getArg2Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg2Resp[i].Row.split(",").length; k++) {
-
-              this.arg1Arr.push(this.getArg2Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg1Arr = this.getArg2Resp[i].Row.split(",");
-            this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg1Data').setValue("");
-          this.scriptsForm.get('arg1Data').disable();
-        }
-
-      }
-      else if (this.getArg2Resp[i].Name == 'Arg2') {
-        if (this.getArg2Resp[i].Row != 'Disabled') {
-          if (this.getArg2Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg2Resp[i].Row.split(",").length; k++) {
-
-              this.arg2Arr.push(this.getArg2Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg2Arr = this.getArg2Resp[i].Row.split(",");
-            this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg2Data').setValue("");
-          this.scriptsForm.get('arg2Data').disable();
-        }
-
-
-      }
-      else if (this.getArg2Resp[i].Name == 'Arg3') {
-        if (this.getArg2Resp[i].Row != 'Disabled') {
-          if (this.getArg2Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg2Resp[i].Row.split(",").length; k++) {
-
-              this.arg3Arr.push(this.getArg2Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg3Arr = this.getArg2Resp[i].Row.split(",");
-            this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg3Data').setValue("");
-          this.scriptsForm.get('arg3Data').disable();
-        }
-
-      }
-      else if (this.getArg2Resp[i].Name == 'Arg4') {
-        if (this.getArg2Resp[i].Row != 'Disabled') {
-          if (this.getArg2Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg2Resp[i].Row.split(",").length; k++) {
-
-              this.arg4Arr.push(this.getArg2Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg4Arr = this.getArg2Resp[i].Row.split(",");
-            this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg4Data').setValue("");
-          this.scriptsForm.get('arg4Data').disable();
-        }
-      }
+    if(this.getArg2Resp.Arg3.length > 0 && this.getArg2Resp.Arg3 != '') {
+      this.arg3Arr = this.getArg2Resp.Arg3; // adding data to Arg3 array
+      this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.arg3Arr.length - 1]);
+    }else {
+      this.scriptsForm.get('arg3Data').setValue("");
+      this.scriptsForm.get('arg3Data').disable();
     }
+
+    if(this.getArg2Resp.Arg4.length > 0 && this.getArg2Resp.Arg4 != '') {
+      this.arg4Arr = this.getArg2Resp.Arg4; // adding data to Arg4 array
+      this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    }else {
+      this.scriptsForm.get('arg4Data').setValue("");
+      this.scriptsForm.get('arg4Data').disable();
+    }
+    // for (let i = 0; i < this.getArg2Resp.length; i++) {
+    //   if (this.getArg2Resp[i].Name == 'Component') {
+
+    //     if (this.getArg2Resp[i].Row != 'Disabled') {
+    //       if (this.getArg2Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg2Resp[i].Row.split(",").length; k++) {
+    //           this.componentArr.push(this.getArg2Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.componentArr = this.getArg2Resp[i].Row.split(",");
+    //         this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
+    //       }
+
+    //     }
+    //     else {
+    //       this.scriptsForm.get('compData').setValue("");
+    //       this.scriptsForm.get('compData').disable();
+    //     }
+
+
+    //   }
+    //   if (this.getArg2Resp[i].Name == 'Arg1') {
+    //     if (this.getArg2Resp[i].Row != 'Disabled') {
+    //       if (this.getArg2Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg2Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg1Arr.push(this.getArg2Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg1Arr = this.getArg2Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg1Data').setValue("");
+    //       this.scriptsForm.get('arg1Data').disable();
+    //     }
+
+    //   }
+    //   else if (this.getArg2Resp[i].Name == 'Arg2') {
+    //     if (this.getArg2Resp[i].Row != 'Disabled') {
+    //       if (this.getArg2Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg2Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg2Arr.push(this.getArg2Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg2Arr = this.getArg2Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg2Data').setValue("");
+    //       this.scriptsForm.get('arg2Data').disable();
+    //     }
+
+
+    //   }
+    //   else if (this.getArg2Resp[i].Name == 'Arg3') {
+    //     if (this.getArg2Resp[i].Row != 'Disabled') {
+    //       if (this.getArg2Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg2Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg3Arr.push(this.getArg2Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg3Arr = this.getArg2Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg3Data').setValue("");
+    //       this.scriptsForm.get('arg3Data').disable();
+    //     }
+
+    //   }
+    //   else if (this.getArg2Resp[i].Name == 'Arg4') {
+    //     if (this.getArg2Resp[i].Row != 'Disabled') {
+    //       if (this.getArg2Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg2Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg4Arr.push(this.getArg2Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg4Arr = this.getArg2Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg4Data').setValue("");
+    //       this.scriptsForm.get('arg4Data').disable();
+    //     }
+    //   }
+    // }
   }
   //On selection of Arg3
   onChangeofArg3ScriptScript(i) {
-    var commanddropdownselecteditemindex = $("#mySelectCmdScript").prop('selectedIndex');
-    var componentdropdownselecteditemindex = $("#mySelectCompScript").prop('selectedIndex');
-    var arg1dropdownselecteditemindex = $("#mySelectArg1Script").prop('selectedIndex');
-    var arg2dropdownselecteditemindex = $("#mySelectArg2Script").prop('selectedIndex');
-    var arg3dropdownselecteditemindex = $("#mySelectArg3Script").prop('selectedIndex');
+    // var commanddropdownselecteditemindex = $("#mySelectCmdScript").prop('selectedIndex');
+    // var componentdropdownselecteditemindex = $("#mySelectCompScript").prop('selectedIndex');
+    // var arg1dropdownselecteditemindex = $("#mySelectArg1Script").prop('selectedIndex');
+    // var arg2dropdownselecteditemindex = $("#mySelectArg2Script").prop('selectedIndex');
+    // var arg3dropdownselecteditemindex = $("#mySelectArg3Script").prop('selectedIndex');
     //var cmd = "ScriptArg3Selected(-1" + "," + commanddropdownselecteditemindex + ":null" + "," + componentdropdownselecteditemindex + ":null" + "," + arg1dropdownselecteditemindex + ":null" + "," + arg2dropdownselecteditemindex + ":null" + "," + arg3dropdownselecteditemindex + ":null" + "," + "-1:null)";
-    var cmd = '{"Command" : "ScriptArg3Selected","Args":'+'"'+'-1,'+commanddropdownselecteditemindex+':null,'+componentdropdownselecteditemindex+':null,'+arg1dropdownselecteditemindex+':null,'+arg2dropdownselecteditemindex+':null,'+arg3dropdownselecteditemindex+':null,'+'-1:null'+'"'+'}'
+    // var cmd = '{"Command" : "ScriptArg3Selected","Args":'+'"'+'-1,'+commanddropdownselecteditemindex+':null,'+componentdropdownselecteditemindex+':null,'+arg1dropdownselecteditemindex+':null,'+arg2dropdownselecteditemindex+':null,'+arg3dropdownselecteditemindex+':null,'+'-1:null'+'"'+'}'
+
+    var cmd = '{"Command": "ScriptArg3Selected","Args": {"Command": "'+this.scriptsForm.get('selectedOption').value +'","Component": "'+this.scriptsForm.get('compData').value +'","Arg1": "'+this.scriptsForm.get('arg1Data').value +'","Arg2": "'+this.scriptsForm.get('arg2Data').value +'","Arg3": "'+this.scriptsForm.get('arg3Data').value +'","Arg4": ""}}'
     this.SocketService.sendMessage(cmd);
   }
 
@@ -998,115 +1181,254 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
 
 
     this.arg4Arr = [];
-    for (let i = 0; i < this.getArg3Resp.length; i++) {
-      if (this.getArg3Resp[i].Name == 'Component') {
+    
 
-        if (this.getArg3Resp[i].Row != 'Disabled') {
-          if (this.getArg3Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
-              this.componentArr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
-            }
-          }
-          else {
-
-            this.componentArr = this.getArg3Resp[i].Row.split(",");
-            this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
-          }
-
-        }
-        else {
-          this.scriptsForm.get('compData').setValue("");
-          this.scriptsForm.get('compData').disable();
-        }
-
-
-      }
-      if (this.getArg3Resp[i].Name == 'Arg1') {
-        if (this.getArg3Resp[i].Row != 'Disabled') {
-          if (this.getArg3Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
-
-              this.arg1Arr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg1Arr = this.getArg3Resp[i].Row.split(",");
-            this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg1Data').setValue("");
-          this.scriptsForm.get('arg1Data').disable();
-        }
-
-      }
-      else if (this.getArg3Resp[i].Name == 'Arg2') {
-        if (this.getArg3Resp[i].Row != 'Disabled') {
-          if (this.getArg3Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
-
-              this.arg2Arr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg2Arr = this.getArg3Resp[i].Row.split(",");
-            this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg2Data').setValue("");
-          this.scriptsForm.get('arg2Data').disable();
-        }
-
-
-      }
-      else if (this.getArg3Resp[i].Name == 'Arg3') {
-        if (this.getArg3Resp[i].Row != 'Disabled') {
-          if (this.getArg3Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
-
-              this.arg3Arr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg3Arr = this.getArg3Resp[i].Row.split(",");
-            this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg3Data').setValue("");
-          this.scriptsForm.get('arg3Data').disable();
-        }
-
-      }
-      else if (this.getArg3Resp[i].Name == 'Arg4') {
-        if (this.getArg3Resp[i].Row != 'Disabled') {
-          if (this.getArg3Resp[i].Row.includes(':')) {
-            for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
-
-              this.arg4Arr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
-              this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
-            }
-          }
-          else {
-
-            this.arg4Arr = this.getArg3Resp[i].Row.split(",");
-            this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
-          }
-        }
-        else {
-          this.scriptsForm.get('arg4Data').setValue("");
-          this.scriptsForm.get('arg4Data').disable();
-        }
-      }
+    if(this.getArg3Resp.Arg4.length > 0 && this.getArg3Resp.Arg4 != '') {
+      this.arg4Arr = this.getArg3Resp.Arg4; // adding data to Arg4 array
+      this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    }else {
+      this.scriptsForm.get('arg4Data').setValue("");
+      this.scriptsForm.get('arg4Data').disable();
     }
+    // for (let i = 0; i < this.getArg3Resp.length; i++) {
+    //   if (this.getArg3Resp[i].Name == 'Component') {
+
+    //     if (this.getArg3Resp[i].Row != 'Disabled') {
+    //       if (this.getArg3Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
+    //           this.componentArr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.componentArr = this.getArg3Resp[i].Row.split(",");
+    //         this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
+    //       }
+
+    //     }
+    //     else {
+    //       this.scriptsForm.get('compData').setValue("");
+    //       this.scriptsForm.get('compData').disable();
+    //     }
+
+
+    //   }
+    //   if (this.getArg3Resp[i].Name == 'Arg1') {
+    //     if (this.getArg3Resp[i].Row != 'Disabled') {
+    //       if (this.getArg3Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg1Arr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg1Arr = this.getArg3Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg1Data').setValue("");
+    //       this.scriptsForm.get('arg1Data').disable();
+    //     }
+
+    //   }
+    //   else if (this.getArg3Resp[i].Name == 'Arg2') {
+    //     if (this.getArg3Resp[i].Row != 'Disabled') {
+    //       if (this.getArg3Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg2Arr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg2Arr = this.getArg3Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg2Data').setValue("");
+    //       this.scriptsForm.get('arg2Data').disable();
+    //     }
+
+
+    //   }
+    //   else if (this.getArg3Resp[i].Name == 'Arg3') {
+    //     if (this.getArg3Resp[i].Row != 'Disabled') {
+    //       if (this.getArg3Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg3Arr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg3Arr = this.getArg3Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg3Data').setValue("");
+    //       this.scriptsForm.get('arg3Data').disable();
+    //     }
+
+    //   }
+    //   else if (this.getArg3Resp[i].Name == 'Arg4') {
+    //     if (this.getArg3Resp[i].Row != 'Disabled') {
+    //       if (this.getArg3Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg4Arr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg4Arr = this.getArg3Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg4Data').setValue("");
+    //       this.scriptsForm.get('arg4Data').disable();
+    //     }
+    //   }
+    // }
+  }
+
+  onChangeofArg4ScriptScriptResponse(){
+    // var commanddropdownselecteditemindex = $("#mySelectCmdScript").prop('selectedIndex');
+    // var componentdropdownselecteditemindex = $("#mySelectCompScript").prop('selectedIndex');
+    // var arg1dropdownselecteditemindex = $("#mySelectArg1Script").prop('selectedIndex');
+    // var arg2dropdownselecteditemindex = $("#mySelectArg2Script").prop('selectedIndex');
+    // var arg3dropdownselecteditemindex = $("#mySelectArg3Script").prop('selectedIndex');
+    // var cmd = "ScriptArg3Selected(-1" + "," + commanddropdownselecteditemindex + ":null" + "," + componentdropdownselecteditemindex + ":null" + "," + arg1dropdownselecteditemindex + ":null" + "," + arg2dropdownselecteditemindex + ":null" + "," + arg3dropdownselecteditemindex + ":null" + "," + "-1:null)";
+
+
+    this.arg4Arr = [];
+    
+
+    if(this.getArg3Resp.Arg4.length > 0 && this.getArg3Resp.Arg4 != '') {
+      this.arg4Arr = this.getArg3Resp.Arg4; // adding data to Arg4 array
+      this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    }else {
+      this.scriptsForm.get('arg4Data').setValue("");
+      this.scriptsForm.get('arg4Data').disable();
+    }
+    // for (let i = 0; i < this.getArg3Resp.length; i++) {
+    //   if (this.getArg3Resp[i].Name == 'Component') {
+
+    //     if (this.getArg3Resp[i].Row != 'Disabled') {
+    //       if (this.getArg3Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
+    //           this.componentArr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.componentArr = this.getArg3Resp[i].Row.split(",");
+    //         this.scriptsForm.get('compData').setValue(this.componentArr[this.key]);
+    //       }
+
+    //     }
+    //     else {
+    //       this.scriptsForm.get('compData').setValue("");
+    //       this.scriptsForm.get('compData').disable();
+    //     }
+
+
+    //   }
+    //   if (this.getArg3Resp[i].Name == 'Arg1') {
+    //     if (this.getArg3Resp[i].Row != 'Disabled') {
+    //       if (this.getArg3Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg1Arr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg1Arr = this.getArg3Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg1Data').setValue(this.arg1Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg1Data').setValue("");
+    //       this.scriptsForm.get('arg1Data').disable();
+    //     }
+
+    //   }
+    //   else if (this.getArg3Resp[i].Name == 'Arg2') {
+    //     if (this.getArg3Resp[i].Row != 'Disabled') {
+    //       if (this.getArg3Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg2Arr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg2Arr = this.getArg3Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg2Data').setValue(this.arg2Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg2Data').setValue("");
+    //       this.scriptsForm.get('arg2Data').disable();
+    //     }
+
+
+    //   }
+    //   else if (this.getArg3Resp[i].Name == 'Arg3') {
+    //     if (this.getArg3Resp[i].Row != 'Disabled') {
+    //       if (this.getArg3Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg3Arr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg3Arr = this.getArg3Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg3Data').setValue(this.arg3Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg3Data').setValue("");
+    //       this.scriptsForm.get('arg3Data').disable();
+    //     }
+
+    //   }
+    //   else if (this.getArg3Resp[i].Name == 'Arg4') {
+    //     if (this.getArg3Resp[i].Row != 'Disabled') {
+    //       if (this.getArg3Resp[i].Row.includes(':')) {
+    //         for (let k = 0; k < this.getArg3Resp[i].Row.split(",").length; k++) {
+
+    //           this.arg4Arr.push(this.getArg3Resp[i].Row.split(",")[k].slice(0, -1).replace(/([^:]*):/g, '$1'));
+    //           this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    //         }
+    //       }
+    //       else {
+
+    //         this.arg4Arr = this.getArg3Resp[i].Row.split(",");
+    //         this.scriptsForm.get('arg4Data').setValue(this.arg4Arr[this.key]);
+    //       }
+    //     }
+    //     else {
+    //       this.scriptsForm.get('arg4Data').setValue("");
+    //       this.scriptsForm.get('arg4Data').disable();
+    //     }
+    //   }
+    // }
   }
 
   ScriptStatusRes(status){

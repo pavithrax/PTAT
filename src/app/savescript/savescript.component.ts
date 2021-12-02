@@ -80,7 +80,8 @@ export class SavescriptComponent implements OnInit {
    submitSaveForm() {
       if (this.saveForm.valid) {
          var filePathVal = this.saveForm.getRawValue().filePathVal;
-         var actualfileName = filePathVal + '.xml';
+         var actualfileName = filePathVal + '.json';
+         // var actualfileName = filePathVal + '.xml';
          var filePath = this.scriptFilePath + actualfileName;
          var finalFilePath = ""
          if(this.osInformation = "windows"){

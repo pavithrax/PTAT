@@ -71,7 +71,7 @@ export class LoadscriptComponent implements OnInit {
    //On click of load scripts button send cmd
    openLoadModal(data) {
       //var cmd = "GetFilesInDir("+this.loadScriptFilePath+",script)";
-      var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+',script'+'"'+'}'
+      var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+'script'+'"'+'}'
       this.SocketService.sendMessage(command);
       this.getSuccessResponse();
    }
@@ -101,7 +101,8 @@ export class LoadscriptComponent implements OnInit {
    //On click of refresh button
    refreshForm() {
       //var cmd = "GetFilesInDir("+this.loadScriptFilePath+",script)";
-      var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+',script'+'"'+'}'
+      var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+'script'+'"'+'}'
+      // var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+',script'+'"'+'}'
       this.SocketService.sendMessage(command);
       this.getSuccessRefreshResponse();
    }
