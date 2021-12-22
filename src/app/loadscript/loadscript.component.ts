@@ -71,7 +71,11 @@ export class LoadscriptComponent implements OnInit {
    //On click of load scripts button send cmd
    openLoadModal(data) {
       //var cmd = "GetFilesInDir("+this.loadScriptFilePath+",script)";
-      var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+'script'+'"'+'}'
+      console.log(this.loadScriptFilePath);
+      
+      var command  = '{"Command" : "GetFilesInDir","params" : {"Args":'+'"'+this.loadScriptFilePath+'"'+'}}'
+      // var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+'"'+'}'
+      // var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+'script'+'"'+'}'
       this.SocketService.sendMessage(command);
       this.getSuccessResponse();
    }
@@ -81,7 +85,8 @@ export class LoadscriptComponent implements OnInit {
       if (message) {
       if(message.Data.List != ""){
          this.loadFilestArr = message.Data.List;
-         this.loadForm.get('filesVal').setValue(this.loadFilestArr[this.key].Data);
+         console.log(this.loadFilestArr);
+         this.loadForm.get('filesVal').setValue(this.loadFilestArr[this.key]);
          this.loadScriptLogFileCount = 1;
       }else{
          this.loadScriptLogFileCount = 0;
@@ -101,7 +106,9 @@ export class LoadscriptComponent implements OnInit {
    //On click of refresh button
    refreshForm() {
       //var cmd = "GetFilesInDir("+this.loadScriptFilePath+",script)";
-      var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+'script'+'"'+'}'
+      var command  = '{"Command" : "GetFilesInDir","params" : {"Args":'+'"'+this.loadScriptFilePath+'"'+'}}'
+      // var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+'"'+'}'
+      // var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+'script'+'"'+'}'
       // var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+',script'+'"'+'}'
       this.SocketService.sendMessage(command);
       this.getSuccessRefreshResponse();
@@ -139,6 +146,9 @@ export class LoadscriptComponent implements OnInit {
       else {
          //var cmd = "LoadScript(" +this.loadScriptFilePath + this.loadForm.get('filesVal').value +")";
          var path = this.loadScriptFilePath + this.loadForm.get('filesVal').value
+
+         console.log(path);
+         
          var command  = '{"Command" : "LoadScript","Args":'+'"'+path+'"'+'}'
          this.SocketService.sendMessage(command);
          this.display = 'none';

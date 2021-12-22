@@ -864,7 +864,9 @@ export class WorkloadComponent implements OnInit {
 
       
       this.workLoadDataArray.forEach(item => {
-        this.stopWorkloadCmd(item);
+        if(item.status == 'Running') {
+          this.stopWorkloadCmd(item);
+        }
       });
 
       // below code to be removed later

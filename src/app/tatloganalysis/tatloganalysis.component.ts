@@ -269,7 +269,8 @@ export class TatloganalysisComponent implements OnInit {
       } else {
         path = this.tatLogFilePath.replace(/\\/g, "////");
       }
-      var GetFilesInDirCommand = '{"Command" : "GetFilesInDir","Args":' + '"' + path + ',log' + '"' + '}'
+      var GetFilesInDirCommand = '{"Command" : "GetFilesInDir","params" : {"Args":' + '"' + path + ',log' + '"' + '}}'
+      // var GetFilesInDirCommand = '{"Command" : "GetFilesInDir","Args":' + '"' + path + ',log' + '"' + '}'
       this.SocketService.sendMessage(GetFilesInDirCommand);
       this.spinner.show();
     } else {
@@ -287,7 +288,8 @@ export class TatloganalysisComponent implements OnInit {
     } else {
       path = this.tatLogFilePath.replace(/\\/g, "////");
     }
-    var GetFilesInDirCommand = '{"Command" : "GetFilesInDir","Args":' + '"' + path + ',log' + '"' + '}'
+    var GetFilesInDirCommand = '{"Command" : "GetFilesInDir","params" : {"Args":' + '"' + path + ',log' + '"' + '}}'
+    // var GetFilesInDirCommand = '{"Command" : "GetFilesInDir","Args":' + '"' + path + ',log' + '"' + '}'
     this.SocketService.sendMessage(GetFilesInDirCommand);
   }
 

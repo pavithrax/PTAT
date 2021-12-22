@@ -270,7 +270,7 @@ export class HeaderComponent implements OnInit {
       )
       this.getToolData();
       this.getTargetData();
-      this.saveCustomWorkspaceSuccessResponse();
+      this.SaveWorkspaceSuccessResponse();
       this.receiveTeleResp();
 
 
@@ -313,7 +313,7 @@ export class HeaderComponent implements OnInit {
       this.SocketService.getFilesInDir().subscribe(message => {
          if (message) {
             this.spinner.hide();
-            if(message.CommandStatus.Status == "Success" && message.Data.key == "workspace"){
+            if(message.CommandStatus.Status == "Success" && message.Data.Key == "workspace"){
                this.workspaceReceivedData = message.Data.List;
                if(this.workspaceReceivedData.length != 0){
                   this.loadWorkSpacelogFileCount = 1;
@@ -361,7 +361,7 @@ export class HeaderComponent implements OnInit {
             }
 
             //var loadWorkSpaceCommand = this.loadWorkspaceGetFilesStatus.replace("#folderPath",loadWorkspacefullPath).replace("#settingsParam", this.settingsParameter).replace("#monitorParam", this.monitorParameter).replace("#customeParam", this.customeviewParameter).replace("#graphParam", this.graphParameter).replace("#alertParam", this.alertParameter);
-            var loadWorkSpaceCommand = '{"Command" : "LoadWorkspace","Args":'+'"'+path+','+this.settingsParameter+","+this.monitorParameter+","+this.customeviewParameter+","+this.graphParameter+","+this.alertParameter+'"'+'}'
+            var loadWorkSpaceCommand = '{"Command" : "LoadWorkspace","params" : {"Args":'+'"'+path+','+this.settingsParameter+","+this.monitorParameter+","+this.customeviewParameter+","+this.graphParameter+","+this.alertParameter+'"'+'}}'
             this.SocketService.sendMessage(loadWorkSpaceCommand);
             this.isLoadwrkSpace = false;
 
@@ -676,20 +676,21 @@ savewarrenCov(){
       //this.SocketService.sendMessage("ResetControl()");
    }
 
-   saveCustomWorkspaceSuccessResponse() {
+   SaveWorkspaceSuccessResponse() {
 
       this.SocketService.getSaveCustomWrkSpc().subscribe(message => {
          if (message) {
             let workspaceName = this.saveWorkspaceName;
             let workspacePath = this.saveWorkSpacePath;
-            let fullPath = workspacePath + workspaceName + ".xml"
+            let fullPath = workspacePath + workspaceName + ".json"
+            // let fullPath = workspacePath + workspaceName + ".xml"
             var saveWorkspaceFullpath = ""
             if(this.osInformation = "windows"){
                saveWorkspaceFullpath = fullPath.replace(/\\/g,"\\\\");
             }else{
                saveWorkspaceFullpath = fullPath.replace(/\\/g,"////");
             }
-            var command = '{"Command" : "SaveWorkspace","Args":'+'"'+saveWorkspaceFullpath+'"'+'}'
+            var command = '{"Command" : "SaveWorkspace","params" : {"Args":'+'"'+saveWorkspaceFullpath+'"'+'}}'
             //let path = this.saveWorkspaceCommand.replace("#path", fullPath);
             this.SocketService.sendMessage(command);
          }
@@ -701,8 +702,19 @@ savewarrenCov(){
 
    submitSaveWorkspace() {
       var paramList = this.workspaceDataFromMonitor.join();
-      //this.SocketService.sendMessage("SaveCustomWorkspace("+paramList+")");
-      var command = '{"Command" : "SaveCustomWorkspace","Args":'+'"'+paramList+'"'+'}'
+      //this.SocketService.sendMessage("SaveWorkspace("+paramList+")");
+      // var command = '{"Command" : "SaveWorkspace","Args":'+'"'+paramList+'"'+'}'
+      let workspaceName = this.saveWorkspaceName;
+      let workspacePath = this.saveWorkSpacePath;
+      let fullPath = workspacePath + workspaceName + ".json"
+      // let fullPath = workspacePath + workspaceName + ".xml"
+      var saveWorkspaceFullpath = ""
+      if(this.osInformation = "windows"){
+         saveWorkspaceFullpath = fullPath.replace(/\\/g,"\\\\");
+      }else{
+         saveWorkspaceFullpath = fullPath.replace(/\\/g,"////");
+      }
+      var command = '{"Command" : "SaveWorkspace","params" : {"Args":'+'"'+saveWorkspaceFullpath+'"'+'}}'
       this.SocketService.sendMessage(command);
    }
 
@@ -715,7 +727,8 @@ savewarrenCov(){
       }else{
          path = this.saveWorkSpacePath.replace(/\\/g,"////");
       }
-      var loadWorkSpaceLogListCommand = '{"Command" : "GetFilesInDir","Args":'+'"'+path+","+this.workspaceType+'"'+'}'
+      var loadWorkSpaceLogListCommand = '{"Command" : "GetFilesInDir","params" : {"Args":'+'"'+path+","+this.workspaceType+'"'+'}}'
+      // var loadWorkSpaceLogListCommand = '{"Command" : "GetFilesInDir","Args":'+'"'+path+","+this.workspaceType+'"'+'}'
       this.liveAnalysisClickCount = this.liveAnalysisClickCount+1;
       if(this.liveAnalysisClickCount > 0){
          this.SocketService.sendMessage(loadWorkSpaceLogListCommand);
@@ -731,7 +744,8 @@ savewarrenCov(){
       }else{
          path = this.saveWorkSpacePath.replace(/\\/g,"////");
       }
-      var loadWorkSpaceLogListCommand = '{"Command" : "GetFilesInDir","Args":'+'"'+path+","+this.workspaceType+'"'+'}'
+      var loadWorkSpaceLogListCommand = '{"Command" : "GetFilesInDir","params" : {"Args":'+'"'+path+","+this.workspaceType+'"'+'}}'
+      // var loadWorkSpaceLogListCommand = '{"Command" : "GetFilesInDir","Args":'+'"'+path+","+this.workspaceType+'"'+'}'
       this.SocketService.sendMessage(loadWorkSpaceLogListCommand);
    }
 

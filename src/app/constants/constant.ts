@@ -15,7 +15,7 @@ export class constant {
     public static GETSETTINGS_CMD = "GetSettings";
     // public static SETAPPEVENTPROPERTIES_CMD = "SetAppEventProperties";
     public static TELEMETRYSETTINGS_CMD = "TelemetrySettings";
-    public static SAVECUSTOMWRKSPC_CMD = "SaveCustomWorkspace";
+    public static SAVECUSTOMWRKSPC_CMD = "SaveWorkspace";
     public static LOADWRKSPC_CMD = "LoadWorkspace";
     public static SAVEWRKSPC_CMD = "SaveWorkspace";
     public static SETSETTINGS_CMD = "SetSettings";

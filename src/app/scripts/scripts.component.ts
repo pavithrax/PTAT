@@ -266,6 +266,15 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
       }
     });
 
+    this.SocketService.getExecuteScripts().subscribe(message => {
+      console.log(message);
+      if(message.Data.Status == 'Failed') {
+        this.scriptStatus = message.Data.Message;        
+        this.scriptStatusCode = 1;        
+        this.isScriptStatus =true;
+        this.enableStop = false; 
+      }
+    })
     this.SocketService.getExecuteScriptsError().subscribe(message => {
       this.resetState = '1';
       if (message) {

@@ -142,9 +142,9 @@
             <a class="dropdown-item" data-toggle="dropdown" (click)="false" id="navbarDropdown" role="button" aria-controls="navbarDropdown"><i class="menuIcons fas fa-wrench leftDropDownTextColor"></i> <label class="paddingLeft1 leftDropDownTextColor"> Tools</label></a>
             <ul class="dropdown-menu">
               
-              <!-- <li class="dropdown-item">
+              <li class="dropdown-item" *ngIf="dataType == 'Clientside'">
                 <a class="custom-groupitem-menu"  placement="bottom" (click)="dptfUi()" ><i class="fas fa-thermometer-half leftDropDownTextColor"></i><label class="menuLabels leftDropDownTextColor" style="cursor: pointer;margin-left: 12px;">DPTF UI</label></a>
-              </li> -->
+              </li>
               <li class="dropdown-item" *ngIf="showHidePowerVisualizationMenu">
                 <a class="custom-groupitem-menu"  placement="bottom" (click)="openPowerVisualizationModal()" ><i class="fas fa-power-off" style="color: rgb(34 156 117);margin-left: -3px;"></i><label class="menuLabels" style="cursor: pointer;margin-left: 7px;">Power Visualization</label></a>
                 <div class="dropdown-divider" *ngIf="isImonflag"></div>

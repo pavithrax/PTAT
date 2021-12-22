@@ -28,8 +28,8 @@
              <a class="col-1 col-sm-1" (click)="refreshForm()" style="padding: 8px 15px 0px 0px;"><i class="fas fa-sync"></i></a>
                      
             <select class="col-sm-7 form-control" formControlName="filesVal" style="margin-right: -5px;">
-                <option *ngFor="let option of loadFilestArr"  [ngValue]="option.Data" >
-                  {{option.Data}}
+                <option *ngFor="let option of loadFilestArr"  [ngValue]="option" >
+                  {{option}}
                 </option>
           </select>
          

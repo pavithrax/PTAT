@@ -150,7 +150,7 @@ export class AppComponent {
                path = this.wrkspcPath.replace(/\\/g, "////");
             }
 
-            var command = '{"Command" : "LoadWorkspace","Args":' + '"' + path + 'DefaultWorkSpace.xml' + ',' + 'USERCHECKED,MONITORCHECKED,CUSTOMVIEWCHECKED,GRAPHCHECKED,ALERTSCHECKED' + '"' + '}'
+            var command = '{"Command" : "LoadWorkspace","params" : {"Args":' + '"' + path + 'DefaultWorkSpace.json' + ',' + 'USERCHECKED,MONITORCHECKED,CUSTOMVIEWCHECKED,GRAPHCHECKED,ALERTSCHECKED' + '"' + '}}'
             //var cmd = "LoadWorkspace(" + this.wrkspcPath+ "DefaultWorkSpace.xml"+ ",USERCHECKED,MONITORCHECKED,CUSTOMVIEWCHECKED,GRAPHCHECKED,ALERTSCHECKED)";
             this.socket.sendMessage(command);
             var len = this.getTargetRes.length;

@@ -5,7 +5,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { HostListener } from "@angular/core";
 import {MatSidenav} from '@angular/material/sidenav'; 
 import { AppComponent } from '../app.component';
-import * as data from './control-resp.json';
+import * as data from './expected-control-data.json';
 
 @Component({
   selector: 'app-control',
@@ -216,7 +216,14 @@ export class ControlComponent implements OnInit {
         sliderVal = arg1.param.Min;
       }
       console.log(sliderVal);
-      referenceCommand = '{"Command": "StartControl","params": [{"control":"'+ parent.controlInfo+ '", "set_level": [{"test": "'+arg1.param.commandInfo+'", "level": '+sliderVal+'} ]}]}'
+      if(parent.controlInfo == 'dg_gfx') {
+        let deviceIndex = parent.Name.split(" ");
+        console.log(deviceIndex);
+        referenceCommand = '{"Command": "StartControl","params": [{"control":"'+ parent.controlInfo+ '", "set_level": [{"test": "'+arg1.param.commandInfo+'", "level": '+sliderVal+', "deviceId": '+arg1.param.deviceId+'} ]}]}'
+      } else {
+        referenceCommand = '{"Command": "StartControl","params": [{"control":"'+ parent.controlInfo+ '", "set_level": [{"test": "'+arg1.param.commandInfo+'", "level": '+sliderVal+'} ]}]}'
+      }
+      // referenceCommand = '{"Command": "StartControl","params": [{"control":"'+ parent.controlInfo+ '", "set_level": [{"test": "'+arg1.param.commandInfo+'", "level": '+sliderVal+'} ]}]}'
       console.log(referenceCommand);
      this.setControlCommonCommand = referenceCommand;
       if(this.controlWarningPopupStatus == 0){
@@ -242,7 +249,14 @@ export class ControlComponent implements OnInit {
       // use the below format
       // let referenceCommand = '{"scriptCmds": [{"Command": "StartControl","params": [{"control": "cpu_od_clk_mod","set_level": [{"test": "core 0", "level": 2} ]}]}]}'
       let referenceCommand = '';
-      referenceCommand = '{"Command": "StartControl","params": [{"control":"'+ parent.controlInfo + '", "set_level": [{"test": "'+arg1.param.commandInfo+'", "level": '+dropDownIndex+',"Index":"3"} ]}]}';
+      if(parent.controlInfo == 'dg_gfx') {
+        let deviceIndex = parent.Name.split(" ");
+        
+        referenceCommand = '{"Command": "StartControl","params": [{"control":"'+ parent.controlInfo+ '", "set_level": [{"test": "'+arg1.param.commandInfo+'", "level": '+dropDownIndex+', "deviceId": '+arg1.param.deviceId+'} ]}]}'
+      } else {
+        referenceCommand = '{"Command": "StartControl","params": [{"control":"'+ parent.controlInfo + '", "set_level": [{"test": "'+arg1.param.commandInfo+'", "level": '+dropDownIndex+',"Index":"3"} ]}]}';
+      }
+      // referenceCommand = '{"Command": "StartControl","params": [{"control":"'+ parent.controlInfo + '", "set_level": [{"test": "'+arg1.param.commandInfo+'", "level": '+dropDownIndex+',"Index":"3"} ]}]}';
       console.log(referenceCommand);
       this.setControlCommonCommand = referenceCommand;
       if(this.controlWarningPopupStatus == 0){
