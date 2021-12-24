@@ -44,8 +44,8 @@ export class TatloganalysisComponent implements OnInit {
         var getToolInfoResponse = message;
         var len = getToolInfoResponse.length;
         for (var i = 0; i < len; i++) {
-          if (getToolInfoResponse[i].key == 'OSVersion') {
-            if (getToolInfoResponse[i].value == "Windows 10 Enterprise") {
+          if (getToolInfoResponse[i].Key == 'OSVersion') {
+            if (getToolInfoResponse[i].Value == "Windows 10 Enterprise") {
               this.osInformation = "windows"
             } else {
               this.osInformation = "others"

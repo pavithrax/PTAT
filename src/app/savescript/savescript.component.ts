@@ -29,10 +29,10 @@ export class SavescriptComponent implements OnInit {
             this.getToolInfoResponse = message;
            // console.log(this.getToolInfoResponse);
             for (var i = 0; i < this.getToolInfoResponse.length; i++) {
-               if (this.getToolInfoResponse[i].key == 'ScriptFilePath') {
-                   this.scriptFilePath = this.getToolInfoResponse[i].value;
-               }else if(this.getToolInfoResponse[i].key == 'OSVersion'){
-                  if(this.getToolInfoResponse[i].value == "Windows 10 Enterprise"){
+               if (this.getToolInfoResponse[i].Key == 'ScriptFilePath') {
+                   this.scriptFilePath = this.getToolInfoResponse[i].Value;
+               }else if(this.getToolInfoResponse[i].Key == 'OSVersion'){
+                  if(this.getToolInfoResponse[i].Value == "Windows 10 Enterprise"){
                      this.osInformation = "windows"
                   }else{
                      this.osInformation = "others"

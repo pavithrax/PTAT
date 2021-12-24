@@ -111,6 +111,7 @@ export class AlertsComponent implements OnInit {
     // getting the data from monitor resp for both client and server
     this.SocketService.getMonitorDataRes().subscribe(message => {
       this.data = message;
+      // this.dataType = 'Clientside' // to be delted later
       if(this.dataType === 'Serverside') {
 
         this.data.Data.forEach(element => {
@@ -405,24 +406,24 @@ export class AlertsComponent implements OnInit {
 
     this.SocketService.getToolInfo().subscribe(message => {
       if (message) {
-        //this.alertPath = message[8].value;
-        //this.currentIpAddress = message[3].value;
+        //this.alertPath = message[8].Value;
+        //this.currentIpAddress = message[3].Value;
         var getToolInfoResponse = message;
         var len = getToolInfoResponse.length;
         for (var i = 0; i < len; i++) {
-         if (getToolInfoResponse[i].key == 'AlertPath') {
-          this.alertPath = getToolInfoResponse[i].value;
-         }else if(getToolInfoResponse[i].key == 'OSVersion'){
-          if(getToolInfoResponse[i].value == "Windows 10 Enterprise"){
+         if (getToolInfoResponse[i].Key == 'AlertPath') {
+          this.alertPath = getToolInfoResponse[i].Value;
+         }else if(getToolInfoResponse[i].Key == 'OSVersion'){
+          if(getToolInfoResponse[i].Value == "Windows 10 Enterprise"){
               this.osInformation = "windows"
           }else{
               this.osInformation = "others"
           }
-         }else if(getToolInfoResponse[i].key == 'CurrentIpAddress'){
-              this.currentIpAddress = getToolInfoResponse[i].value;
+         }else if(getToolInfoResponse[i].Key == 'CurrentIpAddress'){
+              this.currentIpAddress = getToolInfoResponse[i].Value;
          }
-         else if(getToolInfoResponse[i].key == 'platform_sku'){
-            if(getToolInfoResponse[i].value == 'server') {
+         else if(getToolInfoResponse[i].Key == 'platform_sku'){
+            if(getToolInfoResponse[i].Value == 'server') {
               this.dataType = 'Serverside';
             } else {
               this.dataType = 'Clientside';

@@ -530,6 +530,7 @@ showAccordingly(nav){
     
   }
   checkToShowHidetable(){
+    /* this funcation may not be used 
     let t1 = document.getElementById("table1");
     let t2 = document.getElementById("table2");
     let t3 = document.getElementById("table3");
@@ -554,6 +555,7 @@ showAccordingly(nav){
       t3.classList.add("table3ShowHide");
       this.showHidden3table  = true;
     }
+    */
   }
   checkDuplicate(item,tableData){
     //console.log(item);

@@ -95,11 +95,11 @@ export class AppComponent {
             //this.socket.sendMessage("GetComponentList()"); to be sent only once telemetry lic is passed
             var len = this.getToolInfoResponse.length;
             for (var i = 0; i < len; i++) {
-               if (this.getToolInfoResponse[i].key == 'IsTelemetryLicenseAgreed') {
+               if (this.getToolInfoResponse[i].Key == 'IsTelemetryLicenseAgreed') {
                   var command = '{"Command" : "GetComponentList"}';
                   this.socket.sendMessage(command);
                   //this.socket.sendMessage("GetComponentList()");
-                  if (this.getToolInfoResponse[i].value == "0") {
+                  if (this.getToolInfoResponse[i].Value == "0") {
                      if (this.osInformation == "others") {
                         this.IsTelemetryLicenseAgreed = true;
                      }
@@ -113,21 +113,21 @@ export class AppComponent {
                   }
 
                }
-               else if (this.getToolInfoResponse[i].key == 'WorkSpacePath') {
-                  this.wrkspcPath = this.getToolInfoResponse[i].value;
-               } else if (this.getToolInfoResponse[i].key == 'OperatingSystem') {
-                  if (this.getToolInfoResponse[i].value == "Windows") {
+               else if (this.getToolInfoResponse[i].Key == 'WorkSpacePath') {
+                  this.wrkspcPath = this.getToolInfoResponse[i].Value;
+               } else if (this.getToolInfoResponse[i].Key == 'OperatingSystem') {
+                  if (this.getToolInfoResponse[i].Value == "Windows") {
                      this.osInformation = "windows";
                   } else {
                      this.osInformation = "others";
                   }
                }
-               else if (this.getToolInfoResponse[i].key == 'platform'){
-                  this.platform = this.getToolInfoResponse[i].value;
+               else if (this.getToolInfoResponse[i].Key == 'platform'){
+                  this.platform = this.getToolInfoResponse[i].Value;
                   console.log(this.platform);
                }
-               else if (this.getToolInfoResponse[i].key == 'platform_sku'){
-                  this.platform = this.getToolInfoResponse[i].value;
+               else if (this.getToolInfoResponse[i].Key == 'platform_sku'){
+                  this.platform = this.getToolInfoResponse[i].Value;
                   console.log(this.platform);
                }
 

@@ -112,8 +112,8 @@ export class SettingComponent implements OnInit {
          if (message) {
             this.getToolInfoResponse = message;
             for (var i = 0; i < this.getToolInfoResponse.length; i++) {
-               if (this.getToolInfoResponse[i].key == 'AlertPath') {
-                  this.alertFilePath = this.getToolInfoResponse[i].value;
+               if (this.getToolInfoResponse[i].Key == 'AlertPath') {
+                  this.alertFilePath = this.getToolInfoResponse[i].Value;
                }
             }
          } else {
@@ -125,15 +125,17 @@ export class SettingComponent implements OnInit {
    getSettings() {
       this.SocketService.getSettings().subscribe(message => {
          if (message) {
+            console.log(message);
+            
             this.getSettingsResponse = message;
             var len = this.getSettingsResponse.length;
             for (var i = 0; i < len; i++) {
-               if (this.getSettingsResponse[i].key == 'PollingInterval') {
-                  this.settingsForm.setValue({ pollVal: this.getSettingsResponse[i].value })
-                  this.prevPollVal = this.getSettingsResponse[i].value;
+               if (this.getSettingsResponse[i].Key == 'PollingInterval') {
+                  this.settingsForm.setValue({ pollVal: this.getSettingsResponse[i].Value })
+                  this.prevPollVal = this.getSettingsResponse[i].Value;
                }
-               else if (this.getSettingsResponse[i].key == 'ResetAll') {
-                  if (this.getSettingsResponse[i].value == "Yes") {
+               else if (this.getSettingsResponse[i].Key == 'ResetAll') {
+                  if (this.getSettingsResponse[i].Value == "Yes") {
                      this.markedReset = true;
                      this.markedReset1 = "Yes";
                   }
@@ -145,26 +147,26 @@ export class SettingComponent implements OnInit {
    
    
                }
-               else if (this.getSettingsResponse[i].key == 'RefreshInterval') {
+               else if (this.getSettingsResponse[i].Key == 'RefreshInterval') {
    
-                  this.settingsForm1.setValue({ refreshInterval: this.getSettingsResponse[i].value })
-                  this.prevRefrInterval = this.getSettingsResponse[i].value;
+                  this.settingsForm1.setValue({ refreshInterval: this.getSettingsResponse[i].Value })
+                  this.prevRefrInterval = this.getSettingsResponse[i].Value;
                }
-               else if (this.getSettingsResponse[i].key == 'LogFilePath') {
+               else if (this.getSettingsResponse[i].Key == 'LogFilePath') {
    
-                  this.settingsForm2.setValue({ logFilePath: this.getSettingsResponse[i].value })
-                  this.prevLogFilePath = this.getSettingsResponse[i].value;
+                  this.settingsForm2.setValue({ logFilePath: this.getSettingsResponse[i].Value })
+                  this.prevLogFilePath = this.getSettingsResponse[i].Value;
                }
-               else if (this.getSettingsResponse[i].key == 'LogFileType') {
-                  if (this.getSettingsResponse[i].value.split(":").length) {
-                     this.logFileType = this.getSettingsResponse[i].value.split(":")[0].split(",");
-                     this.defaultLogType = this.getSettingsResponse[i].value.split(":")[1];
+               else if (this.getSettingsResponse[i].Key == 'LogFileType') {
+                  if (this.getSettingsResponse[i].Value.split(":").length) {
+                     this.logFileType = this.getSettingsResponse[i].Value.split(":")[0].split(",");
+                     this.defaultLogType = this.getSettingsResponse[i].Value.split(":")[1];
                   }
                }
-               else if (this.getSettingsResponse[i].key == 'LogOption') {
-                  if (this.getSettingsResponse[i].value.split(":").length) {
-                     this.logOption = this.getSettingsResponse[i].value.split(":")[0].split(",");
-                     this.defaultLogOption = this.getSettingsResponse[i].value.split(":")[1];
+               else if (this.getSettingsResponse[i].Key == 'LogOption') {
+                  if (this.getSettingsResponse[i].Value.split(":").length) {
+                     this.logOption = this.getSettingsResponse[i].Value.split(":")[0].split(",");
+                     this.defaultLogOption = this.getSettingsResponse[i].Value.split(":")[1];
                   }
                }
             }
@@ -232,6 +234,8 @@ export class SettingComponent implements OnInit {
 
    // on ok button click event
    submitForm() {
+      console.log(this.settingsForm);
+      
       var pollTime = this.settingsForm.getRawValue().pollVal;
       var refreshTime = this.settingsForm1.getRawValue().refreshInterval;
       var logType = this.defaultLogType;
@@ -252,7 +256,7 @@ export class SettingComponent implements OnInit {
                   if(parseInt(refreshTime)<=60000){
                      // send Command
                      //var cmdSettingsset = "SetSettings(" + logType + "," + logName + "," + logOption + "," + pollTime + "," + resetVal + "," + refreshTime + ")";          
-                     var cmdSettingsset = '{"Command" : "SetSettings","Args":'+'"'+logType+','+logName+','+logOption+','+pollTime+','+resetVal+','+refreshTime+'"'+'}'
+                     var cmdSettingsset = '{"Command" : "SetSettings","params" : {"Args":'+'"'+logType+','+logName+','+logOption+','+pollTime+','+resetVal+','+refreshTime+'"'+'}}'
                      this.SocketService.sendMessage(cmdSettingsset);
                      this.display = 'none';
                   }

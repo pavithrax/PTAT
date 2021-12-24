@@ -119,7 +119,7 @@ liveGraphFeature:any = [];
 	})
 
 	this.SocketService.getSettings().subscribe(data => {
-		this.initialRefreshTime = data[4].value;
+		this.initialRefreshTime = data[4].Value;
 	})
 
 	$("#slider").slider();
@@ -127,6 +127,7 @@ liveGraphFeature:any = [];
 	
 	this.SocketService.getMonitorDataRes().subscribe(message => {
 		// message = dataFormat;
+		// this.dataType = 'Clientside' // to be delted later
 		if(this.dataType == 'Clientside') {
 			console.log(message.Data[0])
 			this.liveGraphCompArr = message.Data[0].Treelist;
@@ -285,20 +286,20 @@ liveGraphFeature:any = [];
 		   var getToolInfoResponse = message;
 		   var len = getToolInfoResponse.length;
 		   for (var i = 0; i < len; i++) {
-			  if (getToolInfoResponse[i].key == 'LogPath') {
-				 this.logFilePath = getToolInfoResponse[i].value;
+			  if (getToolInfoResponse[i].Key == 'LogPath') {
+				 this.logFilePath = getToolInfoResponse[i].Value;
 	 
-			  }else if(getToolInfoResponse[i].key == 'OSVersion'){
-				if(getToolInfoResponse[i].value == "Windows 10 Enterprise"){
+			  }else if(getToolInfoResponse[i].Key == 'OSVersion'){
+				if(getToolInfoResponse[i].Value == "Windows 10 Enterprise"){
 					this.osInformation = "windows"
 				}else{
 					this.osInformation = "others"
 				}
-			  }else if(getToolInfoResponse[i].key == 'InstalledPath'){
-					this.InstalledPath = getToolInfoResponse[i].value;
+			  }else if(getToolInfoResponse[i].Key == 'InstalledPath'){
+					this.InstalledPath = getToolInfoResponse[i].Value;
 			  }
-			  else if(getToolInfoResponse[i].key == 'platform_sku'){
-				if(getToolInfoResponse[i].value == 'server') {
+			  else if(getToolInfoResponse[i].Key == 'platform_sku'){
+				if(getToolInfoResponse[i].Value == 'server') {
 				  this.dataType = 'Serverside';
 				} else {
 				  this.dataType = 'Clientside';
@@ -592,6 +593,7 @@ liveGraphFeature:any = [];
 
 		// used when we load the graph params from "load workspace"
 		this.SocketService.getMonitorDataRes().subscribe(message => {
+			this.dataType = 'Clientside' // to be delted later
 			if (this.dataType == 'Clientside' && message) {
 				this.liveGraphList.length = 0;
 				this.liveGraphUIDList.length = 0;

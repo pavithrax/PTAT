@@ -136,8 +136,8 @@ export class TargetHostErrorComponent implements OnInit {
 
     this.SocketService.getToolInfo().subscribe(message => {
       if (message) {
-        this.targetIpdAddress = message[3].value;
-        this.targetPortNumber = message[4].value;
+        this.targetIpdAddress = message[3].Value;
+        this.targetPortNumber = message[4].Value;
         this.targetName = "";
       }
     });

@@ -58,10 +58,10 @@ export class ControlComponent implements OnInit {
       if (message) {
          this.getToolInfoResponse = message;
          for (var i = 0; i < this.getToolInfoResponse.length; i++) {
-            if (this.getToolInfoResponse[i].key == 'ShowControlWarning') {
-               this.controlWarningPopupStatus = this.getToolInfoResponse[i].value;
-            } else if(this.getToolInfoResponse[i].key == 'platform_sku'){
-              if(this.getToolInfoResponse[i].value == 'server') {
+            if (this.getToolInfoResponse[i].Key == 'ShowControlWarning') {
+               this.controlWarningPopupStatus = this.getToolInfoResponse[i].Value;
+            } else if(this.getToolInfoResponse[i].Key == 'platform_sku'){
+              if(this.getToolInfoResponse[i].Value == 'server') {
                 this.dataType = 'Serverside';
               } else {
                 this.dataType = 'Clientside';

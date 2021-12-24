@@ -268,20 +268,19 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
 
     this.SocketService.getExecuteScripts().subscribe(message => {
       console.log(message);
-      if(message.Data.Status == 'Failed') {
-        this.scriptStatus = message.Data.Message;        
-        this.scriptStatusCode = 1;        
-        this.isScriptStatus =true;
-        this.enableStop = false; 
+      if(message) { 
+        this.enableStop = true;
+        
       }
     })
     this.SocketService.getExecuteScriptsError().subscribe(message => {
       this.resetState = '1';
       if (message) {
-        this.scriptStatus = "Invalid Script";        
-        this.scriptStatusCode = 1;        
-        this.isScriptStatus =true;
-        this.enableStop = false; 
+        // this.scriptStatus = "Invalid Script";
+        this.scriptStatus = message.CommandStatus.Message
+ this.scriptStatusCode = 1; 
+ this.isScriptStatus =true;
+ this.enableStop = false; 
       }
     });
 
@@ -567,11 +566,11 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
     this.scriptStatus = "";        
     this.SocketService.getLoadScripts().subscribe(message => {
       if(message.CommandStatus.Status == "Failure"){
-        this.scriptStatus = message.CommandStatus.Message;
-        this.isScriptStatus = true;
-        this.scriptStatusCode = 1; 
+        this.scriptStatus = message.CommandStatus.Message;
+        this.isScriptStatus = true;
+        this.scriptStatusCode = 1; 
       }else{
-        this.scriptStatus = message.CommandStatus.Message;
+        this.scriptStatus = message.CommandStatus.Message;
         if (message) {
           this.getLoadScriptResp = message.Data;
           this.selectedFeatures = this.getLoadScriptResp;

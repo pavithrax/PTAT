@@ -38,8 +38,8 @@ export class MonitoralertstreeComponent implements OnInit {
         var getToolInfoResponse = message;
         var len = getToolInfoResponse.length;
         for (var i = 0; i < len; i++) {
-         if(getToolInfoResponse[i].key == 'platform_sku'){
-            if(getToolInfoResponse[i].value == 'server') {
+         if(getToolInfoResponse[i].Key == 'platform_sku'){
+            if(getToolInfoResponse[i].Value == 'server') {
               this.dataType = 'Serverside';
             } else {
               this.dataType = 'Clientside';
@@ -54,6 +54,7 @@ export class MonitoralertstreeComponent implements OnInit {
    });
 
    this.SocketService.getMonitorDataRes().subscribe(message => {
+      // this.dataType = 'Clientside' // to be delted later
       if (message && this.dataType == 'Clientside') {
        this.dataArr = message.Data;
       let cnt = this.countofCheckbox();

@@ -38,10 +38,10 @@ export class LoadscriptComponent implements OnInit {
             var len = this.getToolInfoResponse.length;
             var loadScriptFilePathDefault = ""
             for (var i = 0; i < len; i++) {
-               if (this.getToolInfoResponse[i].key == 'ScriptFilePath') {
-                  loadScriptFilePathDefault = this.getToolInfoResponse[i].value;
-               }else if(this.getToolInfoResponse[i].key == 'OSVersion'){
-                  if(this.getToolInfoResponse[i].value == "Windows 10 Enterprise"){
+               if (this.getToolInfoResponse[i].Key == 'ScriptFilePath') {
+                  loadScriptFilePathDefault = this.getToolInfoResponse[i].Value;
+               }else if(this.getToolInfoResponse[i].Key == 'OSVersion'){
+                  if(this.getToolInfoResponse[i].Value == "Windows 10 Enterprise"){
                      this.osInformation = "windows"
                   }else{
                      this.osInformation = "others"

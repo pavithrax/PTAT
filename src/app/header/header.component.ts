@@ -123,29 +123,29 @@ export class HeaderComponent implements OnInit {
             this.getToolInfoResponse = message;
             var len = this.getToolInfoResponse.length;
             for (var i = 0; i < len; i++) {
-               if (this.getToolInfoResponse[i].key == 'IsTelemetryEnabled') {
-                  if (this.getToolInfoResponse[i].value == "1") {
+               if (this.getToolInfoResponse[i].Key == 'IsTelemetryEnabled') {
+                  if (this.getToolInfoResponse[i].Value == "1") {
                      this.isTelemetryEnabled = true;
                   }
                   else {
                      this.isTelemetryEnabled = false;
                   }
                }
-               else if (this.getToolInfoResponse[i].key == 'CurrentIpAddress') {
-                  this.connectedIp = this.getToolInfoResponse[i].value;
+               else if (this.getToolInfoResponse[i].Key == 'CurrentIpAddress') {
+                  this.connectedIp = this.getToolInfoResponse[i].Value;
                }
-               else if(this.getToolInfoResponse[i].key == 'WorkSpacePath'){
-                  this.saveWorkSpacePath = this.getToolInfoResponse[i].value;
-               }else if(this.getToolInfoResponse[i].key == 'OperatingSystem'){
-                  if(this.getToolInfoResponse[i].value == "Windows"){
+               else if(this.getToolInfoResponse[i].Key == 'WorkSpacePath'){
+                  this.saveWorkSpacePath = this.getToolInfoResponse[i].Value;
+               }else if(this.getToolInfoResponse[i].Key == 'OperatingSystem'){
+                  if(this.getToolInfoResponse[i].Value == "Windows"){
                      this.osInformation = "windows";
                      this.hideTelemetryMenu = false;
                   }else{
                      this.osInformation = "others";
                   }
                  }
-                 else if(this.getToolInfoResponse[i].key == 'platform_sku'){
-                  if(this.getToolInfoResponse[i].value == 'server') {
+                 else if(this.getToolInfoResponse[i].Key == 'platform_sku'){
+                  if(this.getToolInfoResponse[i].Value == 'server') {
                     this.dataType = 'Serverside';
                   } else {
                     this.dataType = 'Clientside';
@@ -471,6 +471,7 @@ export class HeaderComponent implements OnInit {
 
 
    this.SocketService.getMonitorDataRes().subscribe(message => {
+      // this.dataType = 'Clientside' // to be delted later
       if (message && this.dataType == 'Clientside') {
          this.showHidePowerVisualizationMenuCounter = 0;
          var monitorDataRes = message.Data[0].Treelist;
@@ -752,7 +753,8 @@ savewarrenCov(){
    submitLoadWorkspace() {
          this.spinner.show();
          // to remove monitor data
-         var command = '{"Command" : "RemoveFromMonitorList"}'
+         // var command = '{"Command" : "RemoveFromMonitorList"}'
+         var command = '{"Command" : "RemoveFromMonitorList","params" : {"Args":"0"}}'
          this.SocketService.sendMessage(command);
          //this.SocketService.sendMessage("RemoveFromMonitorList()");
 
@@ -760,6 +762,7 @@ savewarrenCov(){
          this.util.checkLiveAnalysisParam(1);
          this.isLoadwrkSpace = true;
          this.util.loadWorkSpaceFlagData(1);
+  
    }
 
 
