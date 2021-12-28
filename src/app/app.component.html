@@ -44,10 +44,10 @@
 				          <app-workload [hidden]="selectedNavValue !== 'Workload'" class="nopadding nomargin"></app-workload> 
           		    <app-control [hidden]="selectedNavValue !== 'Control'" class="nopadding nomargin"></app-control> 
                   <app-scripts  [hidden]="selectedNavValue !== 'Scripts'" class="nopadding nomargin"></app-scripts>  
-                  <app-tatloganalysis [hidden]="selectedNavValue !== 'PTAT Log Analysis'" class="nopadding nomargin"></app-tatloganalysis>  
+                  <!-- <app-tatloganalysis [hidden]="selectedNavValue !== 'PTAT Log Analysis'" class="nopadding nomargin"></app-tatloganalysis>   -->
                   <app-graph  [hidden]="selectedNavValue !== 'Graph'" class="nopadding nomargin"></app-graph>  
                   <app-live-analysis [hidden]="selectedNavValue !== 'Live Analysis'"  class="nopadding nomargin"></app-live-analysis>
-                  <app-turbo [hidden]="selectedNavValue !== 'Turbo Check'"  class="nopadding nomargin"></app-turbo>
+                  <!-- <app-turbo [hidden]="selectedNavValue !== 'Turbo Check'"  class="nopadding nomargin"></app-turbo> -->
                   <app-tatfeature></app-tatfeature>
                   <app-error></app-error>
                   <app-monitor-server [hidden]="selectedNavValue != 'Monitor'" *ngIf="platform == 'server'"></app-monitor-server>

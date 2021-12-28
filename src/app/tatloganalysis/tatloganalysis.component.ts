@@ -40,7 +40,7 @@ export class TatloganalysisComponent implements OnInit {
 
     this.SocketService.getToolInfo().subscribe(message => {
       if (message) {
-        this.tatLogFilePath = message[7].value;
+        this.tatLogFilePath = message[7].Value;
         var getToolInfoResponse = message;
         var len = getToolInfoResponse.length;
         for (var i = 0; i < len; i++) {
@@ -71,7 +71,7 @@ export class TatloganalysisComponent implements OnInit {
             this.spinner.hide();
             this.tatLogAnalysisLog = message.Data.List;
             if (message.Data.List.length != 0) {
-              this.tatLogAnalysiLogFile = message.Data.List[0].Data;
+              this.tatLogAnalysiLogFile = message.Data.List[0];
               this.logFileCount = 1;
             } else {
               this.logFileCount = 0;

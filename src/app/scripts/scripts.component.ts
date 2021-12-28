@@ -286,10 +286,10 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
 
     this.SocketService.getRowStatus().subscribe(message => {
       if (message) {
-        var arrStatus =  message.Data[0].Row.split(",");
-        this.rowStatusIndex = arrStatus[0];
+        // var arrStatus =  message.Data[0].Row.split(",");
+        this.rowStatusIndex = message.Data.Row;
         this.enableStop = true;
-
+        // {"Command":"RowStatus","CommandStatus":{"Status":"Success","Message":""},"Data":[{"Row":"0,Success"}]}
       }
     });
     this.SocketService.getScriptCommandLineStatus().subscribe(message => {

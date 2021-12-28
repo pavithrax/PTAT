@@ -152,23 +152,34 @@ export class SettingComponent implements OnInit {
                   this.settingsForm1.setValue({ refreshInterval: this.getSettingsResponse[i].Value })
                   this.prevRefrInterval = this.getSettingsResponse[i].Value;
                }
-               else if (this.getSettingsResponse[i].Key == 'LogFilePath') {
+               else if (this.getSettingsResponse[i].Key == 'AppLogFilePath') {
    
                   this.settingsForm2.setValue({ logFilePath: this.getSettingsResponse[i].Value })
                   this.prevLogFilePath = this.getSettingsResponse[i].Value;
                }
                else if (this.getSettingsResponse[i].Key == 'LogFileType') {
-                  if (this.getSettingsResponse[i].Value.split(":").length) {
-                     this.logFileType = this.getSettingsResponse[i].Value.split(":")[0].split(",");
-                     this.defaultLogType = this.getSettingsResponse[i].Value.split(":")[1];
+                  if (this.getSettingsResponse[i].Value.length) {
+                     // this.logFileType = this.getSettingsResponse[i].Value.split(",");
+                     this.logFileType = this.getSettingsResponse[i].Value;
+                     // this.defaultLogType = this.getSettingsResponse[i].Value[0];
+                     console.log(this.defaultLogType);
+                     
+                  }
+               } else if (this.getSettingsResponse[i].Key == 'LogFileTypeSelected') {
+                  this.defaultLogType = this.getSettingsResponse[i].Value;
+               }
+               
+               else if (this.getSettingsResponse[i].Key == 'FileOption') {
+                  if (this.getSettingsResponse[i].Value.length) {
+                     // this.logOption = this.getSettingsResponse[i].Value.split(",");
+                     this.logOption = this.getSettingsResponse[i].Value;
+                     // this.defaultLogOption = this.getSettingsResponse[i].Value.split(":")[1];
                   }
                }
-               else if (this.getSettingsResponse[i].Key == 'LogOption') {
-                  if (this.getSettingsResponse[i].Value.split(":").length) {
-                     this.logOption = this.getSettingsResponse[i].Value.split(":")[0].split(",");
-                     this.defaultLogOption = this.getSettingsResponse[i].Value.split(":")[1];
-                  }
+               else if (this.getSettingsResponse[i].Key == 'FileOptionSelected') {
+                  this.defaultLogOption = this.getSettingsResponse[i].Value;
                }
+               console.log(this.defaultLogType);
             }
             if(this.settingOnLoad == false){
                //this.SocketService.sendMessage("getTatFeaturesStatus()");
@@ -238,6 +249,8 @@ export class SettingComponent implements OnInit {
       
       var pollTime = this.settingsForm.getRawValue().pollVal;
       var refreshTime = this.settingsForm1.getRawValue().refreshInterval;
+      console.log(pollTime,refreshTime,this.settingsForm.getRawValue());
+      // if(this.defaultLogO)
       var logType = this.defaultLogType;
       var logName = this.settingsForm2.getRawValue().logFilePath;
       var logOption = this.defaultLogOption;
@@ -248,15 +261,20 @@ export class SettingComponent implements OnInit {
          resetVal = "No";
       }
       //var resetVal = this.markedReset1;
+      console.log(logType,logOption);
+      
      
-      if(pollTime.length > 0 && refreshTime.length >0 && logName.length>0){
-         if(parseInt(pollTime)>=1 ){
-            if(parseInt(pollTime)<=60000 ){
-               if(parseInt(refreshTime)>=500){ 
-                  if(parseInt(refreshTime)<=60000){
+      if(pollTime && refreshTime && logName.length>0){
+         console.log("hi");
+         
+         if(parseInt(pollTime)>=1 ){console.log("hi");
+            if(parseInt(pollTime)<=60000 ){console.log("hi");
+               if(parseInt(refreshTime)>=500){ console.log("hi");
+                  if(parseInt(refreshTime)<=60000){console.log("hi");
                      // send Command
                      //var cmdSettingsset = "SetSettings(" + logType + "," + logName + "," + logOption + "," + pollTime + "," + resetVal + "," + refreshTime + ")";          
-                     var cmdSettingsset = '{"Command" : "SetSettings","params" : {"Args":'+'"'+logType+','+logName+','+logOption+','+pollTime+','+resetVal+','+refreshTime+'"'+'}}'
+                     // var cmdSettingsset = '{"Command" : "SetSettings","params" : {"Args":'+'"'+logType+','+logName+','+logOption+','+pollTime+','+resetVal+','+refreshTime+'"'+'}}'
+                     var cmdSettingsset = '{"Command" : "SetSettings","params" : {"Args":{"LogFileTypeSelected":"'+logType+'","LogFileName":"'+logName+'","FileOptionSelected":"'+logOption+'","PollingInterval":'+pollTime+',"ResetAll":"'+resetVal+'","RefreshInterval":'+refreshTime+''+'}}}'
                      this.SocketService.sendMessage(cmdSettingsset);
                      this.display = 'none';
                   }
