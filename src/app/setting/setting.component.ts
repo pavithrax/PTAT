@@ -152,7 +152,7 @@ export class SettingComponent implements OnInit {
                   this.settingsForm1.setValue({ refreshInterval: this.getSettingsResponse[i].Value })
                   this.prevRefrInterval = this.getSettingsResponse[i].Value;
                }
-               else if (this.getSettingsResponse[i].Key == 'AppLogFilePath') {
+               else if (this.getSettingsResponse[i].Key == 'LogFileName') {
    
                   this.settingsForm2.setValue({ logFilePath: this.getSettingsResponse[i].Value })
                   this.prevLogFilePath = this.getSettingsResponse[i].Value;
@@ -246,13 +246,12 @@ export class SettingComponent implements OnInit {
    // on ok button click event
    submitForm() {
       console.log(this.settingsForm);
-      
+           
       var pollTime = this.settingsForm.getRawValue().pollVal;
       var refreshTime = this.settingsForm1.getRawValue().refreshInterval;
       console.log(pollTime,refreshTime,this.settingsForm.getRawValue());
       // if(this.defaultLogO)
-      var logType = this.defaultLogType;
-      var logName = this.settingsForm2.getRawValue().logFilePath;
+      var logType = this.defaultLogType; 
       var logOption = this.defaultLogOption;
       var resetVal = "";
       if(this.markedReset == true){
@@ -261,6 +260,12 @@ export class SettingComponent implements OnInit {
          resetVal = "No";
       }
       //var resetVal = this.markedReset1;
+      let split1 = this.settingsForm2.getRawValue().logFilePath.split('.');
+      if(split1.length == 1) {
+         this.onSelectFile(logType);
+      }
+
+      var logName = this.settingsForm2.getRawValue().logFilePath;
       console.log(logType,logOption);
       
      

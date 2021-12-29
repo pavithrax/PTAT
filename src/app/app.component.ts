@@ -200,10 +200,10 @@ export class AppComponent {
       this.socket.getComponentList().subscribe(message => {
          if (message) {
             this.navBarData = message.TreeList;
-            this.navBarData.push({
-               "Name": "Turbo Check",
-               "Index": "9"
-            })
+            // this.navBarData.push({
+            //    "Name": "Turbo Check",
+            //    "Index": "9"
+            // })
             // var command = '{"Command" : "GetFavConnList"}';
             // this.socket.sendMessage(command);
             // this.socket.sendMessage("GetFavConnList()");

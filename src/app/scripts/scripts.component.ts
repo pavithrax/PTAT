@@ -77,7 +77,7 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
   ngOnInit() {
     this.SocketService.getScriptsStatus().subscribe(message => {
       if (message) {
-        var status = message.Data;
+        var data = message.Data;
         var count = message.Count;
         var gfxFileName = message.Filename;
         var gfxArguments = message.Arguments;
@@ -87,7 +87,14 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
           this.launchGFXWorkloadFromUI(gfxFileName,gfxArguments, count, endsWithString );
         }
         else{
-          this.ScriptStatusRes(status);
+          var endsWithString = "script";
+          // this.ScriptStatusRes(status);
+          this.isScriptStatus = true; 
+          
+          this.scriptStatus = data.Status;
+          if(data.Status == 'Success' || data.Status == 'Failed' ) {
+            this.StopGfxWorkload(endsWithString);
+          }
         }
       }
     });
@@ -294,16 +301,15 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
     });
     this.SocketService.getScriptCommandLineStatus().subscribe(message => {
       if (message) {
-        if(message.Data[0].Status == "Script Completed"){
-          if(message.Data[0].Cmd == "Stop Workload"){
-            if(message.Data[0].Instance == "Gfx"){
-              this.StopGfxWorkload("script");
-            }
-
-          }
-          
-        }else{
-          this.selectedFeatures[this.rowStatusIndex].executestatus = message.Data[0].Status;
+        console.log(this.selectedFeatures);
+        if(message.Data.Status == 'Failed') {
+          this.selectedFeatures[message.Data.row].executestatus = message.Data.Status;
+        } else {
+          this.selectedFeatures[this.rowStatusIndex].executestatus = message.Data.Status;
+        }
+        
+        if(message.Data.Component == "gfx"){
+          this.StopGfxWorkload("script");
         }
       }
     });
