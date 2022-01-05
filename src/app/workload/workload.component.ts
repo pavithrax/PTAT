@@ -8,6 +8,7 @@ import { HostListener } from "@angular/core";
 import { MatSidenav } from '@angular/material/sidenav';
 import * as  data from './getWorkload.json';
 import { AppComponent } from '../app.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-workload',
@@ -42,8 +43,9 @@ export class WorkloadComponent implements OnInit {
   pmemvalues: any = [];
   coreValue: any = [];
   showWorkloadModal: boolean = false;
+  startWorkloadErrorMsg = '';
 
-  constructor(private SocketService: SocketService, private spinner: NgxSpinnerService, private app: AppComponent) {
+  constructor(private SocketService: SocketService, private spinner: NgxSpinnerService, private app: AppComponent, private toaster: ToastrService) {
     this.dataType = this.app.platform;
   }
   @HostListener('scroll', ['$event'])
@@ -62,6 +64,8 @@ export class WorkloadComponent implements OnInit {
 
     this.SocketService.WorkLoadDataRes().subscribe(message => {
       if (message) {
+        // this.toaster.success('Hello world!', 'Toastr fun!',
+        // {timeOut: 6000});;
         this.StopGfxWorkload("");
         this.workloadArray = message.Data;
 
@@ -117,7 +121,7 @@ export class WorkloadComponent implements OnInit {
     //     // }  
 
     //     this.response = message;
-    //     //var dummy = '{"Command":"StartWorkload","CommandStatus":{"Status":"Success","Message":""},"Data":{"Component":{"Name":"CPU Component","Index":"0"},"DropDownData":{"Name":"CPU Power","Index":"0"},"Instance":{"Name":"Gfx","Index":"34","Status":"UIAction","Count":"1","Filename":"Gfxworkload.html","Arguments":"255","DisableList":"5"}}}';
+    //     //var dummy = '{"Command":"StartWorkload","CommandStatus":{"Status":"Success","Message":""},"Data":{"Component":{"Name":"CPU Component","Index":"0"},
     //     //var dummyJSON = JSON.parse(dummy);
     //     //this.response = dummyJSON;
     //     // console.log(message);
@@ -205,6 +209,10 @@ export class WorkloadComponent implements OnInit {
               item.status = 'Running';
             }
           })
+        } else {
+          console.log('Hi');
+          
+          this.startWorkloadErrorMsg = message.CommandStatus.Message;
         }
         
       }

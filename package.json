@@ -39,6 +39,7 @@
     "jquery-ui-dist": "^1.12.1",
     "ngx-filesaver": "^2.2.1",
     "ngx-spinner": "^8.1.0",
+    "ngx-toastr": "^8.8.0",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",
     "primeng": "^10.0.3",

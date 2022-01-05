@@ -43,6 +43,7 @@ import {ContextMenuModule} from 'primeng/contextmenu';
 import { MonitorServerComponent } from './monitor-server/monitor-server.component';
 import { TabViewModule } from 'primeng/tabview';
 import { TurboComponent } from './turbo/turbo.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { TurboComponent } from './turbo/turbo.component';
     NoopAnimationsModule,
     ReactiveFormsModule,
     DragDropModule,
+    ToastrModule.forRoot(),
     NotifierModule.withConfig({
       position: {
         horizontal: {

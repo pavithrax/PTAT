@@ -1,3 +1,4 @@
+@import '~ngx-toastr/toastr';
 .moduleNameColor {
     font-size: 33px;
     /*text-shadow: 0 0 3px #0043ff, 0 0 5px #ffbc00;*/
@@ -6,7 +7,10 @@
     font-weight: 700;
     font-family: serif;
 }
-
+#toast-container > div {
+    opacity:1;
+    width: 400px;
+}
 .controlWorLoadColour {
     font-size: 27px;
     color: #1e5787;

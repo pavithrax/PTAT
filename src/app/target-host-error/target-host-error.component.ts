@@ -23,7 +23,8 @@ export class TargetHostErrorComponent implements OnInit {
   deleteConditionFlag:any = 0;
   targetConnectionStatus:boolean = false;
   addFavListIdentifier:any = 1;
-  disconnectionMessage : any = "Host not connected. Please restart PTAT Host service.";
+  disconnectionMessage : any = "PTAT background application is not running. Please relaunch the UI";
+  // disconnectionMessage : any = "Host not connected. Please restart PTAT Host service.";
   public isConnectPort$: Subject<any>;
 
   constructor(private SocketService:SocketService,private spinner: NgxSpinnerService, private util: UtilityServiceService) {
