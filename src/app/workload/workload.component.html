@@ -291,8 +291,8 @@
       
                                          
                                           <td  style="width: 80%;">
-                                             <span class="fas fa-edit" (click)="editWorkload(data)"style="color: #595352;"></span>&nbsp;&nbsp;             
-                                             <span class="fa fa-times-circle" (click)="removeData(data)"style="color: red;"></span>&nbsp;&nbsp; 
+                                             <span *ngIf="data.status == 'Failed' || data.status == 'Stopped'" class="fas fa-edit" (click)="editWorkload(data)"style="color: #595352;"></span>&nbsp;&nbsp;             
+                                             <span *ngIf="data.status == 'Failed' || data.status == 'Stopped'" class="fa fa-times-circle" (click)="removeData(data)"style="color: red;"></span>&nbsp;&nbsp; 
                                              <span [ngClass]="{'colorSelectedTree1': data.Name === selectedWorkLoadName}">{{data.Name}}</span> 
                                              
                                           </td>
@@ -317,11 +317,10 @@
                            </div>
                        </div>
                    </div>
-                   <div>
-                      {{startWorkloadErrorMsg}}
-                   </div>
-                   <div class="btnDiv">
-                       <button (click)="startAllWorkload()" type="button" class=" {{'startstopworkload'}} btn btn-primary greenBtnColor" style="margin-top: -3px;">
+                   
+                   <div class="">
+                    <span style="font-weight: bold;margin-top: 1px;color:red"> {{startWorkloadErrorMsg}}</span>
+                       <button (click)="startAllWorkload()" type="button" class=" {{'startstopworkload'}} btn btn-primary greenBtnColor btnDiv" style="margin-top: 1px;">
                           Start Workload
                        </button>
                    </div>

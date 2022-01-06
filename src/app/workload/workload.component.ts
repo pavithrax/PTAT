@@ -64,8 +64,8 @@ export class WorkloadComponent implements OnInit {
 
     this.SocketService.WorkLoadDataRes().subscribe(message => {
       if (message) {
-        // this.toaster.success('Hello world!', 'Toastr fun!',
-        // {timeOut: 6000});;
+        this.startWorkloadErrorMsg = '';
+        // this.toaster.error('Hello world!', 'Toastr fun!');
         this.StopGfxWorkload("");
         this.workloadArray = message.Data;
 
@@ -201,6 +201,7 @@ export class WorkloadComponent implements OnInit {
       if(message) {
        
         if(message.CommandStatus.Status !== 'error') {
+          this.startWorkloadErrorMsg = '';
           $('.startstopworkload').html('Stop Workload');
           $('.startstopworkload').removeClass("greenBtnColor");
           $('.startstopworkload').addClass('redBtnColor');
@@ -210,8 +211,8 @@ export class WorkloadComponent implements OnInit {
             }
           })
         } else {
-          console.log('Hi');
-          
+          // console.log('Hi');
+          // this.toaster.error('Hello world!', 'Toastr fun!');
           this.startWorkloadErrorMsg = message.CommandStatus.Message;
         }
         
@@ -268,7 +269,7 @@ export class WorkloadComponent implements OnInit {
       console.log(message);
       
       if(message) {
-        
+        this.startWorkloadErrorMsg = '';
         this.workLoadDataArray.forEach(item => {
           if(item.Name == message.Data.params['core-test'] && item.editIndex == message.Data.params['workload-str']) {
             item.status = 'Stopped';
@@ -280,6 +281,8 @@ export class WorkloadComponent implements OnInit {
           $('.startstopworkload').addClass("greenBtnColor");
           $('.startstopworkload').removeClass('redBtnColor');
         }
+      }else {
+        this.startWorkloadErrorMsg = message.CommandStatus.Message;
       }
     })
   }

@@ -736,6 +736,10 @@ export class SocketService {
           this.isStartServerMonitorRes$.next(data);
         }else if(data.Command == constant.StopStopMonitor_CMD){
           this.isStopServerMonitorRes$.next(data);
+        }else if(data.Command == constant.StartWorkload_CMD){
+          this.isStartWorkloadDataRes$.next(data);
+        }else if(data.Command == constant.StopWorkload_CMD){
+          this.isStopWorkloadRes$.next(data);
         }
       }
     }
