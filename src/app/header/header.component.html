@@ -122,19 +122,19 @@
         <li class="dropdown-submenu">
             <a  class="dropdown-item"> <i class="menuIcons far fa-circle leftDropDownTextColor"></i> <label class="paddingLeft1 leftDropDownTextColor">Options</label></a>
             <ul class="dropdown-menu">
-              <li class="dropdown-item"> 
+              <!-- <li class="dropdown-item"> reset workload is not used
                 <a class="custom-groupitem-menu" (click)="resetWrkld()"><i class="menuIcons fas fa-redo leftDropDownTextColor"></i><label class="menuLabels leftDropDownTextColor">Reset Workload</label></a>
-              </li>
+              </li> -->
               <li class="dropdown-item">
                 <a class="custom-groupitem-menu" (click)="resetControl()"><i class="menuIcons fas fa-redo leftDropDownTextColor"></i><label class="menuLabels leftDropDownTextColor">Reset Control</label></a>
               </li>
-              <li class="dropdown-item" [hidden]="hideTelemetryMenu">
+              <!-- <li class="dropdown-item" [hidden]="hideTelemetryMenu"> removed for release 2.0
                 <a class="custom-groupitem-menu" (click)="sendTelDta()" style="padding-right:5px;"><i id="defaultChecked3"   [ngClass]="{'fa-check-circle ':isTelemetryEnabled,'fa-times-circle':!isTelemetryEnabled}" class="menuIcons leftDropDownTextColor far" style="margin-top: 20px;
                   vertical-align: top;font-weight: bold;font-size: 13px;"></i>
                 <label class="menuLabels telemetryLabel leftDropDownTextColor" for="defaultChecked3">Participate in PTAT Improvement Program
                 </label>
               </a>
-              </li>
+              </li> -->
             </ul>
           </li>
   

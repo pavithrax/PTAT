@@ -249,12 +249,12 @@
          
                               </ng-container>
                            </div>
-                           <div class="row">
-                              <div class="col-sm-10">
+                           <div >
+                              <div >
                                  <label style="margin-top: 15px;" class=" workLoadTableCC" [ngClass]="'workLoadTable'+item.Index+item1.Index">{{item1.Note}}</label>
                               </div>
-                              <div class="col-sm-2">
-                                 <div class="btnDiv workLoadTableCC"  [ngClass]="'workLoadTable'+item.Index+item1.Index">
+                              <div >
+                                 <div class=" workLoadTableCC" style="margin-top: -35px; float: right"  [ngClass]="'workLoadTable'+item.Index+item1.Index">
                               
                                     <button type="button" id="addWorkLoadbtn" class="btn btn-primary greenBtnColor"  (click)="addWorkLoad(item1,item)" >
                                        Add Workload
@@ -291,8 +291,10 @@
       
                                          
                                           <td  style="width: 80%;">
-                                             <span *ngIf="data.status == 'Failed' || data.status == 'Stopped'" class="fas fa-edit" (click)="editWorkload(data)"style="color: #595352;"></span>&nbsp;&nbsp;             
-                                             <span *ngIf="data.status == 'Failed' || data.status == 'Stopped'" class="fa fa-times-circle" (click)="removeData(data)"style="color: red;"></span>&nbsp;&nbsp; 
+                                             <span *ngIf="data.status == 'Failed' || data.status == 'Stopped'" class="fas fa-edit" (click)="editWorkload(data)"style="color: #595352;"></span>            
+                                             <span *ngIf="data.status == 'Running'" class="fas fa-edit disabledbutton" style="color: #595352;"></span>&nbsp;&nbsp;             
+                                             <span *ngIf="data.status == 'Failed' || data.status == 'Stopped'" class="fa fa-times-circle" (click)="removeData(data)"style="color: red;"></span> 
+                                             <span *ngIf="data.status == 'Running'" class="fa fa-times-circle disabledbutton" style="color: red;"></span>&nbsp;&nbsp; 
                                              <span [ngClass]="{'colorSelectedTree1': data.Name === selectedWorkLoadName}">{{data.Name}}</span> 
                                              
                                           </td>

@@ -73,10 +73,8 @@ export class LoadscriptComponent implements OnInit {
       //var cmd = "GetFilesInDir("+this.loadScriptFilePath+",script)";
       console.log(this.loadScriptFilePath);
       
-      var command  = '{"Command" : "GetFilesInDir","params" : {"Args":'+'"'+this.loadScriptFilePath+'"'+'}}'
-      // var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+'"'+'}'
-      // var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+'script'+'"'+'}'
-      this.SocketService.sendMessage(command);
+      var command  = '{"Command" : "GetFilesInDir","params" : {"Args":'+'"'+this.loadScriptFilePath+',script'+'"'+'}}'
+       this.SocketService.sendMessage(command);
       this.getSuccessResponse();
    }
    //On success of load scripts display pop up
@@ -105,11 +103,7 @@ export class LoadscriptComponent implements OnInit {
 
    //On click of refresh button
    refreshForm() {
-      //var cmd = "GetFilesInDir("+this.loadScriptFilePath+",script)";
-      var command  = '{"Command" : "GetFilesInDir","params" : {"Args":'+'"'+this.loadScriptFilePath+'"'+'}}'
-      // var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+'"'+'}'
-      // var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+'script'+'"'+'}'
-      // var command  = '{"Command" : "GetFilesInDir","Args":'+'"'+this.loadScriptFilePath+',script'+'"'+'}'
+      var command  = '{"Command" : "GetFilesInDir","params" : {"Args":'+'"'+this.loadScriptFilePath+',script'+'"'+'}}'
       this.SocketService.sendMessage(command);
       this.getSuccessRefreshResponse();
    }

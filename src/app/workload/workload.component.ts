@@ -773,6 +773,7 @@ export class WorkloadComponent implements OnInit {
   }
 
   addWorkLoad(data, parentData) {
+    this.startWorkloadErrorMsg = '';
     console.log(data);
     console.log(parentData);
     
@@ -810,10 +811,12 @@ export class WorkloadComponent implements OnInit {
   }
 
   editWorkload(data) {
+    this.startWorkloadErrorMsg = '';
     this.selectedWorkLoadName = data.Name;
     this.workLoadTree(data.editIndex);
   }
   removeData(data) {
+    this.startWorkloadErrorMsg = '';
     this.selectedWorkLoadName = '';
     $('.workLoadTable' + data.editIndex.split(";")[0] + ' #addWorkLoadbtn').text('Add Workload');
     let arr = this.workLoadDataArray.filter(data1 => data1 !== data);
@@ -853,6 +856,7 @@ export class WorkloadComponent implements OnInit {
   }
 
   stopIndvWorkload(data) {
+    this.startWorkloadErrorMsg = '';
     this.selectedWorkLoadName = '';
     // data.status = 'Stopped';
     this.stopWorkloadCmd(data);
@@ -870,6 +874,7 @@ export class WorkloadComponent implements OnInit {
 
   // css changes basically
   startAllWorkload() {
+    this.startWorkloadErrorMsg = '';
     this.selectedWorkLoadName = '';
     if ($('.startstopworkload').text().toLowerCase() == 'stop workload') {
 
@@ -950,6 +955,7 @@ export class WorkloadComponent implements OnInit {
   startInterval: any;
 
   startWorkLoadCmd(data) {
+    this.startWorkloadErrorMsg = '';
     let selectedtest;
     let cmd: any = {}
     cmd.Command = 'StartWorkload';

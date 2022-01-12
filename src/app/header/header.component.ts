@@ -101,22 +101,22 @@ export class HeaderComponent implements OnInit {
 		return JSON.stringify(obj);
 	}
 
-	// used for PTAT Improvement Program in settings 
-	sendTelDta() {
+	// used for PTAT Improvement Program in settings removed for release 2.0
+	// sendTelDta() {
 
-		if (this.isTelemetryEnabled == false) {
-			this.isTelemetryEnabled = true;
-			//var cmd = "ChangeTelemetryStatus(0)";
-			var command = '{"Command" : "ChangeTelemetryStatus","Args": "1"}'
-			this.SocketService.sendMessage(command);
-		}
-		else {
-			this.isTelemetryEnabled = false;
-			//var cmd = "ChangeTelemetryStatus(1)";
-			var command = '{"Command" : "ChangeTelemetryStatus","Args": "0"}'
-			this.SocketService.sendMessage(command);
-		}
-	}
+	// 	if (this.isTelemetryEnabled == false) {
+	// 		this.isTelemetryEnabled = true;
+	// 		//var cmd = "ChangeTelemetryStatus(0)";
+	// 		var command = '{"Command" : "ChangeTelemetryStatus","Args": "1"}'
+	// 		this.SocketService.sendMessage(command);
+	// 	}
+	// 	else {
+	// 		this.isTelemetryEnabled = false;
+	// 		//var cmd = "ChangeTelemetryStatus(1)";
+	// 		var command = '{"Command" : "ChangeTelemetryStatus","Args": "0"}'
+	// 		this.SocketService.sendMessage(command);
+	// 	}
+	// }
 	getToolData() {
 		this.SocketService.getToolInfo().subscribe(message => {
 			if (message) {
@@ -648,11 +648,11 @@ export class HeaderComponent implements OnInit {
 		window.open(url, '_blank');
 	}
 
-	//Reset Wrkload Method
-	public resetWrkld(): void {
-		var command = '{"Command" : "ResetWorkload"}'
-		this.SocketService.sendMessage(command);
-	}
+	//Reset Wrkload Method not used 
+	// public resetWrkld(): void {
+	// 	var command = '{"Command" : "ResetWorkload"}'
+	// 	this.SocketService.sendMessage(command);
+	// }
 
 
 	resetControl() {

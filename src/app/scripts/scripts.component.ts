@@ -571,7 +571,7 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
     this.passDeleteRows = 0;
     this.scriptStatus = "";        
     this.SocketService.getLoadScripts().subscribe(message => {
-      if(message.CommandStatus.Status == "Failure"){
+      if(message.CommandStatus.Status == "Failure" || message.CommandStatus.Status == 'error'){
         this.scriptStatus = message.CommandStatus.Message;
         this.isScriptStatus = true;
         this.scriptStatusCode = 1; 
