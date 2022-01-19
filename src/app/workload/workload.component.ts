@@ -199,7 +199,7 @@ export class WorkloadComponent implements OnInit {
       console.log(message);
       
       if(message) {
-       
+        this.spinner.hide();
         if(message.CommandStatus.Status !== 'error') {
           this.startWorkloadErrorMsg = '';
           $('.startstopworkload').html('Stop Workload');
@@ -269,6 +269,7 @@ export class WorkloadComponent implements OnInit {
       console.log(message);
       
       if(message) {
+        this.spinner.hide();
         this.startWorkloadErrorMsg = '';
         this.workLoadDataArray.forEach(item => {
           if(item.Name == message.Data.params['core-test'] && item.editIndex == message.Data.params['workload-str']) {
@@ -442,6 +443,7 @@ export class WorkloadComponent implements OnInit {
 
   // not used to be removed later
   workLoadStartStop(arg, arg1, arg2, arg3, arg4, arg5) {
+    this.spinner.show();
     this.currentStartStopButtonClass = "";
     let componentName = arg2;
     let componentIndex = arg3;
@@ -512,7 +514,7 @@ export class WorkloadComponent implements OnInit {
   toggleIcon() {
     this.hasClass = !this.hasClass;
   }
-  launchGfxWorkload(filepath, divid, frameid) {
+  launchGfxWorkload(filepath, divid, frameid) { // used only on platforms that is not windows 
     $("#" + frameid).attr('src', filepath);
     $("#" + frameid).css({ 'height': '98%', 'width': '100px', 'border': 'none' });
     $("#" + divid).dialog({
@@ -531,7 +533,7 @@ export class WorkloadComponent implements OnInit {
     return false;
   }
 
-  StopGfxWorkload(gfxDialogIdEndsWith) {
+  StopGfxWorkload(gfxDialogIdEndsWith) { // used only on platforms that is not windows 
     var gfxDlgLen = this.g_GfxDialogId.length;
     for (var i = 0; i < gfxDlgLen; i++) {
       var strId = "";
@@ -773,13 +775,14 @@ export class WorkloadComponent implements OnInit {
   }
 
   addWorkLoad(data, parentData) {
+    let inputData = data.TableData.Row;
     this.startWorkloadErrorMsg = '';
     console.log(data);
     console.log(parentData);
     
     let continueExe = false;
-    if(data.TableData.Row.DroporCheck == false ) {
-      if(data.TableData.Row.AtleastOnePackageSelected || data.TableData.Row.PackageAllSelected) {
+    if(inputData.DroporCheck == false ) {
+      if(inputData.AtleastOnePackageSelected || inputData.PackageAllSelected) {
         continueExe = true
       }
       else {
@@ -789,7 +792,11 @@ export class WorkloadComponent implements OnInit {
     } else {
       continueExe = true;
     }
-    if(continueExe) {
+    if(inputData.ThreadData && inputData.ThreadData.length > 0 && !inputData.SelectAllThread && !inputData.AtleastOneThreadSelected) {
+      this.startWorkloadErrorMsg = 'Atleast one thread should be selected';
+      continueExe = false;
+    }
+    if(continueExe && inputData.powerLevel!= 'select') {
       this.selectedWorkLoadName = '';
       this.disableTest(data.DisableList, 'addClass');
       if (!this.workLoadDataArray.some(item => item.Name === data.Name)) {
@@ -799,8 +806,15 @@ export class WorkloadComponent implements OnInit {
             ParentName: parentData.Name,
             editIndex: parentData.Index + data.Index + ';' + data.Name,
             status: "Stopped",
-            DisableList: data.DisableList
+            DisableList: data.DisableList,
+            powerLevel: inputData.powerLevel
           })
+      } else {
+       this.workLoadDataArray.forEach(element => {
+         if(element.Name == data.Name) {
+           element.powerLevel = inputData.powerLevel
+         }
+       })
       }
 
       this.workLoadDataArray.forEach(element => {
@@ -955,6 +969,7 @@ export class WorkloadComponent implements OnInit {
   startInterval: any;
 
   startWorkLoadCmd(data) {
+    this.spinner.show();
     this.startWorkloadErrorMsg = '';
     let selectedtest;
     let cmd: any = {}

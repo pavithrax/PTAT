@@ -136,7 +136,7 @@
          
                                        </div>
 
-                                       <div class="col-sm-3 card1 curvedCorners card-padding powerLevel">
+                                       <div class="col-sm-3 card1 curvedCorners card-padding powerLevel" *ngIf="item1.TableData.Row.powerLevel">
                                           <label>
                                              <b>
                                                 Power Level
@@ -158,27 +158,47 @@
                                           </div>
          
                                        </div>
-                                       
+                                       <div id="threadSelection" class="col-sm-4 col-md-4 card1 curvedCorners card1-padding"
+                                       style="max-height: 170px !important;" *ngIf="item1.TableData.Row.ThreadData">
+                                       <div>
+                                          <div class="fixedtop">
+                                             <input type="checkbox" [(ngModel)]="item1.TableData.Row.SelectAllThread" [indeterminate]="item1.TableData.Row.AtleastOneThreadSelected"
+                                                (change)="selectedAllThreadData(item1.TableData.Rowem5)">
+                                             <label style="margin-left: 8px;">Select Thread</label>
+                                          </div>
+                                          <div class="scroll" style="max-height: 110px !important;">
+                                             <ul>
+                                                <div class="list-style">
+                                                   <li 
+                                                      *ngFor="let item6 of  item1.TableData.Row.ThreadData; let i=index">
+                                                      <input type="checkbox" [(ngModel)]="item6.isSelected"
+                                                      (change)="selectedThreadData(item1.TableData.Row)"> &nbsp;
+                                                   {{item6.Name}}
+                                                   </li>
+                                                </div>
+                                             </ul>
+                                          </div>
+                                       </div>
+                                    </div>
                                        <!-- remove class disabledbutton later -->
-                                       <div style="margin: 10px;" (change)="toggleStatus()" class="disabledbutton">
+                                       <!-- <div style="margin: 10px;" (change)="toggleStatus()" class="disabledbutton">
                                           <label class="switch">
                                              <input type="checkbox" [(ngModel)]="item1.TableData.Row.DroporCheck">
                                              <span class="slider round"></span>
                                           </label>
                                           <label class="font-italic">&nbsp;&nbsp;Dropdown / Checkbox</label>
          
-                                       </div>
+                                       </div> -->
          
                                     </div>
          
-                                    <div class="row workLoadTableCC" [ngClass]="'workLoadTableCheckBox'+item.Index+item1.Index"
+                                    <!-- <div class="row workLoadTableCC" [ngClass]="'workLoadTableCheckBox'+item.Index+item1.Index"
                                        style=" width: 100% !important;">
          
                                        
          
                                        <div class="col-sm-4 col-md-4 card curvedCorners card1-padding"
                                           style="max-height: 170px !important;" *ngIf="item1.TableData.Row">
-                                          <!-- <div *ngFor="let item5 of "> -->
                                              <div class="fixedtop">
                                                 <input type="checkbox" [(ngModel)]="item1.TableData.Row.PackageAllSelected" [indeterminate]="item1.TableData.Row.AtleastOnePackageSelected"
                                                    (change)="checkUncheckAll(item1.TableData.Row)">
@@ -198,7 +218,6 @@
                                                    </div>
                                                 </ul>
                                              </div>
-                                          <!-- </div> -->
                                        </div>
                                        <div class="col-sm-4 col-md-4 card curvedCorners card1-padding"
                                           style="max-height: 170px !important;"  [style.display]="core.CoreData ? 'block' : 'none'">
@@ -244,7 +263,7 @@
                                           </div>
                                        </div>
          
-                                    </div>
+                                    </div> -->
                                  </div>
          
                               </ng-container>
@@ -284,13 +303,25 @@
                               
 
                               <table style="width: 100%;">
-                                 
+                                 <thead>
+                                    <tr>
+                                       <th>Workload Name</th>
+                                       <!-- <th>Package Start</th>
+                                       <th>Package End</th>
+                                       <th>Core Start</th>
+                                       <th>Core End</th>
+                                       <th>Selected Thread(s)</th> -->
+                                       <th>Power Level</th>
+                                       <th  style="width: 20%;">Status</th>
+                                    </tr>
+                                 </thead>
                                  <tbody>
                                     <ng-container *ngFor="let data of workLoadDataArray">
+                                       
                                        <tr  >
       
                                          
-                                          <td  style="width: 80%;">
+                                          <td  >
                                              <span *ngIf="data.status == 'Failed' || data.status == 'Stopped'" class="fas fa-edit" (click)="editWorkload(data)"style="color: #595352;"></span>            
                                              <span *ngIf="data.status == 'Running'" class="fas fa-edit disabledbutton" style="color: #595352;"></span>&nbsp;&nbsp;             
                                              <span *ngIf="data.status == 'Failed' || data.status == 'Stopped'" class="fa fa-times-circle" (click)="removeData(data)"style="color: red;"></span> 
@@ -298,7 +329,15 @@
                                              <span [ngClass]="{'colorSelectedTree1': data.Name === selectedWorkLoadName}">{{data.Name}}</span> 
                                              
                                           </td>
-                                          <td>
+                                          <!-- <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td> -->
+                                          <td >
+                                             {{data.powerLevel}}
+                                          </td>
+                                          <td style="width: 20%;">
                                              <span *ngIf="data.status == 'Running'" class="fas fa-stop-circle" (click)="stopIndvWorkload(data)"style="color: red;"></span>            
                                              <span *ngIf="data.status == 'Failed' || data.status == 'Stopped'" class="fas fa-play-circle" (click)="startIndvWorkload(data)"style="color: green;"></span>
                                              
