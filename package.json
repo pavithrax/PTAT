@@ -1,5 +1,5 @@
 {
-  "name": "intel-thermal-analysis-tool",
+  "name": "intel-power-and-thermal-analysis-tool",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

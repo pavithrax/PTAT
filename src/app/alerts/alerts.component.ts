@@ -18,14 +18,14 @@ import { AppComponent } from '../app.component';
 export class AlertsComponent implements OnInit {
 	dataType = '';
 	alertSecShowHide = false;
-	alertInputData: any = [];
+	alertInputData = [];
 	alertInputType: any = []
 	selectedOptionNumber: any = "";
 	selectedOptionString: any = "";
 	alertInputValue: any = "";
 	alertCombination = ["&&", "||", ")&&("];
 	alertSummaryTableView = false;
-	summaryData: any = [];
+	summaryData = [];
 	expCount = 1;
 	editIndex = -1;
 	errorType = "Info";
@@ -149,15 +149,18 @@ export class AlertsComponent implements OnInit {
 				this.cancelAlert();
 				if (message.CommandStatus.Status.toLowerCase() == "success") {
 					this.summaryData.length = 0;
+					var loadAlertResponse = [];
 					this.recentAlertData.length = 0;
-					if (message.Data.length > 0) {
-						this.startAlert = 0;
+					if (message.Data != null) {
+						if(message.Data.length > 0 ) {
+							this.startAlert = 0;
+							loadAlertResponse = message.Data;
+						}
 					} else {
 						this.startAlert = 1;
 						this.spinner.hide();
 					}
 
-					var loadAlertResponse = message.Data;
 					let cmd = [
 						{
 							"AlertExpression": "(Pkg CState Residency_C2(percent)>1)",
@@ -369,6 +372,8 @@ export class AlertsComponent implements OnInit {
 					if (this.alertSecShowHide == false || this.alertSummaryTableView == true) {
 						this.startAlert = 0;
 					}
+					;
+					
 					this.alertInputData = [];
 					this.createFormGroup();
 				} else {
@@ -401,6 +406,7 @@ export class AlertsComponent implements OnInit {
 						this.startAlert = 0;
 					}
 					this.alertInputData = [];
+					;
 					this.createFormGroup();
 				} else {
 					this.alertMessage = message.CommandStatus.Message;
@@ -421,6 +427,7 @@ export class AlertsComponent implements OnInit {
 					}
 				}
 				this.summaryData.splice(index, 1);
+				;
 			}
 		});
 
@@ -495,9 +502,11 @@ export class AlertsComponent implements OnInit {
 							if (expression == this.summaryData[count].name) {
 								var index = count;
 								this.summaryData[index].alertCount = alertSummaryResponseData[alertCount].Count;
+								
 							}
 						}
 					}
+					;
 				} else {
 					return false
 				}
@@ -514,6 +523,7 @@ export class AlertsComponent implements OnInit {
 				for (let count = 0; count < this.summaryData.length; count++) {
 					this.summaryData[count].alertCount = "NA";
 				}
+				;
 			}
 		});
 
@@ -570,7 +580,7 @@ export class AlertsComponent implements OnInit {
 	// Removing Alert Form Ends Here
 
 	// Onclick of submit proceeding to Alert Start here
-	proceedAlert() {
+	proceedAlert() {		
 		if (this.alertInputData.some((item) => item.selectedInputVal == undefined || item.selectedInputVal == "")) {
 			this.alertMessage = "Make sure none of the text boxes are empty!"
 		} else {
@@ -681,6 +691,7 @@ export class AlertsComponent implements OnInit {
 
 	//  Edit of Alert Expression Selected Starts Here
 	editExpression(arg) {
+		this.alertInputData = [];
 		if (this.alertBtnVal == "Stop Alerts") {
 
 		} else {
@@ -693,10 +704,14 @@ export class AlertsComponent implements OnInit {
 			}
 			this.editRowIndex = arg.slice(10, 11);
 			this.editRowPosition = index;
-			this.alertInputData = this.summaryData[index]["expressions"];
+			this.alertInputData = JSON.parse(JSON.stringify(this.summaryData[index]["expressions"]));
+			console.log(this.alertInputData);
+			
+			// this.alertInputData = this.summaryData[index]["expressions"];
 			this.errorType = this.summaryData[index]["errorType"];
 			this.alertSecShowHide = true;
 			this.addUpdateAlertFlag = 2;
+			
 		}
 	}
 	//  Edit of Alert Expression Selected Ends Here
@@ -721,6 +736,7 @@ export class AlertsComponent implements OnInit {
 			//var deleteCommand = "RemoveFromAlertList"+'('+rowId+','+rowIndex+")";
 			var removeFromAlertListCommand = '{"Command" : "RemoveFromAlertList","params":{"Args":' + '"' + rowId + "," + rowIndex + '"' + '}}'
 			this.SocketService.sendMessage(removeFromAlertListCommand);
+			
 		}
 
 	}
@@ -777,8 +793,33 @@ export class AlertsComponent implements OnInit {
 		}
 	}
 
-	restrictKeyPress(event: any) {
-		event.preventDefault();
+	restrictKeyPress(e: any) {
+		console.log('hi');
+		
+		// event.preventDefault();
+		console.log(e);
+		var nodeName = e.target.nodeName.toLowerCase();
+		if (e.getKey() == e.BACKSPACE) { // not working
+            if ((nodeName === 'input' && e.target.type === 'text') ||
+                nodeName === 'textarea') {
+                // do nothing
+            } else {
+                e.preventDefault();
+            }
+        }
+		if (e.which === 8) { // not working
+			if ((nodeName === 'input' && e.target.type === 'text') ||
+				nodeName === 'textarea') {
+				// do nothing
+			} else {
+				e.preventDefault();
+			}
+		}
+	}
+
+	backspace(e) {
+		console.log(e);
+		
 	}
 
 	// Code to get clinet data and server data
@@ -873,13 +914,22 @@ export class AlertsComponent implements OnInit {
 
 	// to be used later if we dont get the itemtype in client response;
 
-	selectedDataForClient() {
+	selectedDataForClient() {		
+		console.log(this.selectedFeature);
+		// this.selectedFeature.conditionType = 0; this and below is recieved as a part of getPAramType
+		// this.selectedFeature.itemType = 2;
+
 		var command = '{"Command" : "GetParamType","params":{"Args":' + '"' + this.selectedFeature.Index + '"' + '}}';
 		this.SocketService.sendMessage(command);
-		console.log(this.selectedFeature);
-		this.selectedFeature.conditionType = 0;
-		this.selectedFeature.itemType = 2;
-		this.selectedFeature.itemUnit = this.selectedFeature.unit;
+
+		this.getParamArrayId = this.alertInputData.length - 1;
+		this.alertInputData[this.getParamArrayId].itemIndex = this.selectedFeature.Index;
+		this.alertInputData[this.getParamArrayId].itemPname = this.selectedFeature.Row.split(",")[0];
+		this.alertInputData[this.getParamArrayId].itemName = this.selectedFeature.Name;
+		this.alertInputData[this.getParamArrayId].itemUnit = this.selectedFeature.unit;
+		this.alertInputData[this.getParamArrayId].underScore = "_";
+
+		/*this.selectedFeature.itemUnit = this.selectedFeature.unit;
 		this.selectedFeature.underScore = "_";
 		this.selectedFeature.itemName = this.selectedFeature.Name;
 		this.selectedFeature.itemPname = this.selectedFeature.Row.split(",")[0];
@@ -888,6 +938,6 @@ export class AlertsComponent implements OnInit {
 		this.getParamArrayId = this.alertInputData.length - 1;
 
 		this.alertInputData[this.alertInputData.length - 1] = this.selectedFeature;
-
+		*/
 	}
 }

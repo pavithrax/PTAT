@@ -75,7 +75,7 @@
                 <div class="row" *ngIf="dataType == 'Clientside'">
                     <div class="form-group col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1" >
                         <select id="inputComb"  class="btn alertDropDownBtnColor alertFontSize" [(ngModel)] = "selectedKey" 
-                        (ngModelChange)="featuresArray = [];firstChildArray = [];firstChildArray = selectedKey.Treelist;">
+                        (ngModelChange)="featuresArray = [];firstChildArray = [];firstChildArray = selectedKey.Treelist; selectedFeature = 'select'">
                             <option  *ngFor="let itemComb of objArray" [ngValue]="itemComb" class="alertFontSize">{{itemComb.Name}}</option>
                         </select>
                     </div>
@@ -122,7 +122,7 @@
                                 <!-- cdkDropList cdkDropListConnectedTo="treeMenu"
                                        (cdkDropListDropped)="dropInInput($event)" -->
                                 <div class="form-group col-4 col-sm-5 col-md-5 col-lg-5 col-xl-5" >
-                                    <input type="text" (keypress)="restrictKeyPress($event)"  value="{{item.itemPname}}{{item.underScore}}{{item.itemName}}{{item.itemUnit}}"
+                                    <input type="text" (keypress)="restrictKeyPress($event)" (change)="backspace($event)"  value="{{item.itemPname}}{{item.underScore}}{{item.itemName}}{{item.itemUnit}}"
                                       class="form-control dropBox alertFontSize alertDropTextBox"  id="xyz{{i}}" placeholder="Select Any Parameter" />
                                 </div>
                                 <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
@@ -153,7 +153,7 @@
                 </div>
                 <div class="btn-toolbar justify-content-between">
                     <div class="btn-group" role="group" aria-label="First group">
-                        <h6 class="alertHeaderMsg" *ngIf="!alertSecShowHide">
+                        <h6 class="alertHeaderMsg" >
                             {{alertMessage}}
                         </h6>
                     </div>

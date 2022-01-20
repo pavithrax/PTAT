@@ -265,7 +265,8 @@ export class GraphComponent implements OnInit {
 
 		this.SocketService.AddParamToGraph2Res().subscribe(message => {
 			if (message) {
-				let paramIndex = message.Data.UID - 8;
+				// let paramIndex = message.Data.UID - 8;
+				let paramIndex = message.Data.UID;
 				let paramName = $(".offlineGraphContainer ul li:nth-child(" + (paramIndex + 1) + ")")[0].innerText;
 				if (paramName == undefined || paramName == "") {
 					return false;
@@ -758,7 +759,8 @@ export class GraphComponent implements OnInit {
 			this.offlineGraphStaticGraphId.push(paramIndex);
 			this.offlineGraphStaticGraphName.push($(".paramSelected").attr("data-value"));
 			this.offlineGraphDirection.push($('#offlinegraphDirectionSelectBox').val());
-			var latestParamIndex = paramIndex + 8;
+			var latestParamIndex = paramIndex;
+			// var latestParamIndex = paramIndex + 8;
 			var command = '{"Command" : "AddParamToGraph2","params":{"Args":' + '"' + latestParamIndex + '"' + '}}'
 			this.SocketService.sendMessage(command);
 			//this.SocketService.sendMessage("AddParamToGraph2("+latestParamIndex+")");
@@ -795,7 +797,8 @@ export class GraphComponent implements OnInit {
 					this.offlineGraphStaticGraphId.splice(removeIndex, 1);
 					this.offlineGraphNameList.splice(removeIndex, 1);
 					this.offlineGraphDirection.splice(removeIndex, 1);
-					var latestParamIndex = paramIndex + 8;
+					var latestParamIndex = paramIndex;
+					// var latestParamIndex = paramIndex + 8;
 					var command = '{"Command" : "RemoveParamFromGraph2","params":{"Args":' + '"' + latestParamIndex + '"' + '}}'
 					this.SocketService.sendMessage(command);
 					//this.SocketService.sendMessage("RemoveParamFromGraph2("+latestParamIndex+")");
@@ -814,7 +817,8 @@ export class GraphComponent implements OnInit {
 		// 	offlineGraphLatestIndexList.push(this.offlineGraphIndexList[i]+8);
 		// }
 		for (let i = 0; i <= this.offlineGraphStaticGraphId.length - 1; i++) {
-			offlineGraphLatestIndexList.push(this.offlineGraphStaticGraphId[i] + 8);
+			offlineGraphLatestIndexList.push(this.offlineGraphStaticGraphId[i]);
+			// offlineGraphLatestIndexList.push(this.offlineGraphStaticGraphId[i] + 8);
 		}
 		var command = '{"Command" : "RemoveParamFromGraph2","params":{"Args":' + '"' + offlineGraphLatestIndexList + '"' + '}}'
 		this.SocketService.sendMessage(command);
@@ -864,7 +868,8 @@ export class GraphComponent implements OnInit {
 		let len = offlineGraphData.length;
 		for (let i = 0; i < len; i++) {
 			let actualid = parseInt(offlineGraphData[i].Key);
-			let id = actualid - 8;
+			let id = actualid;
+			// let id = actualid - 8;
 			let value = offlineGraphData[i].Value;
 			let time = offlineGraphData[i].Info;
 			let index = this.offlineGraphStaticGraphId.indexOf(id);
@@ -918,7 +923,8 @@ export class GraphComponent implements OnInit {
 		let len = offlineGraphData.length;
 		for (let i = 0; i < len; i++) {
 			let actualid = parseInt(offlineGraphData[i].Key);
-			let id = actualid - 8;
+			let id = actualid;
+			// let id = actualid - 8;
 			let value = offlineGraphData[i].Value;
 			let time = offlineGraphData[i].Info;
 			let index = this.offlineGraphStaticGraphId.indexOf(id);
