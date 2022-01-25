@@ -135,12 +135,16 @@
                                           </div>
          
                                        </div>
-
-                                       <div class="col-sm-3 card1 curvedCorners card-padding powerLevel" *ngIf="item1.TableData.Row.powerLevel">
+                                       <!-- *ngIf="item1.TableData.Row.powerLevel" -->
+                                       <div class="col-sm-3 card1 curvedCorners card-padding powerLevel" *ngIf="item1.TableData.Row.levels" >
                                           <label>
-                                             <b>
-                                                Power Level
+                                             <b *ngIf="item1.TableData.Row.DropDownList.length == 0">
+                                                Power Level (%)
                                              </b>
+                                             <b *ngIf="item1.TableData.Row.DropDownList.length > 0">
+                                                Block Size (MB)
+                                             </b>
+                                             
                                           </label>
                                           <div class="row">
                                              <div class="col-sm-6">
@@ -163,7 +167,7 @@
                                        <div>
                                           <div class="fixedtop">
                                              <input type="checkbox" [(ngModel)]="item1.TableData.Row.SelectAllThread" [indeterminate]="item1.TableData.Row.AtleastOneThreadSelected"
-                                                (change)="selectedAllThreadData(item1.TableData.Rowem5)">
+                                                (change)="selectedAllThreadData(item1.TableData.Row)">
                                              <label style="margin-left: 8px;">Select Thread</label>
                                           </div>
                                           <div class="scroll" style="max-height: 110px !important;">
@@ -311,7 +315,7 @@
                                        <th>Core Start</th>
                                        <th>Core End</th>
                                        <th>Selected Thread(s)</th> -->
-                                       <th>Power Level</th>
+                                       <th>Power Level(%) / Block Size(MB)</th>
                                        <th  style="width: 20%;">Status</th>
                                     </tr>
                                  </thead>

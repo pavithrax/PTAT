@@ -91,6 +91,13 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
           // this.ScriptStatusRes(status);
           this.isScriptStatus = true; 
           
+          if(data.Status == 'Execution In-Progress') {
+            this.scriptStatusCode = 0;
+          } else if(data.Status == 'Execution Successful') {
+            this.scriptStatusCode = 2;
+          } else  {
+            this.scriptStatusCode = 1;
+          }
           this.scriptStatus = data.Status;
           if(data.Status == 'Success' || data.Status == 'Failed' ) {
             this.StopGfxWorkload(endsWithString);
@@ -118,18 +125,14 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
           this.scriptsForm.get('selectedOption').setValue(message.Data[this.key])
         }
         
-        console.log(this.scriptsForm);
       }
     });
 
     this.SocketService.ScriptCommandSelectedRes().subscribe(message => {
-      console.log(message);
-      
       if (message) {
         // this.dropdownresponse = message.Data[0].DropDownList;
         this.dropdownresponse = message.Data;
         // this.dropdownresponse.length == 0 || 
-        console.log(message);
         if(this.dropdownresponse.Command == 'None'){
           this.scriptsForm.reset();
           this.scriptsForm.get('selectedOption').setValue(this.respScriptArr[this.key]);
@@ -148,8 +151,6 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
     });
 
     this.SocketService.ScriptComponentSelectedRes().subscribe(message => {
-      console.log(message);
-      
       if (message) {
         this.getComponentResp = message.Data;
         if (this.getComponentResp) {
@@ -274,7 +275,6 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
     });
 
     this.SocketService.getExecuteScripts().subscribe(message => {
-      console.log(message);
       if(message) { 
         this.enableStop = true;
         
@@ -301,9 +301,8 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
     });
     this.SocketService.getScriptCommandLineStatus().subscribe(message => {
       if (message) {
-        console.log(this.selectedFeatures);
         if(message.Data.Status == 'Failed') {
-          this.selectedFeatures[message.Data.row].executestatus = message.Data.Status;
+          this.selectedFeatures[message.Data.Row].executestatus = message.Data.Status;
         } else {
           this.selectedFeatures[this.rowStatusIndex].executestatus = message.Data.Status;
         }
@@ -333,18 +332,12 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
   //On selection of command script dropdown
   onChangeofSelectScript(i) {
     var commanddropdownselecteditemindex = $("#mySelectCmdScript").prop('selectedIndex');
-    //var cmd = "ScriptCommandSelected(-1" + "," + commanddropdownselecteditemindex + ":null" + "," + "-1:null,-1:null,-1:null,-1:null,-1:null)";
-    // var cmd = '{"Command" : "ScriptCommandSelected","Args":'+'"'+'-1,'+commanddropdownselecteditemindex+':null'+','+'-1:null,-1:null,-1:null,-1:null,-1:null'+'"'+'}'
-
-
     var cmd = '{"Command": "ScriptCommandSelected","Args": {"Command": "'+this.scriptsForm.get('selectedOption').value +'","Component": "","Arg1": "","Arg2": "","Arg3": "","Arg4": ""}}'
       
     this.SocketService.sendMessage(cmd);
   }
 
   ReceiveScriptResp() {
-    console.log(this.dropdownresponse);
-    
     this.arg4Arr = [];
     this.arg3Arr = [];
     this.arg2Arr = [];
@@ -492,8 +485,6 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
   deleteSelected() {
     let checkBoxCount = $('.scriptCheckBox');
     if (checkBoxCount.length && this.arr.length>0) {
-      console.log(this.arr);
-      
          //var cmd = "ScriptRemoveRows(" + this.arr.toString() + ")"
           var cmd = '{"Command" : "ScriptRemoveRows","Args":'+'['+this.arr+']'+'}'
           this.SocketService.sendMessage(cmd);
@@ -593,13 +584,8 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
 
   //On selection of component
   onChangeofCmdScriptScript(i) {
-    // var commanddropdownselecteditemindex = $("#mySelectCmdScript").prop('selectedIndex');
-    // var componentdropdownselecteditemindex = $("#mySelectCompScript").prop('selectedIndex');
-    //var cmd = "ScriptComponentSelected(-1" + "," + commanddropdownselecteditemindex + ":null" + "," + componentdropdownselecteditemindex + ":null,-1:null,-1:null,-1:null,-1:null)";
-    // var cmd = '{"Command" : "ScriptComponentSelected","Args":'+'"'+'-1'+','+commanddropdownselecteditemindex+':null'+','+componentdropdownselecteditemindex+':null,-1:null,-1:null,-1:null,-1:null'+'"'+'}'
-
+    
     var cmd = '{"Command": "ScriptComponentSelected","Args": {"Command": "'+this.scriptsForm.get('selectedOption').value +'","Component": "'+this.scriptsForm.get('compData').value +'","Arg1": "","Arg2": "","Arg3": "","Arg4": ""}}'
-    // var cmd = '{"Command": "ScriptComponentSelected","Args": {"Command": "'+this.scriptsForm.get('selectedOption').value +'","Component": "'+this.scriptsForm.get('compData').value +'","Arg1": "'+this.scriptsForm.get('compData').value +'","Arg2": "","Arg3": "","Arg4": ""}}'
     this.SocketService.sendMessage(cmd);
   }
   onChangeofCmdScriptScriptResponse(){
@@ -790,14 +776,6 @@ constructor(fb: FormBuilder, private SocketService: SocketService, private DataS
 		}
 
     
-
-    /*var count =0;		
-    $(xmlData).find('Count').each(function() {
-      count  = $(this).text();
-    });	
-    if(count>0){
-      launchGFXWorkloadFromUI(xmlData, count, endsWithString );
-    }*/
   }
 
   
@@ -843,7 +821,7 @@ StopGfxWorkload(gfxDialogIdEndsWith){
 
 
 
-launchGFXWorkloadFromUI(gfxfilename, gfxarguments, count, endsWithString ){
+launchGFXWorkloadFromUI(gfxfilename, gfxarguments, count, endsWithString ){ // used for platforms other than windows
 	var filename = [];
 		var args = [];
 		var workloadCount =0;

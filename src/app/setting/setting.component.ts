@@ -125,8 +125,6 @@ export class SettingComponent implements OnInit {
    getSettings() {
       this.SocketService.getSettings().subscribe(message => {
          if (message) {
-            console.log(message);
-            
             this.getSettingsResponse = message;
             var len = this.getSettingsResponse.length;
             for (var i = 0; i < len; i++) {
@@ -159,10 +157,7 @@ export class SettingComponent implements OnInit {
                }
                else if (this.getSettingsResponse[i].Key == 'LogFileType') {
                   if (this.getSettingsResponse[i].Value.length) {
-                     // this.logFileType = this.getSettingsResponse[i].Value.split(",");
                      this.logFileType = this.getSettingsResponse[i].Value;
-                     // this.defaultLogType = this.getSettingsResponse[i].Value[0];
-                     console.log(this.defaultLogType);
                      
                   }
                } else if (this.getSettingsResponse[i].Key == 'LogFileTypeSelected') {
@@ -171,20 +166,14 @@ export class SettingComponent implements OnInit {
                
                else if (this.getSettingsResponse[i].Key == 'FileOption') {
                   if (this.getSettingsResponse[i].Value.length) {
-                     // this.logOption = this.getSettingsResponse[i].Value.split(",");
                      this.logOption = this.getSettingsResponse[i].Value;
-                     // this.defaultLogOption = this.getSettingsResponse[i].Value.split(":")[1];
                   }
                }
                else if (this.getSettingsResponse[i].Key == 'FileOptionSelected') {
                   this.defaultLogOption = this.getSettingsResponse[i].Value;
                }
-               console.log(this.defaultLogType);
             }
             if(this.settingOnLoad == false){
-               //this.SocketService.sendMessage("getTatFeaturesStatus()");
-            //   this.SocketService.sendMessage("GetMonitorData()");
-            //   this.SocketService.sendMessage("MonitorView()");
               this.settingOnLoad = true;
             }
 
@@ -245,11 +234,8 @@ export class SettingComponent implements OnInit {
 
    // on ok button click event
    submitForm() {
-      console.log(this.settingsForm);
-           
       var pollTime = this.settingsForm.getRawValue().pollVal;
       var refreshTime = this.settingsForm1.getRawValue().refreshInterval;
-      console.log(pollTime,refreshTime,this.settingsForm.getRawValue());
       // if(this.defaultLogO)
       var logType = this.defaultLogType; 
       var logOption = this.defaultLogOption;
@@ -266,19 +252,13 @@ export class SettingComponent implements OnInit {
       }
 
       var logName = this.settingsForm2.getRawValue().logFilePath;
-      console.log(logType,logOption);
-      
      
       if(pollTime && refreshTime && logName.length>0){
-         console.log("hi");
-         
-         if(parseInt(pollTime)>=1 ){console.log("hi");
-            if(parseInt(pollTime)<=60000 ){console.log("hi");
-               if(parseInt(refreshTime)>=500){ console.log("hi");
-                  if(parseInt(refreshTime)<=60000){console.log("hi");
+         if(parseInt(pollTime)>=1 ){
+            if(parseInt(pollTime)<=60000 ){
+               if(parseInt(refreshTime)>=500){ 
+                  if(parseInt(refreshTime)<=60000){
                      // send Command
-                     //var cmdSettingsset = "SetSettings(" + logType + "," + logName + "," + logOption + "," + pollTime + "," + resetVal + "," + refreshTime + ")";          
-                     // var cmdSettingsset = '{"Command" : "SetSettings","params" : {"Args":'+'"'+logType+','+logName+','+logOption+','+pollTime+','+resetVal+','+refreshTime+'"'+'}}'
                      var cmdSettingsset = '{"Command" : "SetSettings","params" : {"Args":{"LogFileTypeSelected":"'+logType+'","LogFileName":"'+logName+'","FileOptionSelected":"'+logOption+'","PollingInterval":'+pollTime+',"ResetAll":"'+resetVal+'","RefreshInterval":'+refreshTime+''+'}}}'
                      this.SocketService.sendMessage(cmdSettingsset);
                      this.display = 'none';

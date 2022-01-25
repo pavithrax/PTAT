@@ -735,9 +735,9 @@ export class GraphComponent implements OnInit {
 		var path = this.InstalledPath;
 		var libraryPath = ""
 		if (this.osInformation = "windows") {
-			libraryPath = path + "PTATGUI\\assets\\canvasjs.min.js"
+			libraryPath = path + "UI\\assets\\canvasjs.min.js"
 		} else {
-			libraryPath = path + "PTATGUI//assets//canvasjs.min.js"
+			libraryPath = path + "UI//assets//canvasjs.min.js"
 		}
 
 		var content = "<!DOCTYPE HTML><html><head><script>window.onload = function () {" + "var chart = new CanvasJS.Chart('chartContainer', " + formattedoptions + ");chart.render();}</script></head><body><div id='chartContainer' style='height: 370px; width: 100%;'></div><div id= 'scrollbar' class=' scroll-bar-wrap ui-widget-content ui-corner-bottom' style = 'visibility:hidden;'><div class='scroll-bar1 nomargin'></div></div></body><script src='" + libraryPath + "'></script><script src='canvasjs.min.js'></script></html>";
@@ -1088,9 +1088,9 @@ export class GraphComponent implements OnInit {
 		var path = this.InstalledPath;
 		var libraryPath = ""
 		if (this.osInformation = "windows") {
-			libraryPath = path + "PTATGUI\\assets\\canvasjs.min.js"
+			libraryPath = path + "UI\\assets\\canvasjs.min.js"
 		} else {
-			libraryPath = path + "PTATGUI//assets//canvasjs.min.js"
+			libraryPath = path + "UI//assets//canvasjs.min.js"
 		}
 		var content = "<!DOCTYPE HTML><html><head><script>window.onload = function () {var chart = new CanvasJS.Chart('chartContainer', " + graphData + ");chart.render();}</script></head><body><div id='chartContainer' style='height: 370px; width: 100%;'></div></body><script src='" + libraryPath + "'></script><script src='canvasjs.min.js'></script></html>";
 		var htmlContent = [content];

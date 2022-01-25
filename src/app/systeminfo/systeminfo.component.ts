@@ -49,7 +49,6 @@ export class SysteminfoComponent implements OnInit {
     this.systemInfoData.forEach(element => {
       this.systemInfoTree.push(element.pluginName);
     });
-    //console.log("SystemTree",this.systemInfoTree);
     this.createTableDataForSystemInfo(this.systemInfoTree[0]);
   }
   createTableDataForSystemInfo(data) {
@@ -59,7 +58,6 @@ export class SysteminfoComponent implements OnInit {
         this.systemInfoTableData = element.Information;
       }
     });
-    //console.log("InfoTable",this.systemInfoTableData);
   }
   toggleIcon() {
     this.toggleIconRightLeft = !this.toggleIconRightLeft;

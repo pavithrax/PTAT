@@ -83,12 +83,13 @@ export class WorkloadComponent implements OnInit {
             element2.PackageData = this.iterator(element2.PackageStart.split(" ")[0], element2.PackageCount);
             if(element2.stepping) {
               element2.levels = this.range(element2.min, element2.max, element2.stepping);
+              element2.DropDownList = [];
             } else {
-              if(element2.min == element2.max) {
-                element2.levels = [element2.max];
-              }
               
+              element2.levels = element2.DropDownList;
+             
             }
+            console.log(element2);
             
             if (element2.CoreStart) {
               element2.CoreData = this.iterator(element2.CoreStart.split(" ")[0], element2.CoreCount);
@@ -196,8 +197,6 @@ export class WorkloadComponent implements OnInit {
     // });
 
     this.SocketService.StartWorkloadRes().subscribe(message => {
-      console.log(message);
-      
       if(message) {
         this.spinner.hide();
         if(message.CommandStatus.Status !== 'error') {
@@ -208,10 +207,10 @@ export class WorkloadComponent implements OnInit {
           this.workLoadDataArray.forEach(item => {
             if(item.Name == message.Data.params['core-test'] && item.editIndex == message.Data.params['workload-str']) {
               item.status = 'Running';
+              $('.workLoadTable' + item.editIndex.split(";")[0] + ' #addWorkLoadbtn').addClass('disabledbutton');
             }
           })
         } else {
-          // console.log('Hi');
           // this.toaster.error('Hello world!', 'Toastr fun!');
           this.startWorkloadErrorMsg = message.CommandStatus.Message;
         }
@@ -266,14 +265,13 @@ export class WorkloadComponent implements OnInit {
     // });
 
     this.SocketService.StopWorkloadRes().subscribe(message => {
-      console.log(message);
-      
       if(message) {
         this.spinner.hide();
         this.startWorkloadErrorMsg = '';
         this.workLoadDataArray.forEach(item => {
           if(item.Name == message.Data.params['core-test'] && item.editIndex == message.Data.params['workload-str']) {
             item.status = 'Stopped';
+            $('.workLoadTable' + item.editIndex.split(";")[0] + ' #addWorkLoadbtn').removeClass('disabledbutton');
           }
         });
         let count = this.workLoadDataArray.filter(item => item.status == 'Running');
@@ -407,20 +405,12 @@ export class WorkloadComponent implements OnInit {
           if (element1.TableData.Row.PackageData) {
             this.core = element1.TableData.Row.PackageData[0];
           }
-          if(element1.TableData.Row.levels.length == 1) { 
-            $('.powerLevel').addClass("disabledbutton");
-          } else {
-            $('.powerLevel').removeClass("disabledbutton");
-          }
-          // element1.TableData.Row.forEach(element2 => {
-          //   // not used as combo test is not in use
-          //   // if (this.workLoadName == 'Combo Test') {
-
-          //   //   this.getComboTestValue(element2);
-          //   // }
-            
-
-          // });
+          // if(element1.TableData.Row.levels.length == 1) { 
+          //   $('.powerLevel').addClass("disabledbutton");
+          // } else {
+          //   $('.powerLevel').removeClass("disabledbutton");
+          // }
+          
 
         }
       });
@@ -441,7 +431,7 @@ export class WorkloadComponent implements OnInit {
 
   }
 
-  // not used to be removed later
+  // not used to be removed later ----> saved for the future reference
   workLoadStartStop(arg, arg1, arg2, arg3, arg4, arg5) {
     this.spinner.show();
     this.currentStartStopButtonClass = "";
@@ -675,7 +665,6 @@ export class WorkloadComponent implements OnInit {
 
   checkAndUnCheckCore(event) {
     event.AtleastOneCoreSelected = false;
-    console.log(event);
     event.isSelected = event.isSelected;
     event.CoreData.forEach(element => {
       element.isSelected = event.isSelected;
@@ -734,7 +723,6 @@ export class WorkloadComponent implements OnInit {
   }
 
   cpuCheckboxClicked(cpu) {
-    console.log(cpu)
     if (cpu.isSelected == true) {
       cpu.CoreData.forEach(element => {
         element.isSelected = false;
@@ -759,7 +747,6 @@ export class WorkloadComponent implements OnInit {
     this.memvalues = '';
     this.workloadArray.map(element => {
       element.DropDownList.map(element => {
-        console.log(element)
         if (cputest.SelectedCPU == element.Name) {
           element.TableData.Row.PackageData
             .flatMap(data => data.isSelected ? this.cpuvalues += data.Name + ' ' : this.cpuvalues += '')
@@ -777,8 +764,6 @@ export class WorkloadComponent implements OnInit {
   addWorkLoad(data, parentData) {
     let inputData = data.TableData.Row;
     this.startWorkloadErrorMsg = '';
-    console.log(data);
-    console.log(parentData);
     
     let continueExe = false;
     if(inputData.DroporCheck == false ) {
@@ -849,41 +834,17 @@ export class WorkloadComponent implements OnInit {
     let sendingData: any = {};
 
     sendingData.cmd = 'StartWorkload';
-    console.log(data);
-
-    //   {
-    //     "cmd" : "StartWorkload",
-    //     "params" :  [
-    //             {
-    //                 "workload" : "cpu",
-    //                 "core-test" : "sse",
-    //                 "pwr-level": 50,
-    //                 "pkg-range" : [],
-    //                 "core-range" : []               
-    //             },
-    //             {
-    //                 "workload" : "mem",
-    //                 ...
-    //             }
-    //      ]            
-    // }
+    
   }
 
   stopIndvWorkload(data) {
     this.startWorkloadErrorMsg = '';
     this.selectedWorkLoadName = '';
-    // data.status = 'Stopped';
     this.stopWorkloadCmd(data);
-    let count = this.workLoadDataArray.filter(item => item.status == 'Running');
-    if (count.length == 0) {
-      // $('.startstopworkload').html('Start Workload');
-      // $('.startstopworkload').addClass("greenBtnColor");
-      // $('.startstopworkload').removeClass('redBtnColor');
-    }
+    let count = this.workLoadDataArray.filter(item => item.status == 'Running'); // not used
+    
 
-    // if (this.startInterval) {
-    //   clearInterval(this.startInterval);
-    // }
+    
   }
 
   // css changes basically
@@ -899,23 +860,14 @@ export class WorkloadComponent implements OnInit {
         }
       });
 
-      // below code to be removed later
-      // $('.startstopworkload').html('Start Workload');
-      // $('.startstopworkload').addClass("greenBtnColor");
-      // $('.startstopworkload').removeClass('redBtnColor');
       if (this.startInterval) {
         clearInterval(this.startInterval);
       }
-      // above code to be removed later
+      
     } else {
       this.workLoadDataArray.forEach(item => {
         this.startWorkLoadCmd(item);
       });
-      //below code to be removed later
-      // $('.startstopworkload').html('Stop Workload');
-      // $('.startstopworkload').removeClass("greenBtnColor");
-      // $('.startstopworkload').addClass('redBtnColor');
-      // above code to be removed later
     }
 
   }
@@ -1007,9 +959,8 @@ export class WorkloadComponent implements OnInit {
       this.SocketService.sendMessage(cmd);
 
     } else {
-      let testData = selectedtest.TableData.Row
-      params['pwr-level'] = testData.powerLevel
-      console.log(testData);
+      let testData = selectedtest.TableData.Row;
+      params['pwr-level'] = testData.powerLevel;
       if(testData.ThreadData) {
         testData.ThreadData.forEach(element => {
           if (element.isSelected) {
@@ -1026,7 +977,6 @@ export class WorkloadComponent implements OnInit {
         params['pkg-range'] = this.iterator1(parseInt(testData.PackageStart.replace(/[^\d]/g, '')), parseInt(testData.PackageEnd.replace(/[^\d]/g, '')));
         params['core-range'] = this.iterator1(parseInt(testData.CoreStart.replace(/[^\d]/g, '')), parseInt(testData.CoreEnd.replace(/[^\d]/g, '')));
         let cmd = '{"Command": "StartWorkload","params":[{"workload":"'+params.workload+ '","core-test":"'+ params['core-test']+ '","pwr-level":'+ params['pwr-level']+',"pkg-range":['+params['pkg-range']+'], "core-range": ['+params['core-range']+'],"selected-threads": ['+params['selected-threads']+'],"workload-str":"'+ data.editIndex+'"}]}'
-        // let cmd = '{"Command": "StartWorkload","params":[{"workload":"pmem","core-test":"PMEM Read","pwr-level":50,"pkg-range":[0], "core-range": [0,1,2,3,4,5,6,7],"selected-threads": [0,1],"workload-str":"10;PMEM Read"}]}'
         this.SocketService.sendMessage(cmd);
 
       } else {
@@ -1046,11 +996,7 @@ export class WorkloadComponent implements OnInit {
       }
       
     }
-    cmd.params.push(params)
-
-    // console.log(cmd);
-    // this.SocketService.sendMessage(cmd);
-    
+    cmd.params.push(params); 
     
   }
 
@@ -1061,14 +1007,6 @@ export class WorkloadComponent implements OnInit {
   }
   closeWorkloadWarningModal() {
     this.showWorkloadModal = false;
-  }
-
-  update(cmd) {
-    console.log(cmd);
-    let dummy = this.workLoadDataArray.filter(item => item.Name == cmd.params.coreTest);
-    console.log(dummy);
-
-    dummy[0].status = 'Running';
   }
 
   iterator1(start, end) {

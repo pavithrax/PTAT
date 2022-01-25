@@ -794,36 +794,11 @@ export class AlertsComponent implements OnInit {
 	}
 
 	restrictKeyPress(e: any) {
-		console.log('hi');
-		
-		// event.preventDefault();
-		console.log(e);
-		var nodeName = e.target.nodeName.toLowerCase();
-		if (e.getKey() == e.BACKSPACE) { // not working
-            if ((nodeName === 'input' && e.target.type === 'text') ||
-                nodeName === 'textarea') {
-                // do nothing
-            } else {
-                e.preventDefault();
-            }
-        }
-		if (e.which === 8) { // not working
-			if ((nodeName === 'input' && e.target.type === 'text') ||
-				nodeName === 'textarea') {
-				// do nothing
-			} else {
-				e.preventDefault();
-			}
-		}
+		e.preventDefault();
 	}
 
-	backspace(e) {
-		console.log(e);
-		
-	}
-
-	// Code to get clinet data and server data
-	selectedComponetData(data) {
+	// Code to get cliet data and server data
+	selectedComponetnData(data) {
 		this.featuresArray = [];
 		this.firstChildArray = [];
 		this.selectedFeature = 'select';
