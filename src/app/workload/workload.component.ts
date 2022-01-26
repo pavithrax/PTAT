@@ -556,7 +556,7 @@ export class WorkloadComponent implements OnInit {
     }
   }
 
-  toggleStatus() {
+  toggleStatus() {// not used in ptat2.0
     var workLoadId = this.dropOrCheckBooleanValue.split(";")[0];
     let workLoadTableCheckBox = "workLoadTableCheckBox" + workLoadId;
     let workLoadTableDropdown = "workLoadTableDropdown" + workLoadId;
@@ -570,8 +570,7 @@ export class WorkloadComponent implements OnInit {
       });
     });
 
-    if (!checkValue.TableData.Row.DroporCheck) {
-      // $('.' + workLoadTableDropdown).addClass("disabledbutton");
+    if (!checkValue.TableData.Row.DroporCheck) {// not used in ptat2.0
       $('.' + workLoadTableDropdown).find('.card').addClass("disabledbutton");
       $('.' + workLoadTableCheckBox).find('.card').removeClass("disabledbutton");
     } else {
@@ -785,23 +784,35 @@ export class WorkloadComponent implements OnInit {
       this.selectedWorkLoadName = '';
       this.disableTest(data.DisableList, 'addClass');
       if (!this.workLoadDataArray.some(item => item.Name === data.Name)) {
-        this.workLoadDataArray.push(
-          {
-            Name: data.Name,
-            ParentName: parentData.Name,
-            editIndex: parentData.Index + data.Index + ';' + data.Name,
-            status: "Stopped",
-            DisableList: data.DisableList,
-            powerLevel: inputData.powerLevel
-          })
+        let selectedData = {
+          Name: data.Name,
+          ParentName: parentData.Name,
+          editIndex: parentData.Index + data.Index + ';' + data.Name,
+          status: "Stopped",
+          DisableList: data.DisableList,
+          powerLevel: 'N/A',
+          blockSize: 'N/A'
+        }
+        if(selectedData.ParentName != 'MEM' && data.Name != 'Thermal Workload') {
+          selectedData.powerLevel = inputData.powerLevel; 
+        } else if(selectedData.ParentName == 'MEM'){
+          selectedData.blockSize = inputData.powerLevel;
+        }
+        this.workLoadDataArray.push(selectedData);
+
       } else {
        this.workLoadDataArray.forEach(element => {
          if(element.Name == data.Name) {
-           element.powerLevel = inputData.powerLevel
+          if(element.ParentName != 'MEM' && data.Name != 'Thermal Workload') {
+            element.powerLevel = inputData.powerLevel; 
+          } else if(element.ParentName == 'MEM'){
+            element.blockSize = inputData.powerLevel;
+          }
          }
        })
       }
-
+      console.log(this.workLoadDataArray);
+      
       this.workLoadDataArray.forEach(element => {
         $('.workLoadTable' + element.editIndex.split(";")[0] + ' #addWorkLoadbtn').text('Update Workload');
       })
@@ -825,11 +836,6 @@ export class WorkloadComponent implements OnInit {
 
   startIndvWorkload(data) {
     this.selectedWorkLoadName = '';
-    // data.status = 'Running';
-    // $('.startstopworkload').html('Stop Workload');
-    // $('.startstopworkload').removeClass("greenBtnColor");
-    // $('.startstopworkload').addClass('redBtnColor');
-
     this.startWorkLoadCmd(data);
     let sendingData: any = {};
 
@@ -840,11 +846,7 @@ export class WorkloadComponent implements OnInit {
   stopIndvWorkload(data) {
     this.startWorkloadErrorMsg = '';
     this.selectedWorkLoadName = '';
-    this.stopWorkloadCmd(data);
-    let count = this.workLoadDataArray.filter(item => item.status == 'Running'); // not used
-    
-
-    
+    this.stopWorkloadCmd(data);    
   }
 
   // css changes basically

@@ -315,7 +315,8 @@
                                        <th>Core Start</th>
                                        <th>Core End</th>
                                        <th>Selected Thread(s)</th> -->
-                                       <th>Power Level(%) / Block Size(MB)</th>
+                                       <th>Power Level (%)</th>
+                                       <th>Block Size (MB)</th>
                                        <th  style="width: 20%;">Status</th>
                                     </tr>
                                  </thead>
@@ -333,13 +334,12 @@
                                              <span [ngClass]="{'colorSelectedTree1': data.Name === selectedWorkLoadName}">{{data.Name}}</span> 
                                              
                                           </td>
-                                          <!-- <td></td>
-                                          <td></td>
-                                          <td></td>
-                                          <td></td>
-                                          <td></td> -->
+                                          
                                           <td >
                                              {{data.powerLevel}}
+                                          </td>
+                                          <td >
+                                             {{data.blockSize}}
                                           </td>
                                           <td style="width: 20%;">
                                              <span *ngIf="data.status == 'Running'" class="fas fa-stop-circle" (click)="stopIndvWorkload(data)"style="color: red;"></span>            
