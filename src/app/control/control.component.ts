@@ -171,26 +171,18 @@ export class ControlComponent implements OnInit {
 		}
 
 		if (arg === "slider") {
-			let siderselectedValue = arg1.slider;
-			let sliderminVal = arg1.min;
-			let sliderStepping = arg1.stepping;
-			var sliderValToBackend = (siderselectedValue - sliderminVal) / sliderStepping;
-			if (sliderValToBackend !== sliderValToBackend) {
-				sliderValToBackend = 0;
-			}
+			
 			let referenceCommand = ''
-
-			let sliderVal = Math.floor(arg1.slider / arg1.param.Stepsize);
+			
+			let sliderVal = arg1.slider;
 			if (sliderVal == NaN || sliderVal === NaN || arg1.slider == undefined) {
 				sliderVal = arg1.param.Min;
-			}
+			}			
 			if (parent.controlInfo == 'dg_gfx') {
-				let deviceIndex = parent.Name.split(" ");
 				referenceCommand = '{"Command": "StartControl","params": [{"control":"' + parent.controlInfo + '", "set_level": [{"test": "' + arg1.param.commandInfo + '", "level": ' + sliderVal + ', "deviceId": ' + arg1.param.deviceId + '} ]}]}'
 			} else {
 				referenceCommand = '{"Command": "StartControl","params": [{"control":"' + parent.controlInfo + '", "set_level": [{"test": "' + arg1.param.commandInfo + '", "level": ' + sliderVal + '} ]}]}'
 			}
-
 			this.setControlCommonCommand = referenceCommand;
 			if (this.controlWarningPopupStatus == 0) {
 				this.SocketService.sendMessage(this.setControlCommonCommand);
@@ -210,8 +202,6 @@ export class ControlComponent implements OnInit {
 			}
 			let referenceCommand = '';
 			if (parent.controlInfo == 'dg_gfx') {
-				let deviceIndex = parent.Name.split(" ");
-
 				referenceCommand = '{"Command": "StartControl","params": [{"control":"' + parent.controlInfo + '", "set_level": [{"test": "' + arg1.param.commandInfo + '", "level": ' + dropDownIndex + ', "deviceId": ' + arg1.param.deviceId + '} ]}]}'
 			} else {
 				referenceCommand = '{"Command": "StartControl","params": [{"control":"' + parent.controlInfo + '", "set_level": [{"test": "' + arg1.param.commandInfo + '", "level": ' + dropDownIndex + ',"Index":"3"} ]}]}';
